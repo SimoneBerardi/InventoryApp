@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left icon-only>
+      <button ion-button (click)="exit()">
+      <ion-icon class="exit-icon" name="exit"></ion-icon>
+    </button>
+    </ion-buttons>
+<!--
+    <ion-title>{{name}}</ion-title>-->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item text-center>
+    <h1>{{name}}</h1>
+  </ion-item>
+  <img class="image" src="{{image}}" alt="">
+  <ion-item text-center>{{description}}</ion-item>
+  <ion-item text-center>
+    <h2>{{"Forza" | translate}} {{strength}}</h2>
+  </ion-item>
+</ion-content>

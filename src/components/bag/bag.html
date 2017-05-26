@@ -1,0 +1,9 @@
+<ion-list>
+  <ion-item-group>
+    <ion-item-divider class="name" color="light">{{name}}
+      <img class="image" src="{{image}}" alt="" item-left>
+      <p class="weight" *ngIf="weight > 0" item-right>{{weight}} Kg</p>
+    </ion-item-divider>
+    <bag-item *ngFor="let item of items" [bagItem]="item" [isEquipped]="isEquipped"></bag-item>
+  </ion-item-group>
+</ion-list>

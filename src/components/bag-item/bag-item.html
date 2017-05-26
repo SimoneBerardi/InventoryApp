@@ -1,0 +1,5 @@
+<ion-item tappable (click)="select()">
+  {{name}}
+  <p item-right>{{weight}} Kg</p>
+  <ion-icon name="trash" item-right (click)="delete($event)"></ion-icon>
+</ion-item>
