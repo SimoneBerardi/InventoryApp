@@ -1,0 +1,6 @@
+<ion-item tappable (click)="add()">
+  <ion-label>{{name}}
+    <ion-badge color="danger" *ngIf="quantity > 0">{{quantity}}</ion-badge>
+  </ion-label>
+  <ion-note item-right>{{weight}} Kg</ion-note>
+</ion-item>

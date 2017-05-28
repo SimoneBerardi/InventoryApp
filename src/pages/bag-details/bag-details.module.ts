@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { BagItemComponent } from './bag-item';
+import { BagDetailsPage } from './bag-details';
 import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
-    BagItemComponent,
+    BagDetailsPage,
   ],
   imports: [
-    IonicPageModule.forChild(BagItemComponent),
+    IonicPageModule.forChild(BagDetailsPage),
     TranslateModule.forChild()
   ],
   exports: [
-    BagItemComponent
+    BagDetailsPage
   ]
 })
-export class BagItemComponentModule {}
+export class BagDetailsPageModule {}

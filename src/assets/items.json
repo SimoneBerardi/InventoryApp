@@ -1,0 +1,24 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Armatura",
+            "weight": 10
+        },
+        {
+            "id": 2,
+            "name": "Stocco",
+            "weight": 5
+        },
+        {
+            "id": 3,
+            "name": "Shuriken",
+            "weight": 0.5
+        },
+        {
+            "id": 4,
+            "name": "Giavellotto",
+            "weight": 2
+        }
+    ]
+}

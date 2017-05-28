@@ -29,7 +29,7 @@ export class CharactersListPage implements OnInit {
   }
 
   public add() {
-    this._utility.translate(["NuovoPersonaggio", "Crea", "Annulla", "ComeVuoiChiamarlo?"]).subscribe(values => {
+    this._utility.translate(["NuovoPersonaggio", "Crea", "Annulla", "ComeVuoiChiamarlo?", "NomeGiaUsato", "ScegliAltroNome", "Ok"]).subscribe(values => {
       this._alertCtrl.create({
         title: values["NuovoPersonaggio"],
         message: values["ComeVuoiChiamarlo?"],
@@ -45,7 +45,20 @@ export class CharactersListPage implements OnInit {
           {
             text: values["Crea"],
             handler: data => {
-              this._utility.addCharacter(data.name);
+              if (this._utility.checkDuplicateChar(data.name)) {
+                this._alertCtrl.create({
+                  title: values["NomeGiaUsato"],
+                  message: values["UsaAltroNome"],
+                  buttons: [
+                    {
+                      text: values["Ok"],
+                    }
+                  ]
+                }).present();
+              } else {
+                let character = this._utility.addCharacter(data.name);
+                this.select(character);
+              }
             }
           }
         ]

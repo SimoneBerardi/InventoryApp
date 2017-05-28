@@ -1,13 +1,15 @@
 page-character-details {
-    ion-navbar.toolbar{
-        min-height: 3rem;
-        max-height: 3rem;
-    }
-    .image{
+    .image {
         display: block;
         margin: auto;
     }
     .exit-icon {
         transform: rotate(180deg);
+    }
+    button.edit-button {
+        color: color($colors, primary)
+    }
+    .delete-label {
+        text-decoration: underline;
     }
 }

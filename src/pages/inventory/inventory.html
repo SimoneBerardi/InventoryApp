@@ -1,7 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>inventory</ion-title>
+    <ion-title>{{"Inventario" | translate}}</ion-title>
+    <ion-buttons right>
+      <button ion-button class="new-button" (click)="add()">{{"Nuovo" | translate}}</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

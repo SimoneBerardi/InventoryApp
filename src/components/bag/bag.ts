@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Bag } from "../../model/bag";
 import { UtilityProvider } from "../../providers/utility/utility";
+import { Events } from "ionic-angular";
 
 @Component({
   selector: 'bag',
@@ -11,19 +12,17 @@ export class BagComponent {
 
   constructor(
     private _utility: UtilityProvider,
+    private _events: Events,
   ) {
   }
 
   public get name() {
-    let result = this.bag.name;
-    if (this.bag.weight > 0)
-      result += " (" + this.bag.weight + " Kg)";
-    return result;
+    return this.bag.name;
   }
   public get items() {
     return this.bag.items;
   }
-  public get weight() {
+  public get totalWeight() {
     return this.bag.totalWeight;
   }
   public get isEquipped() {
@@ -31,5 +30,30 @@ export class BagComponent {
   }
   public get image() {
     return this._utility.images.bag;
+  }
+  public get isFixedWeight() {
+    return this.bag.isFixedWeight;
+  }
+  public get isOverCapacity() {
+    return this.bag.isOverCapacity;
+  }
+  public get fixedCapacityIconName() {
+    return this.bag.isOverCapacity ? "warning" : "checkmark-circle";
+  }
+  public get fixedCapacityIconColor() {
+    return this.bag.isOverCapacity ? "warning" : "secondary";
+  }
+  public get showTotal() {
+    return this.bag.isFixedWeight || this.bag.totalWeight > 0;
+  }
+  public get showDetails() {
+    return this.bag.isFixedWeight && this.bag.itemsWeight > 0;
+  }
+  public get fixedCapacityDetails() {
+    return this.bag.itemsWeight + " / " + this.bag.capacity;
+  }
+
+  public edit() {
+    this._events.publish("bag:edit", this.bag);
   }
 }

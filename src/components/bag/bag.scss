@@ -2,11 +2,25 @@ bag {
     .name {
         font-size: 2rem;
     }
-    .weight{
+    .weight {
         font-size: 1.5rem;
     }
-    .image{
+    .image {
         max-height: 30px;
         filter: grayscale(100%);
+    }
+    .bag-total,
+    .bag-details {
+        background: #f4f4f4;
+        border-top: 1px solid gray;
+    }
+    .bag {
+        border: 1px solid gray;
+    }
+    .isOverCapacity {
+        // border: 1px solid color($colors, warning);
+        p {
+            color: color($colors, warning);
+        }
     }
 }

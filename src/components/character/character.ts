@@ -23,7 +23,7 @@ export class CharacterComponent {
     return this.character.name;
   }
   public get description() {
-    return this.character.descritpion;
+    return this.character.description;
   }
 
   public select() {

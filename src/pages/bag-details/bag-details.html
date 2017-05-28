@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{"DettagliBorsa" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label fixed>{{"Nome" | translate}}</ion-label>
+    <ion-input class="input-h1" type="text" [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Peso" | translate}}</ion-label>
+    <ion-input class="input-h2" type="number" [(ngModel)]="weight"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"PesoFisso" | translate}}</ion-label>
+    <ion-toggle class="input-h2" [(ngModel)]="isFixedWeight"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Capacita" | translate}}</ion-label>
+    <ion-input class="input-h2" type="number" [disabled]="!isFixedWeight" [(ngModel)]="capacity"></ion-input>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-item class="delete-label" text-center tappable (click)="delete()">{{"Elimina" | translate}}</ion-item>
+  <ion-grid>
+    <ion-row>
+      <button ion-col ion-button outline color="cancel" (click)="cancel()">{{"Annulla" | translate}}</button>
+      <button ion-col ion-button outline (click)="save()">{{"Salva" | translate}}</button>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

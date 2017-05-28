@@ -1,25 +1,61 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons left icon-only>
-      <button ion-button (click)="exit()">
-      <ion-icon class="exit-icon" name="exit"></ion-icon>
-    </button>
+    <ion-buttons left>
+      <button *ngIf="!isEditing" ion-button icon-only (click)="exit()">
+        <ion-icon class="exit-icon" name="exit"></ion-icon>
+      </button>
+      <button *ngIf="isEditing" ion-button (click)="cancelEditing()" class="edit-button">
+        {{"Annulla" | translate}}
+      </button>
     </ion-buttons>
-<!--
-    <ion-title>{{name}}</ion-title>-->
+
+    <ion-title *ngIf="!isEditing">{{"SchedaPersonaggio" | translate}}</ion-title>
+
+    <ion-buttons right>
+      <button *ngIf="!isEditing" ion-button icon-only (click)="modify()">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+      <button *ngIf="isEditing" ion-button class="edit-button" (click)="save()">
+        {{"Salva" | translate}}
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item text-center>
-    <h1>{{name}}</h1>
-  </ion-item>
-  <img class="image" src="{{image}}" alt="">
-  <ion-item text-center>{{description}}</ion-item>
-  <ion-item text-center>
-    <h2>{{"Forza" | translate}} {{strength}}</h2>
-  </ion-item>
+  <div *ngIf="!isEditing">
+    <ion-item text-center>
+      <h1>{{name}}</h1>
+    </ion-item>
+    <img class="image" src="{{image}}" alt="">
+    <ion-item text-center>{{description}}</ion-item>
+    <ion-item text-center>
+      <h2>{{"Forza" | translate}} {{strength}}</h2>
+    </ion-item>
+  </div>
+  <div class="editing-form" *ngIf="isEditing">
+    <ion-item>
+      <ion-label fixed>{{"Nome" | translate}}</ion-label>
+      <ion-input class="input-h1" type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+    <img class="image" src="{{image}}" alt="">
+    <ion-item>
+      <ion-label fixed>{{"Razza" | translate}}</ion-label>
+      <ion-input class="input-h2" [(ngModel)]="race"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>{{"Classe" | translate}}</ion-label>
+      <ion-input class="input-h2" [(ngModel)]="class"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>{{"Forza" | translate}}</ion-label>
+      <ion-input class="input-h2" type="number" [(ngModel)]="strength"></ion-input>
+    </ion-item>
+    <ion-item>
+    </ion-item>
+    <ion-item class="delete-label" text-center tappable (click)="delete()">{{"Elimina" | translate}}</ion-item>
+  </div>
 </ion-content>
