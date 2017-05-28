@@ -45,6 +45,9 @@ export class CharacterDetailsPage implements OnInit {
   public get strength() {
     return this.character.strength;
   }
+  public set strength(value: number) {
+    this.character.strength = value;
+  }
   public get race() {
     return this.character.race;
   }
@@ -56,6 +59,15 @@ export class CharacterDetailsPage implements OnInit {
   }
   public set class(value: string) {
     this.character.class = value;
+  }
+  public get encumberedValue() {
+    return this.character.encumberedValue;
+  }
+  public get heavilyEncumberedValue() {
+    return this.character.heavilyEncumberedValue;
+  }
+  public get maxCarryValue() {
+    return this.character.maxCarryValue;
   }
 
   public exit() {

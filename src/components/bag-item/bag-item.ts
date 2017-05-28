@@ -100,6 +100,7 @@ export class BagItemComponent {
               {
                 text: values["Annulla"],
                 handler: () => {
+                  console.log("Selezione quantità annullata dall'utente");
                   reject();
                 }
               },

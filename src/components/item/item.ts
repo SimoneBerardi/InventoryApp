@@ -32,8 +32,8 @@ export class ItemComponent {
       this._selectBag().then(bag => {
         bag.addItem(this.item, quantity);
         this._utility.saveToStorage();
-      });
-    });
+      }).catch(() => {});
+    }).catch(() => {});;
   }
 
   private _selectQuantity() {
@@ -54,6 +54,7 @@ export class ItemComponent {
             {
               text: values["Annulla"],
               handler: () => {
+                console.log("Selezione quantità annullata dall'utente");
                 reject();
               }
             },
@@ -83,7 +84,11 @@ export class ItemComponent {
             message: values["QualeZaino?"],
             buttons: [
               {
-                text: values["Annulla"]
+                text: values["Annulla"],
+                handler: () =>{
+                  console.log("Selezione borsa annullata dall'utente");
+                  reject();
+                }
               },
               {
                 text: values["Conferma"],

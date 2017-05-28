@@ -1,0 +1,15 @@
+total-bar {
+    ion-item{
+        background: none !important;
+    }
+    .carried-weight {
+        font-size: 2rem;
+        color: color($colors, secondary);
+        &.isEncumbered {
+            color: color($colors, warning);
+        }
+        &.isHeavilyEncumbered {
+            color: color($colors, danger);
+        }
+    }
+}

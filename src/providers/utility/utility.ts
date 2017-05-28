@@ -107,7 +107,7 @@ export class UtilityProvider {
   private _generateCharacterId() {
     let result = 1;
     if (this.characters.length > 0)
-      result = Math.max.apply(this.characters.map(character => character.id)) + 1;
+      result = Math.max.apply(this, this.characters.map(character => character.id)) + 1;
     return result;
   }
   private _loadCharacters() {

@@ -37,6 +37,27 @@ export class Character extends JsonObject {
     public get unequippedBags() {
         return this.bags.filter(bag => !bag.isEquipped);
     }
+    public get carriedWeight() {
+        return this.bags.map(bag => bag.totalWeight).reduce((a, b) => a + b, 0);
+    }
+    public get isEncumbered() {
+        return this.carriedWeight > this.encumberedValue;
+    }
+    public get isHeavilyEncumbered() {
+        return this.carriedWeight > this.heavilyEncumberedValue;
+    }
+    public get isOverMaxCarry(){
+        return this.carriedWeight > this.maxCarryValue;
+    }
+    public get encumberedValue() {
+        return parseFloat((this.strength * 5 * 0.453592).toFixed(2));
+    }
+    public get heavilyEncumberedValue() {
+        return parseFloat((this.strength * 10 * 0.453592).toFixed(2));
+    }
+    public get maxCarryValue() {
+        return parseFloat((this.strength * 15 * 0.453592).toFixed(2));
+    }
 
     public equipItem(bagItem: BagItem) {
         this.equippedBag.items.push(bagItem);
@@ -61,7 +82,7 @@ export class Character extends JsonObject {
     private _generateBagId() {
         let result = 1;
         if (this.bags.length > 0)
-            result = Math.max.apply(this.bags.map(bag => bag.id)) + 1;
+            result = Math.max.apply(this, this.bags.map(bag => bag.id)) + 1;
         return result;
     }
 }

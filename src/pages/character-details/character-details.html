@@ -35,6 +35,13 @@
     <ion-item text-center>
       <h2>{{"Forza" | translate}} {{strength}}</h2>
     </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center class="encumber-value">{{encumberedValue}} Kg</ion-col>
+        <ion-col text-center class="heavy-encumber-value">{{heavilyEncumberedValue}} Kg</ion-col>
+        <ion-col text-center class="max-carry-value">{{maxCarryValue}} Kg</ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <div class="editing-form" *ngIf="isEditing">
     <ion-item>
@@ -59,3 +66,7 @@
     <ion-item class="delete-label" text-center tappable (click)="delete()">{{"Elimina" | translate}}</ion-item>
   </div>
 </ion-content>
+
+<ion-footer>
+  <total-bar></total-bar>
+</ion-footer>

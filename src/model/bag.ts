@@ -53,7 +53,7 @@ export class Bag extends JsonObject {
     private _generateBagItemId() {
         let result = 1;
         if (this.items.length > 0)
-            result = Math.max.apply(this.items.map(item => item.id)) + 1;
+            result = Math.max.apply(this, this.items.map(item => item.id)) + 1;
         return result;
     }
 }
