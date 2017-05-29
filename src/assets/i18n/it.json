@@ -17,7 +17,7 @@
     "Elimina": "Elimina",
     "Annulla": "Annulla",
     "Salva": "Salva",
-    "SchedaPersonaggio": "Scheda personaggio",
+    "SchedaPersonaggio": "Scheda del personaggio",
     "Forza": "Forza",
     "Razza": "Razza",
     "Classe": "Classe",
@@ -50,5 +50,6 @@
     "NomeGiaUsato": "Nome già usato!",
     "ScegliAltroNome": "Scegli un altro nome",
     "NuovaBorsa": "Nuova borsa",
-    "ComeVuoiChiamarla?": "Come vuoi chiamarla?"
+    "ComeVuoiChiamarla?": "Come vuoi chiamarla?",
+    "ListaOggetti": "Lista oggetti"
 }
