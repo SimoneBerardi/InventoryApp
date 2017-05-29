@@ -23,6 +23,8 @@ export class TotalBarComponent {
       result = "warning";
     if (this._utility.session.character.isHeavilyEncumbered)
       result = "danger";
+    if (this._utility.session.character.isOverMaxCarry)
+      result = "alert";
     return result;
   }
   public get carriedWeightIconName() {
@@ -36,6 +38,9 @@ export class TotalBarComponent {
   }
   public get isHeavilyEncumbered() {
     return this._utility.session.character.isHeavilyEncumbered;
+  }
+  public get isOverMaxCarry() {
+    return this._utility.session.character.isOverMaxCarry;
   }
 
   public showInfo() {

@@ -1,5 +1,5 @@
 total-bar {
-    ion-item{
+    ion-item {
         background: none !important;
     }
     .carried-weight {
@@ -10,6 +10,9 @@ total-bar {
         }
         &.isHeavilyEncumbered {
             color: color($colors, danger);
+        }
+        &.isOverMaxCarry {
+            color: color($colors, alert);
         }
     }
 }

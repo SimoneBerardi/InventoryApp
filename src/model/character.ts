@@ -1,6 +1,5 @@
 import { JsonObject, JsonArray } from "./json-model";
 import { Bag } from "./bag";
-import { BagItem } from "./bag-item";
 import { Item } from "./item";
 
 export class Character extends JsonObject {
@@ -15,14 +14,16 @@ export class Character extends JsonObject {
 
     constructor(name?: string) {
         super();
-        if (name)
+        if (name) {
             this.name = name;
-        this.race = "Razza";
-        this.class = "Classe";
-        this.strength = 10;
-        this.addBag("Equipaggiato");
-        let bag = this.addBag("Zaino");
-        bag.weight = 2.5;
+            this.race = "Razza";
+            this.class = "Classe";
+            this.strength = 10;
+            let bag = this.addBag("Equipaggiato");
+            bag.isEquipped = true;
+            bag = this.addBag("Zaino");
+            bag.weight = 2.5;
+        }
     }
 
     public get description() {
@@ -46,7 +47,7 @@ export class Character extends JsonObject {
     public get isHeavilyEncumbered() {
         return this.carriedWeight > this.heavilyEncumberedValue;
     }
-    public get isOverMaxCarry(){
+    public get isOverMaxCarry() {
         return this.carriedWeight > this.maxCarryValue;
     }
     public get encumberedValue() {
@@ -59,9 +60,6 @@ export class Character extends JsonObject {
         return parseFloat((this.strength * 15 * 0.453592).toFixed(2));
     }
 
-    public equipItem(bagItem: BagItem) {
-        this.equippedBag.items.push(bagItem);
-    }
     public getItemQuantity(item: Item) {
         let result = 0;
         this.bags.forEach(bag => {
@@ -76,7 +74,7 @@ export class Character extends JsonObject {
         return bag;
     }
     public removeBag(bag: Bag) {
-        this.bags.splice(this.bags.indexOf(bag));
+        this.bags.splice(this.bags.indexOf(bag), 1);
     }
 
     private _generateBagId() {

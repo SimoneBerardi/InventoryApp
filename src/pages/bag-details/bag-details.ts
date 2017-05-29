@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Bag } from "../../model/bag";
-import { JsonObject } from "../../model/json-model";
 import { UtilityProvider } from "../../providers/utility/utility";
 
 @IonicPage()
@@ -31,6 +30,10 @@ export class BagDetailsPage {
     }
   }
 
+  public get showDelete(){
+    return this._utility.session.character.bags.length > 2;
+  }
+
   public cancel() {
     this.navCtrl.pop();
   }
@@ -41,9 +44,10 @@ export class BagDetailsPage {
   }
   public delete() {
     this._utility.translate(["ButtareBorsa", "ButtareBorsa?", "Si", "No"]).subscribe(values => {
+      let message = values["ButtareBorsa?"].replace("{0}", this.bag.name);
       this._alertCtrl.create({
         title: values["ButtareBorsa"],
-        message: values["ButtareBorsa?"],
+        message: message,
         buttons: [
           {
             text: values["No"]

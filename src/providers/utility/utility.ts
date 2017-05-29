@@ -22,8 +22,8 @@ export class UtilityProvider {
   };
 
   public images: any = {
-    character: "/assets/images/character.png",
-    bag: "/assets/images/bag.png",
+    character: "assets/images/character_grayscale.png",
+    bag: "assets/images/bag_grayscale.png",
   };
   public options: Options = new Options();
   public characters: Character[] = new Array<Character>();
@@ -41,17 +41,17 @@ export class UtilityProvider {
 
   public init() {
     return new Promise((resolve, reject) => {
-      this.clearChache().then(() => {
-        let promises = [];
-        promises.push(this._loadOptions());
-        promises.push(this._loadItems());
-        promises.push(this._loadCharacters());
-        Promise.all(promises).then(() => {
-          this._translateService.use(this.options.language);
-          console.log("App inizializzata");
-          resolve();
-        });
+      // this.clearChache().then(() => {
+      let promises = [];
+      promises.push(this._loadOptions());
+      promises.push(this._loadItems());
+      promises.push(this._loadCharacters());
+      Promise.all(promises).then(() => {
+        this._translateService.use(this.options.language);
+        console.log("App inizializzata");
+        resolve();
       });
+      // });
     });
   }
   public clearChache() {
@@ -95,7 +95,7 @@ export class UtilityProvider {
 
   private _loadItems() {
     return new Promise((resolve, reject) => {
-      this._http.get("/assets/items.json").subscribe(value => {
+      this._http.get("assets/items.json").subscribe(value => {
         value.json().items.forEach(item => {
           this.items.push(JsonObject.parse(Item, item));
         });
@@ -127,9 +127,9 @@ export class UtilityProvider {
           });
         } else {
           console.log("Inizializzo i personaggi...");
-          this._addMockCharacters();
-          this._addMockBags();
-          this._addMockBagItems();
+          // this._addMockCharacters();
+          // this._addMockBags();
+          // this._addMockBagItems();
           this._saveCharacters();
           this.characters.forEach(char => {
             console.log(JSON.stringify(char));
@@ -162,41 +162,41 @@ export class UtilityProvider {
   }
 
   //DEBUG
-  private _addMockBagItems() {
-    let bagItem = new BagItem();
-    bagItem.itemId = 1;
-    this.characters[0].bags[0].items.push(bagItem);
-    bagItem = new BagItem();
-    bagItem.itemId = 2;
-    this.characters[0].bags[1].items.push(bagItem);
-    bagItem = new BagItem();
-    bagItem.itemId = 3;
-    bagItem.quantity = 3;
-    this.characters[0].bags[1].items.push(bagItem);
-    bagItem = new BagItem();
-    bagItem.itemId = 4;
-    bagItem.quantity = 2;
-    this.characters[0].bags[2].items.push(bagItem);
-  }
-  private _addMockBags() {
-    let bag = this.characters[0].addBag("Borsa da cintura");
-    bag.weight = 0.5;
-    bag = this.characters[0].addBag("Borsa magica");
-    bag.weight = 1;
-    bag.isFixedWeight = true;
-    bag.capacity = 10;
-  }
-  private _addMockCharacters() {
-    let char = this.addCharacter("Personaggio Nick");
-    char.race = "Nano"
-    char.class = "Guerriero";
-    char.strength = 18;
-    char = this.addCharacter("Personaggio Lucia");
-    char.race = "Umano"
-    char.class = "Stregone";
-    char.strength = 12;
-    char = this.addCharacter("Personaggio Margherita");
-    char.race = "Gnomo"
-    char.class = "Mago";
-  }
+  // private _addMockBagItems() {
+  //   let bagItem = new BagItem();
+  //   bagItem.itemId = 1;
+  //   this.characters[0].bags[0].items.push(bagItem);
+  //   bagItem = new BagItem();
+  //   bagItem.itemId = 2;
+  //   this.characters[0].bags[1].items.push(bagItem);
+  //   bagItem = new BagItem();
+  //   bagItem.itemId = 3;
+  //   bagItem.quantity = 3;
+  //   this.characters[0].bags[1].items.push(bagItem);
+  //   bagItem = new BagItem();
+  //   bagItem.itemId = 4;
+  //   bagItem.quantity = 2;
+  //   this.characters[0].bags[2].items.push(bagItem);
+  // }
+  // private _addMockBags() {
+  //   let bag = this.characters[0].addBag("Borsa da cintura");
+  //   bag.weight = 0.5;
+  //   bag = this.characters[0].addBag("Borsa magica");
+  //   bag.weight = 1;
+  //   bag.isFixedWeight = true;
+  //   bag.capacity = 10;
+  // }
+  // private _addMockCharacters() {
+  //   let char = this.addCharacter("Personaggio Nick");
+  //   char.race = "Nano"
+  //   char.class = "Guerriero";
+  //   char.strength = 18;
+  //   char = this.addCharacter("Personaggio Lucia");
+  //   char.race = "Umano"
+  //   char.class = "Stregone";
+  //   char.strength = 12;
+  //   char = this.addCharacter("Personaggio Margherita");
+  //   char.race = "Gnomo"
+  //   char.class = "Mago";
+  // }
 }

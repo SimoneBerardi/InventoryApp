@@ -28,7 +28,7 @@
 </ion-content>
 
 <ion-footer>
-  <ion-item class="delete-label" text-center tappable (click)="delete()">{{"Elimina" | translate}}</ion-item>
+  <ion-item class="delete-label" text-center tappable *ngIf="showDelete" (click)="delete()">{{"Elimina" | translate}}</ion-item>
   <ion-grid>
     <ion-row>
       <button ion-col ion-button outline color="cancel" (click)="cancel()">{{"Annulla" | translate}}</button>

@@ -87,9 +87,10 @@ export class CharacterDetailsPage implements OnInit {
   }
   public delete() {
     this._utility.translate(["CancellazionePersonaggio", "CancellarePersonaggio?", "Si", "No"]).subscribe(values => {
+      let message = values["CancellarePersonaggio?"].replace("{0}", this.character.name);
       this._alertCtrl.create({
         title: values["CancellazionePersonaggio"],
-        message: values["CancellarePersonaggio?"],
+        message: message,
         buttons: [
           {
             text: values["No"]

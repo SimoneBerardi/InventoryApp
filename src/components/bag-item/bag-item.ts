@@ -43,9 +43,10 @@ export class BagItemComponent {
   public remove() {
     if (this.bagItem.quantity == 1) {
       this._utility.translate(["ButtareOggetto", "ButtareOggetto?", "Si", "No"]).subscribe(values => {
+        let message = values["ButtareOggetto?"].replace("{0}", this.bagItem.item.name);
         this._alertCtrl.create({
           title: values["ButtareOggetto"],
-          message: values["ButtareOggetto?"],
+          message: message,
           buttons: [
             {
               text: values["No"]
@@ -64,9 +65,11 @@ export class BagItemComponent {
       this.bagItem.quantity--;
   }
   public equip() {
-    this.bag.removeItem(this.bagItem);
-    this._utility.session.character.equipItem(this.bagItem);
-    this._utility.saveToStorage();
+    this._selectQuantity().then(quantity => {
+      this.bag.removeItem(this.bagItem, quantity);
+      this._utility.session.character.equippedBag.addItem(this.bagItem.item, quantity);
+      this._utility.saveToStorage();
+    });
   }
   public unequip() {
     this._selectQuantity().then(quantity => {
@@ -125,10 +128,10 @@ export class BagItemComponent {
       if (this._utility.session.character.bags.length == 2)
         resolve(this._utility.session.character.backpack);
       else {
-        this._utility.translate(["ScegliZaino", "QualeZaino?", "Conferma", "Annulla"]).subscribe(values => {
+        this._utility.translate(["SelezioneZaino", "InQualeZaino?", "Conferma", "Annulla"]).subscribe(values => {
           let alert = this._alertCtrl.create({
-            title: values["ScegliZaino"],
-            message: values["QualeZaino?"],
+            title: values["SelezioneZaino"],
+            message: values["InQualeZaino?"],
             buttons: [
               {
                 text: values["Annulla"],
