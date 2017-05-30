@@ -26,6 +26,10 @@ export class CharactersListPage implements OnInit {
 
   ngOnInit() {
     this.characters = this._utility.characters;
+    if(this.characters.length == 1)
+    {
+      this.select(this.characters[0]);
+    }
   }
 
   public add() {

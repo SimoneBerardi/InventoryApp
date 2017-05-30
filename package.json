@@ -1,6 +1,6 @@
 {
-    "name": "InventoryApp",
-    "version": "1.0.1",
+    "name": "Adventure Bag",
+    "version": "1.0.2",
     "author": "Simone Berardi",
     "homepage": "https://github.com/SimoneBerardi/InventoryApp",
     "private": true,
@@ -47,7 +47,7 @@
         "@ionic/cli-plugin-ionic-angular": "1.2.0",
         "typescript": "2.3.3"
     },
-    "description": "An Ionic project",
+    "description": "App per la gestione dell'inventario in tutte le tue avventure DnD 5ed",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},

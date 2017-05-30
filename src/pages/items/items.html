@@ -8,7 +8,34 @@
 
 
 <ion-content padding>
-  <item *ngFor="let item of items" [item]="item"></item>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'RicercaTreCaratteri' | translate}}" class="search-bar"></ion-searchbar>
+  <div *ngIf="!isSearching">
+    <ion-segment [(ngModel)]="itemsType">
+      <ion-segment-button value="weapons">
+        {{"Armi" | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="armors">
+        {{"Armature" | translate}}
+      </ion-segment-button>
+      <ion-segment-button value="simpleItems">
+        {{"Oggetti" | translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="itemsType" *ngIf="!isSearching">
+    <ion-list *ngSwitchCase="'weapons'">
+      <item *ngFor="let item of weapons" [item]="item"></item>
+    </ion-list>
+    <ion-list *ngSwitchCase="'armors'">
+      <item *ngFor="let item of armors" [item]="item"></item>
+    </ion-list>
+    <ion-list *ngSwitchCase="'simpleItems'">
+      <item *ngFor="let item of simpleItems" [item]="item"></item>
+    </ion-list>
+  </div>
+  <ion-list *ngIf="isSearching">
+    <item *ngFor="let item of items" [item]="item"></item>
+  </ion-list>
 </ion-content>
 
 <ion-footer>

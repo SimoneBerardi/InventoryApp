@@ -29,6 +29,10 @@ export class UtilityProvider {
   public characters: Character[] = new Array<Character>();
   public items: Item[] = new Array<Item>();
 
+  public weaponItems: Item[] = new Array<Item>();
+  public armorItems: Item[] = new Array<Item>();
+  public simpleItems: Item[] = new Array<Item>();
+
   public session: Session = new Session();
 
   constructor(
@@ -96,8 +100,15 @@ export class UtilityProvider {
   private _loadItems() {
     return new Promise((resolve, reject) => {
       this._http.get("assets/items.json").subscribe(value => {
-        value.json().items.forEach(item => {
-          this.items.push(JsonObject.parse(Item, item));
+        value.json().items.forEach(jsonItem => {
+          let item = JsonObject.parse(Item, jsonItem);
+          this.items.push(item);
+          if (item.tags.indexOf("weapons") >= 0)
+            this.weaponItems.push(item);
+          if (item.tags.indexOf("armors") >= 0)
+            this.armorItems.push(item);
+          if (item.tags.indexOf("items") >= 0)
+            this.simpleItems.push(item);
         });
         console.log("Oggetti caricati");
         resolve();
