@@ -24,17 +24,17 @@
   </div>
   <div [ngSwitch]="itemsType" *ngIf="!isSearching">
     <ion-list *ngSwitchCase="'weapons'">
-      <item *ngFor="let item of weapons" [item]="item"></item>
+      <item *ngFor="let item of weapons" [item]="item" (click)="addItem(item)"></item>
     </ion-list>
     <ion-list *ngSwitchCase="'armors'">
-      <item *ngFor="let item of armors" [item]="item"></item>
+      <item *ngFor="let item of armors" [item]="item" (click)="addItem(item)"></item>
     </ion-list>
     <ion-list *ngSwitchCase="'simpleItems'">
-      <item *ngFor="let item of simpleItems" [item]="item"></item>
+      <item *ngFor="let item of simpleItems" [item]="item" (click)="addItem(item)"></item>
     </ion-list>
   </div>
   <ion-list *ngIf="isSearching">
-    <item *ngFor="let item of items" [item]="item"></item>
+    <item *ngFor="let item of items" [item]="item" (click)="addItem(item)"></item>
   </ion-list>
 </ion-content>
 

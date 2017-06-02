@@ -6,7 +6,16 @@ export class Item extends JsonObject {
     public weight: number;
     public tags: string;
 
-    constructor(){
+    constructor() {
         super();
+    }
+
+    public static sort(a: Item, b: Item) {
+        if (a.name < b.name)
+            return -1;
+        else if (a.name > b.name)
+            return 1;
+        else
+            return 0;
     }
 }

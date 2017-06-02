@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Bag } from "../../model/bag";
 import { UtilityProvider } from "../../providers/utility/utility";
 
@@ -15,13 +15,8 @@ export class InventoryPage implements OnInit {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _utility: UtilityProvider,
-    private _events: Events,
     private _alertCtrl: AlertController,
   ) {
-    this._events.unsubscribe("bag:edit");
-    this._events.subscribe("bag:edit", bag => {
-      this.navCtrl.push("BagDetailsPage", { bag: bag });
-    });
   }
 
   ngOnInit() {
@@ -53,5 +48,8 @@ export class InventoryPage implements OnInit {
         ]
       }).present();
     });
+  }
+  public edit(bag: Bag){
+    this.navCtrl.push("BagDetailsPage", { bag: bag });
   }
 }

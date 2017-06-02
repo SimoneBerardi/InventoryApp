@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Character } from "../../model/character";
 import { UtilityProvider } from "../../providers/utility/utility";
-import { Events } from "ionic-angular";
 
 @Component({
   selector: 'character',
@@ -12,7 +11,6 @@ export class CharacterComponent {
 
   constructor(
     private _utility: UtilityProvider,
-    private _events: Events,
   ) {
   }
 
@@ -24,10 +22,6 @@ export class CharacterComponent {
   }
   public get description() {
     return this.character.description;
-  }
-
-  public select() {
-    this._events.publish("character:select", this.character);
   }
 
 }

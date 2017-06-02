@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Bag } from "../../model/bag";
 import { UtilityProvider } from "../../providers/utility/utility";
-import { Events } from "ionic-angular";
 
 @Component({
   selector: 'bag',
@@ -9,10 +8,10 @@ import { Events } from "ionic-angular";
 })
 export class BagComponent {
   @Input() bag: Bag;
+  @Output() edit: EventEmitter<null> = new EventEmitter();
 
   constructor(
     private _utility: UtilityProvider,
-    private _events: Events,
   ) {
   }
 
@@ -53,7 +52,7 @@ export class BagComponent {
     return this.bag.itemsWeight + " / " + this.bag.capacity;
   }
 
-  public edit() {
-    this._events.publish("bag:edit", this.bag);
+  public editEvent() {
+    this.edit.emit();
   }
 }

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Item } from "../../model/item";
 import { UtilityProvider } from "../../providers/utility/utility";
+import { CustomComponent } from "../../model/interface";
 
 @IonicPage()
 @Component({
   selector: 'page-items',
   templateUrl: 'items.html',
 })
-export class ItemsPage implements OnInit {
+export class ItemsPage extends CustomComponent implements OnInit {
   public itemsType = "weapons";
   public items: Item[] = new Array<Item>();
   public weapons: Item[] = new Array<Item>();
@@ -20,7 +21,10 @@ export class ItemsPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _utility: UtilityProvider) {
+    _utility: UtilityProvider,
+    _alertCtrl: AlertController,
+  ) {
+    super(_utility, _alertCtrl);
   }
 
   ngOnInit() {
@@ -38,6 +42,15 @@ export class ItemsPage implements OnInit {
       this.items = this.items.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0);
     } else
       this.isSearching = false;
+  }
+
+  public addItem(item: Item) {
+    this._selectQuantity().then(quantity => {
+      this._selectBag().then(bag => {
+        bag.addItem(item, quantity);
+        this._utility.saveToStorage();
+      }).catch(() => { });
+    }).catch(() => { });;
   }
 
 }

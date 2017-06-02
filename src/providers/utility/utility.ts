@@ -101,8 +101,10 @@ export class UtilityProvider {
     return new Promise((resolve, reject) => {
       this._http.get("assets/items.json").subscribe(value => {
         value.json().items.forEach(jsonItem => {
-          let item = JsonObject.parse(Item, jsonItem);
-          this.items.push(item);
+          this.items.push(JsonObject.parse(Item, jsonItem));
+        });
+        this.items.sort(Item.sort);
+        this.items.forEach(item => {
           if (item.tags.indexOf("weapons") >= 0)
             this.weaponItems.push(item);
           if (item.tags.indexOf("armors") >= 0)

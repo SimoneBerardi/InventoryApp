@@ -11,7 +11,7 @@
 
 
 <ion-content padding>
-  <bag *ngFor="let bag of bags" [bag]="bag"></bag>
+  <bag *ngFor="let bag of bags" [bag]="bag" (edit)="edit(bag)"></bag>
 </ion-content>
 
 <ion-footer>

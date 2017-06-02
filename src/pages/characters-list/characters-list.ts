@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Character } from "../../model/character";
 import { UtilityProvider } from "../../providers/utility/utility";
 
@@ -16,18 +16,12 @@ export class CharactersListPage implements OnInit {
     public navParams: NavParams,
     private _utility: UtilityProvider,
     private _alertCtrl: AlertController,
-    private _events: Events,
   ) {
-    this._events.unsubscribe("character:select");
-    this._events.subscribe("character:select", (character: Character) => {
-      this.select(character);
-    });
   }
 
   ngOnInit() {
     this.characters = this._utility.characters;
-    if(this.characters.length == 1)
-    {
+    if (this.characters.length == 1) {
       this.select(this.characters[0]);
     }
   }
