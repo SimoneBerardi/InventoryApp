@@ -36,6 +36,7 @@ export class CustomComponent {
                     let alert = this._alertCtrl.create({
                         title: values["SelezionaQuantita"],
                         message: values["Quanti?"],
+                        enableBackdropDismiss: false,
                         inputs: [
                             {
                                 type: "number",
@@ -55,7 +56,10 @@ export class CustomComponent {
                                 text: values["Ok"],
                                 handler: data => {
                                     if (data.quantity && data.quantity != "" && parseFloat(data.quantity) > 0) {
-                                        resolve(parseFloat(data.quantity));
+                                        let quantity = parseFloat(data.quantity);
+                                        if (max)
+                                            quantity = Math.min(max, quantity);
+                                        resolve(quantity);
                                     } else {
                                         this.showAlertLanguage("Attenzione", "InserireQuantitaValida");
                                         return false;
@@ -74,10 +78,11 @@ export class CustomComponent {
             if (this._utility.session.character.bags.length == 2)
                 resolve(this._utility.session.character.backpack);
             else {
-                this._utility.translate(["ScegliZaino", "QualeZaino?", "Conferma", "Annulla"]).subscribe(values => {
+                this._utility.translate(["ScegliZaino", "InQualeZaino?", "Conferma", "Annulla"]).subscribe(values => {
                     let alert = this._alertCtrl.create({
                         title: values["ScegliZaino"],
-                        message: values["QualeZaino?"],
+                        message: values["InQualeZaino?"],
+                        enableBackdropDismiss: false,
                         buttons: [
                             {
                                 text: values["Annulla"],
@@ -105,6 +110,32 @@ export class CustomComponent {
                     alert.present();
                 });
             }
+        });
+    }
+    protected _askConfirmation(title: string, message: string) {
+        return new Promise((resolve, reject) => {
+            this._utility.translate(["Si", "No"]).subscribe(values => {
+                this._alertCtrl.create({
+                    title: title,
+                    message: message,
+                    enableBackdropDismiss: false,
+                    buttons: [
+                        {
+                            text: values["No"],
+                            handler: () => {
+                                reject();
+                            }
+                        },
+                        {
+                            text: values["Si"],
+                            handler: () => {
+                                console.log("Conferma cancellata dall'utente");
+                                resolve();
+                            }
+                        }
+                    ]
+                }).present();
+            });
         });
     }
 }

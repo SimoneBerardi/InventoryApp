@@ -8,6 +8,7 @@ import { UtilityProvider } from "../../providers/utility/utility";
 })
 export class ItemComponent {
   @Input() item: Item;
+  @Output() modify: EventEmitter<null> = new EventEmitter();
 
   constructor(
     private _utility: UtilityProvider,
@@ -22,5 +23,16 @@ export class ItemComponent {
   }
   public get quantity() {
     return this._utility.session.character.getItemQuantity(this.item);
+  }
+  public get isCustom() {
+    return this.item.isCustom;
+  }
+  public get description(){
+    return this.item.description;
+  }
+
+  public modifyEvent(event: Event){
+    event.stopPropagation();
+    this.modify.emit();
   }
 }

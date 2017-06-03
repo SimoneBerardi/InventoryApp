@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="simonberardi.inventoryapp.com" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="simonberardi.inventoryapp.com" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Adventure Bag</name>
     <description>App per la gestione dell'inventario in tutte le tue avventure DnD 5ed</description>
     <author email="simonberardi@gmail.com" href="https://github.com/SimoneBerardi">Simone Berardi</author>

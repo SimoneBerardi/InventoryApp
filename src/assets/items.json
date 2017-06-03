@@ -181,12 +181,6 @@
       "tags": "items"
     },
     {
-      "id": 30,
-      "name": "Borsello",
-      "weight": 0.5,
-      "tags": "items"
-    },
-    {
       "id": 31,
       "name": "Bottiglia di vetro",
       "weight": 1.0,
@@ -667,229 +661,445 @@
       "tags": "items"
     },
     {
-      "id": 111,
-      "name": "Zaino",
+      "id": 112,
+      "name": "Scorte da alchimista",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 113,
+      "name": "Scorte da birraio",
+      "weight": 4.5,
+      "tags": "items"
+    },
+    {
+      "id": 114,
+      "name": "Scorte da calligrafo",
       "weight": 2.5,
       "tags": "items"
     },
     {
-      "id": 112,
+      "id": 115,
+      "name": "Attrezzi da calzolaio",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 116,
+      "name": "Attrezzi da carpentiere",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 117,
+      "name": "Attrezzi da cartografo",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 118,
+      "name": "Utensili da cuoco",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 119,
+      "name": "Attrezzi da fabbro",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 120,
+      "name": "Attrezzi da falegname",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 121,
+      "name": "Attrezzi da gioielliere",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 122,
+      "name": "Attrezzi da muratore",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 123,
+      "name": "Attrezzi da pellettiere",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 124,
+      "name": "Scorte da pittore",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 125,
+      "name": "Attrezzi da soffiatore di vetro",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 126,
+      "name": "Attrezzi da stagnino",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 127,
+      "name": "Attrezzi da tessitore",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 128,
+      "name": "Attrezzi da vasaio",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 129,
+      "name": "Kit da avvelenatore",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 130,
+      "name": "Kit da erborista",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 131,
+      "name": "Kit da falsario",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 132,
+      "name": "Attrezzi da ladro",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 133,
+      "name": "Attrezzi da navigatore",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 134,
+      "name": "Carte da gioco normali",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 135,
+      "name": "Carte da gioco speciali",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 136,
+      "name": "Dadi",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 137,
+      "name": "Scacchi",
+      "weight": 0.25,
+      "tags": "items"
+    },
+    {
+      "id": 138,
+      "name": "Chiarina",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 139,
+      "name": "Cornamusa",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 140,
+      "name": "Corno",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 141,
+      "name": "Dulcimero",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 142,
+      "name": "Flauto",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 143,
+      "name": "Lira",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 144,
+      "name": "Liuto",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 145,
+      "name": "Tamburo",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 146,
+      "name": "Viola",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 147,
+      "name": "Zufolo",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 148,
+      "name": "Truccatore",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 149,
       "name": "Accetta",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 113,
+      "id": 150,
       "name": "Bastone da combattimento",
       "weight": 2.0,
       "tags": "weapons"
     },
     {
-      "id": 114,
+      "id": 151,
       "name": "Falcetto",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 115,
+      "id": 152,
       "name": "Giavellotto",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 116,
+      "id": 153,
       "name": "Lancia",
       "weight": 1.5,
       "tags": "weapons"
     },
     {
-      "id": 117,
+      "id": 154,
       "name": "Martello leggero",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 118,
+      "id": 155,
       "name": "Mazza",
       "weight": 2.0,
       "tags": "weapons"
     },
     {
-      "id": 119,
+      "id": 156,
       "name": "Pugnale",
       "weight": 0.5,
       "tags": "weapons"
     },
     {
-      "id": 120,
+      "id": 157,
       "name": "Randello",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 121,
+      "id": 158,
       "name": "Randello grosso",
       "weight": 5.0,
       "tags": "weapons"
     },
     {
-      "id": 122,
+      "id": 159,
       "name": "Arco corto",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 123,
+      "id": 160,
       "name": "Balestra leggera",
       "weight": 2.5,
       "tags": "weapons"
     },
     {
-      "id": 124,
+      "id": 161,
       "name": "Dardo",
       "weight": 0.12,
       "tags": "weapons"
     },
     {
-      "id": 125,
+      "id": 162,
       "name": "Fionda",
       "weight": 0.0,
       "tags": "weapons"
     },
     {
-      "id": 126,
+      "id": 163,
       "name": "Alabarda",
       "weight": 3.0,
       "tags": "weapons"
     },
     {
-      "id": 127,
+      "id": 164,
       "name": "Ascia da battaglia",
       "weight": 2.0,
       "tags": "weapons"
     },
     {
-      "id": 128,
+      "id": 165,
       "name": "Ascia grossa",
       "weight": 3.5,
       "tags": "weapons"
     },
     {
-      "id": 129,
+      "id": 166,
       "name": "Falcione",
       "weight": 3.0,
       "tags": "weapons"
     },
     {
-      "id": 130,
+      "id": 167,
       "name": "Frusta",
       "weight": 1.5,
       "tags": "weapons"
     },
     {
-      "id": 131,
+      "id": 168,
       "name": "Lancia da cavaliere",
       "weight": 3.0,
       "tags": "weapons"
     },
     {
-      "id": 132,
+      "id": 169,
       "name": "Maglio",
       "weight": 5.0,
       "tags": "weapons"
     },
     {
-      "id": 133,
+      "id": 170,
       "name": "Martello da guerra",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 134,
+      "id": 171,
       "name": "Mazza chiodata",
       "weight": 2.0,
       "tags": "weapons"
     },
     {
-      "id": 135,
+      "id": 172,
       "name": "Mazzafrusto",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 136,
+      "id": 173,
       "name": "Picca",
       "weight": 9.0,
       "tags": "weapons"
     },
     {
-      "id": 137,
+      "id": 174,
       "name": "Piccone militare",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 138,
+      "id": 175,
       "name": "Scimitarra",
       "weight": 1.5,
       "tags": "weapons"
     },
     {
-      "id": 139,
+      "id": 176,
       "name": "Spada corta",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 140,
+      "id": 177,
       "name": "Spada grossa",
       "weight": 3.0,
       "tags": "weapons"
     },
     {
-      "id": 141,
+      "id": 178,
       "name": "Spada lunga",
       "weight": 1.5,
       "tags": "weapons"
     },
     {
-      "id": 142,
+      "id": 179,
       "name": "Stocco",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 143,
+      "id": 180,
       "name": "Tridente",
       "weight": 2.0,
       "tags": "weapons"
     },
     {
-      "id": 144,
+      "id": 181,
       "name": "Arco lungo",
       "weight": 1.0,
       "tags": "weapons"
     },
     {
-      "id": 145,
+      "id": 182,
       "name": "Balestra pesante",
       "weight": 9.0,
       "tags": "weapons"
     },
     {
-      "id": 146,
+      "id": 183,
       "name": "Balestrino",
       "weight": 1.5,
       "tags": "weapons"
     },
     {
-      "id": 147,
+      "id": 184,
       "name": "Cerbottana",
       "weight": 0.5,
       "tags": "weapons"
     },
     {
-      "id": 148,
+      "id": 185,
       "name": "Rete",
       "weight": 1.5,
       "tags": "weapons"

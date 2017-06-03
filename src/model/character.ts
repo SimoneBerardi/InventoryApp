@@ -1,6 +1,7 @@
 import { JsonObject, JsonArray } from "./json-model";
 import { Bag } from "./bag";
 import { Item } from "./item";
+import { Coins } from "./coins";
 
 export class Character extends JsonObject {
     /** Serve per ottimizzare i salvataggi su db per singolo personaggio */
@@ -11,6 +12,7 @@ export class Character extends JsonObject {
     public strength: number;
     public image: string;
     public bags: Bag[] = new JsonArray<Bag>(Bag);
+    public coins: Coins = new Coins();
 
     constructor(name?: string) {
         super();
@@ -39,7 +41,7 @@ export class Character extends JsonObject {
         return this.bags.filter(bag => !bag.isEquipped);
     }
     public get carriedWeight() {
-        return this.bags.map(bag => bag.totalWeight).reduce((a, b) => a + b, 0);
+        return this.bags.map(bag => bag.totalWeight).reduce((a, b) => a + b, 0) + this.coins.weight;
     }
     public get isEncumbered() {
         return this.carriedWeight > this.encumberedValue;

@@ -1,5 +1,8 @@
 page-items {
-    .search-bar{
+    button.new-button {
+        color: color($colors, primary)
+    }
+    .search-bar {
         padding-top: 0;
     }
 }

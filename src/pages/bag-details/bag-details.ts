@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Bag } from "../../model/bag";
 import { UtilityProvider } from "../../providers/utility/utility";
+import { CustomComponent } from "../../model/interface";
 
 @IonicPage()
 @Component({
   selector: 'page-bag-details',
   templateUrl: 'bag-details.html',
 })
-export class BagDetailsPage {
+export class BagDetailsPage extends CustomComponent {
   public bag: Bag = new Bag();
   public name: string;
   public weight: string;
@@ -18,9 +19,10 @@ export class BagDetailsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _utility: UtilityProvider,
-    private _alertCtrl: AlertController,
+    _utility: UtilityProvider,
+    _alertCtrl: AlertController,
   ) {
+    super(_utility, _alertCtrl);
     if (navParams.data.bag) {
       this.bag = navParams.data.bag;
       this.name = this.bag.name;
@@ -30,7 +32,7 @@ export class BagDetailsPage {
     }
   }
 
-  public get showDelete(){
+  public get showDelete() {
     return this._utility.session.character.bags.length > 2;
   }
 
@@ -44,24 +46,37 @@ export class BagDetailsPage {
   }
   public delete() {
     this._utility.translate(["ButtareBorsa", "ButtareBorsa?", "Si", "No"]).subscribe(values => {
+      let title = values["ButtareBorsa"];
       let message = values["ButtareBorsa?"].replace("{0}", this.bag.name);
-      this._alertCtrl.create({
-        title: values["ButtareBorsa"],
-        message: message,
-        buttons: [
-          {
-            text: values["No"]
-          },
-          {
-            text: values["Si"],
-            handler: () => {
-              this._utility.session.character.removeBag(this.bag);
-              this._utility.saveToStorage();
-              this.navCtrl.pop();
-            }
+      this._askConfirmation(title, message).then(() => {
+        this._askMoveItems().then(bag => {
+          if (bag != null) {
+            this.bag.items.forEach(bagItem => {
+              bag.addItem(bagItem.item, bagItem.quantity);
+            });
           }
-        ]
-      }).present();
+          this._utility.session.character.removeBag(this.bag);
+          this._utility.saveToStorage();
+          this.navCtrl.pop();
+        });
+      }).catch(() => { });
+    });
+  }
+
+  private _askMoveItems() {
+    return new Promise<Bag>((resolve, reject) => {
+      if (this.bag.items.length > 0) {
+        this._utility.translate(["SpostamentoOggetti", "SpostareOggetti?"]).subscribe(values => {
+          let title = values["SpostamentoOggetti"];
+          let message = values["SpostareOggetti?"];
+          this._askConfirmation(title, message).then(() => {
+            this._selectBag().then(bag => {
+              resolve(bag);
+            }).catch(() => { });
+          }).catch(() => { resolve(null) });
+        });
+      } else
+        resolve(null);
     });
   }
 

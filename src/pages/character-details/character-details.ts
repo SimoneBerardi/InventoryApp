@@ -3,13 +3,14 @@ import { IonicPage, NavController, NavParams, Events, AlertController } from 'io
 import { Character } from "../../model/character";
 import { UtilityProvider } from "../../providers/utility/utility";
 import { JsonObject } from "../../model/json-model";
+import { CustomComponent } from "../../model/interface";
 
 @IonicPage()
 @Component({
   selector: 'page-character-details',
   templateUrl: 'character-details.html',
 })
-export class CharacterDetailsPage implements OnInit {
+export class CharacterDetailsPage extends CustomComponent implements OnInit {
   public character: Character = new Character();
   public isEditing: boolean = false;
 
@@ -18,10 +19,11 @@ export class CharacterDetailsPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _utility: UtilityProvider,
+    _utility: UtilityProvider,
+    _alertCtrl: AlertController,
     private _events: Events,
-    private _alertCtrl: AlertController,
   ) {
+    super(_utility, _alertCtrl);
     if (navParams.data.isEditing)
       this.isEditing = navParams.data.isEditing;
   }
@@ -86,24 +88,13 @@ export class CharacterDetailsPage implements OnInit {
     this._utility.saveToStorage();
   }
   public delete() {
-    this._utility.translate(["CancellazionePersonaggio", "CancellarePersonaggio?", "Si", "No"]).subscribe(values => {
+    this._utility.translate(["CancellazionePersonaggio", "CancellarePersonaggio?"]).subscribe(values => {
+      let title = values["CancellazionePersonaggio"];
       let message = values["CancellarePersonaggio?"].replace("{0}", this.character.name);
-      this._alertCtrl.create({
-        title: values["CancellazionePersonaggio"],
-        message: message,
-        buttons: [
-          {
-            text: values["No"]
-          },
-          {
-            text: values["Si"],
-            handler: () => {
-              this._utility.removeCharacter(this.character);
-              this._events.publish("character-details:exit");
-            }
-          }
-        ]
-      }).present();
+      this._askConfirmation(title, message).then(() => {
+        this._utility.removeCharacter(this.character);
+        this._events.publish("character-details:exit");
+      }).catch(() => { });
     });
   }
 

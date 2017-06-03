@@ -12,6 +12,7 @@
       <ion-icon item-right name="{{fixedCapacityIconName}}" color="{{fixedCapacityIconColor}}"></ion-icon>
       <p class="weight" item-right>{{fixedCapacityDetails}} Kg</p>
     </ion-item>
+    <money *ngIf="isEquipped"></money>
     <ion-item *ngIf="totalWeight > 0" class="bag-total">
       {{"PesoTotale" | translate}}
       <p class="weight" item-right>{{totalWeight}} Kg</p>

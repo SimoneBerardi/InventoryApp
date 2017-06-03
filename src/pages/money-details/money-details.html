@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{"Monete" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label fixed>{{"Rame" | translate}}</ion-label>
+    <ion-input class="input-h1" type="number" [(ngModel)]="copper"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Argento" | translate}}</ion-label>
+    <ion-input class="input-h1" type="number" [(ngModel)]="silver"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Electrum" | translate}}</ion-label>
+    <ion-input class="input-h2" type="number" [(ngModel)]="electrum"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Oro" | translate}}</ion-label>
+    <ion-input class="input-h2" type="number" [(ngModel)]="gold"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label fixed>{{"Platino" | translate}}</ion-label>
+    <ion-input class="input-h2" type="number" [(ngModel)]="platinum"></ion-input>
+  </ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <button ion-col ion-button outline color="cancel" (click)="cancel()">{{"Annulla" | translate}}</button>
+      <button ion-col ion-button outline (click)="save()">{{"Ok" | translate}}</button>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

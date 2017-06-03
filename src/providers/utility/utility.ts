@@ -18,12 +18,14 @@ export class UtilityProvider {
     options: "inventoryApp_options",
     characters: "inventoryApp_characters",
     bags: "inventoryApp_bags",
-    bagItems: "inventoryApp_bagItems"
+    bagItems: "inventoryApp_bagItems",
+    customItems: "inventoryApp_customItems",
   };
 
   public images: any = {
     character: "assets/images/character_grayscale.png",
     bag: "assets/images/bag_grayscale.png",
+    coin: "assets/images/coin_grayscale.png",
   };
   public options: Options = new Options();
   public characters: Character[] = new Array<Character>();
@@ -48,9 +50,12 @@ export class UtilityProvider {
       // this.clearChache().then(() => {
       let promises = [];
       promises.push(this._loadOptions());
+      promises.push(this._loadCustomItems());
       promises.push(this._loadItems());
       promises.push(this._loadCharacters());
       Promise.all(promises).then(() => {
+        this.sortItems();
+        this._loadItemsLists();
         this._translateService.use(this.options.language);
         console.log("App inizializzata");
         resolve();
@@ -95,6 +100,28 @@ export class UtilityProvider {
   public saveToStorage() {
     this._saveCharacters();
     this._saveOptions();
+    this._saveCustomItems();
+  }
+  public addItem(item: Item) {
+    item.id = this._generateItemId();
+    this.items.push(item);
+    this.simpleItems.push(item);
+    return item;
+  }
+  public removeItem(item: Item) {
+    this.characters.forEach(character => {
+      character.bags.forEach(bag => {
+        bag.items.filter(bagItem => bagItem.item.id == item.id).forEach(bagItem => {
+          bag.items.splice(bag.items.indexOf(bagItem), 1);
+        });
+      });
+    });
+    this.items.splice(this.items.indexOf(item), 1);
+    this.simpleItems.splice(this.simpleItems.indexOf(item), 1);
+  }
+  public sortItems() {
+    this.items.sort(Item.sort);
+    this.simpleItems.sort(Item.sort);
   }
 
   private _loadItems() {
@@ -102,15 +129,6 @@ export class UtilityProvider {
       this._http.get("assets/items.json").subscribe(value => {
         value.json().items.forEach(jsonItem => {
           this.items.push(JsonObject.parse(Item, jsonItem));
-        });
-        this.items.sort(Item.sort);
-        this.items.forEach(item => {
-          if (item.tags.indexOf("weapons") >= 0)
-            this.weaponItems.push(item);
-          if (item.tags.indexOf("armors") >= 0)
-            this.armorItems.push(item);
-          if (item.tags.indexOf("items") >= 0)
-            this.simpleItems.push(item);
         });
         console.log("Oggetti caricati");
         resolve();
@@ -172,6 +190,38 @@ export class UtilityProvider {
   }
   private _saveOptions() {
     return this._storage.set(this._storageKeys.options, this.options);
+  }
+  private _generateItemId() {
+    let result = 1;
+    if (this.items.length > 0)
+      result = Math.max.apply(this, this.items.map(item => item.id)) + 1;
+    return result;
+  }
+  private _saveCustomItems() {
+    return this._storage.set(this._storageKeys.customItems, this.items.filter(item => item.isCustom));
+  }
+  private _loadCustomItems() {
+    return new Promise((resolve, reject) => {
+      this._storage.get(this._storageKeys.customItems).then(value => {
+        if (value != null) {
+          value.forEach(item => {
+            this.items.push(JsonObject.parse(Item, item))
+          });
+        }
+        console.log("Oggetti custom caricati");
+        resolve();
+      });
+    });
+  }
+  private _loadItemsLists() {
+    this.items.forEach(item => {
+      if (item.tags.indexOf("weapons") >= 0)
+        this.weaponItems.push(item);
+      if (item.tags.indexOf("armors") >= 0)
+        this.armorItems.push(item);
+      if (item.tags.indexOf("items") >= 0)
+        this.simpleItems.push(item);
+    });
   }
 
   //DEBUG

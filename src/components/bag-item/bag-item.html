@@ -2,15 +2,19 @@
   <ion-icon tappable *ngIf="!showOptions" name="ios-arrow-dropdown" item-left></ion-icon>
   <ion-icon tappable *ngIf="showOptions" name="ios-arrow-dropup" item-left></ion-icon>
   {{text}}
-  <p item-right>{{weight}} Kg</p>
+  <br>
+  <p *ngIf="description">{{description}}</p>
+  <p item-right *ngIf="weight > 0">{{weight}} Kg</p>
 </ion-item>
 <ion-grid *ngIf="showOptions" class="option-buttons">
   <ion-row>
-    <button ion-button ion-col outline color="secondary" (click)="add()" (mousedown)="addContinue()" (mouseup)="stop($event)">
+    <button ion-button ion-col outline color="secondary" (click)="add()" (mousedown)="addContinue()" (touchstart)="addContinue()"
+      (mouseup)="stop($event)" (touchend)="stop($event)">
       <ion-icon name="ios-add-circle-outline"></ion-icon>
       {{"Aggiungi" | translate}}
     </button>
-    <button ion-button ion-col outline color="danger" (click)="remove()" (mousedown)="removeContinue()" (mouseup)="stop($event)">
+    <button ion-button ion-col outline color="danger" (click)="remove()" (mousedown)="removeContinue()" (touchstart)="removeContinue()"
+      (mouseup)="stop($event)" (touchend)="stop($event)">
       <ion-icon name="ios-remove-circle-outline"></ion-icon>
       {{"Rimuovi" | translate}}
     </button>

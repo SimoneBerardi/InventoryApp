@@ -1,0 +1,13 @@
+<ion-item class="bag-money" tappable (click)="modify()">
+  <img class="image" src="{{image}}" alt="" item-left>
+  <ion-grid no-padding>
+    <ion-row no-padding>
+      <span ion-col class="coins" text-center>{{copper}}<br> MR</span>
+      <span ion-col class="coins" text-center>{{silver}}<br> MA</span>
+      <span ion-col class="coins" text-center *ngIf="electrum > 0">{{electrum}}<br> ME</span>
+      <span ion-col class="coins" text-center>{{gold}}<br> MO</span>
+      <span ion-col class="coins" text-center *ngIf="platinum > 0">{{platinum}}<br> MP</span>
+    </ion-row>
+  </ion-grid>
+  <p class="weight" item-right *ngIf="weight > 0">{{weight}} Kg</p>
+</ion-item>

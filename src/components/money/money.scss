@@ -1,0 +1,17 @@
+money {
+    .image {
+        max-height: 30px;
+    }
+    .bag-money {
+        background: #f4f4f4;
+        border-top: 1px solid gray;
+
+        ion-label{
+            white-space: normal;
+        }
+        .coins{
+            width: 20%;
+            max-width: 20%;
+        }
+    }
+}

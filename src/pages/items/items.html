@@ -2,13 +2,18 @@
 
   <ion-navbar>
     <ion-title>{{"ListaOggetti" | translate}}</ion-title>
+    <ion-buttons right>
+      <button ion-button class="new-button" (click)="add()">{{"Nuovo" | translate}}</button>
+    </ion-buttons>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'RicercaTreCaratteri' | translate}}" class="search-bar"></ion-searchbar>
+  </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{'RicercaTreCaratteri' | translate}}" class="search-bar"></ion-searchbar>
   <div *ngIf="!isSearching">
     <ion-segment [(ngModel)]="itemsType">
       <ion-segment-button value="weapons">
@@ -30,11 +35,11 @@
       <item *ngFor="let item of armors" [item]="item" (click)="addItem(item)"></item>
     </ion-list>
     <ion-list *ngSwitchCase="'simpleItems'">
-      <item *ngFor="let item of simpleItems" [item]="item" (click)="addItem(item)"></item>
+      <item *ngFor="let item of simpleItems" [item]="item" (click)="addItem(item)" (modify)="modifyItem(item)"></item>
     </ion-list>
   </div>
   <ion-list *ngIf="isSearching">
-    <item *ngFor="let item of items" [item]="item" (click)="addItem(item)"></item>
+    <item *ngFor="let item of items" [item]="item" (click)="addItem(item)" (modify)="modifyItem(item)"></item>
   </ion-list>
 </ion-content>
 

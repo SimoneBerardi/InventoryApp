@@ -38,6 +38,9 @@ export class BagItemComponent extends CustomComponent {
   public get canMove() {
     return this._utility.session.character.bags.length > 2;
   }
+  public get description(){
+    return this.bagItem.item.description;
+  }
 
   public toggleOptions() {
     if (this._showOptions && this._utility.session.selectedBagItem != this.bagItem)
@@ -75,11 +78,11 @@ export class BagItemComponent extends CustomComponent {
       this.bagItem.quantity--;
   }
   public equip() {
-    this._selectQuantity().then(quantity => {
+    this._selectQuantity(this.bagItem.quantity).then(quantity => {
       this.bag.removeItem(this.bagItem, quantity);
       this._utility.session.character.equippedBag.addItem(this.bagItem.item, quantity);
       this._utility.saveToStorage();
-    });
+    }).catch(() => { });
   }
   public unequip() {
     this._selectQuantity(this.bagItem.quantity).then(quantity => {

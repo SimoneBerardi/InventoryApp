@@ -52,5 +52,11 @@ export class ItemsPage extends CustomComponent implements OnInit {
       }).catch(() => { });
     }).catch(() => { });;
   }
+  public add(){
+    this.navCtrl.push("ItemDetailsPage");
+  }
+  public modifyItem(item: Item){
+    this.navCtrl.push("ItemDetailsPage", {item: item});
+  }
 
 }
