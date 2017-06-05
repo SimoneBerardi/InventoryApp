@@ -18,13 +18,7 @@ export class Character extends JsonObject {
         super();
         if (name) {
             this.name = name;
-            this.race = "Razza";
-            this.class = "Classe";
             this.strength = 10;
-            let bag = this.addBag("Equipaggiato");
-            bag.isEquipped = true;
-            bag = this.addBag("Zaino");
-            bag.weight = 2.5;
         }
     }
 

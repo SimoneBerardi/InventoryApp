@@ -54,8 +54,9 @@ export class CharactersListPage implements OnInit {
                   ]
                 }).present();
               } else {
-                let character = this._utility.addCharacter(data.name);
-                this.select(character);
+                this._utility.addCharacter(data.name).then(character => {
+                  this.select(character);
+                });
               }
             }
           }
@@ -66,6 +67,9 @@ export class CharactersListPage implements OnInit {
   public select(character: Character) {
     this._utility.selectCharacter(character);
     this.navCtrl.push("HomePage");
+  }
+  public showOptions(){
+    this.navCtrl.push("OptionsPage");
   }
 
 }

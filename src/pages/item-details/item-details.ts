@@ -66,7 +66,10 @@ export class ItemDetailsPage extends CustomComponent {
   private _validate(item: Item) {
     item.name = this.name;
     item.description = this.description;
-    item.weight = this.weight;
+    if (this.weight != undefined)
+      item.weight = this.weight;
+    else
+      item.weight = 0;
     item.tags = "items";
   }
 

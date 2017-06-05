@@ -39,31 +39,37 @@ export class UtilityProvider {
 
   constructor(
     private _storage: Storage,
-    private _translateService: TranslateService,
+    public _translateService: TranslateService,
     private _http: Http,
   ) {
-    this._translateService.setDefaultLang("it");
+    this._translateService.setDefaultLang("en");
+  }
+
+  public get language() {
+    return this._translateService.currentLang;
   }
 
   public init() {
     return new Promise((resolve, reject) => {
       // this.clearChache().then(() => {
-      let promises = [];
-      promises.push(this._loadOptions());
-      promises.push(this._loadCustomItems());
-      promises.push(this._loadItems());
-      promises.push(this._loadCharacters());
-      Promise.all(promises).then(() => {
-        this.sortItems();
-        this._loadItemsLists();
+      this._loadOptions().then(() => {
         this._translateService.use(this.options.language);
-        console.log("App inizializzata");
-        resolve();
+        this._loadAllItems().then(() => {
+          this._loadCharacters().then(() => {
+            console.log("App inizializzata");
+            resolve();
+          });
+        });
       });
       // });
     });
   }
   public clearChache() {
+    this.characters = new Array<Character>();
+    this.items = new Array<Item>();
+    this.weaponItems = new Array<Item>();
+    this.armorItems = new Array<Item>();
+    this.simpleItems = new Array<Item>();
     return this._storage.clear();
   }
   public translate(key: string | Array<string>, ) {
@@ -73,11 +79,21 @@ export class UtilityProvider {
     return this.characters.filter(char => char.name == name).length > 0;
   }
   public addCharacter(name: string) {
-    let character = new Character(name);
-    character.id = this._generateCharacterId();
-    this.characters.push(character);
-    this._saveCharacters();
-    return character;
+    return new Promise<Character>((resolve, reject) => {
+      this.translate(["Classe", "Razza", "Equipaggiato", "Zaino"]).subscribe(values => {
+        let character = new Character(name);
+        character.race = values["Razza"];
+        character.class = values["Classe"];
+        let bag = character.addBag(values["Equipaggiato"]);
+        bag.isEquipped = true;
+        bag = character.addBag(values["Zaino"]);
+        bag.weight = 2.5;
+        character.id = this._generateCharacterId();
+        this.characters.push(character);
+        this._saveCharacters();
+        resolve(character);
+      });
+    })
   }
   public removeCharacter(character: Character) {
     this.characters.splice(this.characters.indexOf(character), 1);
@@ -123,10 +139,35 @@ export class UtilityProvider {
     this.items.sort(Item.sort);
     this.simpleItems.sort(Item.sort);
   }
+  public setLanguage(language: string) {
+    return new Promise<void>((resolve, reject) => {
+      this.options.language = language;
+      this._translateService.use(language);
+      this._loadAllItems().then(() => {
+        resolve();
+      })
+    });
+  }
 
+  private _loadAllItems() {
+    return new Promise((resolve, reject) => {
+      this.items = new Array<Item>();
+      this.weaponItems = new Array<Item>();
+      this.armorItems = new Array<Item>();
+      this.simpleItems = new Array<Item>();
+      this._loadCustomItems().then(() => {
+        this._loadItems().then(() => {
+          this.sortItems();
+          this._loadItemsLists();
+          resolve();
+        });
+      });
+    });
+  }
   private _loadItems() {
     return new Promise((resolve, reject) => {
-      this._http.get("assets/items.json").subscribe(value => {
+      let fileName = "assets/items." + this._translateService.currentLang + ".json";
+      this._http.get(fileName).subscribe(value => {
         value.json().items.forEach(jsonItem => {
           this.items.push(JsonObject.parse(Item, jsonItem));
         });

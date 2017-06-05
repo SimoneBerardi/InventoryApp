@@ -37,8 +37,8 @@
     "Ottimo": "Ottimo",
     "Attenzione": "Attenzione",
     "NotEncumberedMessage": "Il tuo personaggio non è ingombrato!",
-    "EncumberedMessage": "Il tuo personaggio è ingombrato, la sua velocità è ridotta di 3m",
-    "HeavilyEncumberedMessage": "Il tuo personaggio è molto ingombrato, la sua velocità è ridotta di 6m",
+    "EncumberedMessage": "Il tuo personaggio è ingombrato, la sua velocità è ridotta di 3 metri",
+    "HeavilyEncumberedMessage": "Il tuo personaggio è molto ingombrato, la sua velocità è ridotta di 6 metri",
     "MaxCarryMessage": "Il tuo personaggio non può trasportare così tanto peso, non si può muovere!",
     "ButtareBorsa": "Buttare borsa",
     "ButtareBorsa?": "Buttare la borsa {0}?",
@@ -65,5 +65,13 @@
     "Platino": "Platino",
     "Monete": "Monete",
     "SpostamentoOggetti": "Spostamento oggetti",
-    "SpostareOggetti?": "Spostare gli oggetti in un altro zaino?"
+    "SpostareOggetti?": "Spostare gli oggetti in un altro zaino?",
+    "Armi": "Armi",
+    "Armature": "Armature",
+    "Equipaggiato": "Equipaggiato",
+    "Zaino": "Zaino",
+    "Descrizione": "Descrizione",
+    "Opzioni": "Opzioni",
+    "ResetCompleto": "Reset completo",
+    "FareResetCompleto?": "Fare un reset completo alle impostazioni di fabbrica?"
 }

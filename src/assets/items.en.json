@@ -1,0 +1,1108 @@
+{
+  "items": [
+    {
+      "id": 0,
+      "name": "Padded armor",
+      "weight": 4.0,
+      "tags": "armors"
+    },
+    {
+      "id": 1,
+      "name": "Leather armor",
+      "weight": 5.0,
+      "tags": "armors"
+    },
+    {
+      "id": 2,
+      "name": "Studded leather armor",
+      "weight": 6.5,
+      "tags": "armors"
+    },
+    {
+      "id": 3,
+      "name": "Hide armor",
+      "weight": 6.0,
+      "tags": "armors"
+    },
+    {
+      "id": 4,
+      "name": "Chain shirt",
+      "weight": 10.0,
+      "tags": "armors"
+    },
+    {
+      "id": 5,
+      "name": "Scale mail armor",
+      "weight": 22.5,
+      "tags": "armors"
+    },
+    {
+      "id": 6,
+      "name": "Breastplate",
+      "weight": 10.0,
+      "tags": "armors"
+    },
+    {
+      "id": 7,
+      "name": "Half plate armor",
+      "weight": 20.0,
+      "tags": "armors"
+    },
+    {
+      "id": 8,
+      "name": "Ring mail armor",
+      "weight": 20.0,
+      "tags": "armors"
+    },
+    {
+      "id": 9,
+      "name": "Chain mail armor",
+      "weight": 27.5,
+      "tags": "armors"
+    },
+    {
+      "id": 10,
+      "name": "Splint armor",
+      "weight": 30.0,
+      "tags": "armors"
+    },
+    {
+      "id": 11,
+      "name": "Plate armor",
+      "weight": 32.5,
+      "tags": "armors"
+    },
+    {
+      "id": 12,
+      "name": "Shield",
+      "weight": 3.0,
+      "tags": "armors"
+    },
+    {
+      "id": 13,
+      "name": "Abacus",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 14,
+      "name": "Common clothes",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 15,
+      "name": "Traveler's cloths",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 16,
+      "name": "Fine clothes",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 17,
+      "name": "Costume clothes",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 18,
+      "name": "Acid (vial)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 19,
+      "name": "Holy water (flask)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 20,
+      "name": "Flask or tankard",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 21,
+      "name": "Signet ring",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 22,
+      "name": "Antitoxin (vial)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 23,
+      "name": "Portable ram",
+      "weight": 17.5,
+      "tags": "items"
+    },
+    {
+      "id": 24,
+      "name": "Pole (3 meters)",
+      "weight": 3.5,
+      "tags": "items"
+    },
+    {
+      "id": 25,
+      "name": "Fishing tackle",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 26,
+      "name": "Barrel",
+      "weight": 35.0,
+      "tags": "items"
+    },
+    {
+      "id": 27,
+      "name": "Ball bearings (bag of 1000)",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 28,
+      "name": "Merchant's scale",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 29,
+      "name": "Component pouch",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 31,
+      "name": "Glass bottle",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 32,
+      "name": "Jug or pitcher",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 33,
+      "name": "Bell",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 34,
+      "name": "Candle",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 35,
+      "name": "Spyglass",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 36,
+      "name": "Block and tackle",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 37,
+      "name": "Paper (one sheet)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 38,
+      "name": "Chain (3 meters)",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 39,
+      "name": "Sealing wax",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 40,
+      "name": "Basket",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 41,
+      "name": "Piton",
+      "weight": 0.12,
+      "tags": "items"
+    },
+    {
+      "id": 42,
+      "name": "Hourglass",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 43,
+      "name": "Blanket",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 44,
+      "name": "Hempen rope (15 meters)",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 45,
+      "name": "Silk rope (15 meters)",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 46,
+      "name": "Whetstone",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 47,
+      "name": "Quiver",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 48,
+      "name": "Vial",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 49,
+      "name": "Signal whistle",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 50,
+      "name": "Arcane focus (Wand)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 51,
+      "name": "Arcane focus (Staff)",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 52,
+      "name": "Arcane focus (Crystal)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 53,
+      "name": "Arcane focus (Orb)",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 54,
+      "name": "Arcane focus (Rod)",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 55,
+      "name": "Druidic focus (Yew wand)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 56,
+      "name": "Druidic focus (Wooden staff)",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 57,
+      "name": "Druidic focus (Sprig of mistletoe)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 58,
+      "name": "Druidic focus (Totem)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 59,
+      "name": "Chest",
+      "weight": 12.5,
+      "tags": "items"
+    },
+    {
+      "id": 60,
+      "name": "Alchemist's fire",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 61,
+      "name": "Chalk (1 piece)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 62,
+      "name": "Bedroll",
+      "weight": 3.5,
+      "tags": "items"
+    },
+    {
+      "id": 63,
+      "name": "Ink (10 grams bottle)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 64,
+      "name": "Healer's kit",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 65,
+      "name": "Mess kit",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 66,
+      "name": "Climber's kit",
+      "weight": 6.0,
+      "tags": "items"
+    },
+    {
+      "id": 67,
+      "name": "Lamp",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 68,
+      "name": "Bullseye lantern",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 69,
+      "name": "Hooded lantern",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 70,
+      "name": "Magnifying glass",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 71,
+      "name": "Book",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 72,
+      "name": "Spellbook",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 73,
+      "name": "Manacles",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 74,
+      "name": "Hammer",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 75,
+      "name": "Blacksmith hammer",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 76,
+      "name": "Blowbug needles (50)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 77,
+      "name": "Arrows (20)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 78,
+      "name": "Sling bullets (20)",
+      "weight": 0.75,
+      "tags": "items"
+    },
+    {
+      "id": 79,
+      "name": "Crossbow bolts (20)",
+      "weight": 0.75,
+      "tags": "items"
+    },
+    {
+      "id": 80,
+      "name": "Oil (flask)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 81,
+      "name": "Waterskin",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 82,
+      "name": "Shovel",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 83,
+      "name": "Ink pen",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 84,
+      "name": "Parchment (one sheet)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 85,
+      "name": "Miner's pick",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 86,
+      "name": "Crowbar",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 87,
+      "name": "Potion of healing",
+      "weight": 0.25,
+      "tags": "items"
+    },
+    {
+      "id": 88,
+      "name": "Porfume (vial)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 89,
+      "name": "Grappling hook",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 90,
+      "name": "Rations (1 day)",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 91,
+      "name": "Sack",
+      "weight": 0.25,
+      "tags": "items"
+    },
+    {
+      "id": 92,
+      "name": "Soap",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 93,
+      "name": "Ladder (3 meters)",
+      "weight": 12.5,
+      "tags": "items"
+    },
+    {
+      "id": 94,
+      "name": "Baitbox",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 95,
+      "name": "Map or scroll case",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 96,
+      "name": "Crossbow bolt case",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 97,
+      "name": "Bucket",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 98,
+      "name": "Lock",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 99,
+      "name": "Holy symbol (Amulet)",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 100,
+      "name": "Holy symbol (Emblem)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 101,
+      "name": "Holy symbol (Reliquary)",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 102,
+      "name": "Steel mirror",
+      "weight": 0.25,
+      "tags": "items"
+    },
+    {
+      "id": 103,
+      "name": "Iron spikes (10)",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 104,
+      "name": "Tent, two person",
+      "weight": 10.0,
+      "tags": "items"
+    },
+    {
+      "id": 105,
+      "name": "Torch",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 106,
+      "name": "Hunting trap",
+      "weight": 12.5,
+      "tags": "items"
+    },
+    {
+      "id": 107,
+      "name": "Caltrops (bag of 20)",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 108,
+      "name": "Iron pot",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 109,
+      "name": "Basic poison (vial)",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 110,
+      "name": "Robes",
+      "weight": 2.0,
+      "tags": "items"
+    },
+    {
+      "id": 112,
+      "name": "Alchemist's supplies",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 113,
+      "name": "Brewer's supplies",
+      "weight": 4.5,
+      "tags": "items"
+    },
+    {
+      "id": 114,
+      "name": "Calligrapher's supplies",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 115,
+      "name": "Cobbler's tools",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 116,
+      "name": "Carpenter's tools",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 117,
+      "name": "Cartographer's tools",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 118,
+      "name": "Cook's utensils",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 119,
+      "name": "Smith's tools",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 120,
+      "name": "Woodcarvers' tools",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 121,
+      "name": "Jeweler's tools",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 122,
+      "name": "Mason's tools",
+      "weight": 4.0,
+      "tags": "items"
+    },
+    {
+      "id": 123,
+      "name": "Leatherworker's tools",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 124,
+      "name": "Painter's supplies",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 125,
+      "name": "Glassblower's tools",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 126,
+      "name": "Tinker's tools",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 127,
+      "name": "Weaver's tools",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 128,
+      "name": "Potter's tools",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 129,
+      "name": "Poisoner's kit",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 130,
+      "name": "Herbalism kit",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 131,
+      "name": "Forgery kit",
+      "weight": 2.5,
+      "tags": "items"
+    },
+    {
+      "id": 132,
+      "name": "Thieve's tools",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 133,
+      "name": "Navigator's tools",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 134,
+      "name": "Playing card set",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 135,
+      "name": "Three-Dragon Ante set",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 136,
+      "name": "Dice set",
+      "weight": 0.0,
+      "tags": "items"
+    },
+    {
+      "id": 137,
+      "name": "Dragonchess set",
+      "weight": 0.25,
+      "tags": "items"
+    },
+    {
+      "id": 138,
+      "name": "Shawm",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 139,
+      "name": "Bagpipes",
+      "weight": 3.0,
+      "tags": "items"
+    },
+    {
+      "id": 140,
+      "name": "Horn",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 141,
+      "name": "Dulcimer",
+      "weight": 5.0,
+      "tags": "items"
+    },
+    {
+      "id": 142,
+      "name": "Flute",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 143,
+      "name": "Lyre",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 144,
+      "name": "Lute",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 145,
+      "name": "Drum",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 146,
+      "name": "Viol",
+      "weight": 0.5,
+      "tags": "items"
+    },
+    {
+      "id": 147,
+      "name": "Pan flute",
+      "weight": 1.0,
+      "tags": "items"
+    },
+    {
+      "id": 148,
+      "name": "Disguise kit",
+      "weight": 1.5,
+      "tags": "items"
+    },
+    {
+      "id": 149,
+      "name": "Handaxe",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 150,
+      "name": "Quarterstaff",
+      "weight": 2.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 151,
+      "name": "Sickle",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 152,
+      "name": "Javelin",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 153,
+      "name": "Spear",
+      "weight": 1.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 154,
+      "name": "Light hammer",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 155,
+      "name": "Mace",
+      "weight": 2.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 156,
+      "name": "Dagger",
+      "weight": 0.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 157,
+      "name": "Club",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 158,
+      "name": "Greatclub",
+      "weight": 5.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 159,
+      "name": "Shortbow",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 160,
+      "name": "Light crossbow",
+      "weight": 2.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 161,
+      "name": "Dart",
+      "weight": 0.12,
+      "tags": "weapons"
+    },
+    {
+      "id": 162,
+      "name": "Sling",
+      "weight": 0.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 163,
+      "name": "Halberd",
+      "weight": 3.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 164,
+      "name": "Battleaxe",
+      "weight": 2.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 165,
+      "name": "Greataxe",
+      "weight": 3.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 166,
+      "name": "Rapier",
+      "weight": 3.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 167,
+      "name": "Whip",
+      "weight": 1.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 168,
+      "name": "Lance",
+      "weight": 3.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 169,
+      "name": "Maul",
+      "weight": 5.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 170,
+      "name": "Warhammer",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 171,
+      "name": "Morningstar",
+      "weight": 2.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 172,
+      "name": "Flail",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 173,
+      "name": "Pike",
+      "weight": 9.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 174,
+      "name": "War pick",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 175,
+      "name": "Scimitar",
+      "weight": 1.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 176,
+      "name": "Shortsword",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 177,
+      "name": "Greatsword",
+      "weight": 3.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 178,
+      "name": "Longsword",
+      "weight": 1.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 179,
+      "name": "Glaive",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 180,
+      "name": "Trident",
+      "weight": 2.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 181,
+      "name": "Longbow",
+      "weight": 1.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 182,
+      "name": "Heavy crossbow",
+      "weight": 9.0,
+      "tags": "weapons"
+    },
+    {
+      "id": 183,
+      "name": "Hand crossbow",
+      "weight": 1.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 184,
+      "name": "Blowgun",
+      "weight": 0.5,
+      "tags": "weapons"
+    },
+    {
+      "id": 185,
+      "name": "Net",
+      "weight": 1.5,
+      "tags": "weapons"
+    }
+  ]
+}
