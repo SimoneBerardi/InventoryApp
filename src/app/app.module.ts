@@ -8,8 +8,13 @@ import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { UtilityProvider } from '../providers/utility/utility';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpModule } from '@angular/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -17,16 +22,17 @@ import { Http, HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [Http]
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
-    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -40,8 +46,3 @@ import { Http, HttpModule } from '@angular/http';
   ]
 })
 export class AppModule { }
-
-export function createTranslateLoader(http: Http) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
