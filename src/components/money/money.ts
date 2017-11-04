@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UtilityProvider } from "../../providers/utility/utility";
-import { AlertController, ModalController } from "ionic-angular";
+import { ModalController } from "ionic-angular";
+import { SessionProvider } from '../../providers/session/session';
 
 @Component({
   selector: 'money',
@@ -10,40 +11,40 @@ export class MoneyComponent {
 
   constructor(
     private _utility: UtilityProvider,
-    private _alertCtrl: AlertController,
     private _modalCtrl: ModalController,
+    private _session: SessionProvider,
   ) {
   }
 
-  public get coins() {
-    return this._utility.session.character.coins;
+  get coins() {
+    return this._session.character.coins;
   }
-  public get image() {
+  get image() {
     return this._utility.images.coin;
   }
-  public get weight() {
+  get weight() {
     return this.coins.weight;
   }
-  public get hasCoins() {
+  get hasCoins() {
     return this.coins.hasValue;
   }
-  public get copper() {
+  get copper() {
     return this.coins.Copper;
   }
-  public get silver() {
+  get silver() {
     return this.coins.Silver;
   }
-  public get electrum() {
+  get electrum() {
     return this.coins.Electrum;
   }
-  public get gold() {
+  get gold() {
     return this.coins.Gold;
   }
-  public get platinum() {
+  get platinum() {
     return this.coins.Platinum;
   }
 
-  public modify() {
+  modify() {
     this._modalCtrl.create("MoneyDetailsPage").present();
   }
 

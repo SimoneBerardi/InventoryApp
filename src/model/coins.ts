@@ -1,6 +1,6 @@
-import { JsonObject } from "./json-model";
+import { Jsonable } from "./jsonable";
 
-export class Coins extends JsonObject {
+export class Coins extends Jsonable{
     Copper: number = 0;
     Silver: number = 0;
     Electrum: number = 0;

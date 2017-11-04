@@ -1,100 +1,106 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Character } from "../../model/character";
 import { UtilityProvider } from "../../providers/utility/utility";
-import { JsonObject } from "../../model/json-model";
-import { CustomComponent } from "../../model/interface";
+import { SessionProvider } from '../../providers/session/session';
+import { CharactersListProvider } from '../../providers/characters-list/characters-list';
+import { InterfaceProvider } from '../../providers/interface/interface';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @IonicPage()
 @Component({
   selector: 'page-character-details',
   templateUrl: 'character-details.html',
 })
-export class CharacterDetailsPage extends CustomComponent implements OnInit {
-  public character: Character = new Character();
-  public isEditing: boolean = false;
+export class CharacterDetailsPage implements OnInit {
+  character: Character;
+  isEditing: boolean = false;
 
-  private _savedCharacter: Character;
+  name: string;
+  race: string;
+  class: string;
+  strength: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    _utility: UtilityProvider,
-    _alertCtrl: AlertController,
     private _events: Events,
+    private _session: SessionProvider,
+    private _utility: UtilityProvider,
+    private _characters: CharactersListProvider,
+    private _interface: InterfaceProvider,
+    private _translate: TranslateProvider,
   ) {
-    super(_utility, _alertCtrl);
-    if (navParams.data.isEditing)
-      this.isEditing = navParams.data.isEditing;
   }
 
   ngOnInit() {
-    this.character = this._utility.session.character;
+    this.character = this._session.character;
+  }
+  ngOnChanges() {
+    this.name = this.character.name;
+    this.race = this.character.race;
+    this.class = this.character.class;
+    this.strength = this.character.strength;
   }
 
-  public get name() {
-    return this.character.name;
-  }
-  public set name(value: string) {
-    this.character.name = value;
-  }
-  public get image() {
-    return this._utility.getImage(this.character);
-  }
-  public get description() {
+  get description() {
     return this.character.description;
   }
-  public get strength() {
-    return this.character.strength;
+  get image() {
+    return this._utility.getCharacterImage(this.character);
   }
-  public set strength(value: number) {
-    this.character.strength = value;
-  }
-  public get race() {
-    return this.character.race;
-  }
-  public set race(value: string) {
-    this.character.race = value;
-  }
-  public get class() {
-    return this.character.class;
-  }
-  public set class(value: string) {
-    this.character.class = value;
-  }
-  public get encumberedValue() {
+  get encumberedValue() {
     return this.character.encumberedValue;
   }
-  public get heavilyEncumberedValue() {
+  get heavilyEncumberedValue() {
     return this.character.heavilyEncumberedValue;
   }
-  public get maxCarryValue() {
+  get maxCarryValue() {
     return this.character.maxCarryValue;
   }
 
-  public exit() {
+  exit() {
     this._events.publish("character-details:exit");
   }
-  public modify() {
-    this._savedCharacter = Object.assign({}, this.character);
+  modify() {
     this.isEditing = true;
+    this.ngOnChanges();
   }
-  public cancelEditing() {
-    this.character = JsonObject.parse(Character, this._savedCharacter);
+  cancel() {
     this.isEditing = false;
   }
-  public save() {
-    this.isEditing = false;
-    this._utility.saveToStorage();
+  save() {
+    return this._interface.showLoaderLanguage("Salvataggio").then(() => {
+      let saveCharacter: Character = Object.assign({}, this.character);
+      saveCharacter.name = this.name;
+      saveCharacter.race = this.race;
+      saveCharacter.class = this.class;
+      saveCharacter.strength = this.strength;
+      return this._characters.update(saveCharacter);
+    }).then(() => {
+      this._interface.hideLoader();
+      this.isEditing = false;
+      return;
+    });
   }
-  public delete() {
-    this._utility.translate(["CancellazionePersonaggio", "CancellarePersonaggio?"]).subscribe(values => {
+  delete() {
+    return this._translate.translate(["CancellazionePersonaggio", "CancellarePersonaggio?"]).then(values => {
       let title = values["CancellazionePersonaggio"];
       let message = values["CancellarePersonaggio?"].replace("{0}", this.character.name);
-      this._askConfirmation(title, message).then(() => {
-        this._utility.removeCharacter(this.character);
-        this._events.publish("character-details:exit");
-      }).catch(() => { });
+      return this._interface.askConfirmation(title, message)
+    }).then(isConfirmed => {
+      if (isConfirmed)
+        return this._interface.showLoaderLanguage("Salvataggio").then(() => {
+          return this._characters.remove(this.character);
+        }).then(() => {
+          this._interface.hideLoader();
+          return;
+        })
+      else
+        return Promise.resolve();
+    }).catch(error => {
+      this._interface.showError(error);
+      console.log(error);
     });
   }
 

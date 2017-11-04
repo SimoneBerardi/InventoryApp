@@ -18,6 +18,8 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+      if (location.href.indexOf("#") >= 0)
+        location.assign(location.origin);
       this._utility.init().then(() => {
         this.rootPage = "CharactersListPage";
         statusBar.styleDefault();

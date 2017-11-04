@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Bag } from "../../model/bag";
 import { UtilityProvider } from "../../providers/utility/utility";
+import { BagItem } from '../../model/bag-item';
 
 @Component({
   selector: 'bag',
@@ -10,49 +11,51 @@ export class BagComponent {
   @Input() bag: Bag;
   @Output() edit: EventEmitter<null> = new EventEmitter();
 
+  selectedItem: BagItem;
+
   constructor(
     private _utility: UtilityProvider,
   ) {
   }
 
-  public get name() {
+  get name() {
     return this.bag.name;
   }
-  public get items() {
+  get items() {
     return this.bag.items;
   }
-  public get totalWeight() {
+  get totalWeight() {
     return this.bag.totalWeight;
   }
-  public get isEquipped() {
+  get isEquipped() {
     return this.bag.isEquipped;
   }
-  public get image() {
+  get image() {
     return this._utility.images.bag;
   }
-  public get isFixedWeight() {
+  get isFixedWeight() {
     return this.bag.isFixedWeight;
   }
-  public get isOverCapacity() {
+  get isOverCapacity() {
     return this.bag.isOverCapacity;
   }
-  public get fixedCapacityIconName() {
+  get fixedCapacityIconName() {
     return this.bag.isOverCapacity ? "warning" : "checkmark-circle";
   }
-  public get fixedCapacityIconColor() {
+  get fixedCapacityIconColor() {
     return this.bag.isOverCapacity ? "warning" : "secondary";
   }
-  public get showTotal() {
+  get showTotal() {
     return this.bag.isFixedWeight || this.bag.totalWeight > 0;
   }
-  public get showDetails() {
+  get showDetails() {
     return this.bag.isFixedWeight && this.bag.itemsWeight > 0;
   }
-  public get fixedCapacityDetails() {
+  get fixedCapacityDetails() {
     return this.bag.itemsWeight + " / " + this.bag.capacity;
   }
 
-  public editEvent() {
+  editEvent() {
     this.edit.emit();
   }
 }

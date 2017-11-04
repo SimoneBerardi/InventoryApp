@@ -14,13 +14,13 @@ export class CharacterComponent {
   ) {
   }
 
-  public get image() {
-    return this._utility.getImage(this.character);
+  get image() {
+    return this._utility.getCharacterImage(this.character);
   }
-  public get name() {
+  get name() {
     return this.character.name;
   }
-  public get description() {
+  get description() {
     return this.character.description;
   }
 

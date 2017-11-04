@@ -1,19 +1,18 @@
 import { Item } from "./item";
-import { JsonObject } from "./json-model";
+import { Serializable, Jsonable } from "./jsonable";
 
-export class BagItem extends JsonObject {
+export class BagItem extends Jsonable {
     public id: number;
     public itemId: number;
     public quantity: number;
-    public item: Item = new Item();
+    @Serializable(false)
+    public item: Item;
 
-    constructor(item?: Item) {
+    constructor(itemId: number, item: Item) {
         super();
+        this.itemId = itemId;
+        this.item = item;
         this.quantity = 1;
-        if (item) {
-            this.itemId = item.id;
-            this.item = item;
-        }
     }
 
     public get text() {
@@ -24,11 +23,5 @@ export class BagItem extends JsonObject {
     }
     public get weight() {
         return this.item.weight * this.quantity;
-    }
-
-    public toJSON() {
-        return Object.assign({}, this, {
-            item: undefined
-        });
     }
 }

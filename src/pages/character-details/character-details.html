@@ -5,7 +5,7 @@
       <button *ngIf="!isEditing" ion-button icon-only (click)="exit()">
         <ion-icon class="exit-icon" name="exit"></ion-icon>
       </button>
-      <button *ngIf="isEditing" ion-button (click)="cancelEditing()" class="edit-button">
+      <button *ngIf="isEditing" ion-button (click)="cancel()" class="edit-button">
         {{"Annulla" | translate}}
       </button>
     </ion-buttons>

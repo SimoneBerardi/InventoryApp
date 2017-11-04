@@ -1,52 +1,55 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UtilityProvider } from "../../providers/utility/utility";
-import { CustomComponent } from "../../model/interface";
+import { OptionsProvider } from '../../providers/options/options';
+import { InterfaceProvider } from '../../providers/interface/interface';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @IonicPage()
 @Component({
   selector: 'page-options',
   templateUrl: 'options.html',
 })
-export class OptionsPage extends CustomComponent implements OnInit {
+export class OptionsPage implements OnInit {
 
-  public language: string;
+  language: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    _utility: UtilityProvider,
-    _alertCtrl: AlertController,
+    private _options: OptionsProvider,
+    private _interface: InterfaceProvider,
+    private _translate: TranslateProvider,
+    private _utility: UtilityProvider,
   ) {
-    super(_utility, _alertCtrl);
   }
 
   ngOnInit() {
-    this.language = this._utility.language;
+    this.language = this._options.language;
   }
 
-  public cancel() {
-    this.navCtrl.pop();
+  cancel() {
+    return this.navCtrl.pop();
   }
-  public save() {
-    this._utility.setLanguage(this.language).then(() => {
-      this._utility.saveToStorage();
-      this.navCtrl.pop();
+  save() {
+    return this._options.setLanguage(this.language).then(() => {
+      return this._options.save();
+    }).then(() => {
+      return this.navCtrl.pop();
     });
   }
-  public reset() {
-    this._utility.translate(["Attenzione", "FareResetCompleto?"]).subscribe(values => {
+  reset() {
+    return this._translate.translate(["Attenzione", "FareResetCompleto?"]).then(values => {
       let title = values["Attenzione"];
       let message = values["FareResetCompleto?"];
-      this._askConfirmation(title, message).then(() => {
-        this._utility.clearChache().then(() => {
-          this._utility.init().then(() => {
-            this.navCtrl.setRoot("CharactersListPage");
-          });
+      return this._interface.askConfirmation(title, message);
+    }).then(isConfirmed => {
+      if (isConfirmed)
+        return this._utility.reset().then(() => {
+          return this.navCtrl.setRoot("CharactersListPage");
         });
-      }).catch(() => { });
-    });
-
+      else
+        return Promise.resolve();
+    }).catch(() =>{});
   }
-
 }

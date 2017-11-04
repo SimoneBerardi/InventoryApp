@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Character } from "../../model/character";
-import { UtilityProvider } from "../../providers/utility/utility";
+import { CharactersListProvider } from '../../providers/characters-list/characters-list';
+import { SessionProvider } from '../../providers/session/session';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @IonicPage()
 @Component({
@@ -9,28 +11,30 @@ import { UtilityProvider } from "../../providers/utility/utility";
   templateUrl: 'characters-list.html',
 })
 export class CharactersListPage implements OnInit {
-  public characters: Character[];
+  characters: Character[];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _utility: UtilityProvider,
     private _alertCtrl: AlertController,
+    private _characters: CharactersListProvider,
+    private _session: SessionProvider,
+    private _translate: TranslateProvider,
   ) {
   }
 
   ngOnInit() {
-    this.characters = this._utility.characters;
+    this.characters = this._characters.characters;
     if (this.characters.length == 1) {
       this.select(this.characters[0]);
     }
   }
 
-  public add() {
-    this._utility.translate(["NuovoPersonaggio", "Crea", "Annulla", "ComeVuoiChiamarlo?", "NomeGiaUsato", "ScegliAltroNome", "Ok"]).subscribe(values => {
+  add() {
+    return this._translate.translate(["NuovoPersonaggio", "Crea", "Annulla", "ScegliUnNome", "NomeGiaUsato", "ScegliAltroNome", "Ok"]).then(values => {
       this._alertCtrl.create({
         title: values["NuovoPersonaggio"],
-        message: values["ComeVuoiChiamarlo?"],
+        message: values["ScegliUnNome"],
         inputs: [
           {
             name: "name",
@@ -43,7 +47,7 @@ export class CharactersListPage implements OnInit {
           {
             text: values["Crea"],
             handler: data => {
-              if (this._utility.checkDuplicateChar(data.name)) {
+              if (this._characters.nameAlreadyExists(data.name)) {
                 this._alertCtrl.create({
                   title: values["NomeGiaUsato"],
                   message: values["UsaAltroNome"],
@@ -54,8 +58,8 @@ export class CharactersListPage implements OnInit {
                   ]
                 }).present();
               } else {
-                this._utility.addCharacter(data.name).then(character => {
-                  this.select(character);
+                this._characters.add(data.name).then(character => {
+                  return this.select(character);
                 });
               }
             }
@@ -64,12 +68,12 @@ export class CharactersListPage implements OnInit {
       }).present();
     });
   }
-  public select(character: Character) {
-    this._utility.selectCharacter(character);
-    this.navCtrl.push("HomePage");
+  select(character: Character) {
+    this._session.loadCharacter(character);
+    return this.navCtrl.push("HomePage");
   }
-  public showOptions(){
-    this.navCtrl.push("OptionsPage");
+  showOptions() {
+    return this.navCtrl.push("OptionsPage");
   }
 
 }

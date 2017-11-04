@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { UtilityProvider } from "../../providers/utility/utility";
+import { SessionProvider } from '../../providers/session/session';
 
 @IonicPage()
 @Component({
@@ -8,17 +8,17 @@ import { UtilityProvider } from "../../providers/utility/utility";
   templateUrl: 'money-details.html',
 })
 export class MoneyDetailsPage {
-  public copper: string;
-  public silver: string;
-  public electrum: string;
-  public gold: string;
-  public platinum: string;
+  copper: string;
+  silver: string;
+  electrum: string;
+  gold: string;
+  platinum: string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    private _utility: UtilityProvider,
+    private _session: SessionProvider,
   ) {
     this.copper = this.coins.Copper.toString();
     this.silver = this.coins.Silver.toString();
@@ -27,21 +27,21 @@ export class MoneyDetailsPage {
     this.platinum = this.coins.Platinum.toString();
   }
 
-  public get coins() {
-    return this._utility.session.character.coins;
+  get coins() {
+    return this._session.character.coins;
   }
 
-  public cancel() {
+  cancel() {
     this.viewCtrl.dismiss();
   }
-  public save() {
+  save() {
     this._validate();
     this.coins.Copper = parseFloat(this.copper);
     this.coins.Silver = parseFloat(this.silver);
     this.coins.Electrum = parseFloat(this.electrum);
     this.coins.Gold = parseFloat(this.gold);
     this.coins.Platinum = parseFloat(this.platinum);
-    this._utility.saveToStorage();
+    this._session.saveCharacter();
     this.viewCtrl.dismiss();
   }
 

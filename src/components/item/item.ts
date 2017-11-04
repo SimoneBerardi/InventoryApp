@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Item } from "../../model/item";
-import { UtilityProvider } from "../../providers/utility/utility";
+import { SessionProvider } from '../../providers/session/session';
 
 @Component({
   selector: 'item',
@@ -11,27 +11,27 @@ export class ItemComponent {
   @Output() modify: EventEmitter<null> = new EventEmitter();
 
   constructor(
-    private _utility: UtilityProvider,
+    private _session: SessionProvider,
   ) {
   }
 
-  public get name() {
+  get name() {
     return this.item.name;
   }
-  public get weight() {
+  get weight() {
     return this.item.weight;
   }
-  public get quantity() {
-    return this._utility.session.character.getItemQuantity(this.item);
+  get quantity() {
+    return this._session.character.getItemQuantity(this.item);
   }
-  public get isCustom() {
+  get isCustom() {
     return this.item.isCustom;
   }
-  public get description(){
+  get description() {
     return this.item.description;
   }
 
-  public modifyEvent(event: Event){
+  modifyEvent(event: Event) {
     event.stopPropagation();
     this.modify.emit();
   }

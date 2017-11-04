@@ -7,20 +7,20 @@ import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
   templateUrl: 'home.html',
 })
 export class HomePage {
-  public charTab = "CharacterDetailsPage";
-  public inventoryTab = "InventoryPage";
-  public itemsTab = "ItemsPage";
-  public root = "CharactersListPage";
+  charTab = "CharacterDetailsPage";
+  inventoryTab = "InventoryPage";
+  itemsTab = "ItemsPage";
+  root = "CharactersListPage";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private _events: Events,
-    ) {
-      this._events.unsubscribe("character-details:exit");
-      this._events.subscribe("character-details:exit", () =>{
-        this.navCtrl.popToRoot();
-      });
+  ) {
+    this._events.unsubscribe("character-details:exit");
+    this._events.subscribe("character-details:exit", () => {
+      this.navCtrl.popToRoot();
+    });
   }
 
 }

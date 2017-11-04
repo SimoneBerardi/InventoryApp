@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { UtilityProvider } from "../../providers/utility/utility";
 import { AlertController } from "ionic-angular";
+import { SessionProvider } from '../../providers/session/session';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @Component({
   selector: 'total-bar',
@@ -9,51 +10,52 @@ import { AlertController } from "ionic-angular";
 export class TotalBarComponent {
 
   constructor(
-    private _utility: UtilityProvider,
     private _alertCtrl: AlertController,
+    private _session: SessionProvider,
+    private _translate: TranslateProvider,
   ) {
   }
 
-  public get carriedWeight() {
-    return this._utility.session.character.carriedWeight;
+  get carriedWeight() {
+    return this._session.character.carriedWeight;
   }
-  public get carriedWeightColor() {
+  get carriedWeightColor() {
     let result = "secondary";
-    if (this._utility.session.character.isEncumbered)
+    if (this._session.character.isEncumbered)
       result = "warning";
-    if (this._utility.session.character.isHeavilyEncumbered)
+    if (this._session.character.isHeavilyEncumbered)
       result = "danger";
-    if (this._utility.session.character.isOverMaxCarry)
+    if (this._session.character.isOverMaxCarry)
       result = "alert";
     return result;
   }
-  public get carriedWeightIconName() {
+  get carriedWeightIconName() {
     let result = "checkmark-circle";
-    if (this._utility.session.character.isEncumbered)
+    if (this._session.character.isEncumbered)
       result = "warning";
     return result;
   }
-  public get isEncumbered() {
-    return this._utility.session.character.isEncumbered && !this._utility.session.character.isHeavilyEncumbered;
+  get isEncumbered() {
+    return this._session.character.isEncumbered && !this._session.character.isHeavilyEncumbered;
   }
-  public get isHeavilyEncumbered() {
-    return this._utility.session.character.isHeavilyEncumbered;
+  get isHeavilyEncumbered() {
+    return this._session.character.isHeavilyEncumbered;
   }
-  public get isOverMaxCarry() {
-    return this._utility.session.character.isOverMaxCarry;
+  get isOverMaxCarry() {
+    return this._session.character.isOverMaxCarry;
   }
 
-  public showInfo() {
-    this._utility.translate(["Ottimo", "Attenzione", "Ok", "NotEncumberedMessage", "EncumberedMessage", "HeavilyEncumberedMessage", "MaxCarryMessage"]).subscribe(values => {
+  showInfo() {
+    this._translate.translate(["Ottimo", "Attenzione", "Ok", "NotEncumberedMessage", "EncumberedMessage", "HeavilyEncumberedMessage", "MaxCarryMessage"]).then(values => {
       let message = values["NotEncumberedMessage"];
       let title = values["Ottimo"];
-      if (this._utility.session.character.isEncumbered) {
+      if (this._session.character.isEncumbered) {
         message = values["EncumberedMessage"];
         title = values["Attenzione"];
       }
-      if (this._utility.session.character.isHeavilyEncumbered)
+      if (this._session.character.isHeavilyEncumbered)
         message = values["HeavilyEncumberedMessage"];
-      if (this._utility.session.character.isOverMaxCarry)
+      if (this._session.character.isOverMaxCarry)
         message = values["MaxCarryMessage"];
       this._alertCtrl.create({
         title: title,

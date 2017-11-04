@@ -1,22 +1,22 @@
 import { BagItem } from "./bag-item";
 import { Item } from "./item";
-import { JsonObject, JsonArray } from "./json-model";
+import { Deserializable, Jsonable } from "./jsonable";
 
-export class Bag extends JsonObject {
+export class Bag extends Jsonable {
     public id: number;
     public name: string;
     public weight: number;
     public isEquipped: boolean;
     public isFixedWeight: boolean;
     public capacity: number;
-    public items: BagItem[] = new JsonArray<BagItem>(BagItem);
+    @Deserializable(BagItem)
+    public items: BagItem[];
 
-    constructor(name?: string) {
+    constructor(name: string) {
         super();
+        this.name = name;
         this.weight = 0;
         this.capacity = 0;
-        if (name)
-            this.name = name;
     }
 
     public get totalWeight() {
@@ -37,7 +37,7 @@ export class Bag extends JsonObject {
         if (oldBagItem != null)
             oldBagItem.quantity += quantity;
         else {
-            let bagItem = new BagItem(item);
+            let bagItem = new BagItem(item.id, item);
             bagItem.id = this._generateBagItemId();
             bagItem.quantity = quantity;
             this.items.push(bagItem);

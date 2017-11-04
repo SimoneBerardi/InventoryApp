@@ -72,5 +72,6 @@
     "Zaino": "Backpack",
     "Descrizione" : "Description",
     "ResetCompleto": "Global reset",
-    "FareResetCompleto?": "Reset the application to its default values?"
+    "FareResetCompleto?": "Reset the application to its default values?",
+    "ScegliUnNome": "Select a name"
 }

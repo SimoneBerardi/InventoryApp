@@ -6,7 +6,7 @@
         <ion-icon name="md-create"></ion-icon>
       </button>
     </ion-item-divider>
-    <bag-item *ngFor="let item of items" [bag]="bag" [bagItem]="item" [isEquipped]="isEquipped"></bag-item>
+    <bag-item *ngFor="let item of items" [bag]="bag" [bagItem]="item" [isEquipped]="isEquipped" [selectedItem]="selectedItem" (selectItem)="selectedItem = $event"></bag-item>
     <ion-item *ngIf="showDetails" [ngClass]="{isOverCapacity: isOverCapacity}" class="bag-details">
       {{"Dettagli" | translate}}
       <ion-icon item-right name="{{fixedCapacityIconName}}" color="{{fixedCapacityIconColor}}"></ion-icon>

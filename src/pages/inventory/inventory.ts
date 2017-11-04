@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Bag } from "../../model/bag";
-import { UtilityProvider } from "../../providers/utility/utility";
+import { SessionProvider } from '../../providers/session/session';
+import { TranslateProvider } from '../../providers/translate/translate';
 
 @IonicPage()
 @Component({
@@ -9,22 +10,23 @@ import { UtilityProvider } from "../../providers/utility/utility";
   templateUrl: 'inventory.html',
 })
 export class InventoryPage implements OnInit {
-  public bags: Bag[] = new Array<Bag>();
+  bags: Bag[] = new Array<Bag>();
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private _utility: UtilityProvider,
     private _alertCtrl: AlertController,
+    private _session: SessionProvider,
+    private _translate: TranslateProvider,
   ) {
   }
 
   ngOnInit() {
-    this.bags = this._utility.session.character.bags;
+    this.bags = this._session.character.bags;
   }
 
-  public add() {
-    this._utility.translate(["NuovaBorsa", "Crea", "Annulla", "ComeVuoiChiamarla?"]).subscribe(values => {
+  add() {
+    this._translate.translate(["NuovaBorsa", "Crea", "Annulla", "ComeVuoiChiamarla?"]).then(values => {
       this._alertCtrl.create({
         title: values["NuovaBorsa"],
         message: values["ComeVuoiChiamarla?"],
@@ -40,8 +42,8 @@ export class InventoryPage implements OnInit {
           {
             text: values["Crea"],
             handler: data => {
-              let bag = this._utility.session.character.addBag(data.name);
-              this._utility.saveToStorage();
+              let bag = this._session.character.addBag(data.name);
+              this._session.saveCharacter();
               this.navCtrl.push("BagDetailsPage", { bag: bag });
             }
           }
@@ -49,7 +51,7 @@ export class InventoryPage implements OnInit {
       }).present();
     });
   }
-  public edit(bag: Bag){
+  edit(bag: Bag) {
     this.navCtrl.push("BagDetailsPage", { bag: bag });
   }
 }

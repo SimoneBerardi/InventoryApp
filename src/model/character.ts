@@ -1,25 +1,27 @@
-import { JsonObject, JsonArray } from "./json-model";
 import { Bag } from "./bag";
 import { Item } from "./item";
 import { Coins } from "./coins";
+import { Deserializable, Jsonable } from "./jsonable";
 
-export class Character extends JsonObject {
+export class Character extends Jsonable {
     /** Serve per ottimizzare i salvataggi su db per singolo personaggio */
-    public id: number;
-    public name: string;
-    public race: string;
-    public class: string;
-    public strength: number;
-    public image: string;
-    public bags: Bag[] = new JsonArray<Bag>(Bag);
-    public coins: Coins = new Coins();
+    id: number;
+    name: string;
+    race: string;
+    class: string;
+    strength: number;
+    image: string;
+    @Deserializable(Bag)
+    bags: Bag[];
+    @Deserializable(Coins)
+    coins: Coins;
 
-    constructor(name?: string) {
+    constructor(name: string, race: string, classValue: string) {
         super();
-        if (name) {
-            this.name = name;
-            this.strength = 10;
-        }
+        this.name = name;
+        this.race = race;
+        this.class = classValue;
+        this.strength = 10;
     }
 
     public get description() {

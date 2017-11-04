@@ -1,41 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Item } from "../../model/item";
-import { UtilityProvider } from "../../providers/utility/utility";
-import { CustomComponent } from "../../model/interface";
+import { ItemsListProvider } from '../../providers/items-list/items-list';
+import { InterfaceProvider } from '../../providers/interface/interface';
+import { SessionProvider } from '../../providers/session/session';
 
 @IonicPage()
 @Component({
   selector: 'page-items',
   templateUrl: 'items.html',
 })
-export class ItemsPage extends CustomComponent implements OnInit {
-  public itemsType = "weapons";
-  public items: Item[] = new Array<Item>();
-  public weapons: Item[] = new Array<Item>();
-  public armors: Item[] = new Array<Item>();
-  public simpleItems: Item[] = new Array<Item>();
+export class ItemsPage implements OnInit {
+  itemsType = "weapons";
+  items: Item[] = new Array<Item>();
+  weapons: Item[] = new Array<Item>();
+  armors: Item[] = new Array<Item>();
+  simpleItems: Item[] = new Array<Item>();
 
-  public isSearching: boolean = false;
+  isSearching: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    _utility: UtilityProvider,
-    _alertCtrl: AlertController,
+    private _items: ItemsListProvider,
+    private _interface: InterfaceProvider,
+    private _session: SessionProvider,
   ) {
-    super(_utility, _alertCtrl);
   }
 
   ngOnInit() {
-    this.items = this._utility.items;
-    this.weapons = this._utility.weaponItems;
-    this.armors = this._utility.armorItems;
-    this.simpleItems = this._utility.simpleItems;
+    this.items = this._items.items;
+    this.weapons = this._items.weaponItems;
+    this.armors = this._items.armorItems;
+    this.simpleItems = this._items.simpleItems;
   }
 
-  public getItems(event: any) {
-    this.items = this._utility.items;
+  getItems(event: any) {
+    this.items = this._items.items;
     let value = event.target.value as string;
     if (value && value.trim() != '' && value.length >= 3) {
       this.isSearching = true;
@@ -44,19 +45,19 @@ export class ItemsPage extends CustomComponent implements OnInit {
       this.isSearching = false;
   }
 
-  public addItem(item: Item) {
-    this._selectQuantity().then(quantity => {
-      this._selectBag().then(bag => {
+  addItem(item: Item) {
+    this._interface.selectQuantity().then(quantity => {
+      this._interface.selectBag(this._session.character).then(bag => {
         bag.addItem(item, quantity);
-        this._utility.saveToStorage();
+        this._session.saveCharacter();
       }).catch(() => { });
     }).catch(() => { });;
   }
-  public add(){
+  add() {
     this.navCtrl.push("ItemDetailsPage");
   }
-  public modifyItem(item: Item){
-    this.navCtrl.push("ItemDetailsPage", {item: item});
+  modifyItem(item: Item) {
+    this.navCtrl.push("ItemDetailsPage", { item: item });
   }
 
 }
