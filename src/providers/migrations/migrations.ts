@@ -14,24 +14,29 @@ export class MigrationsProvider extends Storageable {
   }
 
   migrate() {
-    // this._storage.get("inventoryApp_characters").then(value => {
-    //   value.characters = JSON.parse(value.characters);
-    //   this._storage.set("inventoryApp_characters", value);
-    // });
     if (!this.migrations["2.0.0"]) {
-      return this._storage.get("inventoryApp_characters").then(value => {
-        return this._storage.set("inventoryApp_characters", { characters: JSON.parse(value) });
-      }).then(() => {
-        return this._storage.get("inventoryApp_customItems");
-      }).then(value => {
-        return this._storage.set("inventoryApp_items", { customItems: value });
-      }).then(() => {
-        return this._storage.remove("inventoryApp_customItems");
-      }).then(() => {
+      return this._migrate_02_00_00().then(() => {
         this.migrations["2.0.0"] = true;
         return this.save();
       });
     }
+  }
+
+  _migrate_02_00_00() {
+    let promises = [];
+    promises.push(this._storage.get("inventoryApp_characters"));
+    promises.push(this._storage.get("inventoryApp_customItems"));
+    return Promise.all(promises).then(([characters, customItems]) => {
+      let promises = [];
+      if (characters) {
+        promises.push(this._storage.set("inventoryApp_characters", { characters: JSON.parse(characters) }))
+      }
+      if (customItems) {
+        promises.push(this._storage.set("inventoryApp_items", { customItems: customItems }));
+        promises.push(this._storage.remove("inventoryApp_customItems"));
+      }
+      return Promise.all(promises);
+    });
   }
 
 }
