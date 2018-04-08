@@ -12,9 +12,9 @@ export class Character extends Jsonable {
     strength: number;
     image: string;
     @Deserializable(Bag)
-    bags: Bag[];
+    bags: Bag[] = new Array<Bag>();
     @Deserializable(Coins)
-    coins: Coins;
+    coins: Coins = new Coins();
 
     constructor(name: string, race: string, classValue: string) {
         super();

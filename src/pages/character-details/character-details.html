@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [ngStyle]="theme.invertedStyle">
 
   <ion-navbar>
     <ion-buttons left>
@@ -10,36 +10,61 @@
       </button>
     </ion-buttons>
 
-    <ion-title *ngIf="!isEditing">{{"SchedaPersonaggio" | translate}}</ion-title>
+    <ion-title *ngIf="!isEditing" text-center>{{"SchedaPersonaggio" | translate}}</ion-title>
 
     <ion-buttons right>
-      <button *ngIf="!isEditing" ion-button icon-only (click)="modify()">
-        <ion-icon name="md-create"></ion-icon>
+      <button *ngIf="!isEditing" class="options-button" ion-button icon-only (click)="showOptions()">
+        <ion-icon name="settings"></ion-icon>
       </button>
       <button *ngIf="isEditing" ion-button class="edit-button" (click)="save()">
         {{"Salva" | translate}}
       </button>
     </ion-buttons>
   </ion-navbar>
-
+  <div class="bottom-border" [ngStyle]="headerStyle"></div>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngStyle]="theme.style">
   <div *ngIf="!isEditing">
-    <ion-item text-center>
+    <ion-item text-center no-lines>
       <h1>{{name}}</h1>
     </ion-item>
-    <img class="image" src="{{image}}" alt="">
-    <ion-item text-center>{{description}}</ion-item>
-    <ion-item text-center>
-      <h2>{{"Forza" | translate}} {{strength}}</h2>
+    <div class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></div>
+    <ion-item class="description" text-left no-lines>
+      <ion-icon name="home" item-left></ion-icon>
+      {{description}}
+      <br> {{"Forza" | translate}} {{strength}}
     </ion-item>
-    <ion-grid>
-      <ion-row>
-        <ion-col text-center class="encumber-value">{{encumberedValue}} Kg</ion-col>
-        <ion-col text-center class="heavy-encumber-value">{{heavilyEncumberedValue}} Kg</ion-col>
-        <ion-col text-center class="max-carry-value">{{maxCarryValue}} Kg</ion-col>
+    <ion-grid class="weights-table">
+      <div class="border-top" [ngStyle]="theme.invertedStyle"></div>
+      <ion-row class="labels-row" text-center>
+        <ion-col>LEGGERO</ion-col>
+        <ion-col>MEDIO</ion-col>
+        <ion-col>PESANTE</ion-col>
+      </ion-row>
+      <ion-row class="values-row" text-center>
+        <ion-col>
+          <div class="cell encumber-value">{{encumberedValue}} Kg</div>
+        </ion-col>
+        <ion-col>
+          <div class="cell heavy-encumber-value">{{heavilyEncumberedValue}} Kg</div>
+        </ion-col>
+        <ion-col>
+          <div class="cell max-carry-value">{{maxCarryValue}} Kg</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="values-row" text-center>
+        <ion-col col-4 offset-2>
+          <div class="cell" [ngStyle]="cellStyle">216 Kg</div>
+        </ion-col>
+        <ion-col col-4>
+          <div class="cell" [ngStyle]="cellStyle">540 Kg</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="labels-row" text-center>
+        <ion-col col-4 offset-2>x2</ion-col>
+        <ion-col col-4>x5</ion-col>
       </ion-row>
     </ion-grid>
   </div>
@@ -67,6 +92,11 @@
   </div>
 </ion-content>
 
-<ion-footer>
+<ion-footer no-border [ngStyle]="theme.invertedStyle">
+  <ion-fab right bottom>
+    <button ion-fab (click)="modify()" [ngStyle]="theme.invertedStyle">
+      <ion-icon class="modify-icon" name="md-create"></ion-icon>
+    </button>
+  </ion-fab>
   <total-bar></total-bar>
 </ion-footer>

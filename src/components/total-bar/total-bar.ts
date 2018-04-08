@@ -2,18 +2,22 @@ import { Component } from '@angular/core';
 import { AlertController } from "ionic-angular";
 import { SessionProvider } from '../../providers/session/session';
 import { TranslateProvider } from '../../providers/translate/translate';
+import { OptionsProvider, Theme } from '../../providers/options/options';
 
 @Component({
   selector: 'total-bar',
   templateUrl: 'total-bar.html'
 })
 export class TotalBarComponent {
+  theme: Theme;
 
   constructor(
     private _alertCtrl: AlertController,
     private _session: SessionProvider,
     private _translate: TranslateProvider,
+    private _options: OptionsProvider
   ) {
+    this.theme = this._options.theme;
   }
 
   get carriedWeight() {

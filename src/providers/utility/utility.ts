@@ -16,18 +16,21 @@ export class UtilityProvider {
    * Deprecato
    */
   private _storageKeys =
-  {
-    options: "inventoryApp_options",
-    characters: "inventoryApp_characters",
-    bags: "inventoryApp_bags",
-    bagItems: "inventoryApp_bagItems",
-    customItems: "inventoryApp_customItems",
-  };
+    {
+      options: "inventoryApp_options",
+      characters: "inventoryApp_characters",
+      bags: "inventoryApp_bags",
+      bagItems: "inventoryApp_bagItems",
+      customItems: "inventoryApp_customItems",
+    };
 
   images = {
     character: "assets/images/character_grayscale.png",
     bag: "assets/images/bag_grayscale.png",
     coin: "assets/images/coin_grayscale.png",
+    avatars: [
+      "assets/images/avatar_1.png",
+    ]
   };
 
   constructor(
@@ -69,8 +72,8 @@ export class UtilityProvider {
    */
   getCharacterImage(character: Character) {
     let result = character.image;
-    if (result == null)
-      result = this.images.character;
+    // if (result == null)
+    result = this.images.avatars[0];
     return result;
   }
 }

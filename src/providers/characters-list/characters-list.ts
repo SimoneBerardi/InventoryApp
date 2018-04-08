@@ -11,7 +11,7 @@ import { Deserializable } from '../../model/jsonable';
 export class CharactersListProvider extends Storageable {
 
   @Deserializable(Character)
-  characters: Character[];
+  characters: Character[] = new Array<Character>();
 
   constructor(
     _storage: Storage,

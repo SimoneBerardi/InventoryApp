@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs [ngStyle]="theme.invertedStyle">
   <ion-tab tabTitle="{{'Personaggio' | translate}}" [root]="charTab"></ion-tab>
   <ion-tab tabTitle="{{'Inventario' | translate}}" [root]="inventoryTab"></ion-tab>
   <ion-tab tabTitle="{{'Oggetti' | translate}}" [root]="itemsTab"></ion-tab>

@@ -1,7 +1,7 @@
-<ion-toolbar>
+<ion-toolbar [ngStyle]="theme.style">
   <ion-item no-lines tappable (click)="showInfo()">
-    {{"PesoTrasportato" | translate}}
-    <ion-icon name="{{carriedWeightIconName}}" color="{{carriedWeightColor}}" item-right></ion-icon>
-    <p class="carried-weight" [ngClass]="{isEncumbered: isEncumbered, isHeavilyEncumbered: isHeavilyEncumbered, isOverMaxCarry: isOverMaxCarry}" item-right>{{carriedWeight}} Kg</p>
+    <p class="weight-text" item-left>{{"PesoTrasportato" | translate}}</p>
+    <ion-icon name="{{carriedWeightIconName}}" color="{{carriedWeightColor}}" item-left></ion-icon>
+    <p class="carried-weight" [ngClass]="{isEncumbered: isEncumbered, isHeavilyEncumbered: isHeavilyEncumbered, isOverMaxCarry: isOverMaxCarry}" item-left>{{carriedWeight}} Kg</p>
   </ion-item>
 </ion-toolbar>

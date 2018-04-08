@@ -8,7 +8,11 @@ export class TranslateProvider {
   constructor(
     private _translate: TranslateService,
   ) {
-    this._translate.setDefaultLang("en");
+    this._translate.setDefaultLang(this.browserLang);
+  }
+
+  get browserLang(){
+    return this._translate.getBrowserLang();
   }
 
   /**

@@ -7,6 +7,7 @@ import { TranslateProvider } from '../translate/translate';
 export class OptionsProvider extends Storageable {
 
   language: string;
+  theme: Theme;
 
   constructor(
     _storage: Storage,
@@ -24,8 +25,29 @@ export class OptionsProvider extends Storageable {
 
   load() {
     return super.load().then(() => {
+      if (!this.language)
+        this.language = this._translate.browserLang;
+      if (!this.theme)
+        this.theme = new Theme();
       return this._translate.setLanguage(this.language);
     });
   }
+}
 
+export class Theme {
+  baseColor: string = "#333333";
+  contrastColor: string = "#D3B158";
+
+  get style() {
+    return {
+      "background-color": this.baseColor,
+      "color": this.contrastColor,
+    };
+  }
+  get invertedStyle() {
+    return {
+      "background-color": this.contrastColor,
+      "color": this.baseColor,
+    };
+  }
 }

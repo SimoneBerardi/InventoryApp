@@ -10,7 +10,7 @@ export class Bag extends Jsonable {
     public isFixedWeight: boolean;
     public capacity: number;
     @Deserializable(BagItem)
-    public items: BagItem[];
+    public items: BagItem[] = new Array<BagItem>();
 
     constructor(name: string) {
         super();

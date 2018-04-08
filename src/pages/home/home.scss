@@ -1,3 +1,18 @@
 page-home {
-
+    .tabbar,
+    .tab-button {
+        background-color: inherit !important;
+        color: inherit !important;
+    }
+    .tabs-md .tab-button {
+        border: 1px solid black;
+        font-weight: bold;
+        span {
+            font-size: 1.5rem;
+        }
+        &[aria-selected=false] {
+            border: 2px inset lightgray;
+            filter: brightness(70%);
+        }
+    }
 }

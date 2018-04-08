@@ -6,6 +6,7 @@ import { SessionProvider } from '../../providers/session/session';
 import { CharactersListProvider } from '../../providers/characters-list/characters-list';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { TranslateProvider } from '../../providers/translate/translate';
+import { OptionsProvider, Theme } from '../../providers/options/options';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,8 @@ export class CharacterDetailsPage implements OnInit {
   class: string;
   strength: number;
 
+  theme: Theme;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -30,11 +33,14 @@ export class CharacterDetailsPage implements OnInit {
     private _characters: CharactersListProvider,
     private _interface: InterfaceProvider,
     private _translate: TranslateProvider,
+    private _opzioni: OptionsProvider,
   ) {
+    this.theme = this._opzioni.theme;
   }
 
   ngOnInit() {
     this.character = this._session.character;
+    this.ngOnChanges();
   }
   ngOnChanges() {
     this.name = this.character.name;
@@ -58,7 +64,23 @@ export class CharacterDetailsPage implements OnInit {
   get maxCarryValue() {
     return this.character.maxCarryValue;
   }
+  get cellStyle() {
+    return {
+      "border": "1px solid " + this.theme.contrastColor,
+    }
+  }
+  get headerStyle() {
+    return {
+      "background": `linear-gradient(-90deg, ${this.theme.contrastColor} 8px, transparent 0), linear-gradient(-90deg, ${this.theme.contrastColor} 8px, transparent 0)`,
+      "background-position": "left bottom",
+      "background-repeat": "repeat-x",
+      "background-size": "16px 8px",
+    }
+  }
 
+  showOptions() {
+    return this.navCtrl.push("OptionsPage");
+  }
   exit() {
     this._events.publish("character-details:exit");
   }
