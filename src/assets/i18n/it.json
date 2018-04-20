@@ -72,7 +72,13 @@
     "Zaino": "Zaino",
     "Descrizione": "Descrizione",
     "Opzioni": "Opzioni",
-    "ResetCompleto": "Reset completo",
+    "ResetCompleto": "Reset completo...",
     "FareResetCompleto?": "Fare un reset completo alle impostazioni di fabbrica?",
-    "ScegliUnNome": "Scegli un nome"
+    "ScegliUnNome": "Scegli un nome",
+    
+    "SalaEroi": "Sala degli eroi",
+    "DettagliPersonaggio": "Dettagli PG",
+    "InterfacciaGrafica": "Interfaccia Grafica",
+    "FontELinee": "Font e linee",
+    "Sfondo": "Sfondo"
 }

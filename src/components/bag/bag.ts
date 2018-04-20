@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Bag } from "../../model/bag";
-import { UtilityProvider } from "../../providers/utility/utility";
+import { UtilityProviderOld } from "../../providers/utility/utility";
 import { BagItem } from '../../model/bag-item';
 
 @Component({
@@ -14,7 +14,7 @@ export class BagComponent {
   selectedItem: BagItem;
 
   constructor(
-    private _utility: UtilityProvider,
+    private _utility: UtilityProviderOld,
   ) {
   }
 

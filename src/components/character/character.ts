@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Character } from "../../model/character";
-import { UtilityProvider } from "../../providers/utility/utility";
+import { UtilityProviderOld } from "../../providers/utility/utility";
+import { OptionsProvider } from '../../providers/options/options';
 
 @Component({
   selector: 'character',
@@ -10,7 +11,8 @@ export class CharacterComponent {
   @Input() character: Character;
 
   constructor(
-    private _utility: UtilityProvider,
+    private _utility: UtilityProviderOld,
+    private _options: OptionsProvider,
   ) {
   }
 
@@ -22,6 +24,12 @@ export class CharacterComponent {
   }
   get description() {
     return this.character.description;
+  }
+  get itemStyle() {
+    return {
+      "background-image": `radial-gradient(circle at -3%, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 40px, ${this._options.theme.contrastColor} 40px)`,
+      "color": this._options.theme.baseColor,
+    }
   }
 
 }

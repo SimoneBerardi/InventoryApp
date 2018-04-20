@@ -1,79 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Character } from "../../model/character";
-import { CharactersListProvider } from '../../providers/characters-list/characters-list';
-import { SessionProvider } from '../../providers/session/session';
-import { TranslateProvider } from '../../providers/translate/translate';
+// import { Component } from '@angular/core';
+// import { IonicPage, NavController, NavParams } from 'ionic-angular';
+// import { Character } from "../../model/character";
+// import { CharactersProvider } from '../../providers/characters/characters';
+// import { SessionProvider } from '../../providers/session/session';
+// import { OptionsProvider, Theme } from '../../providers/options/options';
+// import { UtilityProviderOld } from '../../providers/utility/utility';
+// import { InterfaceProvider } from '../../providers/interface/interface';
 
-@IonicPage()
-@Component({
-  selector: 'page-characters-list',
-  templateUrl: 'characters-list.html',
-})
-export class CharactersListPage implements OnInit {
-  characters: Character[];
+// @IonicPage()
+// @Component({
+//   selector: 'page-characters-list',
+//   templateUrl: 'characters-list.html',
+// })
+// export class CharactersListPage {
+//   characters: Character[];
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private _alertCtrl: AlertController,
-    private _characters: CharactersListProvider,
-    private _session: SessionProvider,
-    private _translate: TranslateProvider,
-  ) {
-  }
+//   theme: Theme;
+//   headerLogo: string;
+//   headerTitle: string;
 
-  ngOnInit() {
-    this.characters = this._characters.characters;
-    if (this.characters.length == 1) {
-      this.select(this.characters[0]);
-    }
-  }
+//   constructor(
+//     public navCtrl: NavController,
+//     public navParams: NavParams,
+//     private _characters: CharactersProvider,
+//     private _session: SessionProvider,
+//     private _options: OptionsProvider,
+//     private _utility: UtilityProviderOld,
+//     private _interface: InterfaceProvider,
+//   ) {
+//     this.theme = this._options.theme;
+//     this.headerLogo = this._utility.images.logos.charactersList;
+//     this.headerTitle = "SalaEroi";
+//   }
 
-  add() {
-    return this._translate.translate(["NuovoPersonaggio", "Crea", "Annulla", "ScegliUnNome", "NomeGiaUsato", "ScegliAltroNome", "Ok"]).then(values => {
-      this._alertCtrl.create({
-        title: values["NuovoPersonaggio"],
-        message: values["ScegliUnNome"],
-        inputs: [
-          {
-            name: "name",
-          }
-        ],
-        buttons: [
-          {
-            text: values["Annulla"],
-          },
-          {
-            text: values["Crea"],
-            handler: data => {
-              if (this._characters.nameAlreadyExists(data.name)) {
-                this._alertCtrl.create({
-                  title: values["NomeGiaUsato"],
-                  message: values["UsaAltroNome"],
-                  buttons: [
-                    {
-                      text: values["Ok"],
-                    }
-                  ]
-                }).present();
-              } else {
-                this._characters.add(data.name).then(character => {
-                  return this.select(character);
-                });
-              }
-            }
-          }
-        ]
-      }).present();
-    });
-  }
-  select(character: Character) {
-    this._session.loadCharacter(character);
-    return this.navCtrl.push("HomePage");
-  }
-  showOptions() {
-    return this.navCtrl.push("OptionsPage");
-  }
+//   ionViewDidLoad() {
+//     this.characters = this._characters.selectAll();
+//     // if (this.characters.length == 1 && !this.navParams.data.skipLoading) {
+//     //   this.select(this.characters[0]);
+//     // }
+//   }
 
-}
+//   add() {
+//     this._interface.showModal("CharacterFormPage").then(character => {
+//       console.log(character);
+//     });
+//   }
+//   select(character: Character) {
+//     this._session.loadCharacter(character);
+//     return this.navCtrl.push("HomePage");
+//   }
+//   showOptions() {
+//     return this.navCtrl.push("OptionsPage");
+//   }
+
+// }

@@ -60,7 +60,7 @@ export class ItemDetailsPage {
       return this._interface.askConfirmation(title, message);
     }).then(isConfirmed => {
       if (isConfirmed) {
-        return this._items.remove(this.item).then(() => {
+        return this._items.delete(this.item).then(() => {
           this.navCtrl.pop();
         });
       } else

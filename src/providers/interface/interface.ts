@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, Loading } from 'ionic-angular';
+import { AlertController, LoadingController, Loading, ModalOptions } from 'ionic-angular';
 import { Character } from '../../model/character';
 import { Bag } from '../../model/bag';
 import { TranslateProvider } from '../translate/translate';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 
 @Injectable()
 export class InterfaceProvider {
@@ -10,11 +11,21 @@ export class InterfaceProvider {
   private _loader: Loading;
 
   constructor(
+    private _modalCtrl: ModalController,
     private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController,
     private _translate: TranslateProvider,
   ) { }
 
+  showModal(component: any, data?: any, opts?: ModalOptions) {
+    return new Promise((resolve, reject) => {
+      let modal = this._modalCtrl.create(component, data, opts);
+      modal.onDidDismiss((data, role) => {
+        resolve(data);
+      });
+      modal.present();
+    });
+  }
   /**
    * Mostra un messaggio di errore
    * @param message 

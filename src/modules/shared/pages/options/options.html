@@ -1,0 +1,40 @@
+<ion-header class="component-inverted-style" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle" [isOptionsHidden]="true"></page-header>
+</ion-header>
+
+
+<ion-content padding class="component-style">
+  <ion-item>
+    <ion-label>{{"Lingua" | translate}}</ion-label>
+    <ion-select [(ngModel)]="language">
+      <ion-option value="it">Italiano</ion-option>
+      <ion-option value="en">English</ion-option>
+    </ion-select>
+  </ion-item>
+  <button ion-item (click)="reset()">{{"ResetCompleto" | translate}}</button>
+</ion-content>
+
+<ion-footer no-border class="component-style">
+  <ion-grid class="style-grid">
+    <ion-row>
+      <ion-col text-center>{{"InterfacciaGrafica" | translate}}</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col offset-2 col-4>
+        <button ion-button icon-only (click)="changeColor('contrast')">
+          <ion-icon class="contrast-color-icon" [ngStyle]="{'background': contrastColor}"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button icon-only (click)="changeColor('base')">
+          <ion-icon class="base-color-icon" [ngStyle]="{'background': baseColor}"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="italic-text" offset-2 col-4 text-center>{{"FontELinee" | translate}}</ion-col>
+      <ion-col class="italic-text" col-4 text-center>{{"Sfondo" | translate}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <buttons-footer [isDeleteHidden]="true" (onSave)="save()" (onCancel)="cancel()" (onDelete)="delete()"></buttons-footer>
+</ion-footer>

@@ -1,22 +1,15 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>{{"Personaggi" | translate}}</ion-title>
-    <ion-buttons right>
-      <button ion-button icon-only (click)="showOptions()">
-        <ion-icon name="settings"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-
+<ion-header [ngStyle]="_options.invertedStyle" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle"></page-header>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngStyle]="_options.style">
   <ion-list>
     <character *ngFor="let character of characters" [character]="character" (click)="select(character)"></character>
   </ion-list>
   <ion-fab right bottom>
-    <button ion-fab color="danger" (click)="add()"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab (click)="add()" [ngStyle]="_options.invertedStyle">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>

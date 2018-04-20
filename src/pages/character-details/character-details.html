@@ -1,43 +1,21 @@
-<ion-header [ngStyle]="theme.invertedStyle">
-
-  <ion-navbar>
-    <ion-buttons left>
-      <button *ngIf="!isEditing" ion-button icon-only (click)="exit()">
-        <ion-icon class="exit-icon" name="exit"></ion-icon>
-      </button>
-      <button *ngIf="isEditing" ion-button (click)="cancel()" class="edit-button">
-        {{"Annulla" | translate}}
-      </button>
-    </ion-buttons>
-
-    <ion-title *ngIf="!isEditing" text-center>{{"SchedaPersonaggio" | translate}}</ion-title>
-
-    <ion-buttons right>
-      <button *ngIf="!isEditing" class="options-button" ion-button icon-only (click)="showOptions()">
-        <ion-icon name="settings"></ion-icon>
-      </button>
-      <button *ngIf="isEditing" ion-button class="edit-button" (click)="save()">
-        {{"Salva" | translate}}
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-  <div class="bottom-border" [ngStyle]="headerStyle"></div>
+<ion-header [ngStyle]="_options.invertedStyle" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle"></page-header>
 </ion-header>
 
 
-<ion-content padding [ngStyle]="theme.style">
+<ion-content padding [ngStyle]="_options.style">
   <div *ngIf="!isEditing">
     <ion-item text-center no-lines>
-      <h1>{{name}}</h1>
+      <h1 class="name">{{name}}</h1>
     </ion-item>
     <div class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></div>
     <ion-item class="description" text-left no-lines>
-      <ion-icon name="home" item-left></ion-icon>
+      <div class="dragon" item-left [ngStyle]="dragonStyle"></div>
       {{description}}
       <br> {{"Forza" | translate}} {{strength}}
     </ion-item>
     <ion-grid class="weights-table">
-      <div class="border-top" [ngStyle]="theme.invertedStyle"></div>
+      <div class="border-top" [ngStyle]="_options.invertedStyle"></div>
       <ion-row class="labels-row" text-center>
         <ion-col>LEGGERO</ion-col>
         <ion-col>MEDIO</ion-col>
@@ -92,10 +70,10 @@
   </div>
 </ion-content>
 
-<ion-footer no-border [ngStyle]="theme.invertedStyle">
+<ion-footer no-border [ngStyle]="_options.invertedStyle">
   <ion-fab right bottom>
-    <button ion-fab (click)="modify()" [ngStyle]="theme.invertedStyle">
-      <ion-icon class="modify-icon" name="md-create"></ion-icon>
+    <button ion-fab (click)="modify()" [ngStyle]="_options.invertedStyle">
+      <ion-icon name="md-create"></ion-icon>
     </button>
   </ion-fab>
   <total-bar></total-bar>

@@ -1,0 +1,19 @@
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left [disabled]="isSaveDisabled" (click)="onSave.emit()">
+        <ion-icon class="button-icon" [ngStyle]="iconStyle('save')"></ion-icon>
+        {{"Salva" | translate}}</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button (click)="onCancel.emit()">
+        <ion-icon class="button-icon" [ngStyle]="iconStyle('cancel')"></ion-icon>
+        {{"Annulla" | translate}}</button>
+    </ion-col>
+    <ion-col *ngIf="!isDeleteHidden">
+      <button ion-button (click)="onDelete.emit()">
+        <ion-icon class="button-icon" [ngStyle]="iconStyle('delete')"></ion-icon>
+        {{"Elimina" | translate}}</button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

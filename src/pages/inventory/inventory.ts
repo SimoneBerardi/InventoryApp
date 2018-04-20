@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { Bag } from "../../model/bag";
 import { SessionProvider } from '../../providers/session/session';
 import { TranslateProvider } from '../../providers/translate/translate';
+import { OptionsProvider, Theme } from '../../providers/options/options';
+import { UtilityProviderOld } from '../../providers/utility/utility';
 
 @IonicPage()
 @Component({
@@ -12,13 +14,22 @@ import { TranslateProvider } from '../../providers/translate/translate';
 export class InventoryPage implements OnInit {
   bags: Bag[] = new Array<Bag>();
 
+  theme: Theme;
+  headerLogo: string;
+  headerTitle: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private _alertCtrl: AlertController,
     private _session: SessionProvider,
     private _translate: TranslateProvider,
+    private _options: OptionsProvider,
+    private _utility: UtilityProviderOld
   ) {
+    this.theme = this._options.theme;
+    this.headerLogo = this._utility.images.logos.inventory;
+    this.headerTitle = "Inventario";
   }
 
   ngOnInit() {

@@ -1,19 +1,17 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>{{"Inventario" | translate}}</ion-title>
-    <ion-buttons right>
-      <button ion-button class="new-button" (click)="add()">{{"Nuovo" | translate}}</button>
-    </ion-buttons>
-  </ion-navbar>
-
+<ion-header [ngStyle]="_options.invertedStyle" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle"></page-header>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngStyle]="_options.style">
   <bag *ngFor="let bag of bags" [bag]="bag" (edit)="edit(bag)"></bag>
 </ion-content>
 
-<ion-footer>
+<ion-footer no-border [ngStyle]="_options.invertedStyle">
+  <ion-fab right bottom>
+    <button ion-fab (click)="modify()" [ngStyle]="_options.invertedStyle">
+      <ion-icon name="md-create"></ion-icon>
+    </button>
+  </ion-fab>
   <total-bar></total-bar>
 </ion-footer>

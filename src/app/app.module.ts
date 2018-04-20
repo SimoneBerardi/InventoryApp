@@ -6,18 +6,21 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
-import { UtilityProvider } from '../providers/utility/utility';
+import { UtilityProviderOld } from '../providers/utility/utility';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpModule } from '@angular/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { OptionsProvider } from '../providers/options/options';
-import { CharactersListProvider } from '../providers/characters-list/characters-list';
+import { CharactersProvider } from '../providers/characters/characters';
 import { SessionProvider } from '../providers/session/session';
 import { ItemsListProvider } from '../providers/items-list/items-list';
 import { InterfaceProvider } from '../providers/interface/interface';
 import { TranslateProvider } from '../providers/translate/translate';
 import { MigrationsProvider } from '../providers/migrations/migrations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CharactersModule } from '../modules/characters/characters.module';
+import { SharedModule } from '../modules/shared/shared.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -28,10 +31,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MyApp,
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      driverOrder: ['indexeddb', 'websql']
+    }),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -40,6 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    SharedModule.forRoot(),
+    CharactersModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,14 +57,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    UtilityProvider,
-    OptionsProvider,
-    CharactersListProvider,
-    SessionProvider,
-    ItemsListProvider,
-    InterfaceProvider,
-    TranslateProvider,
-    MigrationsProvider,
+    // CharactersProvider
+    // UtilityProvider,
+    // OptionsProvider,
+    // CharactersProvider,
+    // SessionProvider,
+    // ItemsListProvider,
+    // InterfaceProvider,
+    // TranslateProvider,
+    // MigrationsProvider,
   ]
 })
 export class AppModule { }

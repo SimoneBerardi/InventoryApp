@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-export class Jsonable {
+export class JsonableOld {
     /**
      * Carica tutte le proprietà di un oggetto json nella classe
      * @param jsonValue Oggetto json da caricare
@@ -50,7 +50,7 @@ export class Jsonable {
 
     private _fromJSONDeserialize(metadata: DeserializableMetadata, propJsonValue: any) {
         // console.log("Deserializzazione " + metadata.propertyType + " ...");
-        let result = new metadata.propertyType() as Jsonable;
+        let result = new metadata.propertyType() as JsonableOld;
         result.fromJSON(propJsonValue);
         return result;
     }

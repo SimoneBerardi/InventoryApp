@@ -71,7 +71,7 @@
     "Equipaggiato": "Equipped",
     "Zaino": "Backpack",
     "Descrizione" : "Description",
-    "ResetCompleto": "Global reset",
+    "ResetCompleto": "Global reset...",
     "FareResetCompleto?": "Reset the application to its default values?",
     "ScegliUnNome": "Select a name"
 }

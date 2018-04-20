@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { UtilityProvider } from "../providers/utility/utility";
+import { UtilityProvider } from '../modules/shared/providers/utility.provider';
+import { CharacterListPage } from '../modules/characters/pages/character-list/character-list';
+import { OptionsProvider } from '../modules/shared/providers/options.provider';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,6 +15,7 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    private _options: OptionsProvider,
     private _utility: UtilityProvider,
   ) {
     platform.ready().then(() => {
@@ -20,11 +23,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       if (location.href.indexOf("#") >= 0)
         location.assign(location.origin);
-      this._utility.init().then(() => {
-        this.rootPage = "CharactersListPage";
-        statusBar.styleDefault();
-        splashScreen.hide();
+      this._options.load().then(() => {
+        this.rootPage = "CharacterListPage";
       });
+      // this._utility.init().then(() => {
+      //   this.rootPage = "CharactersListPage";
+      //   statusBar.styleDefault();
+      //   splashScreen.hide();
+      // });
     });
   }
 }

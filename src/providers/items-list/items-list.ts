@@ -5,8 +5,9 @@ import { Item } from '../../model/item';
 import { Storageable } from '../../model/storageable';
 import { Storage } from '@ionic/storage';
 import { Serializable, Deserializable } from '../../model/jsonable';
+import { CharactersProvider } from '../characters/characters';
+import { Character } from '../../model/character';
 import { OptionsProvider } from '../options/options';
-import { CharactersListProvider } from '../characters-list/characters-list';
 
 @Injectable()
 export class ItemsListProvider extends Storageable {
@@ -26,7 +27,7 @@ export class ItemsListProvider extends Storageable {
     _storage: Storage,
     private _http: Http,
     private _options: OptionsProvider,
-    private _characters: CharactersListProvider,
+    private _characters: CharactersProvider,
   ) {
     super(_storage, "inventoryApp_items");
     this.items = new Array<Item>();
@@ -60,8 +61,8 @@ export class ItemsListProvider extends Storageable {
    * Rimuove un oggetto custom e salva la lista
    * @param item 
    */
-  remove(item: Item) {
-    this._characters.removeItem(item);
+  delete(item: Item) {
+    // this._characters.removeItem(item);
     this.items.splice(this.items.indexOf(item), 1);
     this.simpleItems.splice(this.simpleItems.indexOf(item), 1);
     this.customItems.splice(this.customItems.indexOf(item), 1);

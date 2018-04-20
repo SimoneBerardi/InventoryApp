@@ -1,8 +1,8 @@
 import { BagItem } from "./bag-item";
 import { Item } from "./item";
-import { Deserializable, Jsonable } from "./jsonable";
+import { Deserializable, JsonableOld } from "./jsonable";
 
-export class Bag extends Jsonable {
+export class Bag extends JsonableOld {
     public id: number;
     public name: string;
     public weight: number;

@@ -1,0 +1,23 @@
+page-options {
+    .style-grid {
+        width: calc(100% - 64px);
+        margin-left: 32px;
+        margin-right: 32px;
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        button {
+            display: block;
+            margin: auto;
+            border: none;
+            .icon {
+                width: 36px;
+                height: 36px;
+                border: 2px solid black;
+                border-radius: 50%;
+            }
+        }
+    }
+    .italic-text {
+        font-style: italic;
+    }
+}

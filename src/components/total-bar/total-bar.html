@@ -1,4 +1,4 @@
-<ion-toolbar [ngStyle]="theme.style">
+<ion-toolbar [ngStyle]="_options.style">
   <ion-item no-lines tappable (click)="showInfo()">
     <p class="weight-text" item-left>{{"PesoTrasportato" | translate}}</p>
     <ion-icon name="{{carriedWeightIconName}}" color="{{carriedWeightColor}}" item-left></ion-icon>

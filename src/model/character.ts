@@ -1,9 +1,9 @@
 import { Bag } from "./bag";
 import { Item } from "./item";
 import { Coins } from "./coins";
-import { Deserializable, Jsonable } from "./jsonable";
+import { Deserializable, JsonableOld } from "./jsonable";
 
-export class Character extends Jsonable {
+export class Character extends JsonableOld {
     /** Serve per ottimizzare i salvataggi su db per singolo personaggio */
     id: number;
     name: string;

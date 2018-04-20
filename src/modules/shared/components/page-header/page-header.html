@@ -1,0 +1,14 @@
+<ion-navbar hideBackButton="true">
+  <ion-buttons left>
+    <img class="logo" src="{{logo}}" alt="">
+  </ion-buttons>
+
+  <ion-title text-center>{{title | translate}}</ion-title>
+
+  <ion-buttons right *ngIf="!isOptionsHidden">
+    <button class="options-button" ion-button icon-only (click)="showOptions()">
+      <ion-icon name="settings"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+<div class="bottom-border"></div>

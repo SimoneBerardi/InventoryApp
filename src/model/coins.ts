@@ -1,6 +1,6 @@
-import { Jsonable } from "./jsonable";
+import { JsonableOld } from "./jsonable";
 
-export class Coins extends Jsonable{
+export class Coins extends JsonableOld{
     Copper: number = 0;
     Silver: number = 0;
     Electrum: number = 0;

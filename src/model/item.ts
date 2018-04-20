@@ -1,6 +1,6 @@
-import { Jsonable } from "./jsonable";
+import { JsonableOld } from "./jsonable";
 
-export class Item extends Jsonable {
+export class Item extends JsonableOld {
     id: number;
     name: string;
     weight: number;

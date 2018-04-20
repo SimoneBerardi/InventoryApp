@@ -16,6 +16,81 @@
     font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
 }
 
+body {
+    --base-color: #333333;
+    --contrast-color: #D3B158;
+}
+
+.component-style {
+    background-color: var(--base-color);
+    color: var(--contrast-color);
+}
+
+.component-inverted-style {
+    background-color: var(--contrast-color);
+    color: var(--base-color);
+}
+
+button.button {
+    border-color: inherit;
+    border: 2px solid;
+    background: inherit;
+    color: inherit;
+    box-shadow: none;
+    text-transform: none;
+    &:hover:not(.disable-hover) {
+        background: inherit;
+    }
+    .button-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+}
+
+ion-alert .alert-wrapper {
+    background-color: var(--base-color);
+    color: var(--contrast-color);
+    * {
+        background-color: var(--base-color);
+        color: var(--contrast-color);
+    }
+    .alert-message {
+        color: inherit;
+    }
+    .alert-radio-group {
+        border-color: var(--contrast-color);
+        .alert-radio-label {
+            color: inherit;
+        }
+        button[aria-checked=true] {
+            .alert-radio-label {
+                color: inherit;
+            }
+            .alert-radio-icon {
+                border-color: var(--contrast-color);
+            }
+            .alert-radio-inner {
+                background-color: var(--contrast-color);
+            }
+        }
+    }
+}
+
+.content {
+    .item,
+    .label,
+    .item-inner {
+        background-color: inherit;
+        color: inherit;
+        border-color: inherit !important;
+        box-shadow: none !important;
+    }
+    .select-icon-inner {
+        color: inherit !important;
+    }
+}
+
 .footer:after {
     content: "";
     position: absolute;
@@ -26,4 +101,8 @@
     margin: auto;
     display: block;
     background: inherit;
+}
+
+.fab .icon {
+    font-size: 3.5rem;
 }

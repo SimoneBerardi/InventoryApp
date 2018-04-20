@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UtilityProvider } from "../../providers/utility/utility";
+import { UtilityProviderOld } from "../../providers/utility/utility";
 import { ModalController } from "ionic-angular";
 import { SessionProvider } from '../../providers/session/session';
 
@@ -10,7 +10,7 @@ import { SessionProvider } from '../../providers/session/session';
 export class MoneyComponent {
 
   constructor(
-    private _utility: UtilityProvider,
+    private _utility: UtilityProviderOld,
     private _modalCtrl: ModalController,
     private _session: SessionProvider,
   ) {
@@ -20,7 +20,7 @@ export class MoneyComponent {
     return this._session.character.coins;
   }
   get image() {
-    return this._utility.images.coin;
+    return this._utility.images.money;
   }
   get weight() {
     return this.coins.weight;

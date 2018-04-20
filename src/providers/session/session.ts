@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Character } from '../../model/character';
 import { BagItem } from '../../model/bag-item';
 import { ItemsListProvider } from '../items-list/items-list';
-import { CharactersListProvider } from '../characters-list/characters-list';
+import { CharactersProvider } from '../characters/characters';
 
 @Injectable()
 export class SessionProvider {
@@ -13,7 +13,7 @@ export class SessionProvider {
   character: Character;
 
   constructor(
-    private _characters: CharactersListProvider,
+    private _characters: CharactersProvider,
     private _items: ItemsListProvider,
   ) { }
 

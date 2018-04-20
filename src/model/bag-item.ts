@@ -1,7 +1,7 @@
 import { Item } from "./item";
-import { Serializable, Jsonable } from "./jsonable";
+import { Serializable, JsonableOld } from "./jsonable";
 
-export class BagItem extends Jsonable {
+export class BagItem extends JsonableOld {
     public id: number;
     public itemId: number;
     public quantity: number;
