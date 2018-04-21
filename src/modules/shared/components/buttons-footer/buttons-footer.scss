@@ -1,5 +1,8 @@
 buttons-footer {
     button.button {
         width: 100%;
+        .icon {
+            background-color: var(--contrast-color);
+        }
     }
 }

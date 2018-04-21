@@ -3,13 +3,32 @@
 </ion-header>
 
 <ion-content padding class="component-style">
-  <form [formGroup]="_form" (ngSubmit)="submit()">
+  <form [formGroup]="_form">
     <ion-item>
       <ion-label>{{"Nome" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item>
-      <div class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></div>
+    <ion-item class="image-item">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col col-3>
+            <button clear class="image-button arrow" ion-button icon-only (click)="prevAvatar()">
+              <ion-icon name="ios-arrow-dropleft"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
+          </ion-col>
+          <ion-col col-3>
+            <button class="image-button arrow" ion-button icon-only (click)="nextAvatar()">
+              <ion-icon name="ios-arrow-dropright"></ion-icon>
+            </button>
+            <button class="image-button load" ion-button icon-only (click)="addImage()">
+              <ion-icon [ngStyle]="{'-webkit-mask-box-image': 'url(' + loadImage + ')'}"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     <ion-item>
       <ion-label>{{"Razza" | translate}}</ion-label>

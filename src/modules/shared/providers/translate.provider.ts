@@ -26,8 +26,8 @@ export class TranslateProvider {
    * Traduce una o più chiavi
    * @param key 
    */
-  translate(key: string | Array<string>, ) {
-    return this._translate.get(key).toPromise();
+  translate(key: string | Array<string>, interpolateParams?: Object) {
+    return this._translate.get(key, interpolateParams).toPromise();
   }
 
 }

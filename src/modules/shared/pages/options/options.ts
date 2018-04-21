@@ -54,7 +54,10 @@ export class OptionsPage {
   }
 
   save() {
-    Promise.resolve().then(() => {
+    this._interface.showLoader({
+      content: "Salvataggio",
+      dismissOnPageChange: true,
+    }).then(() => {
       if (this.language != this._options.language)
         return this._options.setLanguage(this.language);
       else
@@ -75,7 +78,7 @@ export class OptionsPage {
     return this._translate.translate(["Attenzione", "FareResetCompleto?"]).then(values => {
       let title = values["Attenzione"];
       let message = values["FareResetCompleto?"];
-      return this._interface.askConfirmation(title, message);
+      return this._interface.askConfirmationOld(title, message);
     }).then(isConfirmed => {
       if (isConfirmed)
         //   return this._utility.reset().then(() => {

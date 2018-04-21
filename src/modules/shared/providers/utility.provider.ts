@@ -21,6 +21,7 @@ export class UtilityProvider {
     money: "assets/images/money.png",
     avatars: [
       "assets/images/avatar_1.png",
+      "assets/images/avatar_2.png",
     ],
     logos: {
       charactersList: "assets/images/characters_list_logo.png",
@@ -31,6 +32,7 @@ export class UtilityProvider {
       save: "assets/images/save_button.png",
       cancel: "assets/images/cancel_button.png",
       delete: "assets/images/delete_button.png",
+      addImage: "assets/images/add_image_button.png",
     },
     dragon_3_5: "assets/images/dragon_3_5.png",
   };

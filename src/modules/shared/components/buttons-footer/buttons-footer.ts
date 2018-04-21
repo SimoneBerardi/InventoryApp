@@ -20,8 +20,7 @@ export class ButtonsFooterComponent {
 
   iconStyle(button: string) {
     return {
-      "-webkit-mask-box-image": `url("${this._utility.images.buttons[button]}")`,
-      "background-color": this._options.contrastColor,
+      "-webkit-mask-box-image": `url("${this._utility.images.buttons[button]}")`
     }
   }
 }

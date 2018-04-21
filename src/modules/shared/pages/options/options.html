@@ -22,12 +22,12 @@
     <ion-row>
       <ion-col offset-2 col-4>
         <button ion-button icon-only (click)="changeColor('contrast')">
-          <ion-icon class="contrast-color-icon" [ngStyle]="{'background': contrastColor}"></ion-icon>
+          <ion-icon [ngStyle]="{'background': contrastColor}"></ion-icon>
         </button>
       </ion-col>
       <ion-col col-4>
         <button ion-button icon-only (click)="changeColor('base')">
-          <ion-icon class="base-color-icon" [ngStyle]="{'background': baseColor}"></ion-icon>
+          <ion-icon [ngStyle]="{'background': baseColor}"></ion-icon>
         </button>
       </ion-col>
     </ion-row>

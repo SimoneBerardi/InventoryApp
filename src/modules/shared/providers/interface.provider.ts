@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController, Loading, ModalOptions } from 'ionic-angular';
+import { AlertController, LoadingController, Loading, ModalOptions, LoadingOptions, AlertOptions } from 'ionic-angular';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { TranslateProvider } from './translate.provider';
+import { getNonHydratedSegmentIfLinkAndUrlMatch } from 'ionic-angular/navigation/url-serializer';
 
 @Injectable()
 export class InterfaceProvider {
@@ -15,6 +16,12 @@ export class InterfaceProvider {
     private _translate: TranslateProvider,
   ) { }
 
+  /**
+   * Mostra una finestra modale raccogliendo l'evento di uscita
+   * @param component 
+   * @param data 
+   * @param opts 
+   */
   showModal(component: any, data?: any, opts?: ModalOptions) {
     return new Promise((resolve, reject) => {
       let modal = this._modalCtrl.create(component, data, opts);
@@ -23,6 +30,88 @@ export class InterfaceProvider {
       });
       modal.present();
     });
+  }
+  /**
+   * Mostra un caricamento con messaggio in lingua
+   * @param opts 
+   */
+  showLoader(opts: LoadingOptions) {
+    return this._translate.translate(opts.content).then(value => {
+      opts.content = value;
+      if (this._loader != null) {
+        this._loader.setContent(opts.content);
+        return Promise.resolve();
+      }
+      else {
+        this._loader = this._loadingCtrl.create(opts);
+        this._loader.onDidDismiss(() => {
+          this._loader = null;
+        })
+        return this._loader.present();
+      }
+    });
+  }
+  /**
+   * Nasconde un caricamento
+   */
+  hideLoader() {
+    if (this._loader != null) {
+      this._loader.dismiss();
+    }
+  }
+  /**
+   * Richiede una conferma all'utente
+   * @param opts 
+   */
+  askConfirmation(opts: ConfirmationOptions) {
+    return new Promise<boolean>((resolve, reject) => {
+      this._translate.translate([opts.title, opts.message, "Si", "No"], opts.interpolateParams).then(values => {
+        this._alertCtrl.create({
+          title: values[opts.title],
+          message: values[opts.message],
+          cssClass: opts.cssClass,
+          enableBackdropDismiss: false,
+          buttons: [
+            {
+              text: values["No"],
+              handler: () => {
+                resolve(false);
+              }
+            },
+            {
+              text: values["Si"],
+              handler: () => {
+                resolve(true);
+              }
+            }
+          ]
+        }).present();
+      });
+    });
+  }
+  showAlert(opts: AlertOptions) {
+    return new Promise((resolve, reject) => {
+      this._translate.translate([opts.title, opts.message, "Ok"]).then(values => {
+        opts.title = values[opts.title];
+        opts.message = values[opts.message];
+        opts.buttons = [{
+          text: values["Ok"],
+          handler: () => {
+            resolve();
+          }
+        }];
+        this._alertCtrl.create(opts).present();
+      });
+    })
+  }
+  showAndLogError(error: Error) {
+    if (error.message !== "ConfermaUtente") {
+      console.log(error);
+      return this.showAlert({
+        title: "Attenzione",
+        message: error.message,
+      });
+    }
   }
   /**
    * Mostra un messaggio di errore
@@ -34,21 +123,12 @@ export class InterfaceProvider {
     });
   }
   /**
-   * Nasconde un caricamento
-   */
-  hideLoader() {
-    if (this._loader != null) {
-      this._loader.dismiss();
-      this._loader = null;
-    }
-  }
-  /**
    * Mostra un caricamento in lingua
    * @param messageKey 
    */
-  showLoaderLanguage(messageKey: string) {
+  showLoaderLanguageOld(messageKey: string) {
     return this._translate.translate(messageKey).then(value => {
-      return this._showLoader(value);
+      return this._showLoaderOld(value);
     });
   }
   /**
@@ -108,7 +188,7 @@ export class InterfaceProvider {
       }
     });
   }
-  askConfirmation(title: string, message: string) {
+  askConfirmationOld(title: string, message: string) {
     return new Promise<boolean>((resolve, reject) => {
       this._translate.translate(["Si", "No"]).then(values => {
         this._alertCtrl.create({
@@ -147,7 +227,7 @@ export class InterfaceProvider {
       }).present();
     });
   }
-  private _showLoader(message: string) {
+  private _showLoaderOld(message: string) {
     if (this._loader != null)
       this._loader.setContent(message);
     else {
@@ -158,4 +238,11 @@ export class InterfaceProvider {
       this._loader.present();
     }
   }
+}
+
+export interface ConfirmationOptions {
+  title?: string;
+  message?: string;
+  cssClass?: string;
+  interpolateParams?: any;
 }

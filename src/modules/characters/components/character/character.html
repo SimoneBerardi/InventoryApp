@@ -1,9 +1,8 @@
 <ion-item tappable class="character" no-lines>
   <ion-avatar item-left>
-    <div class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></div>
+    <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
   </ion-avatar>
-  <ion-label [ngStyle]="itemStyle">
-    <div class="left-border"></div>
+  <ion-label class="item-container">
     <h2 class="name">{{name}}</h2>
     <p class="description">{{description}}</p>
   </ion-label>

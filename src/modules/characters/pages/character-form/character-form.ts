@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Character } from '../../character.model';
+import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 
 @IonicPage()
 @Component({
@@ -13,11 +14,13 @@ import { Character } from '../../character.model';
 export class CharacterFormPage {
   private _id: number;
   private _form: FormGroup;
+  private _avatarIndex: number = 0;
 
   headerLogo: string;
   headerTitle: string;
 
   image: string;
+  loadImage: string;
 
   constructor(
     public navCtrl: NavController,
@@ -26,7 +29,7 @@ export class CharacterFormPage {
     private _formBuilder: FormBuilder,
     private _characters: CharacterProvider,
     private _utility: UtilityProvider,
-    private _events: Events,
+    private _interface: InterfaceProvider,
   ) {
     this._form = this._formBuilder.group({
       name: ["", Validators.required],
@@ -40,6 +43,7 @@ export class CharacterFormPage {
     this.headerTitle = "DettagliPersonaggio";
 
     this._id = this.navParams.get("id");
+    this.loadImage = this._utility.images.buttons.addImage;
   }
 
   ionViewDidLoad() {
@@ -55,29 +59,72 @@ export class CharacterFormPage {
     }
   }
 
+  addImage() {
+    console.log("TODO - addImage");
+  }
+
+  prevAvatar() {
+    this._avatarIndex--;
+    if (this._avatarIndex < 0)
+      this._avatarIndex = this._utility.images.avatars.length - 1;
+    this._loadAvatar();
+  }
+
+  nextAvatar() {
+    this._avatarIndex++;
+    if (this._avatarIndex >= this._utility.images.avatars.length)
+      this._avatarIndex = 0;
+    this._loadAvatar();
+  }
+
   save() {
-    let model = this._form.value;
-    let character = new Character();
-    character.image = this.image;
-    Object.assign(character, model);
-    Promise.resolve().then(() => {
-      if (this._id !== undefined)
-        this._characters.update(this._id, character);
-      else
-        this._characters.insert(character);
+    this._interface.showLoader({
+      content: "Salvataggio",
     }).then(() => {
-      this.viewCtrl.dismiss();
+      let model = this._form.value;
+      let character = new Character();
+      character.image = this.image;
+      Object.assign(character, model);
+      if (this._id !== undefined)
+        return this._characters.update(this._id, character);
+      else
+        return this._characters.insert(character);
+    }).then(() => {
+      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
+        this._interface.hideLoader();
+      });
     });
   }
 
   cancel() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ action: "cancel" });
   }
 
   delete() {
-    this._characters.delete(this._id).then(() => {
-this._events.publish("exit");
+    this._interface.askConfirmation({
+      title: "CancellazionePersonaggio",
+      message: "CancellarePersonaggio?",
+      interpolateParams: {
+        characterName: this._form.value.name,
+      }
+    }).then(isConfirmed => {
+      if (!isConfirmed)
+        throw new Error("ConfermaUtente");
+
+      return this._interface.showLoader({
+        content: "Salvataggio",
+      });
+    }).then(() => {
+      return this._characters.delete(this._id)
+    }).then(() => {
+      return this.viewCtrl.dismiss({ action: "delete" });
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
+  }
+
+  private _loadAvatar() {
+    this.image = this._utility.images.avatars[this._avatarIndex];
   }
 
 }

@@ -43,7 +43,7 @@
     "ButtareBorsa": "Buttare borsa",
     "ButtareBorsa?": "Buttare la borsa {0}?",
     "CancellazionePersonaggio": "Cancellazione personaggio",
-    "CancellarePersonaggio?": "Cancellare il personaggio {0}?",
+    "CancellarePersonaggio?": "Cancellare il personaggio {{characterName}}?",
     "NuovoPersonaggio": "Nuovo personaggio",
     "Crea": "Crea",
     "ComeVuoiChiamarlo?": "Come vuoi chiamarlo?",
@@ -80,5 +80,6 @@
     "DettagliPersonaggio": "Dettagli PG",
     "InterfacciaGrafica": "Interfaccia Grafica",
     "FontELinee": "Font e linee",
-    "Sfondo": "Sfondo"
+    "Sfondo": "Sfondo",
+    "Salvataggio": "Salvataggio"
 }

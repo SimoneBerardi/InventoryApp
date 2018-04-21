@@ -7,6 +7,7 @@ page-character-info {
     .dragon {
         width: 45px;
         height: 45px;
+        background-color: var(--contrast-color);
     }
     .image {
         margin-top: 10px;
@@ -70,6 +71,10 @@ page-character-info {
                         &.max-carry-value {
                             border: 1px solid color($colors, danger);
                             color: color($colors, danger);
+                        }
+                        &.drag-value,
+                        &.lift-value{
+                          border: 1px solid var(--contrast-color);
                         }
                     }
                 }

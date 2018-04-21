@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Character } from '../../character.model';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 import { SessionProvider } from '../../../shared/providers/session.provider';
-import { Events } from 'ionic-angular/util/events';
 
 @IonicPage()
 @Component({
@@ -48,9 +47,7 @@ export class CharacterListPage {
   }
 
   add() {
-    this._interface.showModal("CharacterFormPage").then(character => {
-      console.log(this._characters.characters);
-    });
+    this._interface.showModal("CharacterFormPage");
   }
   select(id: number) {
     this._session.characterId = id;

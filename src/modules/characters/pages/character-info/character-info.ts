@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { Character } from '../../character.model';
 import { SessionProvider } from '../../../shared/providers/session.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
@@ -15,6 +15,8 @@ import { OptionsProvider } from '../../../shared/providers/options.provider';
 export class CharacterInfoPage {
   headerLogo: string;
   headerTitle: string;
+
+  dragonImage: string;
 
   name: string;
   image: string;
@@ -32,15 +34,20 @@ export class CharacterInfoPage {
     private _characters: CharacterProvider,
     private _session: SessionProvider,
     private _utility: UtilityProvider,
-
+    private _events: Events,
     private _interface: InterfaceProvider,
     private _options: OptionsProvider,
   ) {
     this.headerLogo = this._utility.images.logos.character;
     this.headerTitle = "SchedaPersonaggio";
+    this.dragonImage = this._utility.images.dragon_3_5;
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    this.loadCharacter();
+  }
+
+  loadCharacter() {
     let character = this._characters.select(this._session.characterId);
     this.name = character.name;
     this.image = character.image;
@@ -53,28 +60,14 @@ export class CharacterInfoPage {
     this.liftValue = character.liftValue;
   }
 
-  get cellStyle() {
-    return {
-      "border": "1px solid " + this._options.contrastColor,
-    }
-  }
-  get headerStyle() {
-    return {
-      "background": `linear-gradient(-90deg, ${this._options.contrastColor} 8px, transparent 0), linear-gradient(-90deg, ${this._options.contrastColor} 8px, transparent 0)`,
-      "background-position": "left bottom",
-      "background-repeat": "repeat-x",
-      "background-size": "16px 8px",
-    }
-  }
-  get dragonStyle() {
-    return {
-      "-webkit-mask-box-image": `url("${this._utility.images.dragon_3_5}")`,
-      "background-color": this._options.contrastColor,
-    }
-  }
-
   modify() {
-    this._interface.showModal("CharacterFormPage", { id: this._session.characterId })
+    this._interface.showModal("CharacterFormPage", { id: this._session.characterId }).then((data: any) => {
+      if (data.action == "delete") {
+        this._events.publish("exit");
+        this._interface.hideLoader();
+      }
+      else if (data.action == "save")
+        this.loadCharacter();
+    });
   }
-
 }
