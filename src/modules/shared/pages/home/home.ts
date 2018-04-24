@@ -10,7 +10,7 @@ export class HomePage {
   charsListTab = "CharacterListPage";
   charTab = "CharacterInfoPage";
   inventoryTab = "InventoryPage";
-  itemsTab = "ItemsPage";
+  itemsTab = "ItemListPage";
 
   charsListParams = {
     skipLoading: true,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { Jsonable } from '../jsonable.model';
 
 @Injectable()
 export class UtilityProvider {
@@ -27,6 +28,7 @@ export class UtilityProvider {
       charactersList: "assets/images/characters_list_logo.png",
       character: "assets/images/character_logo.png",
       inventory: "assets/images/inventory_logo.png",
+      items: "assets/images/items_logo.png",
     },
     buttons: {
       save: "assets/images/save_button.png",
@@ -62,4 +64,32 @@ export class UtilityProvider {
     //   return this._items.load();
     // });
   }
+
+  generateListId(list: Enumerable[]) {
+    let result = 1;
+    if (list.length > 0)
+      result = Math.max.apply(this, list.map(item => item.id)) + 1;
+    return result;
+  }
+
+  enumerateEnum(enumType: any): EnumListItem[] {
+    let result = [];
+    for (let enumValue in enumType) {
+      if (!isNaN(Number(enumValue))) {
+        result.push({
+          key: Number(enumValue),
+          value: enumType[enumValue]
+        });
+      }
+    }
+    return result;
+  }
+}
+
+export interface Enumerable {
+  id: number;
+}
+export interface EnumListItem{
+  key: number;
+  value: any;
 }

@@ -55,7 +55,7 @@
     "RicercaTreCaratteri": "Cerca, almeno 3 caratteri",
     "Tutti": "Tutti",
     "CancellazioneOggetto": "Cancellazione oggetto",
-    "CancellareOggetto?": "Cancellare l'oggetto e rimuoverlo da tutte le borse?",
+    "CancellareOggetto?": "Cancellare l'oggetto {{itemName}}?",
     "DettagliOggetto": "Dettagli oggetto",
     "InserisciNomeValido": "Inserisci un nome valido",
     "Rame": "Rame",

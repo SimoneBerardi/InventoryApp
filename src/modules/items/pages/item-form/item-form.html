@@ -1,0 +1,30 @@
+<ion-header class="component-inverted-style" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle"></page-header>
+</ion-header>
+
+<ion-content padding class="component-style">
+  <form [formGroup]="_form">
+    <ion-item>
+      <ion-label>{{"Nome" | translate}}</ion-label>
+      <ion-input text-right type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"Descrizione" | translate}}</ion-label>
+      <ion-input text-right type="text" formControlName="description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"Peso" | translate}}</ion-label>
+      <ion-input text-right type="number" formControlName="weight"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"Categoria" | translate}}</ion-label>
+      <ion-select text-right formControlName="category">
+        <ion-option *ngFor="let category of categories" [value]="category.key">{{category.value | translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer no-border class="component-style">
+  <buttons-footer [isSaveDisabled]="!_form.valid" [isDeleteHidden]="!_id" (onSave)="save()" (onCancel)="cancel()" (onDelete)="delete()"></buttons-footer>
+</ion-footer>

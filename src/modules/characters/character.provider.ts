@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Character } from './character.model';
+import { UtilityProvider } from '../shared/providers/utility.provider';
 
 @Injectable()
 export class CharacterProvider {
@@ -9,7 +10,8 @@ export class CharacterProvider {
   characters: Character[] = [];
 
   constructor(
-    private _storage: StorageProvider
+    private _storage: StorageProvider,
+    private _utility: UtilityProvider,
   ) { }
 
   select(id: number) {
@@ -27,7 +29,7 @@ export class CharacterProvider {
   }
 
   insert(character: Character) {
-    character.id = this._generateCharacterId();
+    character.id = this._utility.generateListId(this.characters);
     this.characters.push(character);
     return this.save();
   }
@@ -56,12 +58,5 @@ export class CharacterProvider {
 
   save() {
     return this._storage.serialize(this._charactersKey, this.characters);
-  }
-
-  private _generateCharacterId() {
-    let result = 1;
-    if (this.characters.length > 0)
-      result = Math.max.apply(this, this.characters.map(character => character.id)) + 1;
-    return result;
   }
 }

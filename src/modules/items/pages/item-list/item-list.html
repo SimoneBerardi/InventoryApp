@@ -4,7 +4,9 @@
 
 <ion-content padding class="component-style">
   <ion-spinner *ngIf="isLoading"></ion-spinner>
-  <character-list *ngIf="!isLoading" [characters]="characters" (onSelect)="select($event)"></character-list>
+  <ion-list *ngIf="!isLoading">
+    <item-group *ngFor="let group of groups" [group]="group"></item-group>
+  </ion-list>
   <ion-fab right bottom>
     <button ion-fab (click)="add()" class="component-inverted-style">
       <ion-icon name="add"></ion-icon>
