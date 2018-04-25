@@ -84,12 +84,18 @@ export class UtilityProvider {
     }
     return result;
   }
+
+  castNumberProps(item: any, props: string[]) {
+    props.forEach(prop => {
+      item[prop] = Number(item[prop]);
+    });
+  }
 }
 
 export interface Enumerable {
   id: number;
 }
-export interface EnumListItem{
+export interface EnumListItem {
   key: number;
   value: any;
 }

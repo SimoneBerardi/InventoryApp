@@ -29,21 +29,45 @@ export class ItemListPage {
     this.headerTitle = "Oggetti";
   }
 
-  ionViewDidEnter() {
-    this._items.load().then(() => {
-      //DEBUG
-      // this._items.loadTestItems();
-      this._generateGroups();
-      //TODO Caricare gli oggetti in base ai loro gruppi
-      this.isLoading = false;
-    });
+  ionViewDidLoad() {
+    //DEBUG
+    // this._items.loadTestItems();
+    this._generateGroups();
+    this.isLoading = false;
   }
 
   add() {
     this._interface.showModal("ItemFormPage").then((data: any) => {
-      if(data.action == "save" || data.action == "delete")
-      this._generateGroups();
+      if (data.action == "save" || data.action == "delete")
+        this._generateGroups();
     });
+  }
+
+  select(id: number) {
+    console.log("TODO - Aggiunta elemento")
+  }
+
+  press(id: number) {
+    this._interface.showActionSheet({
+      title: "Azioni",
+      buttons: [
+        {
+          text: "AggiungiQuantità",
+          handler: () => {
+            console.log("TODO - Aggiunta elemento con quantità")
+          }
+        },
+        {
+          text: "Modifica",
+          handler: () => {
+            this._interface.showModal("ItemFormPage", { id: id }).then((data: any) => {
+              if (data.action == "save" || data.action == "delete")
+                this._generateGroups();
+            });
+          }
+        }
+      ]
+    })
   }
 
   private _generateGroups() {

@@ -1,7 +1,7 @@
 <div class="group">
   <ion-item class="group-name">{{group.name | uppercase}}</ion-item>
   <div class="group-items">
-    <item *ngFor="let item of group.items" [item]="item"></item>
+    <item *ngFor="let item of group.items" [item]="item" (tap)="select(item.id)" (press)="press(item.id)"></item>
   </div>
 </div>
 

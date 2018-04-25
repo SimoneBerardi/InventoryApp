@@ -22,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CharactersModule } from '../modules/characters/characters.module';
 import { SharedModule } from '../modules/shared/shared.module';
 import { ItemsModule } from '../modules/items/item.module';
+import { InventoryModule } from '../modules/inventory/inventory.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule.forRoot(),
     CharactersModule.forRoot(),
     ItemsModule.forRoot(),
+    InventoryModule.forRoot(),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -29,8 +29,6 @@ export class OptionsPage {
   ) {
     this.headerLogo = this._utility.images.logos.character;
     this.headerTitle = "Opzioni";
-
-    //TODO Aggiungere caricamento in cambiamento delle opzioni
   }
 
   ionViewDidLoad() {

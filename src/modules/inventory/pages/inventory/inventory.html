@@ -4,9 +4,9 @@
 
 <ion-content padding class="component-style">
   <ion-spinner *ngIf="isLoading"></ion-spinner>
-  <ion-list *ngIf="!isLoading">
-    <item-group *ngFor="let group of groups" [group]="group" (onSelect)="select($event)" (onPress)="press($event)"></item-group>
-  </ion-list>
+  <div class="inventory-container" *ngIf="!isLoading && inventory">
+    <money tappable [money]="inventory.money" (onClick)="moneyClick()"></money>
+  </div>
   <ion-fab right bottom>
     <button ion-fab (click)="add()" class="component-inverted-style">
       <ion-icon name="add"></ion-icon>

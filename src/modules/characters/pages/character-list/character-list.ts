@@ -37,10 +37,8 @@ export class CharacterListPage {
   }
 
   ionViewDidLoad() {
-    this._characters.load().then(() => {
-      this.characters = this._characters.characters;
-      this.isLoading = false;
-    });
+    this.characters = this._characters.characters;
+    this.isLoading = false;
     // if (this.characters.length == 1 && !this.navParams.data.skipLoading) {
     //   this.select(this.characters[0]);
     // }

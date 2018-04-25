@@ -62,6 +62,7 @@ export class ItemFormPage {
       let model = this._form.value;
       let item = new Item();
       Object.assign(item, model);
+      this._utility.castNumberProps(item, ["weight"]);
       if (this._id !== undefined)
         return this._items.update(this._id, item);
       else

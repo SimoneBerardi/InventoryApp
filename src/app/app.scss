@@ -77,15 +77,30 @@ ion-alert .alert-wrapper {
     }
 }
 
-ion-loading .loading-wrapper{
-  background-color: var(--base-color) !important;
+ion-loading .loading-wrapper {
+    background-color: var(--base-color) !important;
     color: var(--contrast-color) !important;
     * {
         background-color: var(--base-color);
         color: var(--contrast-color);
     }
-    .spinner-crescent circle{
-      stroke: var(--contrast-color);
+    .spinner-crescent circle {
+        stroke: var(--contrast-color);
+    }
+}
+
+ion-action-sheet .action-sheet-group {
+    background-color: var(--base-color) !important;
+    color: var(--contrast-color) !important;
+    * {
+        background-color: var(--base-color);
+        color: var(--contrast-color);
+    }
+    .action-sheet-title {
+        background-color: inherit;
+        color: inherit;
+        border-bottom: 2px solid;
+        text-transform: uppercase;
     }
 }
 
@@ -93,7 +108,8 @@ ion-loading .loading-wrapper{
     .item,
     .label,
     .item-inner,
-    .note {
+    .note,
+    p {
         background-color: inherit;
         color: inherit;
         border-color: inherit !important;

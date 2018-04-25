@@ -1,0 +1,33 @@
+<div tappable (click)="click()">
+  <ion-item class="money-title" no-lines no-padding>
+    <ion-icon item-left class="money-image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
+    {{"Monete" | translate}}
+    <p class="weight" item-right *ngIf="money.weight > 0">
+      {{money.weight}} Kg
+    </p>
+  </ion-item>
+  <ion-grid class="money-container" no-padding>
+    <ion-row no-padding justify-content-center>
+      <div class="money-value" text-center *ngIf="money.platinum > 0">
+        {{money.platinum}}
+        <br/> {{"MP" | translate}}
+      </div>
+      <div class="money-value" text-center>
+        {{money.gold}}
+        <br/> {{"MO" | translate}}
+      </div>
+      <div class="money-value" text-center *ngIf="money.electrum > 0">
+        {{money.electrum}}
+        <br/> {{"ME" | translate}}
+      </div>
+      <div class="money-value" text-center>
+        {{money.silver}}
+        <br/> {{"MA" | translate}}
+      </div>
+      <div class="money-value" text-center>
+        {{money.copper}}
+        <br/> {{"MR" | translate}}
+      </div>
+    </ion-row>
+  </ion-grid>
+</div>

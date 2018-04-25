@@ -3,6 +3,8 @@ import { AlertController, LoadingController, Loading, ModalOptions, LoadingOptio
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { TranslateProvider } from './translate.provider';
 import { getNonHydratedSegmentIfLinkAndUrlMatch } from 'ionic-angular/navigation/url-serializer';
+import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
+import { ActionSheetOptions, ActionSheetButton } from 'ionic-angular/components/action-sheet/action-sheet-options';
 
 @Injectable()
 export class InterfaceProvider {
@@ -14,8 +16,25 @@ export class InterfaceProvider {
     private _alertCtrl: AlertController,
     private _loadingCtrl: LoadingController,
     private _translate: TranslateProvider,
+    private _actionSheetCtrl: ActionSheetController,
   ) { }
 
+  showActionSheet(opts: ActionSheetOptions) {
+    return new Promise((resolve, reject) => {
+      let buttonsTexts = opts.buttons.map((button: ActionSheetButton) => button.text);
+      return this._translate.translate([...buttonsTexts, opts.title]).then(values => {
+        opts.title = values[opts.title];
+        opts.buttons.forEach((button: ActionSheetButton) => {
+          button.text = values[button.text];
+        });
+        let actionSheet = this._actionSheetCtrl.create(opts);
+        actionSheet.onDidDismiss((data, role) => {
+          resolve();
+        });
+        actionSheet.present();
+      });
+    });
+  }
   /**
    * Mostra una finestra modale raccogliendo l'evento di uscita
    * @param component 

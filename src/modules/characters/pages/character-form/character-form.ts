@@ -85,6 +85,7 @@ export class CharacterFormPage {
       let character = new Character();
       character.image = this.image;
       Object.assign(character, model);
+      this._utility.castNumberProps(character, ["strength"]);
       if (this._id !== undefined)
         return this._characters.update(this._id, character);
       else
