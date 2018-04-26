@@ -81,5 +81,6 @@
     "InterfacciaGrafica": "Interfaccia Grafica",
     "FontELinee": "Font e linee",
     "Sfondo": "Sfondo",
-    "Salvataggio": "Salvataggio"
+    "Salvataggio": "Salvataggio",
+    "PesoZaino": "Peso {{bagName}}"
 }

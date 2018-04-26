@@ -1,0 +1,15 @@
+<ion-item class="title" no-lines no-padding>
+  <ion-icon item-left class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
+  {{name}}
+  <p class="weight" item-right *ngIf="weight > 0">
+    {{weight}} Kg
+  </p>
+</ion-item>
+<ion-item no-lines no-padding class="bag-weight" *ngIf="bagWeight > 0">
+  <ion-icon item-left class="image" [ngStyle]="arrowStyle"></ion-icon>
+  {{"PesoZaino" | translate:{bagName: name} }}
+  <p class="weight" item-right>
+    {{bagWeight}} Kg
+  </p>
+</ion-item>
+<bag-item-list [items]="items" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"></bag-item-list>

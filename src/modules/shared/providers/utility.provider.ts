@@ -20,6 +20,8 @@ export class UtilityProvider {
   images = {
     bag: "assets/images/bag.png",
     money: "assets/images/money.png",
+    equipped: "assets/images/equipped.png",
+    bagArrow: "assets/images/bag-arrow.png",
     avatars: [
       "assets/images/avatar_1.png",
       "assets/images/avatar_2.png",

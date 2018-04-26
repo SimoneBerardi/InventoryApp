@@ -1,4 +1,4 @@
-money {
+bag {
     .title {
         .image {
             background-size: contain;
@@ -16,14 +16,18 @@ money {
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
     }
-    .container {
-        padding-bottom: 10px !important;
-        border-bottom: 1px solid;
-        .value {
-            width: 18%;
-            float: left;
-            font-size: 1.8rem;
-            line-height: 0.9;
+    .bag-weight {
+        font-style: italic;
+        margin: 0 !important;
+        font-weight: bold;
+        .image {
+            width: 42px;
+            margin-top: -5px;
+            background-color: var(--contrast-color);
+        }
+        .item-inner {
+            margin: 0 !important;
+            font-weight: bold;
         }
     }
 }

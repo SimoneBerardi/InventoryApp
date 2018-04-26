@@ -35,10 +35,14 @@ export class InventoryPage {
   ionViewDidLoad() {
     //DEBUG
     this._inventory.loadTestItems();
+
     this._inventory.loadInventory(this._session.characterId);
     this.inventory = this._inventory.inventory;
     this.isLoading = false;
-    console.log(this.inventory);
+  }
+
+  get bags() {
+    return this.inventory.bags;
   }
 
   moneyClick() {
