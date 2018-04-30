@@ -30,8 +30,6 @@ export class ItemListPage {
   }
 
   ionViewDidLoad() {
-    //DEBUG
-    // this._items.loadTestItems();
     this._generateGroups();
     this.isLoading = false;
   }
@@ -75,7 +73,7 @@ export class ItemListPage {
     this._utility.enumerateEnum(ItemCategory).forEach(category => {
       let group = new ItemGroup();
       group.name = category.value;
-      group.items = this._items.items.filter(item => item.category === category.key)
+      group.items = this._items.list.filter(item => item.category === category.key)
       this.groups.push(group);
     });
   }

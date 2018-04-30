@@ -29,7 +29,7 @@ export class StorageProvider {
     return this._storage.get(key).then(jsonOrArray => {
       let result = null;
       if (jsonOrArray instanceof Array) {
-        result = new Array<T>();
+        result = [];
         jsonOrArray.forEach(json => {
           let item = new type();
           item.fromJson(json);
@@ -41,7 +41,7 @@ export class StorageProvider {
         result = item;
       }
       console.log("Deserializzato " + key, result);
-      return Promise.resolve(result);
+      return Promise.resolve(result as T[]);
     });
   }
 

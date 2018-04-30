@@ -1,7 +1,11 @@
 export class Jsonable {
+  id: number;
+
   constructor(
     private _props: string[],
-  ) { }
+  ) { 
+    this._props.unshift("id");
+  }
 
   toJson(): any {
     let json = {};

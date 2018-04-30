@@ -43,7 +43,7 @@ export class MoneyFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let money = this._inventory.selectMoney(this._id);
+      let money = this._inventory.money.select(this._id);
       this._form.reset({
         copper: money.copper,
         silver: money.silver,
@@ -63,8 +63,10 @@ export class MoneyFormPage {
       Object.assign(money, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
       this._utility.castNumberProps(money, ["platinum", "electrum", "gold", "silver", "copper"]);
-      if (this._id !== undefined)
-        return this._inventory.updateMoney(this._id, money);
+      if (this._id !== undefined){
+        money.characterId = this._inventory.inventory.money.characterId;
+        return this._inventory.money.update(this._id, money);
+      }
     }).then(() => {
       return this.viewCtrl.dismiss({ action: "save" }).then(() => {
         this._interface.hideLoader();

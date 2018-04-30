@@ -41,6 +41,9 @@ export class UtilityProvider {
     dragon_3_5: "assets/images/dragon_3_5.png",
   };
 
+  //TODO - utilizzare le variabili d'ambiente
+  isDebug: boolean = true;
+
   constructor(
   ) { }
 

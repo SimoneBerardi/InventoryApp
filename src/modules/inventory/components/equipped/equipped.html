@@ -1,0 +1,8 @@
+<ion-item class="title" no-lines no-padding>
+  <ion-icon item-left class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
+  Equip.
+  <p class="weight" item-right *ngIf="weight > 0">
+    {{weight}} Kg
+  </p>
+</ion-item>
+<bag-item-list [items]="items" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"></bag-item-list>

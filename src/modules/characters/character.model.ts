@@ -1,7 +1,6 @@
 import { Jsonable } from "../shared/jsonable.model";
 
 export class Character extends Jsonable {
-  id: number;
   name: string;
   race: string;
   className: string;
@@ -9,7 +8,7 @@ export class Character extends Jsonable {
   image: string;
 
   constructor() {
-    super(["id", "name", "race", "className", "strength", "image"]);
+    super(["name", "race", "className", "strength", "image"]);
   }
 
   get description() {

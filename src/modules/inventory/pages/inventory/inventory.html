@@ -6,6 +6,7 @@
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <div class="inventory-container" *ngIf="!isLoading && inventory">
     <money tappable [money]="inventory.money" (onClick)="moneyClick()"></money>
+    <equipped [items]="equippedItems" [weight]="equippedWeight"></equipped>
     <ion-list>
       <bag *ngFor="let bag of bags" [bag]="bag"></bag>
     </ion-list>
