@@ -11,6 +11,7 @@ export class BagItemListComponent {
   @Output() onAdd: EventEmitter<number> = new EventEmitter();
   @Output() onRemove: EventEmitter<number> = new EventEmitter();
   @Output() onModify: EventEmitter<number> = new EventEmitter();
+  @Output() onMove: EventEmitter<MoveEventData> = new EventEmitter();
 
   image: string;
 
@@ -31,4 +32,13 @@ export class BagItemListComponent {
   modify(id: number) {
     this.onModify.emit(id);
   }
+
+  move(id: number, isQuickAction: boolean) {
+    this.onMove.emit({ id: id, isQuickAction: isQuickAction });
+  }
+}
+
+export interface MoveEventData{
+  id: number;
+  isQuickAction: boolean;
 }

@@ -6,6 +6,7 @@ import { Inventory } from '../../model/inventory.model';
 import { InventoryProvider } from '../../inventory.provider';
 import { SessionProvider } from '../../../shared/providers/session.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
+import { MoveEventData } from '../../components/bag-item-list/bag-item-list';
 
 @IonicPage()
 @Component({
@@ -38,10 +39,10 @@ export class InventoryPage {
     this.isLoading = false;
   }
 
-  get equippedItems(){
+  get equippedItems() {
     return this.inventory.equipped;
   }
-  get equippedWeight(){
+  get equippedWeight() {
     return this.inventory.equippedWeight;
   }
   get bags() {
@@ -50,5 +51,42 @@ export class InventoryPage {
 
   moneyClick() {
     this._interface.showModal("MoneyFormPage", { id: this.inventory.money.id });
+  }
+
+  addBag() {
+    this._interface.showModal("BagFormPage");
+  }
+
+  add(id: number) {
+    this._inventory.modifyBagItemQuantity(id, 1, false);
+  }
+
+  remove(id: number) {
+    Promise.resolve().then(() => {
+      let bagItem = this._inventory.selectBagItem(id);
+      if (bagItem.quantity === 1)
+        return this._interface.askConfirmation({
+          title: "ButtareOggetto",
+          message: "ButtareOggetto?",
+          interpolateParams: {
+            bagItemName: bagItem.name,
+          }
+        });
+      else
+        return Promise.resolve(true);
+    }).then(isConfirmed => {
+      if (isConfirmed)
+        return this._inventory.modifyBagItemQuantity(id, 1, true);
+      else
+        return Promise.resolve();
+    });
+  }
+
+  modify(id: number) {
+    console.log("TODO - modify bag item: " + id);
+  }
+
+  move(data: MoveEventData) {
+    console.log("TODO - move bag item: " + data);
   }
 }

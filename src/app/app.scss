@@ -109,7 +109,9 @@ ion-action-sheet .action-sheet-group {
     .label,
     .item-inner,
     .note,
-    p {
+    p,
+    .checkbox-icon,
+    .checkbox-inner {
         background-color: inherit;
         color: inherit;
         border-color: inherit !important;

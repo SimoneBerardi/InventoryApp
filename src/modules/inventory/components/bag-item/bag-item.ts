@@ -11,6 +11,7 @@ export class BagItemComponent {
   @Output() onAdd: EventEmitter<void> = new EventEmitter();
   @Output() onRemove: EventEmitter<void> = new EventEmitter();
   @Output() onModify: EventEmitter<void> = new EventEmitter();
+  @Output() onMove: EventEmitter<boolean> = new EventEmitter();
 
   image: string;
 
@@ -29,6 +30,9 @@ export class BagItemComponent {
   get weight() {
     return this.item.weight;
   }
+  get isEquipped() {
+    return this.item.isEquipped;
+  }
 
   add() {
     this.onAdd.emit();
@@ -40,5 +44,9 @@ export class BagItemComponent {
 
   modify() {
     this.onModify.emit();
+  }
+
+  move(isQuickAction: boolean) {
+    this.onMove.emit(isQuickAction);
   }
 }

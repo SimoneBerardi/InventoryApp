@@ -25,7 +25,7 @@
     "Oggetti": "Oggetti",
     "Nuovo": "Nuovo",
     "ButtareOggetto": "Buttare oggetto",
-    "ButtareOggetto?": "Buttare {0}?",
+    "ButtareOggetto?": "Buttare {{bagItemName}}?",
     "Si": "Si",
     "No": "No",
     "SelezionaQuantita": "Seleziona quantità",

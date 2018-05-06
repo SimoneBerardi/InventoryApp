@@ -19,17 +19,17 @@
       <ion-icon name="md-create"></ion-icon>
       {{"Modifica" | translate}}
     </button>
-    <!-- <button ion-button ion-col outline *ngIf="!isEquipped" (click)="equip()">
+    <button ion-button ion-col outline *ngIf="!isEquipped" (click)="move(true)">
       <ion-icon name="arrow-dropup-circle"></ion-icon>
       {{"Equipaggia" | translate}}
     </button>
-    <button ion-button ion-col outline *ngIf="isEquipped" (click)="unequip()">
+    <button ion-button ion-col outline *ngIf="isEquipped" (click)="move(true)">
       <ion-icon name="arrow-dropdown-circle"></ion-icon>
       {{"Riponi" | translate}}
     </button>
-    <button ion-button ion-col outline *ngIf="!isEquipped" (click)="unequip()" [disabled]="!canMove">
+    <button ion-button ion-col outline *ngIf="!isEquipped" (click)="move(false)">
       <ion-icon name="move"></ion-icon>
       {{"Sposta" | translate}}
-    </button> -->
+    </button>
   </ion-row>
 </ion-grid>

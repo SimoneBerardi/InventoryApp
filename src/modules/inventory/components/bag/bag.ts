@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Bag } from '../../model/bag.model';
+import { MoveEventData } from '../bag-item-list/bag-item-list';
 
 @Component({
   selector: 'bag',
@@ -8,6 +9,11 @@ import { Bag } from '../../model/bag.model';
 })
 export class BagComponent {
   @Input() bag: Bag;
+
+  @Output() onAdd: EventEmitter<number> = new EventEmitter();
+  @Output() onRemove: EventEmitter<number> = new EventEmitter();
+  @Output() onModify: EventEmitter<number> = new EventEmitter();
+  @Output() onMove: EventEmitter<MoveEventData> = new EventEmitter();
 
   image: string;
   arrowStyle: any;
@@ -35,14 +41,18 @@ export class BagComponent {
   }
 
   add(id: number) {
-    console.log("TODO - bag item add: " + id);
+    this.onAdd.emit(id);
   }
 
   remove(id: number) {
-    console.log("TODO - bag item remove: " + id);
+    this.onRemove.emit(id);
   }
 
   modify(id: number) {
-    console.log("TODO - bag item modify: " + id);
+    this.onModify.emit(id);
+  }
+
+  move(data: MoveEventData){
+    this.onMove.emit(data);
   }
 }

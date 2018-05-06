@@ -31,4 +31,12 @@ export class Bag extends Jsonable {
   get isOverCapacity() {
     return this.itemsWeight > this.capacity;
   }
+
+  deleteBagItem(id: number) {
+    let bagItem = this.items.find(bagItem => bagItem.id === id);
+    if (!bagItem)
+      throw new Error("NonTrovato");
+
+    this.items.splice(this.items.indexOf(bagItem), 1);
+  }
 }

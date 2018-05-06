@@ -6,13 +6,14 @@
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <div class="inventory-container" *ngIf="!isLoading && inventory">
     <money tappable [money]="inventory.money" (onClick)="moneyClick()"></money>
-    <equipped [items]="equippedItems" [weight]="equippedWeight"></equipped>
+    <equipped [items]="equippedItems" [weight]="equippedWeight" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"
+      (onMove)="move($event)"></equipped>
     <ion-list>
-      <bag *ngFor="let bag of bags" [bag]="bag"></bag>
+      <bag *ngFor="let bag of bags" [bag]="bag" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)" (onMove)="move($event)"></bag>
     </ion-list>
   </div>
   <ion-fab right bottom>
-    <button ion-fab (click)="add()" class="component-inverted-style">
+    <button ion-fab (click)="addBag()" class="component-inverted-style">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>

@@ -3,15 +3,15 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
-import { Money } from '../../model/money.model';
 import { InventoryProvider } from '../../inventory.provider';
+import { Bag } from '../../model/bag.model';
 
 @IonicPage()
 @Component({
-  selector: 'page-money-form',
-  templateUrl: 'money-form.html',
+  selector: 'page-bag-form',
+  templateUrl: 'bag-form.html',
 })
-export class MoneyFormPage {
+export class BagFormPage {
   private _id: number;
   private _form: FormGroup;
 
@@ -28,28 +28,26 @@ export class MoneyFormPage {
     private _interface: InterfaceProvider,
   ) {
     this._form = this._formBuilder.group({
-      platinum: [0, Validators.required],
-      gold: [0, Validators.required],
-      electrum: [0, Validators.required],
-      silver: [0, Validators.required],
-      copper: [0, Validators.required],
+      name: ["", Validators.required],
+      bagWeight: [0, Validators.required],
+      hasLimitedCapacity: [false, Validators.required],
+      capacity: [0, Validators.required],
     });
 
     this.headerLogo = this._utility.images.logos.inventory;
-    this.headerTitle = "DettagliMonete";
+    this.headerTitle = "DettagliBorsa";
 
     this._id = this.navParams.get("id");
   }
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let money = this._inventory.selectMoney(this._id);
+      let bag = this._inventory.selectBag(this._id);
       this._form.reset({
-        copper: money.copper,
-        silver: money.silver,
-        electrum: money.electrum,
-        gold: money.gold,
-        platinum: money.platinum,
+        name: bag.name,
+        bagWeight: bag.bagWeight,
+        hasLimitedCapacity: bag.hasLimitedCapacity,
+        capacity: bag.capacity,
       });
     }
   }
@@ -59,12 +57,14 @@ export class MoneyFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let newMoney = new Money();
-      Object.assign(newMoney, model);
+      let bag = new Bag();
+      Object.assign(bag, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
-      this._utility.castNumberProps(newMoney, ["platinum", "electrum", "gold", "silver", "copper"]);
+      this._utility.castNumberProps(bag, ["bagWeight", "capacity"]);
       if (this._id !== undefined)
-        return this._inventory.updateMoney(this._id, newMoney);
+        return this._inventory.updateBag(this._id, bag);
+      else
+        return this._inventory.insertBag(bag);
     }).then(() => {
       return this.viewCtrl.dismiss({ action: "save" }).then(() => {
         this._interface.hideLoader();
