@@ -4,6 +4,7 @@ import { InventoryPage } from './inventory';
 import { TranslateModule } from "@ngx-translate/core";
 import { InventoryModule } from '../../inventory.module';
 import { SharedModule } from '../../../shared/shared.module';
+import { InventoryBarComponentModule } from '../../components/inventory-bar/inventory-bar.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from '../../../shared/shared.module';
     TranslateModule.forChild(),
     InventoryModule,
     SharedModule,
+    InventoryBarComponentModule,
   ],
   exports: [
     InventoryPage

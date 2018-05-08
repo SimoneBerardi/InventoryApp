@@ -7,9 +7,13 @@
   <ion-list *ngIf="!isLoading">
     <item-group *ngFor="let group of groups" [group]="group" (onSelect)="select($event)" (onPress)="press($event)"></item-group>
   </ion-list>
+</ion-content>
+
+<ion-footer no-border>
   <ion-fab right bottom>
     <button ion-fab (click)="add()" class="component-inverted-style">
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
-</ion-content>
+  <inventory-bar class="component-style"></inventory-bar>
+</ion-footer>

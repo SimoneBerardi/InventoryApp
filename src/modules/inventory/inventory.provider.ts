@@ -5,16 +5,33 @@ import { BagProvider } from './bag.provider';
 import { BagItemProvider } from './bag-item.provider';
 import { Money } from './model/money.model';
 import { Bag } from './model/bag.model';
+import { BagItem } from './model/bag-item.model';
+import { CharacterProvider } from '../characters/character.provider';
 
 @Injectable()
 export class InventoryProvider {
   inventory: Inventory = new Inventory();
 
   constructor(
+    private _characters: CharacterProvider,
     private _money: MoneyProvider,
     private _bagItems: BagItemProvider,
     private _bags: BagProvider,
-  ) { }
+  ) {
+    this._characters.onSelectCharacter.subscribe(id => {
+      this.loadInventory(id)
+    });
+  }
+
+  moveBagItem(id: number, bagId: number) {
+    let bagItem = this._bagItems.select(id);
+    if (!bagItem)
+      throw new Error("NonTrovato");
+
+    this.inventory.deleteBagItem(bagItem);
+    this.inventory.addBagItem(bagItem, bagId);
+    return this._bagItems.update(id, bagItem);
+  }
 
   modifyBagItemQuantity(id: number, quantity: number, isNegative: boolean) {
     let bagItem = this._bagItems.select(id);
@@ -39,16 +56,19 @@ export class InventoryProvider {
     if (!bagItem)
       throw new Error("NonTrovato");
 
-    if (bagItem.isEquipped) {
-      this.inventory.deleteEquippedItem(id);
-    } else {
-      let bag = this.inventory.bags.find(bag => bag.id === bagItem.bagId);
-      bag.deleteBagItem(bagItem.id);
-    }
+    this.inventory.deleteBagItem(bagItem);
     return this._bagItems.delete(id);
   }
 
-  selectBagItem(id: number){
+  updateBagItem(id: number, newBagItem: BagItem) {
+    let bagItem = this._bagItems.select(id);
+    newBagItem.characterId = bagItem.characterId;
+    newBagItem.bagId = bagItem.bagId;
+    return this._bagItems.update(id, newBagItem);
+  }
+
+  //TODO Considerare se leggere gli elementi sempre dalla cache
+  selectBagItem(id: number) {
     return this._bagItems.select(id);
   }
 

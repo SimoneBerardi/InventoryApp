@@ -3,57 +3,60 @@
 </ion-header>
 
 <ion-content padding class="component-style">
-  <ion-item text-center no-lines>
-    <h1 class="name">{{name}}</h1>
-  </ion-item>
-  <ion-item no-lines>
-    <ion-label class="image-container">
-      <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
-    </ion-label>
-  </ion-item>
-  <ion-item class="description" no-lines text-left>
-    <div class="dragon" item-left [ngStyle]="{'-webkit-mask-box-image': 'url(' + dragonImage + ')'}"></div>
-    {{description}}
-    <br> {{"Forza" | translate}} {{strength}}
-  </ion-item>
-  <ion-grid class="weights-table">
-    <div class="border-top" class="component-inverted-style"></div>
-    <ion-row class="labels-row" text-center>
-      <ion-col>LEGGERO</ion-col>
-      <ion-col>MEDIO</ion-col>
-      <ion-col>PESANTE</ion-col>
-    </ion-row>
-    <ion-row class="values-row" text-center>
-      <ion-col>
-        <div class="cell encumber-value">{{encumberedValue}} Kg</div>
-      </ion-col>
-      <ion-col>
-        <div class="cell heavy-encumber-value">{{heavilyEncumberedValue}} Kg</div>
-      </ion-col>
-      <ion-col>
-        <div class="cell max-carry-value">{{maxCarryValue}} Kg</div>
-      </ion-col>
-    </ion-row>
-    <ion-row class="values-row" text-center>
-      <ion-col col-4 offset-2>
-        <div class="cell drag-value">{{dragValue}} Kg</div>
-      </ion-col>
-      <ion-col col-4>
-        <div class="cell lift-value">{{liftValue}} Kg</div>
-      </ion-col>
-    </ion-row>
-    <ion-row class="labels-row" text-center>
-      <ion-col col-4 offset-2>x2</ion-col>
-      <ion-col col-4>x5</ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
+  <div *ngIf="!isLoading">
+    <ion-item text-center no-lines>
+      <h1 class="name">{{name}}</h1>
+    </ion-item>
+    <ion-item no-lines>
+      <ion-label class="image-container">
+        <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
+      </ion-label>
+    </ion-item>
+    <ion-item class="description" no-lines text-left>
+      <div class="dragon" item-left [ngStyle]="{'-webkit-mask-box-image': 'url(' + dragonImage + ')'}"></div>
+      {{description}}
+      <br> {{"Forza" | translate}} {{strength}}
+    </ion-item>
+    <ion-grid class="weights-table">
+      <div class="border-top" class="component-inverted-style"></div>
+      <ion-row class="labels-row" text-center>
+        <ion-col>LEGGERO</ion-col>
+        <ion-col>MEDIO</ion-col>
+        <ion-col>PESANTE</ion-col>
+      </ion-row>
+      <ion-row class="values-row" text-center>
+        <ion-col>
+          <div class="cell encumber-value">{{encumberedValue}} Kg</div>
+        </ion-col>
+        <ion-col>
+          <div class="cell heavy-encumber-value">{{heavilyEncumberedValue}} Kg</div>
+        </ion-col>
+        <ion-col>
+          <div class="cell max-carry-value">{{maxCarryValue}} Kg</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="values-row" text-center>
+        <ion-col col-4 offset-2>
+          <div class="cell drag-value">{{dragValue}} Kg</div>
+        </ion-col>
+        <ion-col col-4>
+          <div class="cell lift-value">{{liftValue}} Kg</div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="labels-row" text-center>
+        <ion-col col-4 offset-2>x2</ion-col>
+        <ion-col col-4>x5</ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
 
-<ion-footer no-border class="component-inverted-style">
+<ion-footer no-border>
   <ion-fab right bottom>
     <button ion-fab (click)="modify()" class="component-inverted-style">
       <ion-icon name="md-create"></ion-icon>
     </button>
   </ion-fab>
-  <!-- <total-bar ></total-bar> -->
+  <inventory-bar class="component-style"></inventory-bar>
 </ion-footer>

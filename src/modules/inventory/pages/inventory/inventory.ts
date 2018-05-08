@@ -4,7 +4,6 @@ import { OptionsProvider } from '../../../shared/providers/options.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Inventory } from '../../model/inventory.model';
 import { InventoryProvider } from '../../inventory.provider';
-import { SessionProvider } from '../../../shared/providers/session.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 import { MoveEventData } from '../../components/bag-item-list/bag-item-list';
 
@@ -24,7 +23,6 @@ export class InventoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _inventory: InventoryProvider,
-    private _session: SessionProvider,
     private _options: OptionsProvider,
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
@@ -34,7 +32,6 @@ export class InventoryPage {
   }
 
   ionViewDidLoad() {
-    this._inventory.loadInventory(this._session.characterId);
     this.inventory = this._inventory.inventory;
     this.isLoading = false;
   }
@@ -43,7 +40,7 @@ export class InventoryPage {
     return this.inventory.equipped;
   }
   get equippedWeight() {
-    return this.inventory.equippedWeight;
+    return this._utility.roundUp(this.inventory.equippedWeight);
   }
   get bags() {
     return this.inventory.bags;
@@ -83,10 +80,16 @@ export class InventoryPage {
   }
 
   modify(id: number) {
-    console.log("TODO - modify bag item: " + id);
+    this._interface.showModal("BagItemFormPage", { id: id });
   }
 
   move(data: MoveEventData) {
-    console.log("TODO - move bag item: " + data);
+    let bagItem = this._inventory.selectBagItem(data.id);
+    if (data.isQuickAction) {
+      let bagId = bagItem.isEquipped ? this.inventory.bags[0].id : -1;
+      return this._inventory.moveBagItem(data.id, bagId);
+    } else {
+      //TODO chiedi borsa in cui spostare
+    }
   }
 }

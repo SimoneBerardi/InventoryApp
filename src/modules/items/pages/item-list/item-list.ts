@@ -15,7 +15,7 @@ export class ItemListPage {
   headerLogo: string;
   headerTitle: string;
 
-  isLoading: boolean;
+  isLoading: boolean = true;
   groups: ItemGroup[];
 
   constructor(

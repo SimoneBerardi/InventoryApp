@@ -95,6 +95,10 @@ export class UtilityProvider {
       item[prop] = Number(item[prop]);
     });
   }
+
+  roundUp(value: number, decimals: number = 2){
+    return parseFloat(value.toFixed(decimals));
+  }
 }
 
 export interface Enumerable {

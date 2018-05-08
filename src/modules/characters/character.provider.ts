@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Character } from './character.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
@@ -6,6 +6,11 @@ import { DataProvider } from '../shared/data-provider.model';
 
 @Injectable()
 export class CharacterProvider extends DataProvider<Character> {
+
+  selectedCharacter: Character;
+
+  onSelectCharacter: EventEmitter<number> = new EventEmitter();
+
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
@@ -34,5 +39,10 @@ export class CharacterProvider extends DataProvider<Character> {
         image: this._utility.images.avatars[1],
       }
     ];
+  }
+
+  selectCharacter(id: number) {
+    this.selectedCharacter = this.list.find(character => character.id === id);
+    this.onSelectCharacter.emit(id);
   }
 }

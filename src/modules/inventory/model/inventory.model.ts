@@ -8,15 +8,36 @@ export class Inventory {
   equipped: BagItem[] = [];
   bags: Bag[] = [];
 
-  equippedWeight() {
+  get equippedWeight() {
     return this.equipped.map(item => item.weight).reduce((a, b) => a + b, 0);
   }
+  get bagsWeight() {
+    return this.bags.map(bag => bag.weight).reduce((a, b) => a + b, 0);
+  }
+  get carriedWeight(){
+    return this.money.weight + this.equippedWeight + this.bagsWeight;
+  }
 
-  deleteEquippedItem(id: number) {
-    let bagItem = this.equipped.find(bagItem => bagItem.id === id);
-    if (!bagItem)
-      throw new Error("NonTrovato");
+  addBagItem(bagItem: BagItem, bagId: number) {
+    bagItem.bagId = bagId;
 
-    this.equipped.splice(this.equipped.indexOf(bagItem), 1);
+    if (bagId === -1)
+      this.equipped.push(bagItem);
+    else {
+      let newBag = this.bags.find(bag => bag.id === bagId);
+      if (!newBag)
+        throw new Error("NonTrovato");
+
+      newBag.items.push(bagItem);
+    }
+  }
+
+  deleteBagItem(bagItem: BagItem) {
+    if (bagItem.isEquipped) {
+      this.equipped.splice(this.equipped.indexOf(bagItem), 1);
+    } else {
+      let bag = this.bags.find(bag => bag.id === bagItem.bagId);
+      bag.deleteBagItem(bagItem.id);
+    }
   }
 }

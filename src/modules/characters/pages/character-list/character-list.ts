@@ -4,7 +4,6 @@ import { Character } from '../../character.model';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
-import { SessionProvider } from '../../../shared/providers/session.provider';
 
 @IonicPage()
 @Component({
@@ -22,7 +21,6 @@ export class CharacterListPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _characters: CharacterProvider,
-    private _session: SessionProvider,
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
     private _events: Events,
@@ -48,7 +46,7 @@ export class CharacterListPage {
     this._interface.showModal("CharacterFormPage");
   }
   select(id: number) {
-    this._session.characterId = id;
+    this._characters.selectCharacter(id);
     return this.navCtrl.push("HomePage");
   }
   showOptions() {
