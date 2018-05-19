@@ -82,5 +82,15 @@
     "FontELinee": "Font e linee",
     "Sfondo": "Sfondo",
     "Salvataggio": "Salvataggio",
-    "PesoZaino": "Peso {{bagName}}"
+    "PesoZaino": "Peso {{bagName}}",
+    "Sollevare": "Sollevare",
+    "Trascinare": "Trascinare",
+    "Leggero": "Leggero",
+    "Medio": "Medio",
+    "Pesante": "Pesante",
+    "PiazzaMercato": "Piazza del mercato",
+    "Taglia": "Taglia",
+    "Piccola": "Piccola",
+    "Media": "Media",
+    "Grande": "Grande"
 }

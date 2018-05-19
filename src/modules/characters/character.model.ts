@@ -6,9 +6,10 @@ export class Character extends Jsonable {
   className: string;
   strength: number;
   image: string;
+  size: CharacterSize;
 
   constructor() {
-    super(["name", "race", "className", "strength", "image"]);
+    super(["name", "race", "className", "strength", "image", "size"]);
   }
 
   get description() {
@@ -29,4 +30,17 @@ export class Character extends Jsonable {
   get liftValue() {
     return parseFloat((this.strength * 30 * 0.453592).toFixed(2));
   }
+}
+
+export enum CharacterSize {
+  Piccola,
+  Media,
+  Grande
+}
+
+//TODO Ragionare su come gestire l'edizione, partirei solo con 3.5 e 5
+export enum Edition {
+  Three_Five,
+  Four_Zero,
+  Five_Zero,
 }

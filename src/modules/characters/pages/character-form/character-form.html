@@ -42,9 +42,15 @@
       <ion-label>{{"Forza" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="strength"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>{{"Taglia" | translate}}</ion-label>
+      <ion-select formControlName="size">
+        <ion-option *ngFor="let size of sizes" [value]="size.key">{{size.value | translate}}</ion-option>
+      </ion-select>
+    </ion-item>
   </form>
 </ion-content>
 
-<ion-footer no-border class="component-style">
+<ion-footer no-border class="component-inverted-style">
   <buttons-footer [isSaveDisabled]="!_form.valid" [isDeleteHidden]="!_id" (onSave)="save()" (onCancel)="cancel()" (onDelete)="delete()"></buttons-footer>
 </ion-footer>

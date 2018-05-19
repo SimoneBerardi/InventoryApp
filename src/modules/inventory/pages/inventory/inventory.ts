@@ -27,7 +27,7 @@ export class InventoryPage {
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
   ) {
-    this.headerLogo = this._utility.images.logos.inventory;
+    this.headerLogo = this._inventory.images.logo;
     this.headerTitle = "Inventario";
   }
 

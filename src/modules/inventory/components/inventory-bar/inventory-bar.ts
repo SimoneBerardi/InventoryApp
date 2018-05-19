@@ -38,7 +38,7 @@ export class InventoryBarComponent {
       result = "warning";
     return result;
   }
-  get carriedWeightClass(){
+  get carriedWeightClass() {
     let result = "";
     if (this.carriedWeight > this._character.encumberedValue)
       result = "encumbered";
@@ -47,6 +47,17 @@ export class InventoryBarComponent {
     if (this.carriedWeight > this._character.maxCarryValue)
       result = "over-max-carry";
     return result;
+  }
+
+  get iconStyle() {
+    let icon = this._inventory.images.status.green;
+    if (this.carriedWeight > this._character.encumberedValue)
+      icon = this._inventory.images.status.orange;
+    if (this.carriedWeight > this._character.heavilyEncumberedValue)
+      icon = this._inventory.images.status.red;
+    return {
+      "background-image": `url("${icon}")`
+    }
   }
 
   // showInfo() {

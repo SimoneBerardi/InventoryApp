@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { BagItem } from '../../model/bag-item.model';
 
 @Component({
@@ -13,13 +12,8 @@ export class BagItemListComponent {
   @Output() onModify: EventEmitter<number> = new EventEmitter();
   @Output() onMove: EventEmitter<MoveEventData> = new EventEmitter();
 
-  image: string;
-
   constructor(
-    private _utility: UtilityProvider,
-  ) {
-    this.image = this._utility.images.equipped;
-  }
+  ) { }
 
   add(id: number) {
     this.onAdd.emit(id);
@@ -38,7 +32,7 @@ export class BagItemListComponent {
   }
 }
 
-export interface MoveEventData{
+export interface MoveEventData {
   id: number;
   isQuickAction: boolean;
 }

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
-import { Character } from '../../character.model';
+import { Character, CharacterSize } from '../../character.model';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 
 @IonicPage()
@@ -22,6 +22,8 @@ export class CharacterFormPage {
   image: string;
   loadImage: string;
 
+  sizes: any[];
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,6 +38,7 @@ export class CharacterFormPage {
       race: ["", Validators.required],
       className: ["", Validators.required],
       strength: [10, Validators.required],
+      size: [1, Validators.required],
     });
     this.image = this._utility.images.avatars[0];
 
@@ -44,6 +47,7 @@ export class CharacterFormPage {
 
     this._id = this.navParams.get("id");
     this.loadImage = this._utility.images.buttons.addImage;
+    this.sizes = this._utility.enumerateEnum(CharacterSize);
   }
 
   ionViewDidLoad() {
@@ -54,6 +58,7 @@ export class CharacterFormPage {
         race: character.race,
         className: character.className,
         strength: character.strength,
+        size: character.size,
       });
       this.image = character.image;
     }

@@ -1,8 +1,7 @@
 <ion-toolbar>
   <ion-item no-lines tappable (click)="showInfo()">
     <p class="weight-text" item-left>{{"PesoTrasportato" | translate}}</p>
-    <ion-icon name="{{carriedWeightIconName}}" color="{{carriedWeightColor}}" item-left></ion-icon>
-    <p class="carried-weight" [ngClass]="carriedWeightClass"
-      item-left>{{carriedWeight}} Kg</p>
+    <ion-icon item-left class="custom-icon" [ngStyle]="iconStyle"></ion-icon>
+    <p class="carried-weight" [ngClass]="carriedWeightClass" item-left>{{carriedWeight}} Kg</p>
   </ion-item>
 </ion-toolbar>

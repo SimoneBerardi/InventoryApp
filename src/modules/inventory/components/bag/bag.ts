@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Bag } from '../../model/bag.model';
 import { MoveEventData } from '../bag-item-list/bag-item-list';
+import { InventoryProvider } from '../../inventory.provider';
 
 @Component({
   selector: 'bag',
@@ -19,11 +20,11 @@ export class BagComponent {
   arrowStyle: any;
 
   constructor(
-    private _utility: UtilityProvider,
+    private _inventory: InventoryProvider,
   ) {
-    this.image = this._utility.images.bag;
+    this.image = this._inventory.images.bag;
     this.arrowStyle = {
-      "-webkit-mask-box-image": `url("${this._utility.images.bagArrow}")`
+      "-webkit-mask-box-image": `url("${this._inventory.images.bagArrow}")`
     };
   }
 

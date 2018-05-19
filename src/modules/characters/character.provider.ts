@@ -29,6 +29,7 @@ export class CharacterProvider extends DataProvider<Character> {
         className: "Guerriero",
         strength: 16,
         image: this._utility.images.avatars[0],
+        size: 1,
       },
       {
         id: 2,
@@ -37,6 +38,7 @@ export class CharacterProvider extends DataProvider<Character> {
         className: "Mago Combattente",
         strength: 14,
         image: this._utility.images.avatars[1],
+        size: 1,
       }
     ];
   }

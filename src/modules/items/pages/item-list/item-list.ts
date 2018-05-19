@@ -26,7 +26,7 @@ export class ItemListPage {
     private _interface: InterfaceProvider,
   ) {
     this.headerLogo = this._utility.images.logos.items;
-    this.headerTitle = "Oggetti";
+    this.headerTitle = "PiazzaMercato";
   }
 
   ionViewDidLoad() {

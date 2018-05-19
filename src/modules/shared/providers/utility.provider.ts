@@ -18,10 +18,12 @@ export class UtilityProvider {
     };
 
   images = {
-    bag: "assets/images/bag.png",
-    money: "assets/images/money.png",
-    equipped: "assets/images/equipped.png",
-    bagArrow: "assets/images/bag-arrow.png",
+    // inventory: {
+    //   bag: "assets/images/bag.png",
+    //   money: "assets/images/money.png",
+    //   equipped: "assets/images/equipped.png",
+    //   bagArrow: "assets/images/bag-arrow.png",
+    // },
     avatars: [
       "assets/images/avatar_1.png",
       "assets/images/avatar_2.png",
@@ -29,7 +31,7 @@ export class UtilityProvider {
     logos: {
       charactersList: "assets/images/characters_list_logo.png",
       character: "assets/images/character_logo.png",
-      inventory: "assets/images/inventory_logo.png",
+      // inventory: "assets/images/inventory_logo.png",
       items: "assets/images/items_logo.png",
     },
     buttons: {
@@ -96,7 +98,7 @@ export class UtilityProvider {
     });
   }
 
-  roundUp(value: number, decimals: number = 2){
+  roundUp(value: number, decimals: number = 2) {
     return parseFloat(value.toFixed(decimals));
   }
 }

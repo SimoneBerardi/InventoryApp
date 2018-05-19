@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { BagItem } from '../../model/bag-item.model';
 
 @Component({
@@ -13,13 +12,8 @@ export class BagItemComponent {
   @Output() onModify: EventEmitter<void> = new EventEmitter();
   @Output() onMove: EventEmitter<boolean> = new EventEmitter();
 
-  image: string;
-
   constructor(
-    private _utility: UtilityProvider,
-  ) {
-    this.image = this._utility.images.equipped;
-  }
+  ) {  }
 
   get text() {
     return this.item.text;

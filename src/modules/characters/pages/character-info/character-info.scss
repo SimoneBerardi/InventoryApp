@@ -9,8 +9,8 @@ page-character-info {
         height: 45px;
         background-color: var(--contrast-color);
     }
-    .image-container{
-      margin: 0;
+    .image-container {
+        margin: 0;
     }
     .image {
         margin-top: 10px;
@@ -47,7 +47,6 @@ page-character-info {
             width: 100%;
             margin: auto;
             display: block;
-            background: blue;
             opacity: 0.5;
         }
         .row {
@@ -64,20 +63,20 @@ page-character-info {
                     .cell {
                         padding: 3px;
                         &.encumber-value {
-                            border: 1px solid color($colors, secondary);
-                            color: color($colors, secondary);
+                            border: 1px solid color($colors, status_green);
+                            color: color($colors, status_green);
                         }
                         &.heavy-encumber-value {
-                            border: 1px solid color($colors, warning);
-                            color: color($colors, warning);
+                            border: 1px solid color($colors, status_orange);
+                            color: color($colors, status_orange);
                         }
                         &.max-carry-value {
-                            border: 1px solid color($colors, danger);
-                            color: color($colors, danger);
+                            border: 1px solid color($colors, status_red);
+                            color: color($colors, status_red);
                         }
                         &.drag-value,
-                        &.lift-value{
-                          border: 1px solid var(--contrast-color);
+                        &.lift-value {
+                            border: 1px solid var(--contrast-color);
                         }
                     }
                 }

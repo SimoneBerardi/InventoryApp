@@ -34,7 +34,7 @@ export class BagFormPage {
       capacity: [0, Validators.required],
     });
 
-    this.headerLogo = this._utility.images.logos.inventory;
+    this.headerLogo = this._inventory.images.logo;
     this.headerTitle = "DettagliBorsa";
 
     this._id = this.navParams.get("id");
