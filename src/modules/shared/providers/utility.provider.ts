@@ -5,25 +5,19 @@ import { Jsonable } from '../jsonable.model';
 
 @Injectable()
 export class UtilityProvider {
-  /**
-   * Deprecato
-   */
-  private _storageKeys =
-    {
-      options: "inventoryApp_options",
-      characters: "inventoryApp_characters",
-      bags: "inventoryApp_bags",
-      bagItems: "inventoryApp_bagItems",
-      customItems: "inventoryApp_customItems",
-    };
-
   images = {
-    // inventory: {
-    //   bag: "assets/images/bag.png",
-    //   money: "assets/images/money.png",
-    //   equipped: "assets/images/equipped.png",
-    //   bagArrow: "assets/images/bag-arrow.png",
-    // },
+    inventory: {
+      logo: "assets/images/inventory/logo.png",
+      money: "assets/images/inventory/money.png",
+      equipped: "assets/images/inventory/equipped.png",
+      bag: "assets/images/inventory/bag.png",
+      bagArrow: "assets/images/inventory/bag-arrow.png",
+      status: {
+        green: "assets/images/inventory/status_green.png",
+        orange: "assets/images/inventory/status_orange.png",
+        red: "assets/images/inventory/status_red.png",
+      }
+    },
     avatars: [
       "assets/images/avatar_1.png",
       "assets/images/avatar_2.png",

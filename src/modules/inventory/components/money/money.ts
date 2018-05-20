@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Money } from '../../model/money.model';
-import { InventoryProvider } from '../../inventory.provider';
+import { UtilityProvider } from '../../../shared/providers/utility.provider';
 
 @Component({
   selector: 'money',
@@ -13,9 +13,9 @@ export class MoneyComponent {
   image: string;
 
   constructor(
-    private _inventory: InventoryProvider,
+    private _utility: UtilityProvider,
   ) {
-    this.image = this._inventory.images.money;
+    this.image = this._utility.images.inventory.money;
   }
 
   click() {

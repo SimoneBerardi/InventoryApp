@@ -2,6 +2,7 @@ import { Jsonable } from "../../shared/jsonable.model";
 
 export class BagItem extends Jsonable {
   characterId: number;
+  itemId: number;
   bagId: number;
   name: string;
   description: string;
@@ -9,7 +10,7 @@ export class BagItem extends Jsonable {
   quantity: number;
 
   constructor() {
-    super(["characterId", "bagId", "name", "description", "itemWeight", "quantity"]);
+    super(["characterId", "itemId", "bagId", "name", "description", "itemWeight", "quantity"]);
   }
 
   get text() {
@@ -17,8 +18,5 @@ export class BagItem extends Jsonable {
   }
   get weight() {
     return this.itemWeight * this.quantity;
-  }
-  get isEquipped(){
-    return this.bagId === -1;
   }
 }

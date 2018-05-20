@@ -35,7 +35,7 @@ export class MoneyFormPage {
       copper: [0, Validators.required],
     });
 
-    this.headerLogo = this._inventory.images.logo;
+    this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "DettagliMonete";
 
     this._id = this.navParams.get("id");

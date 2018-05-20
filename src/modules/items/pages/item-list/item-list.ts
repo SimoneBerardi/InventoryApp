@@ -42,7 +42,8 @@ export class ItemListPage {
   }
 
   select(id: number) {
-    console.log("TODO - Aggiunta elemento")
+    this._items.selectItem({ id: id });
+    // console.log("TODO - Aggiunta elemento")
   }
 
   press(id: number) {

@@ -24,9 +24,9 @@ export class BagItemComponent {
   get weight() {
     return this.item.weight;
   }
-  get isEquipped() {
-    return this.item.isEquipped;
-  }
+  // get isEquipped() {
+  //   return this.item.isEquipped;
+  // }
 
   add() {
     this.onAdd.emit();

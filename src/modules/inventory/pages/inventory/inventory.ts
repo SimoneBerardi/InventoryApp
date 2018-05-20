@@ -27,7 +27,7 @@ export class InventoryPage {
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
   ) {
-    this.headerLogo = this._inventory.images.logo;
+    this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "Inventario";
   }
 
@@ -36,12 +36,12 @@ export class InventoryPage {
     this.isLoading = false;
   }
 
-  get equippedItems() {
-    return this.inventory.equipped;
-  }
-  get equippedWeight() {
-    return this._utility.roundUp(this.inventory.equippedWeight);
-  }
+  // get equippedItems() {
+  //   return this.inventory.equipped;
+  // }
+  // get equippedWeight() {
+  //   return this._utility.roundUp(this.inventory.equippedWeight);
+  // }
   get bags() {
     return this.inventory.bags;
   }
@@ -84,12 +84,13 @@ export class InventoryPage {
   }
 
   move(data: MoveEventData) {
-    let bagItem = this._inventory.selectBagItem(data.id);
-    if (data.isQuickAction) {
-      let bagId = bagItem.isEquipped ? this.inventory.bags[0].id : -1;
-      return this._inventory.moveBagItem(data.id, bagId);
-    } else {
-      //TODO chiedi borsa in cui spostare
-    }
+    console.log("TODO - move: " + data);
+    // let bagItem = this._inventory.selectBagItem(data.id);
+    // if (data.isQuickAction) {
+    //   let bagId = bagItem.isEquipped ? this.inventory.bags[0].id : -1;
+    //   return this._inventory.moveBagItem(data.id, bagId);
+    // } else {
+    //   //TODO chiedi borsa in cui spostare
+    // }
   }
 }

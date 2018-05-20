@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { BagItem } from '../../model/bag-item.model';
 import { MoveEventData } from '../bag-item-list/bag-item-list';
-import { InventoryProvider } from '../../inventory.provider';
+import { UtilityProvider } from '../../../shared/providers/utility.provider';
 
 @Component({
   selector: 'equipped',
@@ -19,9 +19,9 @@ export class EquippedComponent {
   image: string;
 
   constructor(
-    private _inventory: InventoryProvider,
+    private _utility: UtilityProvider,
   ) {
-    this.image = this._inventory.images.equipped;
+    this.image = this._utility.images.inventory.equipped;
   }
 
   add(id: number) {

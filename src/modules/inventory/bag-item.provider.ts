@@ -18,21 +18,8 @@ export class BagItemProvider extends DataProvider<BagItem>{
     );
 
     let itemsCount = 5;
-    let bagsCount = 4;
+    let bagsCount = 5;
     let itemId = 1;
-
-    for (let i = 0; i < itemsCount; i++) {
-      this._testItems.push({
-        id: itemId,
-        characterId: 1,
-        bagId: -1,
-        name: "Oggetto " + itemId,
-        description: "Desc oggetto " + itemId,
-        itemWeight: 7 - i,
-        quantity: i + 1,
-      });
-      itemId++;
-    }
 
     for (let i = 0; i <= bagsCount; i++) {
       for (let j = 0; j < itemsCount; j++) {

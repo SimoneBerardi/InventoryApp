@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Bag } from '../../model/bag.model';
 import { MoveEventData } from '../bag-item-list/bag-item-list';
-import { InventoryProvider } from '../../inventory.provider';
 
 @Component({
   selector: 'bag',
@@ -16,15 +15,13 @@ export class BagComponent {
   @Output() onModify: EventEmitter<number> = new EventEmitter();
   @Output() onMove: EventEmitter<MoveEventData> = new EventEmitter();
 
-  image: string;
   arrowStyle: any;
 
   constructor(
-    private _inventory: InventoryProvider,
+    private _utility: UtilityProvider,
   ) {
-    this.image = this._inventory.images.bag;
     this.arrowStyle = {
-      "-webkit-mask-box-image": `url("${this._inventory.images.bagArrow}")`
+      "-webkit-mask-box-image": `url("${this._utility.images.inventory.bagArrow}")`
     };
   }
 
@@ -36,6 +33,9 @@ export class BagComponent {
   }
   get bagWeight() {
     return this.bag.bagWeight;
+  }
+  get image() {
+    return this.bag.image;
   }
   get items() {
     return this.bag.items;
@@ -53,7 +53,7 @@ export class BagComponent {
     this.onModify.emit(id);
   }
 
-  move(data: MoveEventData){
+  move(data: MoveEventData) {
     this.onMove.emit(data);
   }
 }

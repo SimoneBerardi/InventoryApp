@@ -6,8 +6,8 @@
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <div class="inventory-container" *ngIf="!isLoading && inventory">
     <money tappable [money]="inventory.money" (onClick)="moneyClick()"></money>
-    <equipped [items]="equippedItems" [weight]="equippedWeight" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"
-      (onMove)="move($event)"></equipped>
+    <!-- <equipped [items]="equippedItems" [weight]="equippedWeight" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"
+      (onMove)="move($event)"></equipped> -->
     <ion-list>
       <bag *ngFor="let bag of bags" [bag]="bag" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)" (onMove)="move($event)"></bag>
     </ion-list>

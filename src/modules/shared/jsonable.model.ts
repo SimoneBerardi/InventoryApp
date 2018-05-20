@@ -3,7 +3,7 @@ export class Jsonable {
 
   constructor(
     private _props: string[],
-  ) { 
+  ) {
     this._props.unshift("id");
   }
 
@@ -19,5 +19,14 @@ export class Jsonable {
     this._props.forEach(prop => {
       this[prop] = json[prop];
     });
+  }
+
+  isEqual(element: Jsonable) {
+    this._props.forEach(prop => {
+      if (prop != "id")
+        if (this[prop] != element[prop])
+          return false;
+    });
+    return true;
   }
 }

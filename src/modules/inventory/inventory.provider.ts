@@ -7,69 +7,78 @@ import { Money } from './model/money.model';
 import { Bag } from './model/bag.model';
 import { BagItem } from './model/bag-item.model';
 import { CharacterProvider } from '../characters/character.provider';
+import { ItemProvider, ItemSelection } from '../items/item.provider';
 
 @Injectable()
 export class InventoryProvider {
-  images = {
-    logo: "assets/images/inventory/logo.png",
-    money: "assets/images/inventory/money.png",
-    equipped: "assets/images/inventory/equipped.png",
-    bag: "assets/images/inventory/bag.png",
-    bagArrow: "assets/images/inventory/bag-arrow.png",
-    status:{
-      green: "assets/images/inventory/status_green.png",
-      orange: "assets/images/inventory/status_orange.png",
-      red: "assets/images/inventory/status_red.png",
-    }
-  };
   inventory: Inventory = new Inventory();
 
   constructor(
     private _characters: CharacterProvider,
+    private _items: ItemProvider,
     private _money: MoneyProvider,
     private _bagItems: BagItemProvider,
     private _bags: BagProvider,
   ) {
     this._characters.onSelectCharacter.subscribe(id => {
-      this.loadInventory(id)
+      this._loadInventory(id);
+    });
+    this._items.onSelectItem.subscribe((data: ItemSelection) => {
+      let quantity = data.quantity || 1;
+      //TODO Scelta borsa
+      this.addItem(data.id, 1, quantity);
     });
   }
 
-  moveBagItem(id: number, bagId: number) {
-    let bagItem = this._bagItems.select(id);
-    if (!bagItem)
-      throw new Error("NonTrovato");
+  addItem(id: number, bagId: number, quantity: number) {
+    let item = this._items.select(id);
+    let bag = this._bags.select(bagId);
+    if (!item)
+      throw new Error("OggettoNonTrovato");
+    if (!bag)
+      throw new Error("BorsaNonTrovata");
+    if (quantity <= 0)
+      throw new Error("QuantitàNonValida");
 
-    this.inventory.deleteBagItem(bagItem);
-    this.inventory.addBagItem(bagItem, bagId);
-    return this._bagItems.update(id, bagItem);
+    let bagItem = new BagItem();
+    bagItem.characterId = this.inventory.characterId;
+    bagItem.itemId = id;
+    bagItem.bagId = bagId;
+    bagItem.name = item.name;
+    bagItem.description = item.description;
+    bagItem.itemWeight = item.weight;
+    bagItem.quantity = quantity;
+
+    return this._addBagItem(bagItem, bag);
+  }
+
+  moveBagItem(id: number, bagId: number, quantity: number) {
+    let bagItem = this._bagItems.select(id);
+    let bag = this._bags.select(bagId);
+    if (!bagItem)
+      throw new Error("OggettoNonTrovato");
+    if (!bag)
+      throw new Error("BorsaNonTrovata");
+
+    return this.modifyBagItemQuantity(id, quantity, true).then(() => {
+      let newBagItem = new BagItem();
+      Object.assign(newBagItem, bagItem);
+      newBagItem.quantity = quantity;
+      this._addBagItem(bagItem, bag);
+    });
   }
 
   modifyBagItemQuantity(id: number, quantity: number, isNegative: boolean) {
     let bagItem = this._bagItems.select(id);
+    let bag = this._bags.select(bagItem.bagId);
     if (!bagItem)
-      throw new Error("NonTrovato");
+      throw new Error("OggettoNonTrovato");
+    if (!bag)
+      throw new Error("BorsaNonTrovata");
     if (isNegative && quantity > bagItem.quantity)
       throw new Error("QuantitàInsufficiente");
 
-    if (isNegative && quantity === bagItem.quantity) {
-      return this.deleteBagItem(id);
-    } else {
-      if (isNegative)
-        bagItem.quantity -= quantity;
-      else
-        bagItem.quantity += quantity;
-      return this._bagItems.save();
-    }
-  }
-
-  deleteBagItem(id: number) {
-    let bagItem = this._bagItems.select(id);
-    if (!bagItem)
-      throw new Error("NonTrovato");
-
-    this.inventory.deleteBagItem(bagItem);
-    return this._bagItems.delete(id);
+    return this._modifyBagItemQuantity(bagItem, quantity, isNegative, bag);
   }
 
   updateBagItem(id: number, newBagItem: BagItem) {
@@ -79,7 +88,6 @@ export class InventoryProvider {
     return this._bagItems.update(id, newBagItem);
   }
 
-  //TODO Considerare se leggere gli elementi sempre dalla cache
   selectBagItem(id: number) {
     return this._bagItems.select(id);
   }
@@ -118,22 +126,6 @@ export class InventoryProvider {
     return this._money.select(id);
   }
 
-  loadInventory(characterId: number) {
-    let money = this._money.selectByCharacterId(characterId);
-    let items = this._bagItems.selectCharacterId(characterId);
-    let equipped = items.filter(item => item.isEquipped);
-    let bags = this._bags.selectByCharacterId(characterId);
-    bags.forEach(bag => {
-      let bagItems = items.filter(item => item.bagId === bag.id);
-      bag.items = bagItems;
-    });
-    this.inventory = new Inventory();
-    this.inventory.characterId = characterId;
-    this.inventory.money = money;
-    this.inventory.equipped = equipped;
-    this.inventory.bags = bags;
-  }
-
   clear() {
     this.inventory = new Inventory();
 
@@ -150,5 +142,33 @@ export class InventoryProvider {
     promises.push(this._bagItems.load());
     promises.push(this._bags.load());
     return Promise.all(promises);
+  }
+
+  private _addBagItem(bagItem: BagItem, bag: Bag) {
+    let duplicateBagItem = bag.addBagItem(bagItem);
+    if (duplicateBagItem === null)
+      return this._bagItems.insert(bagItem);
+    else
+      return this._bagItems.save();
+  }
+  private _modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean, bag: Bag) {
+    let isDeleted = bag.modifyBagItemQuantity(bagItem, quantity, isNegative);
+    if (isDeleted)
+      return this._bagItems.delete(bagItem.id);
+    else
+      return this._bagItems.save();
+  }
+  private _loadInventory(characterId: number) {
+    let money = this._money.selectByCharacterId(characterId);
+    let items = this._bagItems.selectCharacterId(characterId);
+    let bags = this._bags.selectByCharacterId(characterId);
+    bags.forEach(bag => {
+      let bagItems = items.filter(item => item.bagId === bag.id);
+      bag.items = bagItems;
+    });
+    this.inventory = new Inventory();
+    this.inventory.characterId = characterId;
+    this.inventory.money = money;
+    this.inventory.bags = bags;
   }
 }

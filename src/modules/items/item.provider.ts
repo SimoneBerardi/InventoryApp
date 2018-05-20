@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Item } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
@@ -6,6 +6,9 @@ import { DataProvider } from '../shared/data-provider.model';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
+
+  onSelectItem: EventEmitter<ItemSelection> = new EventEmitter();
+
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
@@ -62,4 +65,13 @@ export class ItemProvider extends DataProvider<Item> {
       },
     ];
   }
+
+  selectItem(data: ItemSelection) {
+    this.onSelectItem.emit(data);
+  }
+}
+
+export interface ItemSelection {
+  id: number;
+  quantity?: number;
 }

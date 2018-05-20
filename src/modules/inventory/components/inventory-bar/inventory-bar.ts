@@ -50,11 +50,11 @@ export class InventoryBarComponent {
   }
 
   get iconStyle() {
-    let icon = this._inventory.images.status.green;
+    let icon = this._utility.images.inventory.status.green;
     if (this.carriedWeight > this._character.encumberedValue)
-      icon = this._inventory.images.status.orange;
+      icon = this._utility.images.inventory.status.orange;
     if (this.carriedWeight > this._character.heavilyEncumberedValue)
-      icon = this._inventory.images.status.red;
+      icon = this._utility.images.inventory.status.red;
     return {
       "background-image": `url("${icon}")`
     }
