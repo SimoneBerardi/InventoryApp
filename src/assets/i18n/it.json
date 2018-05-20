@@ -92,5 +92,7 @@
     "Taglia": "Taglia",
     "Piccola": "Piccola",
     "Media": "Media",
-    "Grande": "Grande"
+    "Grande": "Grande",
+    "OggettiSemplici": "Oggetti semplici",
+    "OggettiMagici": "Oggetti magici"
 }

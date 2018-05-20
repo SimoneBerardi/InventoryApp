@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ItemProvider } from './item.provider';
 import { ItemGroupComponent } from './components/item-group/item-group';
 import { ItemComponent } from './components/item/item';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { ItemComponent } from './components/item/item';
   imports: [
     IonicPageModule.forChild(ItemComponent),
     IonicPageModule.forChild(ItemGroupComponent),
+    TranslateModule.forChild(),
   ],
   exports: [
     ItemComponent,

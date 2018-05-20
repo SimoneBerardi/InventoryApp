@@ -15,5 +15,6 @@ export class Item extends Jsonable {
 export enum ItemCategory {
   Armi,
   Armature,
-  Oggetti,
+  OggettiSemplici,
+  OggettiMagici,
 }

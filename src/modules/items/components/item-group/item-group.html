@@ -1,14 +1,6 @@
 <div class="group">
-  <ion-item class="group-name">{{group.name | uppercase}}</ion-item>
-  <div class="group-items">
+  <ion-item tappable no-lines no-padding text-center class="group-name" (click)="isOpen = !isOpen" [ngClass]="{isOpen: open}">{{group.name | translate | uppercase}}</ion-item>
+  <div class="group-items" *ngIf="isOpen">
     <item *ngFor="let item of group.items" [item]="item" (tap)="select(item.id)" (press)="press(item.id)"></item>
   </div>
 </div>
-
-<!-- Versione collapsable -->
-<!-- <div class="group" tappable (click)="isVisible = !isVisible">
-  <ion-item class="group-name">{{group.name | uppercase}}</ion-item>
-  <div class="group-items" *ngIf="isVisible">
-    <item *ngFor="let item of group.items" [item]="item"></item>
-  </div>
-</div> -->
