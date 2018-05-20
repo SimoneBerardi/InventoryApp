@@ -9,11 +9,13 @@ import { ButtonsFooterComponent } from './components/buttons-footer/buttons-foot
 import { CharactersModule } from '../characters/characters.module';
 import { TranslateProvider } from './providers/translate.provider';
 import { OptionsProvider } from './providers/options.provider';
+import { WeightPipe } from './weight.pipe';
 
 @NgModule({
   declarations: [
     PageHeaderComponent,
     ButtonsFooterComponent,
+    WeightPipe,
   ],
   imports: [
     IonicPageModule.forChild(PageHeaderComponent),
@@ -23,6 +25,7 @@ import { OptionsProvider } from './providers/options.provider';
   exports: [
     PageHeaderComponent,
     ButtonsFooterComponent,
+    WeightPipe,
   ]
 })
 export class SharedModule {

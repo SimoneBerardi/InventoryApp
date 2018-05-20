@@ -27,21 +27,21 @@
       </ion-row>
       <ion-row class="values-row" text-center>
         <ion-col>
-          <div class="cell encumber-value">{{encumberedValue}} Kg</div>
+          <div class="cell encumber-value">{{encumberedValue | weight:true}}</div>
         </ion-col>
         <ion-col>
-          <div class="cell heavy-encumber-value">{{heavilyEncumberedValue}} Kg</div>
+          <div class="cell heavy-encumber-value">{{heavilyEncumberedValue | weight:true}}</div>
         </ion-col>
         <ion-col>
-          <div class="cell max-carry-value">{{maxCarryValue}} Kg</div>
+          <div class="cell max-carry-value">{{maxCarryValue | weight:true}}</div>
         </ion-col>
       </ion-row>
       <ion-row class="values-row" text-center>
         <ion-col col-4 offset-2>
-          <div class="cell drag-value">{{dragValue}} Kg</div>
+          <div class="cell drag-value">{{dragValue | weight:true}}</div>
         </ion-col>
         <ion-col col-4>
-          <div class="cell lift-value">{{liftValue}} Kg</div>
+          <div class="cell lift-value">{{liftValue | weight:true}}</div>
         </ion-col>
       </ion-row>
       <ion-row class="labels-row" text-center>

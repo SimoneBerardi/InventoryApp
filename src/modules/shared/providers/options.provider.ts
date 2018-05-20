@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Options } from '../options.model';
+import { Options, Units } from '../options.model';
 import { StorageProvider } from './storage.provider';
 import { TranslateProvider } from './translate.provider';
 
@@ -36,10 +36,33 @@ export class OptionsProvider {
     this._options.contrastColor = value;
     this._applyStyle();
   }
+  get decimals() {
+    return this._options.decimals;
+  }
+  set decimals(value: number) {
+    this._options.decimals = value;
+  }
+  get units() {
+    return this._options.units;
+  }
+  set units(value: Units) {
+    this._options.units = value;
+  }
 
-  setLanguage(language: string) {
-    this.language = language;
-    return this._translate.setLanguage(language).then(() => {
+  update(options: Options) {
+    let oldOptions = this._options;
+    this._options = options;
+    return Promise.resolve().then(() => {
+      if (oldOptions.language != this._options.language)
+        this._setLanguage();
+      else
+        return Promise.resolve();
+    }).then(() => {
+      if (oldOptions.baseColor != this._options.baseColor ||
+        oldOptions.contrastColor != this._options.contrastColor)
+        this._applyStyle();
+      return Promise.resolve();
+    }).then(() => {
       return this.save();
     });
   }
@@ -51,9 +74,13 @@ export class OptionsProvider {
 
   load() {
     return this._storage.deserialize<Options>(this._optionsKey, Options).then(options => {
-      if (options)
+      if (options) {
         this._options = options as Options;
-      return this.setLanguage(this._options.language);
+        return Promise.resolve();
+      } else
+        return this.save();
+    }).then(() => {
+      return this._setLanguage();
     }).then(() => {
       this._applyStyle();
       return Promise.resolve();
@@ -62,6 +89,10 @@ export class OptionsProvider {
 
   save() {
     return this._storage.serialize(this._optionsKey, this._options);
+  }
+
+  private _setLanguage() {
+    return this._translate.setLanguage(this._options.language);
   }
 
   private _applyStyle() {

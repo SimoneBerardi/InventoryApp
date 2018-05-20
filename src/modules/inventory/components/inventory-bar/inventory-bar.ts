@@ -20,7 +20,7 @@ export class InventoryBarComponent {
   }
 
   get carriedWeight() {
-    return this._utility.roundUp(this._inventory.inventory.carriedWeight);
+    return this._inventory.inventory.carriedWeight;
   }
   get carriedWeightColor() {
     let result = "secondary";

@@ -4,18 +4,30 @@
 
 
 <ion-content padding class="component-style">
-  <ion-item>
-    <ion-label>{{"Lingua" | translate}}</ion-label>
-    <ion-select [(ngModel)]="language">
-      <ion-option value="it">Italiano</ion-option>
-      <ion-option value="en">English</ion-option>
-    </ion-select>
-  </ion-item>
-  <button ion-item (click)="reset()">{{"ResetCompleto" | translate}}</button>
+  <form [formGroup]="_form">
+    <ion-item>
+      <ion-label>{{"Lingua" | translate}}</ion-label>
+      <ion-select formControlName="language">
+        <ion-option value="it">Italiano</ion-option>
+        <ion-option value="en">English</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"UnitaMisura" | translate}}</ion-label>
+      <ion-select formControlName="units">
+        <ion-option *ngFor="let unit of units" [value]="unit.key">{{unit.value | translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"Decimali" | translate}}</ion-label>
+      <ion-input text-right type="number" formControlName="decimals"></ion-input>
+    </ion-item>
+    <ion-item tappable (click)="reset()">{{"ResetCompleto" | translate}}</ion-item>
+  </form>
 </ion-content>
 
-<ion-footer no-border class="component-style">
-  <ion-grid class="style-grid">
+<ion-footer no-border class="component-inverted-style">
+  <!-- <ion-grid class="style-grid">
     <ion-row>
       <ion-col text-center>{{"InterfacciaGrafica" | translate}}</ion-col>
     </ion-row>
@@ -35,6 +47,6 @@
       <ion-col class="italic-text" offset-2 col-4 text-center>{{"FontELinee" | translate}}</ion-col>
       <ion-col class="italic-text" col-4 text-center>{{"Sfondo" | translate}}</ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
   <buttons-footer [isDeleteHidden]="true" (onSave)="save()" (onCancel)="cancel()" (onDelete)="delete()"></buttons-footer>
 </ion-footer>
