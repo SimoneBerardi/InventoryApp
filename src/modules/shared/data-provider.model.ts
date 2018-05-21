@@ -55,8 +55,7 @@ export class DataProvider<T extends Jsonable> {
       else
         return Promise.resolve();
     }).then(() => {
-      if (this._utility.isDebug)
-      {
+      if (this._utility.isDebug) {
         this._loadTestItems();
         return this.save();
       }

@@ -44,9 +44,9 @@ export class BagItemFormPage {
     if (this._id !== undefined) {
       let bagItem = this._inventory.selectBagItem(this._id);
       this._form.reset({
-        name: bagItem.name,
-        description: bagItem.description,
-        itemWeight: bagItem.itemWeight,
+        name: bagItem.item.name,
+        description: bagItem.item.description,
+        itemWeight: bagItem.item.weight,
         quantity: bagItem.quantity,
       });
     }

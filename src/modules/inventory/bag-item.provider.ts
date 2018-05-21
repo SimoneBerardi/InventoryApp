@@ -19,26 +19,24 @@ export class BagItemProvider extends DataProvider<BagItem>{
 
     let itemsCount = 5;
     let bagsCount = 5;
-    let itemId = 1;
+    let bagItemId = 0;
 
     for (let i = 0; i <= bagsCount; i++) {
       for (let j = 0; j < itemsCount; j++) {
         this._testItems.push({
-          id: itemId,
-          characterId: 1,
+          id: bagItemId,
+          inventoryId: 1,
           bagId: i,
-          name: "Oggetto " + itemId,
-          description: "Desc oggetto " + itemId,
-          itemWeight: 7 - j,
+          itemId: j + 1,
           quantity: j + 1,
         });
-        itemId++;
+        bagItemId++;
       }
     }
   }
 
-  selectCharacterId(characterId: number) {
-    return this.list.filter(bagItem => bagItem.characterId === characterId);
+  selectByInventoryId(inventoryId: number) {
+    return this.list.filter(bagItem => bagItem.inventoryId === inventoryId);
   }
 
   deleteByBagId(bagId: number) {

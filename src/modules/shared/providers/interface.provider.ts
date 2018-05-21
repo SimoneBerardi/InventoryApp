@@ -75,8 +75,9 @@ export class InterfaceProvider {
    */
   hideLoader() {
     if (this._loader != null) {
-      this._loader.dismiss();
-    }
+      return this._loader.dismiss();
+    } else
+      return Promise.resolve();
   }
   /**
    * Richiede una conferma all'utente

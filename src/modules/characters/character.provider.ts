@@ -10,6 +10,7 @@ export class CharacterProvider extends DataProvider<Character> {
   selectedCharacter: Character;
 
   onSelectCharacter: EventEmitter<number> = new EventEmitter();
+  onCreateCharacter: EventEmitter<number> = new EventEmitter();
 
   constructor(
     _storage: StorageProvider,
@@ -41,6 +42,13 @@ export class CharacterProvider extends DataProvider<Character> {
         size: 1,
       }
     ];
+  }
+
+  insert(item: Character) {
+    return super.insert(item).then(() => {
+      this.onCreateCharacter.emit(item.id);
+      return Promise.resolve();
+    });
   }
 
   selectCharacter(id: number) {

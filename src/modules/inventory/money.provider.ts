@@ -24,7 +24,7 @@ export class MoneyProvider extends DataProvider<Money>{
     this._testItems = [
       {
         id: 1,
-        characterId: 1,
+        inventoryId: 1,
         copper: 50,
         silver: 100,
         electrum: 0,
@@ -33,7 +33,7 @@ export class MoneyProvider extends DataProvider<Money>{
       },
       {
         id: 2,
-        characterId: 2,
+        inventoryId: 2,
         copper: 500,
         silver: 10,
         electrum: 12,
@@ -43,7 +43,7 @@ export class MoneyProvider extends DataProvider<Money>{
     ];
   }
 
-  selectByCharacterId(characterId: number) {
-    return this.list.find(money => money.characterId === characterId);
+  selectByInventoryId(inventoryId: number) {
+    return this.list.find(money => money.inventoryId === inventoryId);
   }
 }

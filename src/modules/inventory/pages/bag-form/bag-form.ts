@@ -66,13 +66,40 @@ export class BagFormPage {
       else
         return this._inventory.insertBag(bag);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
-        this._interface.hideLoader();
-      });
+      return this.viewCtrl.dismiss({ action: "save" });
+    }).then(() => {
+      return this._interface.hideLoader();
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
   }
 
   cancel() {
     this.viewCtrl.dismiss({ action: "cancel" });
+  }
+
+  delete() {
+    this._interface.askConfirmation({
+      title: "CancellazioneBorsa",
+      message: "CancellazioneBorsa?",
+      interpolateParams: {
+        bagName: this._form.value.name,
+      }
+    }).then(isConfirmed => {
+      if (!isConfirmed)
+        throw new console.error("ConfermaUtente");
+
+      return this._interface.showLoader({
+        content: "Salvataggio",
+      });
+    }).then(() => {
+      return this._inventory.deleteBag(this._id);
+    }).then(() => {
+      return this.viewCtrl.dismiss({ action: "delete" });
+    }).then(() => {
+      return this._interface.hideLoader();
+    }).catch(error => {
+      this._interface.showAndLogError(error);
+    });
   }
 }

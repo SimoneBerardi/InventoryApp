@@ -71,6 +71,8 @@ export class ItemFormPage {
       return this.viewCtrl.dismiss({ action: "save" }).then(() => {
         this._interface.hideLoader();
       });
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
   }
 
@@ -96,6 +98,8 @@ export class ItemFormPage {
       return this._items.delete(this._id);
     }).then(() => {
       return this.viewCtrl.dismiss({ action: "delete" });
+    }).then(() => {
+      return this._interface.hideLoader();
     }).catch(error => {
       this._interface.showAndLogError(error);
     });

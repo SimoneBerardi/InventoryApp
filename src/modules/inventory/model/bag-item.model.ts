@@ -1,22 +1,22 @@
 import { Jsonable } from "../../shared/jsonable.model";
+import { Item } from "../../items/item.model";
 
 export class BagItem extends Jsonable {
-  characterId: number;
-  itemId: number;
+  inventoryId: number;
   bagId: number;
-  name: string;
-  description: string;
-  itemWeight: number;
+  itemId: number;
   quantity: number;
 
+  item: Item;
+
   constructor() {
-    super(["characterId", "itemId", "bagId", "name", "description", "itemWeight", "quantity"]);
+    super(["inventoryId", "bagId", "itemId", "quantity"]);
   }
 
   get text() {
-    return this.name + ((this.quantity > 1) ? (" x " + this.quantity) : "");
+    return this.item.name + ((this.quantity > 1) ? (" x " + this.quantity) : "");
   }
   get weight() {
-    return this.itemWeight * this.quantity;
+    return this.item.weight * this.quantity;
   }
 }

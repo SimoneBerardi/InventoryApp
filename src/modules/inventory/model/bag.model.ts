@@ -1,8 +1,9 @@
 import { Jsonable } from "../../shared/jsonable.model";
 import { BagItem } from "./bag-item.model";
+import { Item } from "../../items/item.model";
 
 export class Bag extends Jsonable {
-  characterId: number;
+  inventoryId: number;
   name: string;
   bagWeight: number;
   /**
@@ -19,18 +20,23 @@ export class Bag extends Jsonable {
    */
   ignoreItemsWeight: boolean = false;
   image: string;
+  /**
+   * Indica se è possibile modificare la borsa
+   */
+  isProtected: boolean;
 
   items: BagItem[] = [];
 
   constructor() {
     super([
-      "characterId",
+      "inventoryId",
       "name",
       "bagWeight",
       "hasLimitedCapacity",
       "capacity",
       "ignoreItemsWeight",
-      "image"
+      "image",
+      "isProtected",
     ]);
   }
 
@@ -46,30 +52,7 @@ export class Bag extends Jsonable {
     return this.itemsWeight > this.capacity;
   }
 
-  addBagItem(bagItem: BagItem) {
-    let duplicateBagItem = null;
-    let oldBagItems = this.items.filter(o => o.itemId === bagItem.itemId);
-    oldBagItems.forEach(oldBagItem => {
-      if (oldBagItem.isEqual(bagItem)) {
-        oldBagItem.quantity += bagItem.quantity;
-        duplicateBagItem = oldBagItem;
-      }
-    });
-    if (duplicateBagItem === null)
-      this.items.push(bagItem);
-    return duplicateBagItem as BagItem;
-  }
-
-  modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean) {
-    if (isNegative && quantity === bagItem.quantity) {
-      this.items.splice(this.items.indexOf(bagItem), 1);
-      return true;
-    } else {
-      if (isNegative)
-        bagItem.quantity -= quantity;
-      else
-        bagItem.quantity += quantity;
-      return false;
-    }
+  getBagItemByItemId(itemId: number) {
+    return this.items.find(o => o.itemId === itemId);
   }
 }

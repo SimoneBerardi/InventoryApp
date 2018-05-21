@@ -1,7 +1,7 @@
 import { Jsonable } from "../../shared/jsonable.model";
 
 export class Money extends Jsonable {
-  characterId: number;
+  inventoryId: number;
   copper: number = 0;
   silver: number = 0;
   electrum: number = 0;
@@ -9,7 +9,7 @@ export class Money extends Jsonable {
   platinum: number = 0;
 
   constructor() {
-    super(["characterId", "copper", "silver", "electrum", "gold", "platinum"]);
+    super(["inventoryId", "copper", "silver", "electrum", "gold", "platinum"]);
   }
 
   get hasValue() {

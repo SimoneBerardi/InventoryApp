@@ -6,6 +6,7 @@ import { Inventory } from '../../model/inventory.model';
 import { InventoryProvider } from '../../inventory.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 import { MoveEventData } from '../../components/bag-item-list/bag-item-list';
+import { Bag } from '../../model/bag.model';
 
 @IonicPage()
 @Component({
@@ -53,6 +54,10 @@ export class InventoryPage {
   addBag() {
     this._interface.showModal("BagFormPage");
   }
+  modifyBag(bag: Bag) {
+    if (!bag.isProtected)
+      this._interface.showModal("BagFormPage", { id: bag.id });
+  }
 
   add(id: number) {
     this._inventory.modifyBagItemQuantity(id, 1, false);
@@ -66,7 +71,7 @@ export class InventoryPage {
           title: "ButtareOggetto",
           message: "ButtareOggetto?",
           interpolateParams: {
-            bagItemName: bagItem.name,
+            bagItemName: bagItem.item.name,
           }
         });
       else
@@ -80,7 +85,7 @@ export class InventoryPage {
   }
 
   modify(id: number) {
-    this._interface.showModal("BagItemFormPage", { id: id });
+    // this._interface.showModal("BagItemFormPage", { id: id });
   }
 
   move(data: MoveEventData) {

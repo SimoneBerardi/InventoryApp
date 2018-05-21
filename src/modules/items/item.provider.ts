@@ -3,15 +3,18 @@ import { StorageProvider } from '../shared/providers/storage.provider';
 import { Item } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
+import { CharacterProvider } from '../characters/character.provider';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
-
   onSelectItem: EventEmitter<ItemSelection> = new EventEmitter();
+
+  characterItems: Item[];
 
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
+    private _characters: CharacterProvider,
   ) {
     super(
       _storage,
@@ -23,6 +26,7 @@ export class ItemProvider extends DataProvider<Item> {
     this._testItems = [
       {
         id: 1,
+        characterId: 1,
         name: "arma 1",
         description: "descrizione arma 1",
         weight: 2,
@@ -30,6 +34,7 @@ export class ItemProvider extends DataProvider<Item> {
       },
       {
         id: 2,
+        characterId: 1,
         name: "arma 2",
         description: "descrizione arma 2",
         weight: 2.5,
@@ -37,6 +42,7 @@ export class ItemProvider extends DataProvider<Item> {
       },
       {
         id: 3,
+        characterId: 1,
         name: "armatura 1",
         description: "descrizione armatura 1",
         weight: 5,
@@ -44,6 +50,7 @@ export class ItemProvider extends DataProvider<Item> {
       },
       {
         id: 4,
+        characterId: 1,
         name: "armatura 2",
         description: "descrizione armatura 2",
         weight: 20,
@@ -51,6 +58,7 @@ export class ItemProvider extends DataProvider<Item> {
       },
       {
         id: 5,
+        characterId: 1,
         name: "oggetto 1",
         description: "descrizione oggetto 1",
         weight: 1.5,
@@ -58,16 +66,36 @@ export class ItemProvider extends DataProvider<Item> {
       },
       {
         id: 6,
+        characterId: 1,
         name: "oggetto 2",
         description: "descrizione oggetto 2",
         weight: 0.5,
         category: 2,
       },
     ];
+
+    this._characters.onSelectCharacter.subscribe(id => {
+      this._loadItems(id);
+    });
+  }
+
+  delete(id: number) {
+    let item = this.characterItems.find(o => o.id === id);
+    this.characterItems.splice(this.characterItems.indexOf(item), 1);
+    return super.delete(id);
+  }
+  insert(item: Item) {
+    item.characterId = this._characters.selectedCharacter.id;
+    this.characterItems.push(item);
+    return super.insert(item);
   }
 
   selectItem(data: ItemSelection) {
     this.onSelectItem.emit(data);
+  }
+
+  private _loadItems(characterId: number) {
+    this.characterItems = this.list.filter(o => o.characterId === characterId);
   }
 }
 

@@ -13,13 +13,13 @@ export class BagItemComponent {
   @Output() onMove: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
-  ) {  }
+  ) { }
 
   get text() {
     return this.item.text;
   }
   get description() {
-    return this.item.description;
+    return this.item.item.description;
   }
   get weight() {
     return this.item.weight;

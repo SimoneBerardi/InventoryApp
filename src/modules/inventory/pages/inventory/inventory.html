@@ -9,7 +9,8 @@
     <!-- <equipped [items]="equippedItems" [weight]="equippedWeight" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)"
       (onMove)="move($event)"></equipped> -->
     <ion-list>
-      <bag *ngFor="let bag of bags" [bag]="bag" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)" (onMove)="move($event)"></bag>
+      <bag *ngFor="let bag of bags" [bag]="bag" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)" (onMove)="move($event)"
+        (press)="modifyBag(bag)"></bag>
     </ion-list>
   </div>
 </ion-content>

@@ -20,17 +20,18 @@ export class BagProvider extends DataProvider<Bag>{
     this._testItems = [
       {
         id: 1,
-        characterId: 1,
+        inventoryId: 1,
         name: "Equip.",
         bagWeight: 0,
         hasLimitedCapacity: false,
         capacity: 0,
         ignoreItemsWeight: false,
         image: this._utility.images.inventory.equipped,
+        isProtected: true,
       },
       {
         id: 2,
-        characterId: 1,
+        inventoryId: 1,
         name: "Zaino",
         bagWeight: 2.5,
         hasLimitedCapacity: false,
@@ -40,7 +41,7 @@ export class BagProvider extends DataProvider<Bag>{
       },
       {
         id: 3,
-        characterId: 1,
+        inventoryId: 1,
         name: "Borsa da cintura",
         bagWeight: 1,
         hasLimitedCapacity: false,
@@ -50,7 +51,7 @@ export class BagProvider extends DataProvider<Bag>{
       },
       {
         id: 4,
-        characterId: 1,
+        inventoryId: 1,
         name: "Zainetto magico",
         bagWeight: 3,
         hasLimitedCapacity: true,
@@ -60,7 +61,7 @@ export class BagProvider extends DataProvider<Bag>{
       },
       {
         id: 5,
-        characterId: 1,
+        inventoryId: 1,
         name: "Forziere",
         bagWeight: 0,
         hasLimitedCapacity: false,
@@ -70,7 +71,7 @@ export class BagProvider extends DataProvider<Bag>{
       },
       {
         id: 2,
-        characterId: 2,
+        inventoryId: 2,
         name: "Equip.",
         bagWeight: 0,
         hasLimitedCapacity: false,
@@ -80,7 +81,7 @@ export class BagProvider extends DataProvider<Bag>{
       },
       {
         id: 7,
-        characterId: 2,
+        inventoryId: 2,
         name: "Zaino",
         bagWeight: 2.5,
         hasLimitedCapacity: false,
@@ -91,7 +92,7 @@ export class BagProvider extends DataProvider<Bag>{
     ];
   }
 
-  selectByCharacterId(characterId: number) {
-    return this.list.filter(bag => bag.characterId === characterId);
+  selectByInventoryId(inventoryId: number) {
+    return this.list.filter(bag => bag.inventoryId === inventoryId);
   }
 }

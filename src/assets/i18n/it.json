@@ -40,8 +40,8 @@
     "EncumberedMessage": "Il tuo personaggio è ingombrato, la sua velocità è ridotta di 3 metri",
     "HeavilyEncumberedMessage": "Il tuo personaggio è molto ingombrato, la sua velocità è ridotta di 6 metri",
     "MaxCarryMessage": "Il tuo personaggio non può trasportare così tanto peso, non si può muovere!",
-    "ButtareBorsa": "Buttare borsa",
-    "ButtareBorsa?": "Buttare la borsa {0}?",
+    "CancellazioneBorsa": "Buttare borsa",
+    "CancellazioneBorsa?": "Buttare la borsa {{bagName}}?",
     "CancellazionePersonaggio": "Cancellazione personaggio",
     "CancellarePersonaggio?": "Cancellare il personaggio {{characterName}}?",
     "NuovoPersonaggio": "Nuovo personaggio",
@@ -94,5 +94,6 @@
     "Media": "Media",
     "Grande": "Grande",
     "OggettiSemplici": "Oggetti semplici",
-    "OggettiMagici": "Oggetti magici"
+    "OggettiMagici": "Oggetti magici",
+    "DettagliMonete": "Dettagli monete"
 }
