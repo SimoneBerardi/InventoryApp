@@ -16,7 +16,7 @@ export class ItemListPage {
   headerTitle: string;
 
   isLoading: boolean = true;
-  groups: ItemGroup[];
+  groups: ItemGroup[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -70,13 +70,17 @@ export class ItemListPage {
   }
 
   private _generateGroups() {
-    this.groups = [];
+    let groups = [];
     this._utility.enumerateEnum(ItemCategory).forEach(category => {
       let group = new ItemGroup();
       group.name = category.value;
       group.items = this._items.characterItems.filter(item => item.category === category.key)
+      let oldGroup = this.groups.find(o => o.name === group.name);
+      if (oldGroup)
+        group.isOpen = oldGroup.isOpen;
       if (group.items.length > 0)
-        this.groups.push(group);
+        groups.push(group);
     });
+    this.groups = groups;
   }
 }

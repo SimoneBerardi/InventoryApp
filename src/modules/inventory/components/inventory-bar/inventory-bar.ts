@@ -39,14 +39,7 @@ export class InventoryBarComponent {
     return result;
   }
   get carriedWeightClass() {
-    let result = "";
-    if (this.carriedWeight > this._character.encumberedValue)
-      result = "encumbered";
-    if (this.carriedWeight > this._character.heavilyEncumberedValue)
-      result = "heavily-encumbered";
-    if (this.carriedWeight > this._character.maxCarryValue)
-      result = "over-max-carry";
-    return result;
+    return this._inventory.carriedWeightClass;
   }
 
   get iconStyle() {

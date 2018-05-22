@@ -5,15 +5,14 @@ bag {
             background-repeat: no-repeat;
             background-position: center;
         }
-        .item-inner {
-            margin: 0 !important;
+        .name {
+            margin-left: 0;
             font-size: 2rem;
             font-weight: bold;
         }
-        .weight {
-            font-size: 1.8rem;
+        .capacity {
+            font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
     }
     .bag-weight {

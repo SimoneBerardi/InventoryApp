@@ -2,6 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { Bag } from '../../model/bag.model';
 import { MoveEventData } from '../bag-item-list/bag-item-list';
+import { InventoryProvider } from '../../inventory.provider';
+import { OptionsProvider } from '../../../shared/providers/options.provider';
+import { Units } from '../../../shared/options.model';
 
 @Component({
   selector: 'bag',
@@ -22,6 +25,8 @@ export class BagComponent {
 
   constructor(
     private _utility: UtilityProvider,
+    private _inventory: InventoryProvider,
+    private _options: OptionsProvider
   ) {
     this.arrowStyle = {
       "-webkit-mask-box-image": `url("${this._utility.images.inventory.bagArrow}")`
@@ -42,6 +47,18 @@ export class BagComponent {
   }
   get items() {
     return this.bag.items;
+  }
+  get weightClass() {
+    return !this.bag.ignoreItemsWeight ? this._inventory.carriedWeightClass : "";
+  }
+  get hasLimitedCapacity() {
+    return this.bag.hasLimitedCapacity;
+  }
+  get capacityDescription() {
+    return "(" + this.bag.itemsWeight + " / " + this.bag.capacity + ") " + Units[this._options.units].toString();
+  }
+  get capacityClass() {
+    return this.bag.itemsWeight > this.bag.capacity ? "heavily-encumbered" : "not-encumbered";
   }
 
   select(id: number) {

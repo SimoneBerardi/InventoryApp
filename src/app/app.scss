@@ -122,6 +122,26 @@ ion-action-sheet .action-sheet-group {
     }
 }
 
+.weight {
+    &.large {
+        font-size: 2rem !important;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        font-weight: bold;
+    }
+    &.not-encumbered {
+        color: color($colors, status_green);
+    }
+    &.encumbered {
+        color: color($colors, status_orange);
+    }
+    &.heavily-encumbered {
+        color: color($colors, status_red);
+    }
+    &.over-max-carry {
+        color: color($colors, status_red);
+    }
+}
+
 // .footer:after {
 //     content: "";
 //     position: absolute;
@@ -133,7 +153,6 @@ ion-action-sheet .action-sheet-group {
 //     display: block;
 //     background: inherit;
 // }
-
 .fab .icon {
     font-size: 3.5rem;
 }

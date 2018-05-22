@@ -10,6 +10,7 @@ import { EquippedComponent } from './components/equipped/equipped';
 import { MoneyProvider } from './money.provider';
 import { BagItemProvider } from './bag-item.provider';
 import { BagProvider } from './bag.provider';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BagProvider } from './bag.provider';
     IonicPageModule.forChild(BagItemListComponent),
     IonicPageModule.forChild(BagItemComponent),
     TranslateModule.forChild(),
+    SharedModule,
   ],
   exports: [
     MoneyComponent,

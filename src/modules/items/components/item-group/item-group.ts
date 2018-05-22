@@ -12,6 +12,13 @@ export class ItemGroupComponent {
 
   constructor() { }
 
+  get isOpen() {
+    return this.group.isOpen;
+  }
+  set isOpen(value: boolean) {
+    this.group.isOpen = value;
+  }
+
   select(id: number) {
     this.onSelect.emit(id);
   }

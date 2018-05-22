@@ -15,18 +15,4 @@ inventory-bar {
         font-size: 1.8rem;
         color: inherit;
     }
-    .carried-weight {
-        font-size: 2rem;
-        color: color($colors, secondary);
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        &.isEncumbered {
-            color: color($colors, warning);
-        }
-        &.isHeavilyEncumbered {
-            color: color($colors, danger);
-        }
-        &.isOverMaxCarry {
-            color: color($colors, alert);
-        }
-    }
 }

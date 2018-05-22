@@ -65,6 +65,17 @@ export class InventoryProvider extends DataProvider<Inventory>{
     });
   }
 
+  get carriedWeightClass() {
+    let result = "not-encumbered";
+    if (this.inventory.carriedWeight > this._characters.selectedCharacter.encumberedValue)
+      result = "encumbered";
+    if (this.inventory.carriedWeight > this._characters.selectedCharacter.heavilyEncumberedValue)
+      result = "heavily-encumbered";
+    if (this.inventory.carriedWeight > this._characters.selectedCharacter.maxCarryValue)
+      result = "over-max-carry";
+    return result;
+  }
+
   //BagItem
   addItem(id: number, bagId: number, quantity: number) {
     let item = this._items.select(id);

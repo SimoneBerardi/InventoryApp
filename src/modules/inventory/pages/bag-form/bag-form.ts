@@ -32,6 +32,7 @@ export class BagFormPage {
       bagWeight: [0, Validators.required],
       hasLimitedCapacity: [false, Validators.required],
       capacity: [0, Validators.required],
+      ignoreItemsWeight: [false, Validators.required],
     });
 
     this.headerLogo = this._utility.images.inventory.logo;
@@ -48,6 +49,7 @@ export class BagFormPage {
         bagWeight: bag.bagWeight,
         hasLimitedCapacity: bag.hasLimitedCapacity,
         capacity: bag.capacity,
+        ignoreItemsWeight: bag.ignoreItemsWeight,
       });
     }
   }
@@ -58,6 +60,8 @@ export class BagFormPage {
     }).then(() => {
       let model = this._form.value;
       let bag = new Bag();
+      if (this._id !== undefined)
+        bag = this._inventory.selectBag(this._id);
       Object.assign(bag, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
       this._utility.castNumberProps(bag, ["bagWeight", "capacity"]);

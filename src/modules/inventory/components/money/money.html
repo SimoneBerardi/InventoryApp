@@ -2,30 +2,30 @@
   <ion-item class="title" no-lines no-padding>
     <ion-icon item-left class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
     {{"Monete" | translate}}
-    <p class="weight" item-right *ngIf="money.weight > 0">
-      {{money.weight}} Kg
+    <p class="weight large" [ngClass]="moneyWeightClass" item-right *ngIf="weight > 0">
+      {{weight | weight}}
     </p>
   </ion-item>
   <ion-grid class="container" no-padding>
     <ion-row no-padding justify-content-center>
-      <div class="value" text-center *ngIf="money.platinum > 0">
-        {{money.platinum}}
+      <div class="value" text-center *ngIf="platinum > 0">
+        {{platinum}}
         <br/> {{"MP" | translate}}
       </div>
       <div class="value" text-center>
-        {{money.gold}}
+        {{gold}}
         <br/> {{"MO" | translate}}
       </div>
-      <div class="value" text-center *ngIf="money.electrum > 0">
-        {{money.electrum}}
+      <div class="value" text-center *ngIf="electrum > 0">
+        {{electrum}}
         <br/> {{"ME" | translate}}
       </div>
       <div class="value" text-center>
-        {{money.silver}}
+        {{silver}}
         <br/> {{"MA" | translate}}
       </div>
       <div class="value" text-center>
-        {{money.copper}}
+        {{copper}}
         <br/> {{"MR" | translate}}
       </div>
     </ion-row>

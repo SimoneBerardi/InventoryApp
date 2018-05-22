@@ -14,11 +14,15 @@
     </ion-item>
     <ion-item>
       <ion-label>{{"CapacitaLimitata" | translate}}</ion-label>
-      <ion-checkbox item-right checked="true" formControlName="hasLimitedCapacity"></ion-checkbox>
+      <ion-checkbox item-right formControlName="hasLimitedCapacity"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>{{"Capacita" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="capacity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{"IgnoraPesoOggetti" | translate}}</ion-label>
+      <ion-checkbox item-right formControlName="ignoreItemsWeight"></ion-checkbox>
     </ion-item>
   </form>
 </ion-content>

@@ -1,15 +1,17 @@
 <ion-item class="title" no-lines no-padding (click)="isHidden = !isHidden" (press)="press()">
   <ion-icon item-left class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
-  {{name}}
-  <p class="weight" item-right *ngIf="weight > 0">
-    {{weight}} Kg
+  <p class="name">{{name}}</p>
+  <p *ngIf="hasLimitedCapacity" class="weight capacity" [ngClass]="capacityClass">{{capacityDescription}}</p>
+  <p class="weight large" [ngClass]="weightClass" item-right *ngIf="weight > 0">
+    {{weight | weight }}
   </p>
 </ion-item>
 <ion-item no-lines no-padding class="bag-weight" *ngIf="bagWeight > 0">
   <ion-icon item-left class="image" [ngStyle]="arrowStyle"></ion-icon>
   {{"PesoZaino" | translate:{bagName: name} }}
-  <p class="weight" item-right>
-    {{bagWeight}} Kg
+  <p class="bag-weight-value" item-right>
+    {{bagWeight | weight }}
   </p>
 </ion-item>
-<bag-item-list *ngIf="!isHidden" [items]="items" (onSelect)="select($event)" (onAdd)="add($event)" (onRemove)="remove($event)" (onModify)="modify($event)" (onMove)="move($event)" [selectedId]="selectedId"></bag-item-list>
+<bag-item-list *ngIf="!isHidden" [items]="items" (onSelect)="select($event)" (onAdd)="add($event)" (onRemove)="remove($event)"
+  (onModify)="modify($event)" (onMove)="move($event)" [selectedId]="selectedId"></bag-item-list>
