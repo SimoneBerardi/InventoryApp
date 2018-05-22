@@ -8,12 +8,15 @@ import { MoveEventData } from '../bag-item-list/bag-item-list';
   templateUrl: 'bag.html'
 })
 export class BagComponent {
+  @Input() selectedId: number;
   @Input() bag: Bag;
 
+  @Output() onSelect: EventEmitter<number> = new EventEmitter();
   @Output() onAdd: EventEmitter<number> = new EventEmitter();
   @Output() onRemove: EventEmitter<number> = new EventEmitter();
   @Output() onModify: EventEmitter<number> = new EventEmitter();
   @Output() onMove: EventEmitter<MoveEventData> = new EventEmitter();
+  @Output() onPress: EventEmitter<Bag> = new EventEmitter();
 
   arrowStyle: any;
 
@@ -41,6 +44,10 @@ export class BagComponent {
     return this.bag.items;
   }
 
+  select(id: number) {
+    this.onSelect.emit(id);
+  }
+
   add(id: number) {
     this.onAdd.emit(id);
   }
@@ -55,5 +62,9 @@ export class BagComponent {
 
   move(data: MoveEventData) {
     this.onMove.emit(data);
+  }
+
+  press() {
+    this.onPress.emit(this.bag);
   }
 }

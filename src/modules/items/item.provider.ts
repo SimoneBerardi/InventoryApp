@@ -8,6 +8,7 @@ import { CharacterProvider } from '../characters/character.provider';
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
   onSelectItem: EventEmitter<ItemSelection> = new EventEmitter();
+  onDeleteItem: EventEmitter<number> = new EventEmitter();
 
   characterItems: Item[];
 
@@ -77,12 +78,18 @@ export class ItemProvider extends DataProvider<Item> {
     this._characters.onSelectCharacter.subscribe(id => {
       this._loadItems(id);
     });
+    this._characters.onDeleteCharacter.subscribe(id => {
+      this._deleteItems(id);
+    })
   }
 
   delete(id: number) {
     let item = this.characterItems.find(o => o.id === id);
     this.characterItems.splice(this.characterItems.indexOf(item), 1);
-    return super.delete(id);
+    return super.delete(id).then(() => {
+      this.onDeleteItem.emit(id);
+      return Promise.resolve();
+    });
   }
   insert(item: Item) {
     item.characterId = this._characters.selectedCharacter.id;
@@ -96,6 +103,10 @@ export class ItemProvider extends DataProvider<Item> {
 
   private _loadItems(characterId: number) {
     this.characterItems = this.list.filter(o => o.characterId === characterId);
+  }
+  private _deleteItems(characterId: number) {
+    this.list = this.list.filter(item => item.characterId !== characterId);
+    return this.save();
   }
 }
 

@@ -5,6 +5,7 @@ import { TranslateProvider } from './translate.provider';
 import { getNonHydratedSegmentIfLinkAndUrlMatch } from 'ionic-angular/navigation/url-serializer';
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { ActionSheetOptions, ActionSheetButton } from 'ionic-angular/components/action-sheet/action-sheet-options';
+import { Input } from '@angular/core/src/metadata/directives';
 
 @Injectable()
 export class InterfaceProvider {
@@ -18,6 +19,39 @@ export class InterfaceProvider {
     private _translate: TranslateProvider,
     private _actionSheetCtrl: ActionSheetController,
   ) { }
+
+  askSelection(opts: SelectionOptions) {
+    return new Promise((resolve, reject) => {
+      let inputsLabels = opts.inputs.map(input => input.label);
+      return this._translate.translate([...inputsLabels, opts.title, opts.message, "Ok", "Annulla"], opts.interpolateParams).then(values => {
+        opts.title = values[opts.title];
+        opts.message = values[opts.message];
+        opts.inputs.forEach(input => {
+          input.label = values[input.label];
+        });
+        let alertOptions = opts as AlertOptions;
+        alertOptions.inputs.forEach(input => {
+          input.type = "radio";
+        });
+        alertOptions.enableBackdropDismiss = false;
+        alertOptions.buttons = [
+          {
+            text: values["Annulla"],
+            handler: () => {
+              reject(new Error("ConfermaUtente"));
+            }
+          },
+          {
+            text: values["Ok"],
+            handler: data => {
+              resolve(data);
+            }
+          }
+        ]
+        this._alertCtrl.create(opts).present();
+      });
+    });
+  }
 
   showActionSheet(opts: ActionSheetOptions) {
     return new Promise((resolve, reject) => {
@@ -261,8 +295,21 @@ export class InterfaceProvider {
 }
 
 export interface ConfirmationOptions {
-  title?: string;
+  title: string;
   message?: string;
   cssClass?: string;
   interpolateParams?: any;
+}
+
+export interface SelectionOptions {
+  title: string;
+  message?: string;
+  cssClass?: string;
+  inputs: SelectOptionsInput[];
+  interpolateParams?: any;
+}
+
+export interface SelectOptionsInput {
+  label: string;
+  value: string;
 }

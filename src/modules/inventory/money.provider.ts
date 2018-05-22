@@ -46,4 +46,9 @@ export class MoneyProvider extends DataProvider<Money>{
   selectByInventoryId(inventoryId: number) {
     return this.list.find(money => money.inventoryId === inventoryId);
   }
+
+  deleteByInventoryId(inventoryId: number) {
+    this.list = this.list.filter(bagItem => bagItem.inventoryId !== inventoryId);
+    return this.save();
+  }
 }

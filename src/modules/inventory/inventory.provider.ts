@@ -52,10 +52,16 @@ export class InventoryProvider extends DataProvider<Inventory>{
     this._characters.onSelectCharacter.subscribe(id => {
       this._loadInventory(id);
     });
+    this._characters.onDeleteCharacter.subscribe(id => {
+      this._deleteInventory(id);
+    })
     this._items.onSelectItem.subscribe((data: ItemSelection) => {
       let quantity = data.quantity || 1;
       //TODO Scelta borsa
       this.addItem(data.id, this.inventory.bags[0].id, quantity);
+    });
+    this._items.onDeleteItem.subscribe(id => {
+      this._deleteItem(id);
     });
   }
 
@@ -237,5 +243,21 @@ export class InventoryProvider extends DataProvider<Inventory>{
       promises.push(this._bags.insert(backpack));
       return Promise.all(promises);
     });
+  }
+  private _deleteInventory(characterId: number) {
+    let inventory = this.selectByCharacterId(characterId);
+    let promises = [];
+    promises.push(this._money.deleteByInventoryId(inventory.id));
+    promises.push(this._bags.deleteByInventoryId(inventory.id));
+    promises.push(this._bagItems.deleteByInventoryId(inventory.id));
+    promises.push(this.delete(inventory.id));
+    return Promise.all(promises);
+  }
+  private _deleteItem(itemId: number) {
+    let promises = [];
+    this.inventory.bags.forEach(bag => {
+      bag.items = bag.items.filter(o => o.itemId !== itemId);
+    });
+    return this._bagItems.deleteByItemId(itemId);
   }
 }

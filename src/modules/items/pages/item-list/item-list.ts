@@ -75,7 +75,8 @@ export class ItemListPage {
       let group = new ItemGroup();
       group.name = category.value;
       group.items = this._items.characterItems.filter(item => item.category === category.key)
-      this.groups.push(group);
+      if (group.items.length > 0)
+        this.groups.push(group);
     });
   }
 }

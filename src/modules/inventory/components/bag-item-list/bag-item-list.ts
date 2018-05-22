@@ -6,7 +6,9 @@ import { BagItem } from '../../model/bag-item.model';
   templateUrl: 'bag-item-list.html'
 })
 export class BagItemListComponent {
+  @Input() selectedId: number;
   @Input() items: BagItem[];
+  @Output() onSelect: EventEmitter<number> = new EventEmitter();
   @Output() onAdd: EventEmitter<number> = new EventEmitter();
   @Output() onRemove: EventEmitter<number> = new EventEmitter();
   @Output() onModify: EventEmitter<number> = new EventEmitter();
@@ -14,6 +16,10 @@ export class BagItemListComponent {
 
   constructor(
   ) { }
+
+  select(id: number){
+    this.onSelect.emit(id);
+  }
 
   add(id: number) {
     this.onAdd.emit(id);

@@ -19,6 +19,7 @@ export class InventoryPage {
 
   isLoading: boolean;
   inventory: Inventory;
+  selectedId: number;
 
   constructor(
     public navCtrl: NavController,
@@ -59,6 +60,13 @@ export class InventoryPage {
       this._interface.showModal("BagFormPage", { id: bag.id });
   }
 
+  select(id: number) {
+    if (this.selectedId === id)
+      this.selectedId = -1;
+    else
+      this.selectedId = id;
+  }
+
   add(id: number) {
     this._inventory.modifyBagItemQuantity(id, 1, false);
   }
@@ -85,17 +93,26 @@ export class InventoryPage {
   }
 
   modify(id: number) {
-    // this._interface.showModal("BagItemFormPage", { id: id });
+    this._interface.showModal("ItemFormPage", { id: id });
   }
 
   move(data: MoveEventData) {
-    console.log("TODO - move: " + data);
-    // let bagItem = this._inventory.selectBagItem(data.id);
-    // if (data.isQuickAction) {
-    //   let bagId = bagItem.isEquipped ? this.inventory.bags[0].id : -1;
-    //   return this._inventory.moveBagItem(data.id, bagId);
-    // } else {
-    //   //TODO chiedi borsa in cui spostare
-    // }
+    //TODO passare bagItem direttamente nell'evento
+    //TODO filtrare la borsa di partenza
+    this._interface.askSelection({
+      title: "ScegliBorsa",
+      message: "ScegliBorsa?",
+      inputs: this.inventory.bags.map(bag => {
+        return {
+          label: bag.name,
+          value: bag.id.toString(),
+        }
+      })
+    }).then(bagId => {
+      //TODO utilizzare la quantità totale
+      return this._inventory.moveBagItem(data.id, Number(bagId), 1);
+    }).catch(error => {
+      this._interface.showAndLogError(error);
+    })
   }
 }

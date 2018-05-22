@@ -11,6 +11,7 @@ export class CharacterProvider extends DataProvider<Character> {
 
   onSelectCharacter: EventEmitter<number> = new EventEmitter();
   onCreateCharacter: EventEmitter<number> = new EventEmitter();
+  onDeleteCharacter: EventEmitter<number> = new EventEmitter();
 
   constructor(
     _storage: StorageProvider,
@@ -42,6 +43,13 @@ export class CharacterProvider extends DataProvider<Character> {
         size: 1,
       }
     ];
+  }
+
+  delete(id: number) {
+    return super.delete(id).then(() => {
+      this.onDeleteCharacter.emit(id);
+      return Promise.resolve();
+    });
   }
 
   insert(item: Character) {
