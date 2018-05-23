@@ -10,3 +10,7 @@ Any suggestions and / or problems can be inserted here!
 ## Privacy Policy
 
 This app doesn't collect and has no access whatsoever to any personal data of the user.
+
+## License
+
+No permissions of use of any kind are hereby granted for the present software without explicit consent.
