@@ -45,12 +45,13 @@ export class ItemFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let item = this._items.select(this._id);
-      this._form.reset({
-        name: item.name,
-        description: item.description,
-        weight: item.weight,
-        category: item.category,
+      this._items.select(this._id).then(item => {
+        this._form.reset({
+          name: item.name,
+          description: item.description,
+          weight: item.weight,
+          category: item.category,
+        });
       });
     }
   }

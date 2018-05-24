@@ -4,18 +4,14 @@ import { Item } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
 import { CharacterProvider } from '../characters/character.provider';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
-  onSelectItem: EventEmitter<ItemSelection> = new EventEmitter();
-  onDeleteItem: EventEmitter<number> = new EventEmitter();
-
-  characterItems: Item[];
-
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
-    private _characters: CharacterProvider,
+    private _events: Events,
   ) {
     super(
       _storage,
@@ -75,42 +71,38 @@ export class ItemProvider extends DataProvider<Item> {
       },
     ];
 
-    this._characters.onSelectCharacter.subscribe(id => {
-      this._loadItems(id);
-    });
-    this._characters.onDeleteCharacter.subscribe(id => {
-      this._deleteItems(id);
-    })
-  }
-
-  delete(id: number) {
-    let item = this.characterItems.find(o => o.id === id);
-    this.characterItems.splice(this.characterItems.indexOf(item), 1);
-    return super.delete(id).then(() => {
-      this.onDeleteItem.emit(id);
-      return Promise.resolve();
+    this._events.subscribe("character:delete", id => {
+      this.deleteByCharacterId(id);
     });
   }
-  insert(item: Item) {
-    item.characterId = this._characters.selectedCharacter.id;
-    this.characterItems.push(item);
-    return super.insert(item);
+
+  selectFromSession() {
+    return Promise.resolve(this.list.filter(item => item.characterId === this._utility.session.loadedCharacterId));
   }
 
-  selectItem(data: ItemSelection) {
-    this.onSelectItem.emit(data);
-  }
-
-  private _loadItems(characterId: number) {
-    this.characterItems = this.list.filter(o => o.characterId === characterId);
-  }
-  private _deleteItems(characterId: number) {
+  deleteByCharacterId(characterId: number) {
     this.list = this.list.filter(item => item.characterId !== characterId);
     return this.save();
   }
+
+  delete(id: number) {
+    return super.delete(id).then(() => {
+      this._events.publish("item:delete", id);
+      return Promise.resolve();
+    });
+  }
+
+  insert(item: Item) {
+    item.characterId = this._utility.session.loadedCharacterId;
+    return super.insert(item);
+  }
+
+  addItem(data: ItemAddiction) {
+    this._events.publish("item:add", data);
+  }
 }
 
-export interface ItemSelection {
+export interface ItemAddiction {
   id: number;
   quantity?: number;
 }

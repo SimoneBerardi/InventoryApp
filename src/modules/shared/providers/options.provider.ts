@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Options, Units } from '../options.model';
+import { Options, Units, Decimals } from '../options.model';
 import { StorageProvider } from './storage.provider';
 import { TranslateProvider } from './translate.provider';
 
@@ -39,7 +39,7 @@ export class OptionsProvider {
   get decimals() {
     return this._options.decimals;
   }
-  set decimals(value: number) {
+  set decimals(value: Decimals) {
     this._options.decimals = value;
   }
   get units() {

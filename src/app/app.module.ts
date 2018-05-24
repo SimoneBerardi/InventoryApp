@@ -61,15 +61,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    // CharactersProvider
-    // UtilityProvider,
-    // OptionsProvider,
-    // CharactersProvider,
-    // SessionProvider,
-    // ItemsListProvider,
-    // InterfaceProvider,
-    // TranslateProvider,
-    // MigrationsProvider,
   ]
 })
 export class AppModule { }

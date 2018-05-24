@@ -35,18 +35,17 @@ export class CharacterListPage {
   }
 
   ionViewDidLoad() {
-    this.characters = this._characters.list;
-    this.isLoading = false;
-    // if (this.characters.length == 1 && !this.navParams.data.skipLoading) {
-    //   this.select(this.characters[0]);
-    // }
+    this._characters.selectAll().then(characters => {
+      this.characters = characters;
+      this.isLoading = false;
+    });
   }
 
   add() {
     this._interface.showModal("CharacterFormPage");
   }
   select(id: number) {
-    this._characters.selectCharacter(id);
+    this._characters.loadCharacter(id);
     return this.navCtrl.push("HomePage");
   }
   showOptions() {

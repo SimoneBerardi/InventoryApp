@@ -4,7 +4,7 @@ import { UtilityProvider } from "./providers/utility.provider";
 
 export class DataProvider<T extends Jsonable> {
   protected _testItems: any[] = [];
-  list: T[] = [];
+  protected list: T[] = [];
 
   constructor(
     protected _storage: StorageProvider,
@@ -13,18 +13,23 @@ export class DataProvider<T extends Jsonable> {
     protected _type: new () => T,
   ) { }
 
+  selectAll() {
+    return Promise.resolve(this.list);
+  }
+
   select(id: number) {
-    return this.list.find(o => o.id === id);
+    return Promise.resolve(this.list.find(o => o.id === id));
   }
 
   update(id: number, newItem: T) {
-    let item = this.select(id);
-    if (!item)
-      throw new Error("NonTrovato");
+    return this.select(id).then(item => {
+      if (!item)
+        throw new Error("NonTrovato");
 
-    newItem.id = item.id;
-    Object.assign(item, newItem);
-    return this.save();
+      newItem.id = item.id;
+      Object.assign(item, newItem);
+      return this.save();
+    });
   }
 
   insert(item: T) {
@@ -34,12 +39,13 @@ export class DataProvider<T extends Jsonable> {
   }
 
   delete(id: number) {
-    let item = this.select(id);
-    if (!item)
-      throw new Error("NonTrovato");
+    return this.select(id).then(item => {
+      if (!item)
+        throw new Error("NonTrovato");
 
-    this.list.splice(this.list.indexOf(item), 1);
-    return this.save();
+      this.list.splice(this.list.indexOf(item), 1);
+      return this.save();
+    });
   }
 
   clear(clearCache: boolean = true) {

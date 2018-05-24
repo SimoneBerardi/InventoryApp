@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { OptionsProvider } from '../shared/providers/options.provider';
-import { Units } from '../shared/options.model';
+import { Units, Decimals } from '../shared/options.model';
 
 @Pipe({ name: "weight" })
 export class WeightPipe implements PipeTransform {

@@ -3,19 +3,15 @@ import { StorageProvider } from '../shared/providers/storage.provider';
 import { Character } from './character.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class CharacterProvider extends DataProvider<Character> {
 
-  selectedCharacter: Character;
-
-  onSelectCharacter: EventEmitter<number> = new EventEmitter();
-  onCreateCharacter: EventEmitter<number> = new EventEmitter();
-  onDeleteCharacter: EventEmitter<number> = new EventEmitter();
-
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
+    private _events: Events,
   ) {
     super(
       _storage,
@@ -45,22 +41,31 @@ export class CharacterProvider extends DataProvider<Character> {
     ];
   }
 
+  selectFromSession() {
+    return this.select(this._utility.session.loadedCharacterId);
+  }
+
   delete(id: number) {
     return super.delete(id).then(() => {
-      this.onDeleteCharacter.emit(id);
+      this._events.publish("character:delete", id);
       return Promise.resolve();
     });
   }
 
-  insert(item: Character) {
-    return super.insert(item).then(() => {
-      this.onCreateCharacter.emit(item.id);
+  insert(character: Character) {
+    return super.insert(character).then(() => {
+      this._events.publish("character:create", character.id);
       return Promise.resolve();
     });
   }
 
-  selectCharacter(id: number) {
-    this.selectedCharacter = this.list.find(character => character.id === id);
-    this.onSelectCharacter.emit(id);
+  loadCharacter(id: number) {
+    this.select(id).then(character => {
+      this._utility.session.loadedCharacterId = character.id;
+      this._utility.session.encumberedValue = character.encumberedValue;
+      this._utility.session.heavilyEncumberedValue = character.heavilyEncumberedValue;
+      this._utility.session.maxCarryValue = character.maxCarryValue;
+      this._events.publish("character:load", character.id);
+    });
   }
 }

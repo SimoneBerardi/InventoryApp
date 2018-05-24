@@ -20,33 +20,15 @@
     </ion-item>
     <ion-item>
       <ion-label>{{"Decimali" | translate}}</ion-label>
-      <ion-input text-right type="number" formControlName="decimals"></ion-input>
+      <ion-select formControlName="decimals">
+        <ion-option *ngFor="let decimal of decimals" [value]="decimal.key">{{decimal.value | translate}}</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item tappable (click)="reset()">{{"ResetCompleto" | translate}}</ion-item>
+    <ion-item tappable (click)="showCredits()">{{"Crediti" | translate}}...</ion-item>
   </form>
 </ion-content>
 
 <ion-footer no-border class="component-inverted-style">
-  <!-- <ion-grid class="style-grid">
-    <ion-row>
-      <ion-col text-center>{{"InterfacciaGrafica" | translate}}</ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col offset-2 col-4>
-        <button ion-button icon-only (click)="changeColor('contrast')">
-          <ion-icon [ngStyle]="{'background': contrastColor}"></ion-icon>
-        </button>
-      </ion-col>
-      <ion-col col-4>
-        <button ion-button icon-only (click)="changeColor('base')">
-          <ion-icon [ngStyle]="{'background': baseColor}"></ion-icon>
-        </button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col class="italic-text" offset-2 col-4 text-center>{{"FontELinee" | translate}}</ion-col>
-      <ion-col class="italic-text" col-4 text-center>{{"Sfondo" | translate}}</ion-col>
-    </ion-row>
-  </ion-grid> -->
   <buttons-footer [isDeleteHidden]="true" (onSave)="save()" (onCancel)="cancel()" (onDelete)="delete()"></buttons-footer>
 </ion-footer>

@@ -14,6 +14,7 @@ import { Bag } from '../../model/bag.model';
 export class BagFormPage {
   private _id: number;
   private _form: FormGroup;
+  private _bag: Bag;
 
   headerLogo: string;
   headerTitle: string;
@@ -43,13 +44,15 @@ export class BagFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let bag = this._inventory.selectBag(this._id);
-      this._form.reset({
-        name: bag.name,
-        bagWeight: bag.bagWeight,
-        hasLimitedCapacity: bag.hasLimitedCapacity,
-        capacity: bag.capacity,
-        ignoreItemsWeight: bag.ignoreItemsWeight,
+      this._inventory.selectBag(this._id).then(bag => {
+        this._bag = bag;
+        this._form.reset({
+          name: bag.name,
+          bagWeight: bag.bagWeight,
+          hasLimitedCapacity: bag.hasLimitedCapacity,
+          capacity: bag.capacity,
+          ignoreItemsWeight: bag.ignoreItemsWeight,
+        });
       });
     }
   }
@@ -59,9 +62,7 @@ export class BagFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let bag = new Bag();
-      if (this._id !== undefined)
-        bag = this._inventory.selectBag(this._id);
+      let bag = this._bag ? this._bag : new Bag();
       Object.assign(bag, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
       this._utility.castNumberProps(bag, ["bagWeight", "capacity"]);

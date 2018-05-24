@@ -3,7 +3,7 @@ import { Jsonable } from "../shared/jsonable.model";
 export class Options extends Jsonable {
   language: string;
   units: Units = Units.Kg;
-  decimals: number = 0;
+  decimals: Decimals = Decimals.Due;
   baseColor: string = "#333333";
   contrastColor: string = "#D3B158";
 
@@ -14,5 +14,12 @@ export class Options extends Jsonable {
 
 export enum Units {
   Kg,
-  Lb
+  Lb,
+}
+
+export enum Decimals {
+  Zero = 0,
+  Uno = 1,
+  Due = 2,
+  Tre = 3,
 }

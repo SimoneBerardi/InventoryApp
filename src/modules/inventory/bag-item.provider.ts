@@ -21,7 +21,7 @@ export class BagItemProvider extends DataProvider<BagItem>{
     let bagsCount = 5;
     let bagItemId = 0;
 
-    for (let i = 0; i <= bagsCount; i++) {
+    for (let i = 0; i < bagsCount; i++) {
       for (let j = 0; j < itemsCount; j++) {
         this._testItems.push({
           id: bagItemId,
@@ -36,7 +36,7 @@ export class BagItemProvider extends DataProvider<BagItem>{
   }
 
   selectByInventoryId(inventoryId: number) {
-    return this.list.filter(bagItem => bagItem.inventoryId === inventoryId);
+    return Promise.resolve(this.list.filter(bagItem => bagItem.inventoryId === inventoryId));
   }
 
   deleteByBagId(bagId: number) {
@@ -49,8 +49,12 @@ export class BagItemProvider extends DataProvider<BagItem>{
     return this.save();
   }
 
-  deleteByItemId(itemId: number) {
+  deleteByItemId(inventoryId: number, itemId: number) {
     this.list = this.list.filter(bagItem => bagItem.itemId !== itemId);
     return this.save();
+  }
+
+  selectByInventoryIdItemId(inventoryId: number, itemId: number) {
+    return Promise.resolve(this.list.filter(bagItem => bagItem.itemId === itemId));
   }
 }

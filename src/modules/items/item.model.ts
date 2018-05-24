@@ -8,6 +8,8 @@ export class Item extends Jsonable {
   weight: number;
   category: ItemCategory;
 
+  totalQuantity: number = 0;
+
   constructor() {
     super(["characterId", "name", "description", "weight", "category"]);
   }

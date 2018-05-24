@@ -10,4 +10,15 @@ export class ItemComponent {
 
   constructor() { }
 
+  get name(){
+    return this.item.name;
+  }
+
+  get totalQuantity(){
+    return this.item.totalQuantity;
+  }
+
+  get weight(){
+    return this.item.weight;
+  }
 }

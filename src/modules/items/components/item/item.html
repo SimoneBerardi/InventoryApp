@@ -1,4 +1,5 @@
 <ion-item tappable>
-  {{item.name}}
-  <ion-note item-right>{{item.weight}} Kg</ion-note>
+  {{name}}
+  <ion-badge class="count component-inverted-style" *ngIf="totalQuantity" item-right>{{totalQuantity}}</ion-badge>
+  <ion-note item-right>{{weight | weight}}</ion-note>
 </ion-item>

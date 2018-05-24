@@ -42,7 +42,7 @@ export class ItemListPage {
   }
 
   select(id: number) {
-    this._items.selectItem({ id: id });
+    this._items.addItem({ id: id });
     // console.log("TODO - Aggiunta elemento")
   }
 
@@ -70,17 +70,19 @@ export class ItemListPage {
   }
 
   private _generateGroups() {
-    let groups = [];
-    this._utility.enumerateEnum(ItemCategory).forEach(category => {
-      let group = new ItemGroup();
-      group.name = category.value;
-      group.items = this._items.characterItems.filter(item => item.category === category.key)
-      let oldGroup = this.groups.find(o => o.name === group.name);
-      if (oldGroup)
-        group.isOpen = oldGroup.isOpen;
-      if (group.items.length > 0)
-        groups.push(group);
+    return this._items.selectFromSession().then(items => {
+      let groups = [];
+      this._utility.enumerateEnum(ItemCategory).forEach(category => {
+        let group = new ItemGroup();
+        group.name = category.value;
+        group.items = items.filter(item => item.category === category.key)
+        let oldGroup = this.groups.find(o => o.name === group.name);
+        if (oldGroup)
+          group.isOpen = oldGroup.isOpen;
+        if (group.items.length > 0)
+          groups.push(group);
+      });
+      this.groups = groups;
     });
-    this.groups = groups;
   }
 }

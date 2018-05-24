@@ -1,10 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Jsonable } from '../jsonable.model';
+import { Session } from '../session.model';
 
 @Injectable()
 export class UtilityProvider {
+
+  private _manifestUrl = "assets/app-manifest.json";
+
   images = {
     inventory: {
       logo: "assets/images/inventory/logo.png",
@@ -17,6 +22,11 @@ export class UtilityProvider {
         orange: "assets/images/inventory/status_orange.png",
         red: "assets/images/inventory/status_red.png",
       }
+    },
+    credits: {
+      logo: "assets/images/credits/logo.png",
+      simoAvatar: "assets/images/credits/simo-avatar.png",
+      mauroAvatar: "assets/images/credits/mauro-avatar.png",
     },
     avatars: [
       "assets/images/avatar_1.png",
@@ -37,33 +47,23 @@ export class UtilityProvider {
     dragon_3_5: "assets/images/dragon_3_5.png",
   };
 
+  manifest: AppManifest;
+  session: Session = new Session();
+
   //TODO - utilizzare le variabili d'ambiente
   isDebug: boolean = true;
 
   constructor(
+    private _http: HttpClient,
   ) { }
 
   /**
    * Inizializza l'app
    */
   init() {
-    // return Promise.resolve().then(() => {
-    //   console.log("Migrazione dati...");
-    //   // return this._migrations.load().then(() => {
-    //   //   return this._migrations.migrate();
-    //   // }).then(() => {
-    //   console.log("Caricamento opzioni...");
-    //   return this._options.load();
-    // }).then(() => {
-    //   return this._characters.clear();
-    // }).then(() => {
-    //   console.log("Caricamento personaggi...");
-    //   return this._characters.load();
-    // })
-    // }).then(() => {
-    //   console.log("Caricamento oggetti...");
-    //   return this._items.load();
-    // });
+    return this._http.get(this._manifestUrl).subscribe(manifest => {
+      this.manifest = manifest as AppManifest;
+    });
   }
 
   generateListId(list: Enumerable[]) {
@@ -97,6 +97,9 @@ export class UtilityProvider {
   }
 }
 
+export interface AppManifest {
+  version: string;
+}
 export interface Enumerable {
   id: number;
 }

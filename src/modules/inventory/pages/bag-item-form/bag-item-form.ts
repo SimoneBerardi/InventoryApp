@@ -42,12 +42,13 @@ export class BagItemFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let bagItem = this._inventory.selectBagItem(this._id);
-      this._form.reset({
-        name: bagItem.item.name,
-        description: bagItem.item.description,
-        itemWeight: bagItem.item.weight,
-        quantity: bagItem.quantity,
+      this._inventory.selectBagItem(this._id).then(bagItem => {
+        this._form.reset({
+          name: bagItem.item.name,
+          description: bagItem.item.description,
+          itemWeight: bagItem.item.weight,
+          quantity: bagItem.quantity,
+        });
       });
     }
   }

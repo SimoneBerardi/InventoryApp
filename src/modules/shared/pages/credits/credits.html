@@ -1,0 +1,36 @@
+<ion-header class="component-inverted-style" no-border>
+  <page-header [title]="headerTitle" [isOptionsHidden]="true"></page-header>
+</ion-header>
+
+<ion-content padding class="component-style">
+  <img class="logo" src="{{logo}}" alt="">
+  <h1 class="name" text-center>Adventure Bag</h1>
+  <p class="version" text-center>{{"Versione" | translate}} {{version}}</p>
+  <p class="copyright" text-center>© 2018 Simone Berardi
+    <br>{{"Diritti" | translate}}</p>
+
+  <ion-grid class="avatars" no-padding>
+    <ion-row>
+      <ion-col>
+        <img class="avatar simo" src="{{simoAvatar}}" alt="">
+      </ion-col>
+      <ion-col>
+        <img class="avatar mauro" src="{{mauroAvatar}}" alt="">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p class="avatar-name" text-center>Simone Berardi</p>
+        <p class="avatar-description" text-center>{{"Programmazione" | translate}}</p>
+      </ion-col>
+      <ion-col>
+        <p class="avatar-name" text-center>Mauro Arneri</p>
+        <p class="avatar-description" text-center>{{"Grafica" | translate}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer no-border class="component-inverted-style">
+  <buttons-footer cancelText="Indietro" [isSaveHidden]="true" [isDeleteHidden]="true" (onCancel)="cancel()"></buttons-footer>
+</ion-footer>

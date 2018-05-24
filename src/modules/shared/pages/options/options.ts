@@ -5,7 +5,7 @@ import { OptionsProvider } from '../../providers/options.provider';
 import { InterfaceProvider } from '../../providers/interface.provider';
 import { TranslateProvider } from '../../providers/translate.provider';
 import { UtilityProvider } from '../../providers/utility.provider';
-import { Units, Options } from '../../options.model';
+import { Units, Options, Decimals } from '../../options.model';
 
 @IonicPage()
 @Component({
@@ -19,6 +19,7 @@ export class OptionsPage {
   headerTitle: string;
 
   units: any[];
+  decimals: any[];
 
   constructor(
     public navCtrl: NavController,
@@ -40,6 +41,7 @@ export class OptionsPage {
     this.headerTitle = "Opzioni";
 
     this.units = this._utility.enumerateEnum(Units);
+    this.decimals = this._utility.enumerateEnum(Decimals);
   }
 
   ionViewDidLoad() {
@@ -60,7 +62,6 @@ export class OptionsPage {
       let model = this._form.value;
       let options = new Options();
       Object.assign(options, model);
-      this._utility.castNumberProps(options, ["decimals"]);
       return this._options.update(options);
     }).then(() => {
       return this.navCtrl.pop();
@@ -84,5 +85,9 @@ export class OptionsPage {
         // else
         return Promise.resolve();
     }).catch(() => { });
+  }
+
+  showCredits(){
+    this.navCtrl.push("CreditsPage");
   }
 }

@@ -43,13 +43,14 @@ export class MoneyFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let money = this._inventory.selectMoney(this._id);
-      this._form.reset({
-        copper: money.copper,
-        silver: money.silver,
-        electrum: money.electrum,
-        gold: money.gold,
-        platinum: money.platinum,
+      this._inventory.selectMoney(this._id).then(money => {
+        this._form.reset({
+          copper: money.copper,
+          silver: money.silver,
+          electrum: money.electrum,
+          gold: money.gold,
+          platinum: money.platinum,
+        });
       });
     }
   }

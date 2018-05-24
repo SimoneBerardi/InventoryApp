@@ -7,6 +7,7 @@ import { OptionsProvider } from '../modules/shared/providers/options.provider';
 import { CharacterProvider } from '../modules/characters/character.provider';
 import { ItemProvider } from '../modules/items/item.provider';
 import { InventoryProvider } from '../modules/inventory/inventory.provider';
+import { UtilityProvider } from '../modules/shared/providers/utility.provider';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,6 +18,7 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
+    private _utility: UtilityProvider,
     private _options: OptionsProvider,
     private _characters: CharacterProvider,
     private _items: ItemProvider,
@@ -28,16 +30,18 @@ export class MyApp {
       if (location.href.indexOf("#") >= 0)
         location.assign(location.origin);
 
+      return this._utility.init();
+    }).then(() => {
       let promises = [];
       promises.push(this._options.load());
       promises.push(this._characters.load());
       promises.push(this._items.load());
       promises.push(this._inventory.load());
-      Promise.all(promises).then(() => {
-        this.rootPage = "CharacterListPage";
-        statusBar.styleDefault();
-        splashScreen.hide();
-      });
+      return Promise.all(promises)
+    }).then(() => {
+      this.rootPage = "CharacterListPage";
+      statusBar.styleDefault();
+      splashScreen.hide();
     });
   }
 }

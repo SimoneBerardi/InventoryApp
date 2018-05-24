@@ -34,8 +34,10 @@ export class InventoryPage {
   }
 
   ionViewDidLoad() {
-    this.inventory = this._inventory.inventory;
-    this.isLoading = false;
+    this._inventory.selectFromSession().then(inventory => {
+      this.inventory = inventory;
+      this.isLoading = false;
+    });
   }
 
   // get equippedItems() {
@@ -72,8 +74,7 @@ export class InventoryPage {
   }
 
   remove(id: number) {
-    Promise.resolve().then(() => {
-      let bagItem = this._inventory.selectBagItem(id);
+    this._inventory.selectBagItem(id).then(bagItem => {
       if (bagItem.quantity === 1)
         return this._interface.askConfirmation({
           title: "ButtareOggetto",

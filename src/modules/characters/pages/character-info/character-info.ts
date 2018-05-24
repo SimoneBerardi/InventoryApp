@@ -34,41 +34,43 @@ export class CharacterInfoPage {
     this.dragonImage = this._utility.images.dragon_3_5;
   }
 
-  get name(){
+  get name() {
     return this._character.name;
   }
-  get image(){
+  get image() {
     return this._character.image;
   }
-  get strength(){
+  get strength() {
     return this._character.strength;
   }
-  get description(){
+  get description() {
     return this._character.description;
   }
-  get encumberedValue(){
+  get encumberedValue() {
     return this._character.encumberedValue;
   }
-  get heavilyEncumberedValue(){
+  get heavilyEncumberedValue() {
     return this._character.heavilyEncumberedValue;
   }
-  get maxCarryValue(){
+  get maxCarryValue() {
     return this._character.maxCarryValue;
   }
-  get dragValue(){
+  get dragValue() {
     return this._character.dragValue;
   }
-  get liftValue(){
+  get liftValue() {
     return this._character.liftValue;
   }
 
   ionViewWillEnter() {
-    this._character = this._characters.selectedCharacter;
-    this.isLoading = false;
+    this._characters.selectFromSession().then(character => {
+      this._character = character;
+      this.isLoading = false;
+    });
   }
 
   modify() {
-    this._interface.showModal("CharacterFormPage", { id: this._characters.selectedCharacter.id }).then((data: any) => {
+    this._interface.showModal("CharacterFormPage", { id: this._character.id }).then((data: any) => {
       if (data.action == "delete") {
         this._events.publish("exit");
         this._interface.hideLoader();

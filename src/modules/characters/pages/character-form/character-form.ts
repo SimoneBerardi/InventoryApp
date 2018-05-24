@@ -52,15 +52,16 @@ export class CharacterFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      let character = this._characters.select(this._id);
-      this._form.reset({
-        name: character.name,
-        race: character.race,
-        className: character.className,
-        strength: character.strength,
-        size: character.size,
+      this._characters.select(this._id).then(character => {
+        this._form.reset({
+          name: character.name,
+          race: character.race,
+          className: character.className,
+          strength: character.strength,
+          size: character.size,
+        });
+        this.image = character.image;
       });
-      this.image = character.image;
     }
   }
 

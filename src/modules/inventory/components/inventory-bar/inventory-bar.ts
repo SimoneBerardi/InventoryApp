@@ -9,32 +9,28 @@ import { UtilityProvider } from '../../../shared/providers/utility.provider';
   templateUrl: 'inventory-bar.html'
 })
 export class InventoryBarComponent {
-  private _character: Character;
-
   constructor(
     private _characters: CharacterProvider,
     private _inventory: InventoryProvider,
     private _utility: UtilityProvider,
-  ) {
-    this._character = this._characters.selectedCharacter;
-  }
+  ) { }
 
   get carriedWeight() {
     return this._inventory.inventory.carriedWeight;
   }
   get carriedWeightColor() {
     let result = "secondary";
-    if (this.carriedWeight > this._character.encumberedValue)
+    if (this.carriedWeight > this._utility.session.encumberedValue)
       result = "warning";
-    if (this.carriedWeight > this._character.heavilyEncumberedValue)
+    if (this.carriedWeight > this._utility.session.heavilyEncumberedValue)
       result = "danger";
-    if (this.carriedWeight > this._character.maxCarryValue)
+    if (this.carriedWeight > this._utility.session.maxCarryValue)
       result = "alert";
     return result;
   }
   get carriedWeightIconName() {
     let result = "checkmark-circle";
-    if (this.carriedWeight > this._character.encumberedValue)
+    if (this.carriedWeight > this._utility.session.encumberedValue)
       result = "warning";
     return result;
   }
@@ -44,9 +40,9 @@ export class InventoryBarComponent {
 
   get iconStyle() {
     let icon = this._utility.images.inventory.status.green;
-    if (this.carriedWeight > this._character.encumberedValue)
+    if (this.carriedWeight > this._utility.session.encumberedValue)
       icon = this._utility.images.inventory.status.orange;
-    if (this.carriedWeight > this._character.heavilyEncumberedValue)
+    if (this.carriedWeight > this._utility.session.heavilyEncumberedValue)
       icon = this._utility.images.inventory.status.red;
     return {
       "background-image": `url("${icon}")`
