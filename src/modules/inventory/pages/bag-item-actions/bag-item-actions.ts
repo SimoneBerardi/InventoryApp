@@ -53,7 +53,7 @@ export class BagItemActionsPage {
 
   get contentStyle() {
     return {
-      "background-color": this._options.baseColor + "CC",
+      "background-color": this._options.theme.baseColor + "CC",
     }
   }
 

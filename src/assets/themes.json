@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Tema 1",
+    "baseColor": "#FFFFFF",
+    "contrastColor": "#7F7F7F"
+  },
+  {
+    "name": "Tema 2",
+    "baseColor": "#1D5A83",
+    "contrastColor": "#94CAE4"
+  },
+  {
+    "name": "Tema 3",
+    "baseColor": "#016948",
+    "contrastColor": "#88D958"
+  }
+]

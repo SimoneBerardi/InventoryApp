@@ -9,6 +9,7 @@ import { Session } from '../session.model';
 export class UtilityProvider {
 
   private _manifestUrl = "assets/app-manifest.json";
+  themesUrl = "assets/themes.json";
 
   images = {
     inventory: {

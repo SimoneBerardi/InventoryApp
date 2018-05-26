@@ -7,7 +7,6 @@ import { Events } from 'ionic-angular';
 
 @Injectable()
 export class CharacterProvider extends DataProvider<Character> {
-
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
@@ -17,7 +16,8 @@ export class CharacterProvider extends DataProvider<Character> {
       _storage,
       _utility,
       "inventoryApp_characters",
-      Character);
+      Character
+    );
 
     this._testItems = [
       {

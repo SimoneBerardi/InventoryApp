@@ -1,14 +1,25 @@
 import { Jsonable } from "../shared/jsonable.model";
+import { Theme } from "./theme.model";
 
 export class Options extends Jsonable {
   language: string;
   units: Units = Units.Kg;
   decimals: Decimals = Decimals.Due;
-  baseColor: string = "#333333";
-  contrastColor: string = "#D3B158";
+  themeId: number = 3;
+
+  private _theme: Theme;
+
+  get theme() {
+    return this._theme;
+  }
+  set theme(value: Theme) {
+    this.themeId = value.id;
+    this._theme = value;
+  }
 
   constructor() {
-    super(["language", "units", "decimals", "baseColor", "contrastColor"]);
+    super(["language", "units", "decimals", "themeId"]);
+    this.id = 1;
   }
 }
 

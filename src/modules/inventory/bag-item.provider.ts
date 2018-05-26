@@ -36,25 +36,25 @@ export class BagItemProvider extends DataProvider<BagItem>{
   }
 
   selectByInventoryId(inventoryId: number) {
-    return Promise.resolve(this.list.filter(bagItem => bagItem.inventoryId === inventoryId));
+    return Promise.resolve(this._list.filter(bagItem => bagItem.inventoryId === inventoryId));
   }
 
   deleteByBagId(bagId: number) {
-    this.list = this.list.filter(bagItem => bagItem.bagId !== bagId);
+    this._list = this._list.filter(bagItem => bagItem.bagId !== bagId);
     return this.save();
   }
 
   deleteByInventoryId(inventoryId: number) {
-    this.list = this.list.filter(bagItem => bagItem.inventoryId !== inventoryId);
+    this._list = this._list.filter(bagItem => bagItem.inventoryId !== inventoryId);
     return this.save();
   }
 
   deleteByItemId(inventoryId: number, itemId: number) {
-    this.list = this.list.filter(bagItem => bagItem.itemId !== itemId);
+    this._list = this._list.filter(bagItem => bagItem.itemId !== itemId);
     return this.save();
   }
 
   selectByInventoryIdItemId(inventoryId: number, itemId: number) {
-    return Promise.resolve(this.list.filter(bagItem => bagItem.itemId === itemId));
+    return Promise.resolve(this._list.filter(bagItem => bagItem.itemId === itemId));
   }
 }

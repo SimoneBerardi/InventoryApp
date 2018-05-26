@@ -10,6 +10,7 @@ import { CharactersModule } from '../characters/characters.module';
 import { TranslateProvider } from './providers/translate.provider';
 import { OptionsProvider } from './providers/options.provider';
 import { WeightPipe } from './weight.pipe';
+import { ThemeProvider } from './providers/theme.provider';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ export class SharedModule {
         TranslateProvider,
         OptionsProvider,
         InterfaceProvider,
+        ThemeProvider,
       ]
     };
   }

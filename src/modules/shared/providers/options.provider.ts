@@ -2,18 +2,37 @@ import { Injectable } from '@angular/core';
 import { Options, Units, Decimals } from '../options.model';
 import { StorageProvider } from './storage.provider';
 import { TranslateProvider } from './translate.provider';
+import { ThemeProvider } from './theme.provider';
+import { Theme } from '../theme.model';
+import { DataProvider } from '../data-provider.model';
+import { UtilityProvider } from './utility.provider';
 
 @Injectable()
-export class OptionsProvider {
-  private _optionsKey: string = "inventoryApp_options";
-
+export class OptionsProvider extends DataProvider<Options>{
   private _options: Options = new Options();
 
   constructor(
-    private _storage: StorageProvider,
+    _storage: StorageProvider,
+    _utility: UtilityProvider,
     private _translate: TranslateProvider,
+    private _themes: ThemeProvider,
   ) {
-    this.language = this._translate.browserLang;
+    super(
+      _storage,
+      _utility,
+      "inventoryApp_options",
+      Options
+    );
+
+    this._testItems = [
+      {
+        id: 1,
+        language: "it",
+        units: 0,
+        decimals: 2,
+        themeId: 3,
+      }
+    ];
   }
 
   get language() {
@@ -22,19 +41,11 @@ export class OptionsProvider {
   set language(value: string) {
     this._options.language = value;
   }
-  get baseColor() {
-    return this._options.baseColor;
+  get theme() {
+    return this._options.theme;
   }
-  set baseColor(value: string) {
-    this._options.baseColor = value;
-    this._applyStyle();
-  }
-  get contrastColor() {
-    return this._options.contrastColor;
-  }
-  set contrastColor(value: string) {
-    this._options.contrastColor = value;
-    this._applyStyle();
+  set theme(value: Theme) {
+    this._options.theme = value;
   }
   get decimals() {
     return this._options.decimals;
@@ -49,54 +60,53 @@ export class OptionsProvider {
     this._options.units = value;
   }
 
-  update(options: Options) {
-    let oldOptions = this._options;
-    this._options = options;
-    return Promise.resolve().then(() => {
+  updateOptions(options: Options) {
+    let oldOptions = Object.assign({}, this._options);
+    return super.update(this._options.id, options).then(() => {
+      this._options = options;
       if (oldOptions.language != this._options.language)
         this._setLanguage();
       else
         return Promise.resolve();
     }).then(() => {
-      if (oldOptions.baseColor != this._options.baseColor ||
-        oldOptions.contrastColor != this._options.contrastColor)
-        this._applyStyle();
-      return Promise.resolve();
+      if (oldOptions.themeId != this._options.themeId)
+        return this._loadTheme();
+    });
+  }
+  load() {
+    return super.load().then(() => {
+      if (this._list.length == 0)
+        return this.insert(new Options());
+      else
+        return Promise.resolve();
     }).then(() => {
-      return this.save();
+      this._options = this._list[0];
+      return Promise.all([
+        this._loadTheme(),
+        this._setLanguage(),
+      ]).then(() => {
+        return Promise.resolve();
+      });
     });
   }
 
   clear() {
     this._options = new Options();
-    return this._storage.remove(this._optionsKey);
-  }
-
-  load() {
-    return this._storage.deserialize<Options>(this._optionsKey, Options).then(options => {
-      if (options) {
-        this._options = options as Options;
-        return Promise.resolve();
-      } else
-        return this.save();
-    }).then(() => {
-      return this._setLanguage();
-    }).then(() => {
-      this._applyStyle();
-      return Promise.resolve();
-    });
-  }
-
-  save() {
-    return this._storage.serialize(this._optionsKey, this._options);
+    return super.clear();
   }
 
   private _setLanguage() {
     return this._translate.setLanguage(this._options.language);
   }
-
+  private _loadTheme() {
+    return this._themes.select(this._options.themeId).then(theme => {
+      this._options.theme = theme;
+      this._applyStyle();
+      return Promise.resolve();
+    });
+  }
   private _applyStyle() {
-    let cssText = "--base-color: " + this.baseColor + "; --contrast-color: " + this.contrastColor + ";";
+    let cssText = "--base-color: " + this.theme.baseColor + "; --contrast-color: " + this.theme.contrastColor + ";";
     document.querySelector("body").style.cssText = cssText;
   }
 }

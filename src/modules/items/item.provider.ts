@@ -122,11 +122,11 @@ export class ItemProvider extends DataProvider<Item> {
   }
 
   selectByCharacterId(characterId: number) {
-    return Promise.resolve(this.list.filter(item => item.characterId === characterId));
+    return Promise.resolve(this._list.filter(item => item.characterId === characterId));
   }
 
   deleteByCharacterId(characterId: number) {
-    this.list = this.list.filter(item => item.characterId !== characterId);
+    this._list = this._list.filter(item => item.characterId !== characterId);
     return this.save();
   }
 

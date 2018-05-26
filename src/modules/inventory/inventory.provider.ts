@@ -187,7 +187,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
 
   selectByCharacterId(characterId: number) {
-    return Promise.resolve(this.list.find(inventory => inventory.characterId === characterId));
+    return Promise.resolve(this._list.find(inventory => inventory.characterId === characterId));
   }
 
   clear(isDeep: boolean = false) {

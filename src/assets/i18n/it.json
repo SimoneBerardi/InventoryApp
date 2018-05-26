@@ -105,5 +105,7 @@
     "Zero": "0",
     "Uno": "1",
     "Due": "2",
-    "Tre": "3"
+    "Tre": "3",
+    "Tre_Cinque": "3.5",
+    "Cinque_Zero": "5.0"
 }

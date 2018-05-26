@@ -6,6 +6,8 @@ import { InterfaceProvider } from '../../providers/interface.provider';
 import { TranslateProvider } from '../../providers/translate.provider';
 import { UtilityProvider } from '../../providers/utility.provider';
 import { Units, Options, Decimals } from '../../options.model';
+import { Theme } from '../../theme.model';
+import { ThemeProvider } from '../../providers/theme.provider';
 
 @IonicPage()
 @Component({
@@ -20,6 +22,7 @@ export class OptionsPage {
 
   units: any[];
   decimals: any[];
+  themes: Theme[];
 
   constructor(
     public navCtrl: NavController,
@@ -29,13 +32,13 @@ export class OptionsPage {
     private _interface: InterfaceProvider,
     private _translate: TranslateProvider,
     private _utility: UtilityProvider,
+    private _themes: ThemeProvider,
   ) {
     this._form = this._formBuilder.group({
       language: ["", Validators.required],
-      baseColor: ["", Validators.required],
-      contrastColor: ["", Validators.required],
       units: [0, Validators.required],
       decimals: [0, Validators.required],
+      themeId: [0, Validators.required],
     });
     this.headerLogo = this._utility.images.logos.character;
     this.headerTitle = "Opzioni";
@@ -47,11 +50,13 @@ export class OptionsPage {
   ionViewDidLoad() {
     this._form.reset({
       language: this._options.language,
-      baseColor: this._options.baseColor,
-      contrastColor: this._options.contrastColor,
       units: this._options.units,
       decimals: this._options.decimals,
+      themeId: this._options.theme.id,
     });
+    this._themes.selectAll().then(themes => {
+      this.themes = themes;
+    })
   }
 
   save() {
@@ -62,7 +67,7 @@ export class OptionsPage {
       let model = this._form.value;
       let options = new Options();
       Object.assign(options, model);
-      return this._options.update(options);
+      return this._options.updateOptions(options);
     }).then(() => {
       return this.navCtrl.pop();
     });
@@ -87,7 +92,7 @@ export class OptionsPage {
     }).catch(() => { });
   }
 
-  showCredits(){
+  showCredits() {
     this.navCtrl.push("CreditsPage");
   }
 }

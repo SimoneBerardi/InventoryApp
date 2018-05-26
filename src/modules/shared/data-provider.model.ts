@@ -4,7 +4,7 @@ import { UtilityProvider } from "./providers/utility.provider";
 
 export class DataProvider<T extends Jsonable> {
   protected _testItems: any[] = [];
-  protected list: T[] = [];
+  protected _list: T[] = [];
 
   constructor(
     protected _storage: StorageProvider,
@@ -14,11 +14,11 @@ export class DataProvider<T extends Jsonable> {
   ) { }
 
   selectAll() {
-    return Promise.resolve(this.list);
+    return Promise.resolve(this._list);
   }
 
   select(id: number) {
-    return Promise.resolve(this.list.find(o => o.id === id));
+    return Promise.resolve(this._list.find(o => o.id === id));
   }
 
   update(id: number, newItem: T) {
@@ -32,9 +32,17 @@ export class DataProvider<T extends Jsonable> {
     });
   }
 
+  insertMany(items: T[]) {
+    items.forEach(item => {
+      item.id = this._utility.generateListId(this._list);
+      this._list.push(item);
+    });
+    return this.save();
+  }
+
   insert(item: T) {
-    item.id = this._utility.generateListId(this.list);
-    this.list.push(item);
+    item.id = this._utility.generateListId(this._list);
+    this._list.push(item);
     return this.save();
   }
 
@@ -43,14 +51,14 @@ export class DataProvider<T extends Jsonable> {
       if (!item)
         throw new Error("NonTrovato");
 
-      this.list.splice(this.list.indexOf(item), 1);
+      this._list.splice(this._list.indexOf(item), 1);
       return this.save();
     });
   }
 
   clear(clearCache: boolean = true) {
     if (clearCache)
-      this.list = [];
+      this._list = [];
     return this._storage.remove(this._storageKey);
   }
 
@@ -71,20 +79,20 @@ export class DataProvider<T extends Jsonable> {
       return this._storage.deserialize(this._storageKey, this._type);
     }).then(list => {
       if (list)
-        this.list = list as T[];
+        this._list = list as T[];
       return Promise.resolve();
     });
   }
 
   save() {
-    return this._storage.serialize(this._storageKey, this.list);
+    return this._storage.serialize(this._storageKey, this._list);
   }
 
   private _loadTestItems() {
     this._testItems.forEach(element => {
       let item = new this._type();
       Object.assign(item, element);
-      this.list.push(item);
+      this._list.push(item);
     });
   }
 }

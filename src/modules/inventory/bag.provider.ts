@@ -93,11 +93,11 @@ export class BagProvider extends DataProvider<Bag>{
   }
 
   selectByInventoryId(inventoryId: number) {
-    return Promise.resolve(this.list.filter(bag => bag.inventoryId === inventoryId));
+    return Promise.resolve(this._list.filter(bag => bag.inventoryId === inventoryId));
   }
 
   deleteByInventoryId(inventoryId: number) {
-    this.list = this.list.filter(bagItem => bagItem.inventoryId !== inventoryId);
+    this._list = this._list.filter(bagItem => bagItem.inventoryId !== inventoryId);
     return this.save();
   }
 }
