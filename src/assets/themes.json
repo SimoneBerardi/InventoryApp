@@ -13,5 +13,30 @@
     "name": "Tema 3",
     "baseColor": "#016948",
     "contrastColor": "#88D958"
+  },
+  {
+    "name": "Tema 4",
+    "baseColor": "#624579",
+    "contrastColor": "#BFBFBF"
+  },
+  {
+    "name": "Tema 5",
+    "baseColor": "#63271F",
+    "contrastColor": "#FFFF79"
+  },
+  {
+    "name": "Tema 6",
+    "baseColor": "#1D5A83",
+    "contrastColor": "#FFBC00"
+  },
+  {
+    "name": "Tema 7",
+    "baseColor": "#404040",
+    "contrastColor": "#D29F28"
+  },
+  {
+    "name": "Tema 8",
+    "baseColor": "#962D27",
+    "contrastColor": "#F2910A"
   }
 ]

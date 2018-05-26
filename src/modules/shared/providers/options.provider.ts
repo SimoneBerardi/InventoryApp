@@ -23,16 +23,6 @@ export class OptionsProvider extends DataProvider<Options>{
       "inventoryApp_options",
       Options
     );
-
-    this._testItems = [
-      {
-        id: 1,
-        language: "it",
-        units: 0,
-        decimals: 2,
-        themeId: 3,
-      }
-    ];
   }
 
   get language() {
@@ -69,14 +59,19 @@ export class OptionsProvider extends DataProvider<Options>{
       else
         return Promise.resolve();
     }).then(() => {
-      if (oldOptions.themeId != this._options.themeId)
-        return this._loadTheme();
+      return this._loadTheme();
     });
   }
   load() {
     return super.load().then(() => {
-      if (this._list.length == 0)
-        return this.insert(new Options());
+      if (this._list.length == 0) {
+        let options = new Options();
+        if (this._utility.isDebug)
+          options.language = "it";
+        else
+          options.language = this._translate.browserLang;
+        return this.insert(options);
+      }
       else
         return Promise.resolve();
     }).then(() => {

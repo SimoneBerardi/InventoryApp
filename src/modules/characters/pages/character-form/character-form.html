@@ -39,13 +39,19 @@
       <ion-input text-right text="text" formControlName="className"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>{{"Taglia" | translate}}</ion-label>
+      <ion-select formControlName="size">
+        <ion-option *ngFor="let size of sizes" [value]="size.key">{{size.value | translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
       <ion-label>{{"Forza" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="strength"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>{{"Taglia" | translate}}</ion-label>
-      <ion-select formControlName="size">
-        <ion-option *ngFor="let size of sizes" [value]="size.key">{{size.value | translate}}</ion-option>
+      <ion-label>{{"Edizione" | translate}}</ion-label>
+      <ion-select formControlName="edition">
+        <ion-option *ngFor="let edition of editions" [value]="edition.key">{{edition.value | translate}}</ion-option>
       </ion-select>
     </ion-item>
   </form>

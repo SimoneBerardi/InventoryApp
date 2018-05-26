@@ -47,19 +47,19 @@ export class CharacterInfoPage {
     return this._character.description;
   }
   get encumberedValue() {
-    return this._character.encumberedValue;
+    return this._character.encumberance.encumbered;
   }
   get heavilyEncumberedValue() {
-    return this._character.heavilyEncumberedValue;
+    return this._character.encumberance.heavilyEncumbered;
   }
   get maxCarryValue() {
-    return this._character.maxCarryValue;
+    return this._character.encumberance.maxCarry;
   }
   get dragValue() {
-    return this._character.dragValue;
+    return this._character.encumberance.drag;
   }
   get liftValue() {
-    return this._character.liftValue;
+    return this._character.encumberance.lift;
   }
 
   ionViewWillEnter() {

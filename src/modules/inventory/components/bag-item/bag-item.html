@@ -3,7 +3,7 @@
   {{text}}
   <br>
   <p *ngIf="description">{{description}}</p>
-  <p item-right *ngIf="weight > 0">{{weight}} Kg</p>
+  <p item-right *ngIf="weight > 0">{{weight | weight}}</p>
 </ion-item>
 <ion-grid *ngIf="isSelected" class="option-buttons">
   <ion-row>
