@@ -1,4 +1,5 @@
 import { Jsonable } from "../shared/jsonable.model";
+import { ItemGroup } from "./item-group.model";
 
 export class Item extends Jsonable {
   characterId: number;

@@ -20,11 +20,13 @@ export class HomePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _events: Events,
-  ) {
-    this._events.unsubscribe("exit");
-    this._events.subscribe("exit", () => {
-      this.exit();
-    });
+  ) { }
+
+  ionViewDidLoad() {
+    this._events.subscribe("interface:exit", this.exit);
+  }
+  ionViewWillUnload() {
+    this._events.unsubscribe("interface:exit");
   }
 
   exit() {

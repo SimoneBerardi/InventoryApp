@@ -65,13 +65,13 @@ export class BagItemFormPage {
       if (this._id !== undefined)
         return this._inventory.updateBagItem(this._id, bagItem);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
+      return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();
       });
     });
   }
 
   cancel() {
-    this.viewCtrl.dismiss({ action: "cancel" });
+    this.viewCtrl.dismiss();
   }
 }

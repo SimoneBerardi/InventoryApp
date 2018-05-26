@@ -27,18 +27,23 @@ export class CharacterListPage {
   ) {
     this.headerLogo = this._utility.images.logos.charactersList;
     this.headerTitle = "SalaEroi";
-
-    this._events.unsubscribe("options:open");
-    this._events.subscribe("options:open", () => {
-      this.navCtrl.push("OptionsPage");
-    });
   }
 
   ionViewDidLoad() {
+    this._events.subscribe("options:open", () => {
+      this.navCtrl.push("OptionsPage");
+    });
+    this._events.subscribe("character:delete", () => {
+      this._events.publish("interface:exit");
+    });
     this._characters.selectAll().then(characters => {
       this.characters = characters;
       this.isLoading = false;
     });
+  }
+  ionViewWillUnload() {
+    this._events.unsubscribe("options:open");
+    this._events.unsubscribe("character:delete");
   }
 
   add() {

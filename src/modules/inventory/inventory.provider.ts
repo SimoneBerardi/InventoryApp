@@ -17,7 +17,7 @@ import { Events } from 'ionic-angular';
 
 @Injectable()
 export class InventoryProvider extends DataProvider<Inventory>{
-  inventory: Inventory = new Inventory();
+  private _inventory: Inventory = new Inventory();
 
   constructor(
     _storage: StorageProvider,
@@ -58,7 +58,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
     this._events.subscribe("item:add", (data: ItemAddiction) => {
       let quantity = data.quantity || 1;
       //TODO Scelta borsa
-      this.addItem(data.id, this.inventory.bags[0].id, quantity);
+      this.addItem(data.id, this._inventory.bags[0].id, quantity);
     });
     this._events.subscribe("item:delete", id => {
       this._deleteItem(id);
@@ -67,25 +67,25 @@ export class InventoryProvider extends DataProvider<Inventory>{
 
   get carriedWeightClass() {
     let result = "not-encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.encumberedValue)
+    if (this._inventory.carriedWeight > this._utility.session.encumberedValue)
       result = "encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
+    if (this._inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
       result = "heavily-encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.maxCarryValue)
+    if (this._inventory.carriedWeight > this._utility.session.maxCarryValue)
       result = "over-max-carry";
     return result;
   }
 
   selectFromSession() {
     return Promise.resolve().then(() => {
-      if (this.inventory.characterId !== this._utility.session.loadedCharacterId)
+      if (this._inventory.characterId !== this._utility.session.loadedCharacterId)
         return this._loadByCharacterId(this._utility.session.loadedCharacterId);
       else
         return Promise.resolve(null);
     }).then(inventory => {
       if (inventory !== null)
-        this.inventory = inventory;
-      return Promise.resolve(this.inventory);
+        this._inventory = inventory;
+      return Promise.resolve(this._inventory);
     });
   }
 
@@ -111,7 +111,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
       return this._addItem(item, bag, quantity);
     });
   }
-  moveBagItem(id: number, bagId: number, quantity: number) {
+  moveBagItemQuantity(id: number, bagId: number, quantity: number) {
     return Promise.all([
       this._bagItems.select(id),
       this._bags.select(bagId)
@@ -153,16 +153,16 @@ export class InventoryProvider extends DataProvider<Inventory>{
 
   //Bag
   deleteBag(id: number) {
-    let bag = this.inventory.bags.find(o => o.id === id);
-    this.inventory.bags.splice(this.inventory.bags.indexOf(bag), 1);
+    let bag = this._inventory.bags.find(o => o.id === id);
+    this._inventory.bags.splice(this._inventory.bags.indexOf(bag), 1);
     return this._bagItems.deleteByBagId(id).then(() => {
       return this._bags.delete(id);
     });
   }
   insertBag(bag: Bag) {
-    bag.inventoryId = this.inventory.id;
+    bag.inventoryId = this._inventory.id;
     return this._bags.insert(bag).then(() => {
-      this.inventory.bags.push(bag);
+      this._inventory.bags.push(bag);
       return Promise.resolve();
     });
   }
@@ -171,6 +171,11 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
   selectBag(id: number) {
     return this._bags.select(id);
+  }
+  selectBagsFromSession() {
+    return this.selectByCharacterId(this._utility.session.loadedCharacterId).then(inventory => {
+      return this._bags.selectByInventoryId(inventory.id);
+    });
   }
 
   //Money
@@ -186,7 +191,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
 
   clear(isDeep: boolean = false) {
-    this.inventory = new Inventory();
+    this._inventory = new Inventory();
 
     let promises = [];
     if (isDeep) {
@@ -264,6 +269,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
       bagItem.item.totalQuantity += quantity;
 
     if (isNegative && quantity === bagItem.quantity) {
+      bagItem.quantity -= quantity;
       bag.items.splice(bag.items.indexOf(bagItem), 1);
       return this._bagItems.delete(bagItem.id);
     } else {
@@ -319,9 +325,9 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
   private _deleteItem(itemId: number) {
     let promises = [];
-    this.inventory.bags.forEach(bag => {
+    this._inventory.bags.forEach(bag => {
       bag.items = bag.items.filter(o => o.itemId !== itemId);
     });
-    return this._bagItems.deleteByItemId(this.inventory.id, itemId);
+    return this._bagItems.deleteByItemId(this._inventory.id, itemId);
   }
 }

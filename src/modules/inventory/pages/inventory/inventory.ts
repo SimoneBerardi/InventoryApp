@@ -7,6 +7,7 @@ import { InventoryProvider } from '../../inventory.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 import { MoveEventData } from '../../components/bag-item-list/bag-item-list';
 import { Bag } from '../../model/bag.model';
+import { InventoryInterfaceProvider } from '../../inventory-interface.provider';
 
 @IonicPage()
 @Component({
@@ -28,6 +29,7 @@ export class InventoryPage {
     private _options: OptionsProvider,
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
+    private _inventoryInterface: InventoryInterfaceProvider,
   ) {
     this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "Inventario";
@@ -63,34 +65,15 @@ export class InventoryPage {
   }
 
   select(id: number) {
-    if (this.selectedId === id)
-      this.selectedId = -1;
-    else
-      this.selectedId = id;
+    this._interface.showModal("BagItemActionsPage", { id: id });
   }
 
   add(id: number) {
-    this._inventory.modifyBagItemQuantity(id, 1, false);
+    this._inventoryInterface.modifyBagItemQuantity(id, 1, false);
   }
 
   remove(id: number) {
-    this._inventory.selectBagItem(id).then(bagItem => {
-      if (bagItem.quantity === 1)
-        return this._interface.askConfirmation({
-          title: "ButtareOggetto",
-          message: "ButtareOggetto?",
-          interpolateParams: {
-            bagItemName: bagItem.item.name,
-          }
-        });
-      else
-        return Promise.resolve(true);
-    }).then(isConfirmed => {
-      if (isConfirmed)
-        return this._inventory.modifyBagItemQuantity(id, 1, true);
-      else
-        return Promise.resolve();
-    });
+    this._inventoryInterface.modifyBagItemQuantity(id, 1, true);
   }
 
   modify(id: number) {
@@ -111,7 +94,7 @@ export class InventoryPage {
       })
     }).then(bagId => {
       //TODO utilizzare la quantità totale
-      return this._inventory.moveBagItem(data.id, Number(bagId), 1);
+      return this._inventory.moveBagItemQuantity(data.id, Number(bagId), 1);
     }).catch(error => {
       this._interface.showAndLogError(error);
     })

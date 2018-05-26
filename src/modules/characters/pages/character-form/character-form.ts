@@ -97,14 +97,14 @@ export class CharacterFormPage {
       else
         return this._characters.insert(character);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
+      return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();
       });
     });
   }
 
   cancel() {
-    this.viewCtrl.dismiss({ action: "cancel" });
+    this.viewCtrl.dismiss();
   }
 
   delete() {
@@ -124,7 +124,7 @@ export class CharacterFormPage {
     }).then(() => {
       return this._characters.delete(this._id)
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "delete" });
+      return this.viewCtrl.dismiss();
     }).catch(error => {
       this._interface.showAndLogError(error);
     });

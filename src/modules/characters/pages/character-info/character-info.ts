@@ -70,11 +70,6 @@ export class CharacterInfoPage {
   }
 
   modify() {
-    this._interface.showModal("CharacterFormPage", { id: this._character.id }).then((data: any) => {
-      if (data.action == "delete") {
-        this._events.publish("exit");
-        this._interface.hideLoader();
-      }
-    });
+    this._interface.showModal("CharacterFormPage", { id: this._character.id });
   }
 }

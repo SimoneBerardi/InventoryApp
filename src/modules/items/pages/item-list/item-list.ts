@@ -33,15 +33,14 @@ export class ItemListPage {
   }
 
   ionViewDidLoad() {
-    this._generateGroups();
-    this.isLoading = false;
+    this._items.selectByGroup().then(groups => {
+      this.groups = groups;
+      this.isLoading = false;
+    });
   }
 
   add() {
-    this._interface.showModal("ItemFormPage").then((data: any) => {
-      if (data.action == "save" || data.action == "delete")
-        this._generateGroups();
-    });
+    this._interface.showModal("ItemFormPage");
   }
 
   select(id: number) {
@@ -62,10 +61,7 @@ export class ItemListPage {
         {
           text: "Modifica",
           handler: () => {
-            this._interface.showModal("ItemFormPage", { id: id }).then((data: any) => {
-              if (data.action == "save" || data.action == "delete")
-                this._generateGroups();
-            });
+            this._interface.showModal("ItemFormPage", { id: id });
           }
         }
       ]
@@ -81,22 +77,5 @@ export class ItemListPage {
       });
     else
       this.isLoading = false;
-  }
-
-  private _generateGroups() {
-    return this._items.selectFromSession().then(items => {
-      let groups = [];
-      this._utility.enumerateEnum(ItemCategory).forEach(category => {
-        let group = new ItemGroup();
-        group.name = category.value;
-        group.items = items.filter(item => item.category === category.key)
-        let oldGroup = this.groups.find(o => o.name === group.name);
-        if (oldGroup)
-          group.isOpen = oldGroup.isOpen;
-        if (group.items.length > 0)
-          groups.push(group);
-      });
-      this.groups = groups;
-    });
   }
 }

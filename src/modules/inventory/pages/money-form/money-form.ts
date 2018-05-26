@@ -67,13 +67,13 @@ export class MoneyFormPage {
       if (this._id !== undefined)
         return this._inventory.updateMoney(this._id, newMoney);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
+      return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();
       });
     });
   }
 
   cancel() {
-    this.viewCtrl.dismiss({ action: "cancel" });
+    this.viewCtrl.dismiss();
   }
 }

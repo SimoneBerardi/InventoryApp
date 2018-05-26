@@ -3,20 +3,27 @@ import { InventoryProvider } from '../../inventory.provider';
 import { CharacterProvider } from '../../../characters/character.provider';
 import { Character } from '../../../characters/character.model';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
+import { Inventory } from '../../model/inventory.model';
 
 @Component({
   selector: 'inventory-bar',
   templateUrl: 'inventory-bar.html'
 })
 export class InventoryBarComponent {
+  inventory: Inventory;
+
   constructor(
     private _characters: CharacterProvider,
     private _inventory: InventoryProvider,
     private _utility: UtilityProvider,
-  ) { }
+  ) { 
+    this._inventory.selectFromSession().then(inventory =>{
+      this.inventory = inventory;
+    });
+  }
 
   get carriedWeight() {
-    return this._inventory.inventory.carriedWeight;
+    return this.inventory.carriedWeight;
   }
   get carriedWeightColor() {
     let result = "secondary";

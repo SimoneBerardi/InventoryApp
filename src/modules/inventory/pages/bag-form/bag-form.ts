@@ -71,7 +71,7 @@ export class BagFormPage {
       else
         return this._inventory.insertBag(bag);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" });
+      return this.viewCtrl.dismiss();
     }).then(() => {
       return this._interface.hideLoader();
     }).catch(error => {
@@ -80,7 +80,7 @@ export class BagFormPage {
   }
 
   cancel() {
-    this.viewCtrl.dismiss({ action: "cancel" });
+    this.viewCtrl.dismiss();
   }
 
   delete() {
@@ -100,7 +100,7 @@ export class BagFormPage {
     }).then(() => {
       return this._inventory.deleteBag(this._id);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "delete" });
+      return this.viewCtrl.dismiss();
     }).then(() => {
       return this._interface.hideLoader();
     }).catch(error => {

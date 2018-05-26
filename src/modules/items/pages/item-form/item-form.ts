@@ -69,7 +69,7 @@ export class ItemFormPage {
       else
         return this._items.insert(item);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "save" }).then(() => {
+      return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();
       });
     }).catch(error => {
@@ -78,7 +78,7 @@ export class ItemFormPage {
   }
 
   cancel() {
-    this.viewCtrl.dismiss({ action: "cancel" });
+    this.viewCtrl.dismiss();
   }
 
   delete() {
@@ -98,7 +98,7 @@ export class ItemFormPage {
     }).then(() => {
       return this._items.delete(this._id);
     }).then(() => {
-      return this.viewCtrl.dismiss({ action: "delete" });
+      return this.viewCtrl.dismiss();
     }).then(() => {
       return this._interface.hideLoader();
     }).catch(error => {

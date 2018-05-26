@@ -1,14 +1,16 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { StorageProvider } from '../shared/providers/storage.provider';
-import { Item } from './item.model';
+import { Item, ItemCategory } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
 import { CharacterProvider } from '../characters/character.provider';
 import { Events } from 'ionic-angular';
+import { ItemGroup } from './item-group.model';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
-  items: Item[] = [];
+  private _items: Item[] = [];
+  private _groups: ItemGroup[] = [];
 
   constructor(
     _storage: StorageProvider,
@@ -93,16 +95,29 @@ export class ItemProvider extends DataProvider<Item> {
     })
   }
 
+  selectByGroup() {
+    return Promise.resolve().then(() => {
+      if (this._groups.length == 0 || this._groups[0].items[0].characterId !== this._utility.session.loadedCharacterId)
+        return this._selectByGroup();
+      else
+        return Promise.resolve(null);
+    }).then(groups => {
+      if (groups !== null)
+        this._groups = groups;
+      return Promise.resolve(this._groups);
+    });
+  }
+
   selectFromSession() {
     return Promise.resolve().then(() => {
-      if (this.items.length == 0 || this.items[0].characterId !== this._utility.session.loadedCharacterId)
-        return this._loadByCharacterId(this._utility.session.loadedCharacterId);
+      if (this._items.length == 0 || this._items[0].characterId !== this._utility.session.loadedCharacterId)
+        return this.selectByCharacterId(this._utility.session.loadedCharacterId);
       else
         return Promise.resolve(null);
     }).then(items => {
       if (items !== null)
-        this.items = items;
-      return Promise.resolve(this.items);
+        this._items = items;
+      return Promise.resolve(this._items);
     });
   }
 
@@ -116,19 +131,44 @@ export class ItemProvider extends DataProvider<Item> {
   }
 
   delete(id: number) {
-    return super.delete(id).then(() => {
+    return this.select(id).then(item => {
+      this._items.splice(this._items.indexOf(item), 1);
+      let group = this._groups.find(group => group.category === item.category);
+      if (group)
+        group.items.splice(group.items.indexOf(item), 1);
+      return super.delete(id);
+    }).then(() => {
       this._events.publish("item:delete", id);
       return Promise.resolve();
-    });
+    })
   }
 
   insert(item: Item) {
     item.characterId = this._utility.session.loadedCharacterId;
+    this._items.push(item);
+    let group = this._groups.find(group => group.category === item.category);
+    if (group)
+      group.items.push(item);
     return super.insert(item);
   }
 
-  private _loadByCharacterId(characterId: number) {
-    return this.selectByCharacterId(characterId);
+  private _selectByGroup() {
+    return this.selectFromSession().then(items => {
+      let groups: ItemGroup[] = [];
+      this._utility.enumerateEnum(ItemCategory).forEach(category => {
+        let group = new ItemGroup();
+        group.category = category.key;
+        group.name = category.value;
+        group.items = items.filter(item => item.category === category.key)
+
+        let oldGroup = this._groups.find(o => o.name === group.name);
+        if (oldGroup)
+          group.isOpen = oldGroup.isOpen;
+        if (group.items.length > 0)
+          groups.push(group);
+      });
+      return Promise.resolve(groups);
+    });
   }
 }
 

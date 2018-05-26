@@ -11,6 +11,7 @@ import { MoneyProvider } from './money.provider';
 import { BagItemProvider } from './bag-item.provider';
 import { BagProvider } from './bag.provider';
 import { SharedModule } from '../shared/shared.module';
+import { InventoryInterfaceProvider } from './inventory-interface.provider';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ export class InventoryModule {
         BagItemProvider,
         BagProvider,
         InventoryProvider,
+        InventoryInterfaceProvider,
       ]
     };
   }
