@@ -5,11 +5,13 @@ import { ItemGroupComponent } from './components/item-group/item-group';
 import { ItemComponent } from './components/item/item';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { SearchBarComponent } from './components/search-bar/search-bar';
 
 @NgModule({
   declarations: [
     ItemComponent,
     ItemGroupComponent,
+    SearchBarComponent,
   ],
   imports: [
     IonicPageModule.forChild(ItemComponent),
@@ -20,6 +22,7 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
     ItemComponent,
     ItemGroupComponent,
+    SearchBarComponent,
   ]
 })
 export class ItemsModule {

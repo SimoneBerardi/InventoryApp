@@ -16,7 +16,10 @@ export class ItemListPage {
   headerTitle: string;
 
   isLoading: boolean = true;
+  isSearching: boolean = false;
+
   groups: ItemGroup[] = [];
+  searchItems: Item[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -67,6 +70,17 @@ export class ItemListPage {
         }
       ]
     })
+  }
+
+  search(value: string) {
+    this.isSearching = value !== "";
+    if (this.isSearching)
+      this._items.selectBySearch(value).then(items => {
+        this.searchItems = items;
+        this.isLoading = false;
+      });
+    else
+      this.isLoading = false;
   }
 
   private _generateGroups() {

@@ -24,11 +24,13 @@ body {
 .component-style {
     background-color: var(--base-color);
     color: var(--contrast-color);
+    stroke: var(--contrast-color);
 }
 
 .component-inverted-style {
     background-color: var(--contrast-color);
     color: var(--base-color);
+    stroke: var(--base-color);
 }
 
 button.button {
@@ -101,6 +103,16 @@ ion-action-sheet .action-sheet-group {
         color: inherit;
         border-bottom: 2px solid;
         text-transform: uppercase;
+    }
+}
+
+ion-spinner.spinner {
+    margin: auto;
+    display: block;
+    width: 50px;
+    height: 50px;
+    circle {
+        stroke: inherit;
     }
 }
 

@@ -1,0 +1,5 @@
+<ion-item no-lines>
+  <ion-icon item-left name="search"></ion-icon>
+  <ion-input type="text" [(ngModel)]="searchValue" [formControl]="searchControl" (input)="onSearchInput()"></ion-input>
+  <ion-icon *ngIf="searchValue.length > 0" item-right name="close" tappable (click)="clear()"></ion-icon>
+</ion-item>

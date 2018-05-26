@@ -8,13 +8,11 @@ import { BagItemProvider } from './bag-item.provider';
 import { Money } from './model/money.model';
 import { Bag } from './model/bag.model';
 import { BagItem } from './model/bag-item.model';
-import { CharacterProvider } from '../characters/character.provider';
 import { ItemProvider, ItemAddiction } from '../items/item.provider';
 import { DataProvider } from '../shared/data-provider.model';
 import { Item } from '../items/item.model';
 import { hasLifecycleHook } from '@angular/compiler/src/lifecycle_reflector';
 import { Events } from 'ionic-angular';
-import { Character } from '../characters/character.model';
 
 
 @Injectable()
@@ -24,7 +22,6 @@ export class InventoryProvider extends DataProvider<Inventory>{
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
-    private _characters: CharacterProvider,
     private _items: ItemProvider,
     private _money: MoneyProvider,
     private _bagItems: BagItemProvider,
@@ -80,13 +77,13 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
 
   selectFromSession() {
-    return this._characters.select(this._utility.session.loadedCharacterId).then(character => {
+    return Promise.resolve().then(() => {
       if (this.inventory.characterId !== this._utility.session.loadedCharacterId)
-        return this.loadByCharacterId(this._utility.session.loadedCharacterId);
+        return this._loadByCharacterId(this._utility.session.loadedCharacterId);
       else
         return Promise.resolve(null);
     }).then(inventory => {
-      if (inventory != null)
+      if (inventory !== null)
         this.inventory = inventory;
       return Promise.resolve(this.inventory);
     });
@@ -188,12 +185,6 @@ export class InventoryProvider extends DataProvider<Inventory>{
     return Promise.resolve(this.list.find(inventory => inventory.characterId === characterId));
   }
 
-  loadByCharacterId(characterId: number) {
-    return this.selectByCharacterId(this._utility.session.loadedCharacterId).then(inventory => {
-      return this._loadInventory(inventory)
-    });
-  }
-
   clear(isDeep: boolean = false) {
     this.inventory = new Inventory();
 
@@ -218,6 +209,11 @@ export class InventoryProvider extends DataProvider<Inventory>{
     });
   }
 
+  private _loadByCharacterId(characterId: number) {
+    return this.selectByCharacterId(this._utility.session.loadedCharacterId).then(inventory => {
+      return this._loadInventory(inventory)
+    });
+  }
   private _loadInventory(inventory: Inventory) {
     return Promise.all([
       this._money.selectByInventoryId(inventory.id),

@@ -3,8 +3,13 @@
 </ion-header>
 
 <ion-content padding class="component-style">
+  <search-bar (onInput)="isLoading = true" (onSearch)="search($event)"></search-bar>
   <ion-spinner *ngIf="isLoading"></ion-spinner>
-  <ion-list *ngIf="!isLoading">
+  <h2 text-center *ngIf="isSearching && searchItems.length == 0">{{"NessunRisultato" | translate}}</h2>
+  <div class="search-items" *ngIf="!isLoading && isSearching && searchItems.length > 0">
+    <item *ngFor="let item of searchItems" [item]="item" (tap)="select(item.id)" (press)="press(item.id)"></item>
+  </div>
+  <ion-list *ngIf="!isLoading && !isSearching">
     <item-group *ngFor="let group of groups" [group]="group" (onSelect)="select($event)" (onPress)="press($event)"></item-group>
   </ion-list>
 </ion-content>

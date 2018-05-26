@@ -8,6 +8,8 @@ import { Events } from 'ionic-angular';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
+  items: Item[] = [];
+
   constructor(
     _storage: StorageProvider,
     _utility: UtilityProvider,
@@ -71,13 +73,41 @@ export class ItemProvider extends DataProvider<Item> {
       },
     ];
 
+    this._events.subscribe("character:load", id => {
+      this.selectFromSession();
+    });
     this._events.subscribe("character:delete", id => {
       this.deleteByCharacterId(id);
     });
   }
 
+  addItem(data: ItemAddiction) {
+    this._events.publish("item:add", data);
+  }
+
+  selectBySearch(value: string) {
+    return this.selectFromSession().then(items => {
+      return Promise.resolve(items.filter(item => {
+        return item.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      }));
+    })
+  }
+
   selectFromSession() {
-    return Promise.resolve(this.list.filter(item => item.characterId === this._utility.session.loadedCharacterId));
+    return Promise.resolve().then(() => {
+      if (this.items.length == 0 || this.items[0].characterId !== this._utility.session.loadedCharacterId)
+        return this._loadByCharacterId(this._utility.session.loadedCharacterId);
+      else
+        return Promise.resolve(null);
+    }).then(items => {
+      if (items !== null)
+        this.items = items;
+      return Promise.resolve(this.items);
+    });
+  }
+
+  selectByCharacterId(characterId: number) {
+    return Promise.resolve(this.list.filter(item => item.characterId === characterId));
   }
 
   deleteByCharacterId(characterId: number) {
@@ -97,8 +127,8 @@ export class ItemProvider extends DataProvider<Item> {
     return super.insert(item);
   }
 
-  addItem(data: ItemAddiction) {
-    this._events.publish("item:add", data);
+  private _loadByCharacterId(characterId: number) {
+    return this.selectByCharacterId(characterId);
   }
 }
 
