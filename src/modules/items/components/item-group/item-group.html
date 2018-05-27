@@ -1,5 +1,5 @@
 <div class="group" *ngIf="items.length > 0">
-  <ion-item tappable no-lines no-padding text-center class="group-name" (click)="isOpen = !isOpen" [ngClass]="{isOpen: open}">{{name | translate | uppercase}}</ion-item>
+  <ion-item tappable no-lines no-padding text-center class="group-name" (click)="isOpen = !isOpen" [ngClass]="{isOpen: open}">&#9679;  {{name | translate | uppercase}}  &#9679;</ion-item>
   <div class="group-items" *ngIf="isOpen">
     <item *ngFor="let item of items" [item]="item" (tap)="select(item.id)" (press)="press(item.id)"></item>
   </div>

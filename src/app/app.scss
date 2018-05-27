@@ -21,27 +21,40 @@ body {
     --contrast-color: #D3B158;
 }
 
+@mixin componentStyle($isInverted) {
+    @if $isInverted {
+        background-color: var(--contrast-color);
+        color: var(--base-color);
+        stroke: var(--base-color);
+    }
+    @else {
+        background-color: var(--base-color);
+        color: var(--contrast-color);
+        stroke: var(--contrast-color);
+    }
+}
+
 .component-style {
-    background-color: var(--base-color);
-    color: var(--contrast-color);
-    stroke: var(--contrast-color);
+    @include componentStyle(false);
 }
 
 .component-inverted-style {
-    background-color: var(--contrast-color);
-    color: var(--base-color);
-    stroke: var(--base-color);
+    @include componentStyle(true);
 }
 
 button.button {
     border-color: inherit;
     border: 2px solid;
-    background: inherit;
+    background-color: inherit;
     color: inherit;
     box-shadow: none;
     text-transform: none;
+    &.activated {
+        background-color: inherit;
+        color: inherit;
+    }
     &:hover:not(.disable-hover) {
-        background: inherit;
+        background-color: inherit;
     }
     .button-icon {
         width: 20px;
@@ -116,6 +129,33 @@ ion-spinner.spinner {
     }
 }
 
+ion-toggle.toggle {
+    .toggle-icon {
+        background-color: var(--contrast-color);
+        &::before {
+            background-color: var(--base-color);
+        }
+    }
+    &.toggle-checked .toggle-icon {
+        background-color: var(--contrast-color);
+    }
+    .toggle-inner {
+        background-color: var(--base-color);
+    }
+}
+
+ion-fab {
+    .fab {
+        &.activated {
+            background: inherit;
+            color: inherit;
+        }
+        .icon {
+            font-size: 3.5rem;
+        }
+    }
+}
+
 .content {
     .item,
     .label,
@@ -152,21 +192,6 @@ ion-spinner.spinner {
     &.over-max-carry {
         color: color($colors, status_red);
     }
-}
-
-// .footer:after {
-//     content: "";
-//     position: absolute;
-//     left: 16px;
-//     top: -2px;
-//     height: 2px;
-//     width: calc(100% - 32px);
-//     margin: auto;
-//     display: block;
-//     background: inherit;
-// }
-.fab .icon {
-    font-size: 3.5rem;
 }
 
 .icon.custom-icon {

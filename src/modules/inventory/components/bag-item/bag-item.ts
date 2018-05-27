@@ -17,6 +17,9 @@ export class BagItemComponent {
   constructor(
   ) { }
 
+  get name(){
+    return this.item.item.name;
+  }
   get text() {
     return this.item.text;
   }
@@ -25,6 +28,9 @@ export class BagItemComponent {
   }
   get weight() {
     return this.item.weight;
+  }
+  get quantity() {
+    return this.item.quantity;
   }
   // get isEquipped() {
   //   return this.item.isEquipped;

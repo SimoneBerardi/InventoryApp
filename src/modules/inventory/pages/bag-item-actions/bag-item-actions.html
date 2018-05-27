@@ -5,7 +5,7 @@
 <ion-content padding class="component-style" [ngStyle]="contentStyle" (click)="cancel()">
   <div *ngIf="_bagItem" class="bag-item">
     <div class="name" text-center>{{name}}</div>
-    <div class="wheel">
+    <div class="wheel" [ngStyle]="{'background-image': 'url(' + wheelImage + ')'}">
       <ion-grid no-padding>
         <ion-row>
           <ion-col class="action add" col-4 offset-4>

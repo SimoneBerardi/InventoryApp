@@ -19,6 +19,8 @@ export class BagItemActionsPage {
   headerLogo: string;
   headerTitle: string;
 
+  wheelImage: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -32,6 +34,8 @@ export class BagItemActionsPage {
 
     this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "Inventario";
+
+    this.wheelImage = this._utility.images.inventory.wheel_back;
 
     this._id = this.navParams.get("id");
   }

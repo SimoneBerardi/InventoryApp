@@ -22,7 +22,8 @@ export class UtilityProvider {
         green: "assets/images/inventory/status_green.png",
         orange: "assets/images/inventory/status_orange.png",
         red: "assets/images/inventory/status_red.png",
-      }
+      },
+      wheel_back: "assets/images/inventory/wheel_back.png",
     },
     credits: {
       logo: "assets/images/credits/logo.png",

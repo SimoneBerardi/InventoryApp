@@ -2,6 +2,11 @@ bag-item {
     .item .label {
         margin: 0;
     }
+    .count {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+    }
     .option-buttons {
         button {
             margin: 2px;
