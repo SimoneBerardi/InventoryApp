@@ -11,7 +11,7 @@
 
   <ion-grid class="avatars" no-padding>
     <ion-row>
-      <ion-col>
+      <ion-col (click)="sendEmail('simo')">
         <img class="avatar simo" src="{{simoAvatar}}" alt="">
       </ion-col>
       <ion-col>
@@ -20,11 +20,11 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <p class="avatar-name" text-center>Simone Berardi</p>
+        <p class="avatar-name" text-center (click)="sendEmail('simo')">Simone Berardi</p>
         <p class="avatar-description" text-center>{{"Programmazione" | translate}}</p>
       </ion-col>
       <ion-col>
-        <p class="avatar-name" text-center>Mauro Arneri</p>
+        <p class="avatar-name" text-center (click)="sendEmail('simo')">Mauro Arneri</p>
         <p class="avatar-description" text-center>{{"Grafica" | translate}}</p>
       </ion-col>
     </ion-row>

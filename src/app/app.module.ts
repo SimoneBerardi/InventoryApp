@@ -25,7 +25,7 @@ import { ItemsModule } from '../modules/items/item.module';
 import { InventoryModule } from '../modules/inventory/inventory.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({

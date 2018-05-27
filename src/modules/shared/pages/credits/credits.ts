@@ -35,6 +35,11 @@ export class CreditsPage {
     return this._utility.images.credits.mauroAvatar;
   }
 
+  sendEmail(recipient: string) {
+    let address = this._utility.emails[recipient];
+    let subject = "Adventure Bag - Crediti"
+    window.open(`mailto:${address}?subject=${subject}`, '_system');
+  }
   cancel() {
     this.navCtrl.pop();
   }

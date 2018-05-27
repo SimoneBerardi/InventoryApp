@@ -11,6 +11,11 @@ export class UtilityProvider {
   private _manifestUrl = "assets/app-manifest.json";
   themesUrl = "assets/themes.json";
 
+  emails = {
+    simo: "simonberard@gmail.com",
+    mauro: "",
+  }
+  
   images = {
     inventory: {
       logo: "assets/images/inventory/logo.png",

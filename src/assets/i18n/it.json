@@ -81,7 +81,7 @@
     "InterfacciaGrafica": "Interfaccia Grafica",
     "FontELinee": "Font e linee",
     "Sfondo": "Sfondo",
-    "Salvataggio": "Salvataggio",
+    "Salvataggio": "Salvataggio...",
     "PesoZaino": "Peso {{bagName}}",
     "Sollevare": "Sollevare",
     "Trascinare": "Trascinare",
@@ -108,5 +108,7 @@
     "Tre": "3",
     "Tre_Cinque": "3.5",
     "Cinque_Zero": "5.0",
-    "Edizione": "Edizione"
+    "Edizione": "Edizione",
+    "EmailNonDisponibile": "Email non disponibile",
+    "Caricamento": "Caricamento..."
 }
