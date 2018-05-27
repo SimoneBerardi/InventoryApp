@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 import { DataProvider } from '../data-provider.model';
 import { Theme } from '../theme.model';
@@ -8,11 +9,13 @@ import { UtilityProvider } from './utility.provider';
 @Injectable()
 export class ThemeProvider extends DataProvider<Theme>{
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
     private _http: HttpClient,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_themes",

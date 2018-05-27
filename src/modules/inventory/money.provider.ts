@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Money } from './model/money.model';
 import { BagItem } from './model/bag-item.model';
@@ -11,10 +12,12 @@ import { DataProvider } from '../shared/data-provider.model';
 @Injectable()
 export class MoneyProvider extends DataProvider<Money>{
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_money",

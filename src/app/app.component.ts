@@ -35,13 +35,11 @@ export class MyApp {
       return this._utility.init();
     }).then(() => {
       let promises = [];
-      promises.push(this._themes.load());
+      promises.push(this._options.load());
       promises.push(this._characters.load());
       promises.push(this._items.load());
       promises.push(this._inventory.load());
       return Promise.all(promises);
-    }).then(() => {
-      return this._options.load();
     }).then(() => {
       this.rootPage = "CharacterListPage";
       statusBar.styleDefault();

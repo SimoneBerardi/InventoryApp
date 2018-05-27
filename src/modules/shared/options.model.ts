@@ -5,7 +5,7 @@ export class Options extends Jsonable {
   language: string;
   units: Units = Units.Kg;
   decimals: Decimals = Decimals.Due;
-  themeId: number = 7;
+  themeId: number = 9;
 
   private _theme: Theme;
 

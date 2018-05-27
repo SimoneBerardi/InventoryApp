@@ -30,11 +30,11 @@ export class CharacterListPage {
   }
 
   ionViewDidLoad() {
-    this._events.subscribe("options:open", () => {
+    this._events.subscribe("Options:open", () => {
       this.navCtrl.push("OptionsPage");
     });
-    this._events.subscribe("character:delete", () => {
-      this._events.publish("interface:exit");
+    this._events.subscribe("Character:delete", () => {
+      this._events.publish("Interface:exit");
     });
     this._characters.selectAll().then(characters => {
       this.characters = characters;
@@ -42,8 +42,8 @@ export class CharacterListPage {
     });
   }
   ionViewWillUnload() {
-    this._events.unsubscribe("options:open");
-    this._events.unsubscribe("character:delete");
+    this._events.unsubscribe("Options:open");
+    this._events.unsubscribe("Character:delete");
   }
 
   add() {

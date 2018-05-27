@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { Inventory } from './model/inventory.model';
@@ -12,23 +13,24 @@ import { ItemProvider, ItemAddiction } from '../items/item.provider';
 import { DataProvider } from '../shared/data-provider.model';
 import { Item } from '../items/item.model';
 import { hasLifecycleHook } from '@angular/compiler/src/lifecycle_reflector';
-import { Events } from 'ionic-angular';
 
 
 @Injectable()
 export class InventoryProvider extends DataProvider<Inventory>{
-  private _inventory: Inventory = new Inventory();
+  //Cache pubblica da utilizzare per la barra inventario
+  inventory: Inventory;
 
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
     private _items: ItemProvider,
     private _money: MoneyProvider,
     private _bagItems: BagItemProvider,
     private _bags: BagProvider,
-    private _events: Events,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_inventory",
@@ -46,46 +48,48 @@ export class InventoryProvider extends DataProvider<Inventory>{
       }
     ]
 
-    this._events.subscribe("character:create", id => {
+    this._events.subscribe("Character:insert", id => {
       this._createInventory(id);
     });
-    this._events.subscribe("character:load", id => {
+    this._events.subscribe("Character:load", id => {
       this.selectFromSession();
     });
-    this._events.subscribe("character:delete", id => {
+    this._events.subscribe("Character:delete", id => {
       this._deleteInventory(id);
     });
-    this._events.subscribe("item:add", (data: ItemAddiction) => {
+    this._events.subscribe("Item:add", (data: ItemAddiction) => {
       let quantity = data.quantity || 1;
-      //TODO Scelta borsa
-      this.addItem(data.id, this._inventory.bags[0].id, quantity);
+      this.selectFromSession().then(inventory => {
+        //TODO Scelta borsa
+        this.addItem(data.id, inventory.bags[0].id, quantity);
+      });
     });
-    this._events.subscribe("item:delete", id => {
+    this._events.subscribe("Item:delete", id => {
       this._deleteItem(id);
     });
   }
 
   get carriedWeightClass() {
     let result = "not-encumbered";
-    if (this._inventory.carriedWeight > this._utility.session.encumberedValue)
+    if (this.inventory.carriedWeight > this._utility.session.encumberedValue)
       result = "encumbered";
-    if (this._inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
+    if (this.inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
       result = "heavily-encumbered";
-    if (this._inventory.carriedWeight > this._utility.session.maxCarryValue)
+    if (this.inventory.carriedWeight > this._utility.session.maxCarryValue)
       result = "over-max-carry";
     return result;
   }
 
   selectFromSession() {
     return Promise.resolve().then(() => {
-      if (this._inventory.characterId !== this._utility.session.loadedCharacterId)
+      if (!this.inventory || this.inventory.characterId !== this._utility.session.loadedCharacterId)
         return this._loadByCharacterId(this._utility.session.loadedCharacterId);
       else
         return Promise.resolve(null);
     }).then(inventory => {
       if (inventory !== null)
-        this._inventory = inventory;
-      return Promise.resolve(this._inventory);
+        this.inventory = inventory;
+      return Promise.resolve(this.inventory);
     });
   }
 
@@ -153,16 +157,16 @@ export class InventoryProvider extends DataProvider<Inventory>{
 
   //Bag
   deleteBag(id: number) {
-    let bag = this._inventory.bags.find(o => o.id === id);
-    this._inventory.bags.splice(this._inventory.bags.indexOf(bag), 1);
+    let bag = this.inventory.bags.find(o => o.id === id);
+    this.inventory.bags.splice(this.inventory.bags.indexOf(bag), 1);
     return this._bagItems.deleteByBagId(id).then(() => {
       return this._bags.delete(id);
     });
   }
   insertBag(bag: Bag) {
-    bag.inventoryId = this._inventory.id;
+    bag.inventoryId = this.inventory.id;
     return this._bags.insert(bag).then(() => {
-      this._inventory.bags.push(bag);
+      this.inventory.bags.push(bag);
       return Promise.resolve();
     });
   }
@@ -191,7 +195,7 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
 
   clear(isDeep: boolean = false) {
-    this._inventory = new Inventory();
+    this.inventory = new Inventory();
 
     let promises = [];
     if (isDeep) {
@@ -325,9 +329,9 @@ export class InventoryProvider extends DataProvider<Inventory>{
   }
   private _deleteItem(itemId: number) {
     let promises = [];
-    this._inventory.bags.forEach(bag => {
+    this.inventory.bags.forEach(bag => {
       bag.items = bag.items.filter(o => o.itemId !== itemId);
     });
-    return this._bagItems.deleteByItemId(this._inventory.id, itemId);
+    return this._bagItems.deleteByItemId(this.inventory.id, itemId);
   }
 }

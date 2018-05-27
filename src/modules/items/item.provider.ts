@@ -1,23 +1,24 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Item, ItemCategory } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
 import { CharacterProvider } from '../characters/character.provider';
-import { Events } from 'ionic-angular';
 import { ItemGroup } from './item-group.model';
 
 @Injectable()
 export class ItemProvider extends DataProvider<Item> {
-  private _items: Item[] = [];
-  private _groups: ItemGroup[] = [];
+  private _items: Item[];
+  private _groups: ItemGroup[];
 
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
-    private _events: Events,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_items",
@@ -75,16 +76,16 @@ export class ItemProvider extends DataProvider<Item> {
       },
     ];
 
-    this._events.subscribe("character:load", id => {
+    this._events.subscribe("Character:load", id => {
       this.selectFromSession();
     });
-    this._events.subscribe("character:delete", id => {
+    this._events.subscribe("Character:delete", id => {
       this.deleteByCharacterId(id);
     });
   }
 
   addItem(data: ItemAddiction) {
-    this._events.publish("item:add", data);
+    this._events.publish("Item:add", data);
   }
 
   selectBySearch(value: string) {
@@ -97,7 +98,8 @@ export class ItemProvider extends DataProvider<Item> {
 
   selectByGroup() {
     return Promise.resolve().then(() => {
-      if (this._groups.length == 0 || this._groups[0].items[0].characterId !== this._utility.session.loadedCharacterId)
+      let group = this._groups && this._groups.find(group => group.items.length > 0);
+      if (!this._groups || !group || group.items[0].characterId !== this._utility.session.loadedCharacterId)
         return this._selectByGroup();
       else
         return Promise.resolve(null);
@@ -110,7 +112,7 @@ export class ItemProvider extends DataProvider<Item> {
 
   selectFromSession() {
     return Promise.resolve().then(() => {
-      if (this._items.length == 0 || this._items[0].characterId !== this._utility.session.loadedCharacterId)
+      if (!this._items || this._items.length == 0 || this._items[0].characterId !== this._utility.session.loadedCharacterId)
         return this.selectByCharacterId(this._utility.session.loadedCharacterId);
       else
         return Promise.resolve(null);
@@ -137,10 +139,7 @@ export class ItemProvider extends DataProvider<Item> {
       if (group)
         group.items.splice(group.items.indexOf(item), 1);
       return super.delete(id);
-    }).then(() => {
-      this._events.publish("item:delete", id);
-      return Promise.resolve();
-    })
+    });
   }
 
   insert(item: Item) {
@@ -160,12 +159,7 @@ export class ItemProvider extends DataProvider<Item> {
         group.category = category.key;
         group.name = category.value;
         group.items = items.filter(item => item.category === category.key)
-
-        let oldGroup = this._groups.find(o => o.name === group.name);
-        if (oldGroup)
-          group.isOpen = oldGroup.isOpen;
-        if (group.items.length > 0)
-          groups.push(group);
+        groups.push(group);
       });
       return Promise.resolve(groups);
     });

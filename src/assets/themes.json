@@ -38,5 +38,10 @@
     "name": "Tema 8",
     "baseColor": "#962D27",
     "contrastColor": "#F2910A"
+  },
+  {
+    "name": "Tema 9",
+    "baseColor": "#333333",
+    "contrastColor": "#D3B158"
   }
 ]

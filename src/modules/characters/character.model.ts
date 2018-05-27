@@ -1,4 +1,5 @@
 import { Jsonable } from "../shared/jsonable.model";
+import { Encumberance } from "./encumberance.model";
 
 export class Character extends Jsonable {
   name: string;
@@ -18,14 +19,6 @@ export class Character extends Jsonable {
   get description() {
     return this.className + " - " + this.race;
   }
-}
-
-export class Encumberance{
-  encumbered: number;
-  heavilyEncumbered: number;
-  maxCarry: number;
-  drag: number;
-  lift: number;
 }
 
 export enum CharacterSize {

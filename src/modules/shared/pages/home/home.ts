@@ -23,10 +23,10 @@ export class HomePage {
   ) { }
 
   ionViewDidLoad() {
-    this._events.subscribe("interface:exit", this.exit);
+    this._events.subscribe("Interface:exit", this.exit);
   }
   ionViewWillUnload() {
-    this._events.unsubscribe("interface:exit");
+    this._events.unsubscribe("Interface:exit");
   }
 
   exit() {

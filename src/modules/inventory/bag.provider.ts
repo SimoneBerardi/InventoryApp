@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { Bag } from './model/bag.model';
@@ -7,10 +8,12 @@ import { DataProvider } from '../shared/data-provider.model';
 @Injectable()
 export class BagProvider extends DataProvider<Bag>{
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_bags",
@@ -70,7 +73,7 @@ export class BagProvider extends DataProvider<Bag>{
         image: this._utility.images.inventory.bag,
       },
       {
-        id: 2,
+        id: 6,
         inventoryId: 2,
         name: "Equip.",
         bagWeight: 0,

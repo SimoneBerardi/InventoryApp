@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { CharacterComponent } from './components/character/character';
 import { CharacterListComponent } from './components/character-list/character-list';
 import { CharacterProvider } from './character.provider';
+import { EncumberanceProvider } from './encumberance.provider';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ export class CharactersModule {
       ngModule: CharactersModule,
       providers: [
         CharacterProvider,
+        EncumberanceProvider,
       ]
     };
   }

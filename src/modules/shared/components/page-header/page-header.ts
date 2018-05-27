@@ -17,6 +17,6 @@ export class PageHeaderComponent {
   ) { }
 
   showOptions() {
-    this._events.publish("options:open");
+    this._events.publish("Options:open");
   }
 }

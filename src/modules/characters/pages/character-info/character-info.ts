@@ -34,6 +34,17 @@ export class CharacterInfoPage {
     this.dragonImage = this._utility.images.dragon_3_5;
   }
 
+  ionViewDidLoad() {
+    this._events.subscribe("Character:update", () => {
+      this._loadCharacter();
+    });
+    this._loadCharacter();
+  }
+
+  ionViewWillUnload() {
+    this._events.unsubscribe("Character:update");
+  }
+
   get name() {
     return this._character.name;
   }
@@ -62,14 +73,14 @@ export class CharacterInfoPage {
     return this._character.encumberance.lift;
   }
 
-  ionViewWillEnter() {
+  modify() {
+    this._interface.showModal("CharacterFormPage", { id: this._character.id });
+  }
+
+  private _loadCharacter() {
     this._characters.selectFromSession().then(character => {
       this._character = character;
       this.isLoading = false;
     });
-  }
-
-  modify() {
-    this._interface.showModal("CharacterFormPage", { id: this._character.id });
   }
 }

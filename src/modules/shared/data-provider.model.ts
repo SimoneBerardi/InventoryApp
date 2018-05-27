@@ -1,4 +1,5 @@
 import { Jsonable } from "./jsonable.model";
+import { Events } from 'ionic-angular';
 import { StorageProvider } from "./providers/storage.provider";
 import { UtilityProvider } from "./providers/utility.provider";
 
@@ -7,6 +8,7 @@ export class DataProvider<T extends Jsonable> {
   protected _list: T[] = [];
 
   constructor(
+    protected _events: Events,
     protected _storage: StorageProvider,
     protected _utility: UtilityProvider,
     protected _storageKey: string,
@@ -29,6 +31,9 @@ export class DataProvider<T extends Jsonable> {
       newItem.id = item.id;
       Object.assign(item, newItem);
       return this.save();
+    }).then(() => {
+      this._events.publish(this._type.name + ":update");
+      return Promise.resolve();
     });
   }
 
@@ -37,13 +42,21 @@ export class DataProvider<T extends Jsonable> {
       item.id = this._utility.generateListId(this._list);
       this._list.push(item);
     });
-    return this.save();
+    return this.save().then(() => {
+      items.forEach(item => {
+        this._events.publish(this._type.name + ":insert", item.id);
+      });
+      return Promise.resolve();
+    });
   }
 
   insert(item: T) {
     item.id = this._utility.generateListId(this._list);
     this._list.push(item);
-    return this.save();
+    return this.save().then(() => {
+      this._events.publish(this._type.name + ":insert", item.id);
+      return Promise.resolve();
+    });
   }
 
   delete(id: number) {
@@ -53,6 +66,9 @@ export class DataProvider<T extends Jsonable> {
 
       this._list.splice(this._list.indexOf(item), 1);
       return this.save();
+    }).then(() => {
+      this._events.publish(this._type.name + ":delete", id);
+      return Promise.resolve();
     });
   }
 

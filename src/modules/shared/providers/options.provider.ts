@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { Options, Units, Decimals } from '../options.model';
 import { StorageProvider } from './storage.provider';
 import { TranslateProvider } from './translate.provider';
@@ -12,12 +13,14 @@ export class OptionsProvider extends DataProvider<Options>{
   private _options: Options = new Options();
 
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
     private _translate: TranslateProvider,
     private _themes: ThemeProvider,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_options",
@@ -63,7 +66,9 @@ export class OptionsProvider extends DataProvider<Options>{
     });
   }
   load() {
-    return super.load().then(() => {
+    return this._themes.load().then(() => {
+      return super.load();
+    }).then(() => {
       if (this._list.length == 0) {
         let options = new Options();
         if (this._utility.isDebug)

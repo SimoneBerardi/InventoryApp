@@ -1,21 +1,26 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
-import { Character, Encumberance } from './character.model';
+import { Character } from './character.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { DataProvider } from '../shared/data-provider.model';
-import { Events } from 'ionic-angular';
 import { OptionsProvider } from '../shared/providers/options.provider';
 import { Units } from '../shared/options.model';
+import { EncumberanceProvider } from './encumberance.provider';
 
 @Injectable()
 export class CharacterProvider extends DataProvider<Character> {
+  private _character: Character;
+
   constructor(
+    _events: Events,
     _storage: StorageProvider,
     _utility: UtilityProvider,
-    private _events: Events,
     private _options: OptionsProvider,
+    private _encumberance: EncumberanceProvider,
   ) {
     super(
+      _events,
       _storage,
       _utility,
       "inventoryApp_characters",
@@ -47,54 +52,38 @@ export class CharacterProvider extends DataProvider<Character> {
   }
 
   selectFromSession() {
-    return this.select(this._utility.session.loadedCharacterId);
-  }
-
-  update(id: number, character: Character) {
-    return super.update(id, character).then(() => {
-      this._loadEncumberance(character);
-      return Promise.resolve();
+    return Promise.resolve().then(() => {
+      if (!this._character || this._character.id !== this._utility.session.loadedCharacterId)
+        return this.select(this._utility.session.loadedCharacterId);
+      else
+        return Promise.resolve(null);
+    }).then(character => {
+      if (character !== null)
+        this._character = character;
+      return Promise.resolve(this._character);
     });
   }
 
-  delete(id: number) {
-    return super.delete(id).then(() => {
-      this._events.publish("character:delete", id);
-      return Promise.resolve();
-    });
-  }
-
-  insert(character: Character) {
-    return super.insert(character).then(() => {
-      this._events.publish("character:create", character.id);
-      return Promise.resolve();
+  select(id: number) {
+    return super.select(id).then(character => {
+      character.encumberance = this._encumberance.calculateEncumberance(character);
+      return Promise.resolve(character);
     });
   }
 
   loadCharacter(id: number) {
     this.select(id).then(character => {
       this._utility.session.loadedCharacterId = character.id;
-      this._loadEncumberance(character);
-      this._events.publish("character:load", character.id);
+      this._utility.session.encumberedValue = character.encumberance.encumbered;
+      this._utility.session.heavilyEncumberedValue = character.encumberance.heavilyEncumbered;
+      this._utility.session.maxCarryValue = character.encumberance.maxCarry;
+      this._events.publish("Character:load", character.id);
     });
   }
 
-  private _loadEncumberance(character: Character) {
-    character.encumberance = this._calculateEncumberance(character);
-    this._utility.session.encumberedValue = character.encumberance.encumbered;
-    this._utility.session.heavilyEncumberedValue = character.encumberance.heavilyEncumbered;
-    this._utility.session.maxCarryValue = character.encumberance.maxCarry;
-  }
-  private _calculateEncumberance(character: Character) {
-    let encumberance = new Encumberance();
-    encumberance.encumbered = this._calculateEncumberanceValue(character.strength, 5);
-    encumberance.heavilyEncumbered = this._calculateEncumberanceValue(character.strength, 10);
-    encumberance.maxCarry = this._calculateEncumberanceValue(character.strength, 15);
-    encumberance.drag = this._calculateEncumberanceValue(character.strength, 30);
-    encumberance.lift = this._calculateEncumberanceValue(character.strength, 30);
-    return encumberance;
-  }
-  private _calculateEncumberanceValue(strenght: number, multiplier: number) {
-    return strenght * multiplier * (this._options.units === Units.Kg ? 0.453592 : 1);
+  load() {
+    return this._encumberance.load().then(() => {
+      return super.load();
+    });
   }
 }

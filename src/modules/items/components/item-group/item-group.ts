@@ -12,6 +12,12 @@ export class ItemGroupComponent {
 
   constructor() { }
 
+  get name() {
+    return this.group.name;
+  }
+  get items() {
+    return this.group.items;
+  }
   get isOpen() {
     return this.group.isOpen;
   }
