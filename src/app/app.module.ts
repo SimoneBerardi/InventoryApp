@@ -17,7 +17,6 @@ import { SessionProvider } from '../providers/session/session';
 import { ItemsListProvider } from '../providers/items-list/items-list';
 import { InterfaceProvider } from '../providers/interface/interface';
 import { TranslateProvider } from '../providers/translate/translate';
-import { MigrationsProvider } from '../providers/migrations/migrations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CharactersModule } from '../modules/characters/characters.module';
 import { SharedModule } from '../modules/shared/shared.module';

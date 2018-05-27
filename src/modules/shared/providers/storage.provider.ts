@@ -48,4 +48,12 @@ export class StorageProvider {
   remove(key: string) {
     return this._storage.remove(key);
   }
+
+  get(key: string) {
+    return this._storage.get(key);
+  }
+  
+  set(key: string, value: any) {
+    return this._storage.set(key, value);
+  }
 }

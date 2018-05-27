@@ -11,6 +11,7 @@ import { TranslateProvider } from './providers/translate.provider';
 import { OptionsProvider } from './providers/options.provider';
 import { WeightPipe } from './weight.pipe';
 import { ThemeProvider } from './providers/theme.provider';
+import { MigrationProvider } from './providers/migration.provider';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ export class SharedModule {
         OptionsProvider,
         InterfaceProvider,
         ThemeProvider,
+        MigrationProvider,
       ]
     };
   }

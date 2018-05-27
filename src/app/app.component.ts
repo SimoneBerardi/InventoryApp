@@ -8,7 +8,7 @@ import { CharacterProvider } from '../modules/characters/character.provider';
 import { ItemProvider } from '../modules/items/item.provider';
 import { InventoryProvider } from '../modules/inventory/inventory.provider';
 import { UtilityProvider } from '../modules/shared/providers/utility.provider';
-import { ThemeProvider } from '../modules/shared/providers/theme.provider';
+import { MigrationProvider } from '../modules/shared/providers/migration.provider';
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +24,7 @@ export class MyApp {
     private _characters: CharacterProvider,
     private _items: ItemProvider,
     private _inventory: InventoryProvider,
-    private _themes: ThemeProvider,
+    private _migrations: MigrationProvider,
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -33,6 +33,8 @@ export class MyApp {
         location.assign(location.origin);
 
       return this._utility.init();
+    }).then(() => {
+      return this._migrations.load();
     }).then(() => {
       let promises = [];
       promises.push(this._options.load());
