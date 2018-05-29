@@ -151,6 +151,21 @@ export class ItemProvider extends DataProvider<Item> {
     return super.insert(item);
   }
 
+  update(id: number, newItem: Item) {
+    return this.select(id).then(item => {
+      newItem.totalQuantity = item.totalQuantity;
+      if (item.category !== newItem.category) {
+        let group = this._groups.find(group => group.category === item.category);
+        if (group)
+          group.items.splice(group.items.indexOf(item), 1);
+        let newGroup = this._groups.find(group => group.category === newItem.category);
+        if (newGroup)
+          newGroup.items.push(item);
+      }
+      return super.update(id, newItem);
+    });
+  }
+
   private _selectByGroup() {
     return this.selectFromSession().then(items => {
       let groups: ItemGroup[] = [];

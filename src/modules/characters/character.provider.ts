@@ -10,8 +10,6 @@ import { EncumberanceProvider } from './encumberance.provider';
 
 @Injectable()
 export class CharacterProvider extends DataProvider<Character> {
-  private _character: Character;
-
   constructor(
     _events: Events,
     _storage: StorageProvider,
@@ -52,16 +50,7 @@ export class CharacterProvider extends DataProvider<Character> {
   }
 
   selectFromSession() {
-    return Promise.resolve().then(() => {
-      if (!this._character || this._character.id !== this._utility.session.loadedCharacterId)
-        return this.select(this._utility.session.loadedCharacterId);
-      else
-        return Promise.resolve(null);
-    }).then(character => {
-      if (character !== null)
-        this._character = character;
-      return Promise.resolve(this._character);
-    });
+    return this.select(this._utility.session.loadedCharacterId);
   }
 
   select(id: number) {
