@@ -44,7 +44,7 @@ export class BagFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      this._inventory.selectBag(this._id).then(bag => {
+      this._inventory.getBagFromSession(this._id).then(bag => {
         this._bag = bag;
         this._form.reset({
           name: bag.name,
@@ -62,14 +62,14 @@ export class BagFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let bag = this._bag ? this._bag : new Bag();
+      let bag = this._bag;
+      if (!bag) {
+        this._bag = this._inventory.createBagFromSession();
+      }
       Object.assign(bag, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
       this._utility.castNumberProps(bag, ["bagWeight", "capacity"]);
-      if (this._id !== undefined)
-        return this._inventory.updateBag(this._id, bag);
-      else
-        return this._inventory.insertBag(bag);
+      return bag.save();
     }).then(() => {
       return this.viewCtrl.dismiss();
     }).then(() => {
@@ -98,7 +98,7 @@ export class BagFormPage {
         content: "Salvataggio",
       });
     }).then(() => {
-      return this._inventory.deleteBag(this._id);
+      return this._bag.delete();
     }).then(() => {
       return this.viewCtrl.dismiss();
     }).then(() => {

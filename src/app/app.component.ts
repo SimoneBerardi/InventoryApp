@@ -6,9 +6,9 @@ import { CharacterListPage } from '../modules/characters/pages/character-list/ch
 import { OptionsProvider } from '../modules/shared/providers/options.provider';
 import { CharacterProvider } from '../modules/characters/character.provider';
 import { ItemProvider } from '../modules/items/item.provider';
-import { InventoryProvider } from '../modules/inventory/inventory.provider';
 import { UtilityProvider } from '../modules/shared/providers/utility.provider';
 import { MigrationProvider } from '../modules/shared/providers/migration.provider';
+import { InventoryInterfaceProvider } from '../modules/inventory/inventory-interface.provider';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +23,7 @@ export class MyApp {
     private _options: OptionsProvider,
     private _characters: CharacterProvider,
     private _items: ItemProvider,
-    private _inventory: InventoryProvider,
+    private _inventoryInterface: InventoryInterfaceProvider,
     private _migrations: MigrationProvider,
   ) {
     platform.ready().then(() => {
@@ -40,7 +40,7 @@ export class MyApp {
       promises.push(this._options.load());
       promises.push(this._characters.load());
       promises.push(this._items.load());
-      promises.push(this._inventory.load());
+      promises.push(this._inventoryInterface.load());
       return Promise.all(promises);
     }).then(() => {
       this.rootPage = "CharacterListPage";

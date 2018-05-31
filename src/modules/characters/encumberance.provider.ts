@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Character, Edition, CharacterSize } from './character.model';
 import { Encumberance } from './encumberance.model';
 import { OptionsProvider } from '../shared/providers/options.provider';
-import { Units } from '../shared/options.model';
+import { Units } from '../shared/model/options.model';
 
 @Injectable()
 export class EncumberanceProvider {

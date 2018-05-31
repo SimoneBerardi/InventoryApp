@@ -14,6 +14,7 @@ import { InventoryProvider } from '../../inventory.provider';
 export class MoneyFormPage {
   private _id: number;
   private _form: FormGroup;
+  private _money: Money;
 
   headerLogo: string;
   headerTitle: string;
@@ -43,7 +44,8 @@ export class MoneyFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      this._inventory.selectMoney(this._id).then(money => {
+      this._inventory.getMoneyFromSession().then(money => {
+        this._money = money;
         this._form.reset({
           copper: money.copper,
           silver: money.silver,
@@ -60,12 +62,14 @@ export class MoneyFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let newMoney = new Money();
-      Object.assign(newMoney, model);
+      let money = this._money;
+      if (!money)
+        money = this._inventory.createMoneyFromSession();
+
+      Object.assign(money, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input
-      this._utility.castNumberProps(newMoney, ["platinum", "electrum", "gold", "silver", "copper"]);
-      if (this._id !== undefined)
-        return this._inventory.updateMoney(this._id, newMoney);
+      this._utility.castNumberProps(money, ["platinum", "electrum", "gold", "silver", "copper"]);
+      return money.save();
     }).then(() => {
       return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();

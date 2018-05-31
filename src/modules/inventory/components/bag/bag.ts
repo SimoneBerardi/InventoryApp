@@ -4,7 +4,7 @@ import { Bag } from '../../model/bag.model';
 import { MoveEventData } from '../bag-item-list/bag-item-list';
 import { InventoryProvider } from '../../inventory.provider';
 import { OptionsProvider } from '../../../shared/providers/options.provider';
-import { Units } from '../../../shared/options.model';
+import { Units } from '../../../shared/model/options.model';
 
 @Component({
   selector: 'bag',

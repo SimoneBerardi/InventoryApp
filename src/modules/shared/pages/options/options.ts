@@ -5,9 +5,9 @@ import { OptionsProvider } from '../../providers/options.provider';
 import { InterfaceProvider } from '../../providers/interface.provider';
 import { TranslateProvider } from '../../providers/translate.provider';
 import { UtilityProvider } from '../../providers/utility.provider';
-import { Units, Options, Decimals } from '../../options.model';
-import { Theme } from '../../theme.model';
 import { ThemeProvider } from '../../providers/theme.provider';
+import { Theme } from '../../model/theme.model';
+import { Units, Decimals, Options } from '../../model/options.model';
 
 @IonicPage()
 @Component({
@@ -54,7 +54,7 @@ export class OptionsPage {
       decimals: this._options.decimals,
       themeId: this._options.theme.id,
     });
-    this._themes.selectAll().then(themes => {
+    this._themes.getAll().then(themes => {
       this.themes = themes;
     })
   }
@@ -65,7 +65,7 @@ export class OptionsPage {
       dismissOnPageChange: true,
     }).then(() => {
       let model = this._form.value;
-      let options = new Options();
+      let options = this._options.create();
       Object.assign(options, model);
       return this._options.updateOptions(options);
     }).then(() => {

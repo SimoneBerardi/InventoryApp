@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DataProvider } from '../data-provider.model';
 import { Events } from 'ionic-angular';
 import { StorageProvider } from './storage.provider';
 import { UtilityProvider } from './utility.provider';
-import { Migration } from '../migration.model';
+import { Migration } from '../model/migration.model';
+import { MemoryProvider } from '../memory-provider.model';
 
 @Injectable()
-export class MigrationProvider extends DataProvider<Migration>{
+export class MigrationProvider extends MemoryProvider<Migration>{
   private _migrations: string[] = [
     "2.0.0",
   ];
 
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
     private _http: HttpClient,
   ) {
     super(
       _events,
-      _storage,
       _utility,
+      Migration,
+      _storage,
       "inventoryApp_migrations",
-      Migration)
+    );
   }
 
-  selectByVersion(version: string) {
-    return Promise.resolve(this._list.find(migration => migration.version === version));
+  getByVersion(version: string) {
+    return this.find(migration => migration.version === version);
   }
 
   load() {
@@ -41,7 +42,7 @@ export class MigrationProvider extends DataProvider<Migration>{
 
   private _applyMigration(version: string) {
     let currentMigration = null;
-    return this.selectByVersion(version).then(migration => {
+    return this.getByVersion(version).then(migration => {
       currentMigration = migration;
       if (!migration || migration.isComplete)
         return Promise.resolve();
@@ -52,11 +53,11 @@ export class MigrationProvider extends DataProvider<Migration>{
       }
     }).then(() => {
       if (!currentMigration) {
-        let migration = new Migration();
+        let migration = this.create();
         migration.version = version;
         migration.isComplete = true;
         migration.dateCompleted = new Date();
-        return this.insert(migration);
+        return this.add(migration);
       } else
         return Promise.resolve();
     });

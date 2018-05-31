@@ -1,6 +1,7 @@
-import { Jsonable } from "../../shared/jsonable.model";
+import { Data } from "../../shared/data.model";
+import { DataProvider } from "../../shared/data-provider.model";
 
-export class Money extends Jsonable {
+export class Money extends Data {
   inventoryId: number;
   copper: number = 0;
   silver: number = 0;
@@ -8,8 +9,20 @@ export class Money extends Jsonable {
   gold: number = 0;
   platinum: number = 0;
 
-  constructor() {
-    super(["inventoryId", "copper", "silver", "electrum", "gold", "platinum"]);
+  constructor(
+    _provider: DataProvider<Money>,
+  ) {
+    super(
+      _provider,
+      [
+        "inventoryId",
+        "copper",
+        "silver",
+        "electrum",
+        "gold",
+        "platinum"
+      ]
+    );
   }
 
   get hasValue() {

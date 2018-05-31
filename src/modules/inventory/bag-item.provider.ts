@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { UtilityProvider } from '../shared/providers/utility.provider';
-import { DataProvider } from '../shared/data-provider.model';
 import { BagItem } from './model/bag-item.model';
+import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
-export class BagItemProvider extends DataProvider<BagItem>{
+export class BagItemProvider extends MemoryProvider<BagItem>{
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
-      "inventoryApp_bagItems",
       BagItem,
+      _storage,
+      "inventoryApp_bagItems",
     );
 
     let itemsCount = 5;
@@ -38,26 +38,25 @@ export class BagItemProvider extends DataProvider<BagItem>{
     }
   }
 
-  selectByInventoryId(inventoryId: number) {
-    return Promise.resolve(this._list.filter(bagItem => bagItem.inventoryId === inventoryId));
+  getByInventoryId(inventoryId: number) {
+    return this.filter(bagItem => bagItem.inventoryId === inventoryId)
   }
-
+  getByInventoryIdItemId(inventoryId: number, itemId: number) {
+    return this.filter(bagItem => bagItem.itemId === itemId);
+  }
   deleteByBagId(bagId: number) {
-    this._list = this._list.filter(bagItem => bagItem.bagId !== bagId);
-    return this.save();
+    return this.filter(bagItem => bagItem.bagId === bagId).then(bagItems => {
+      return bagItems.delete();
+    });
   }
-
   deleteByInventoryId(inventoryId: number) {
-    this._list = this._list.filter(bagItem => bagItem.inventoryId !== inventoryId);
-    return this.save();
+    return this.filter(bagItem => bagItem.inventoryId === inventoryId).then(bagItems => {
+      return bagItems.delete();
+    });
   }
-
   deleteByItemId(inventoryId: number, itemId: number) {
-    this._list = this._list.filter(bagItem => bagItem.itemId !== itemId);
-    return this.save();
-  }
-
-  selectByInventoryIdItemId(inventoryId: number, itemId: number) {
-    return Promise.resolve(this._list.filter(bagItem => bagItem.itemId === itemId));
+    return this.filter(bagItem => bagItem.itemId === itemId && bagItem.inventoryId === inventoryId).then(bagItems => {
+      return bagItems.delete();
+    });
   }
 }

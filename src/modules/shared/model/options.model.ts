@@ -1,7 +1,8 @@
-import { Jsonable } from "../shared/jsonable.model";
+import { Data } from "../data.model";
 import { Theme } from "./theme.model";
+import { DataProvider } from "../data-provider.model";
 
-export class Options extends Jsonable {
+export class Options extends Data {
   language: string;
   units: Units = Units.Kg;
   decimals: Decimals = Decimals.Due;
@@ -17,8 +18,18 @@ export class Options extends Jsonable {
     this._theme = value;
   }
 
-  constructor() {
-    super(["language", "units", "decimals", "themeId"]);
+  constructor(
+    _provider: DataProvider<Options>
+  ) {
+    super(
+      _provider,
+      [
+        "language",
+        "units",
+        "decimals",
+        "themeId",
+      ]
+    );
     this.id = 1;
   }
 }

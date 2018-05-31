@@ -1,8 +1,10 @@
-import { Jsonable } from "../../shared/jsonable.model";
+import { Data } from "../../shared/data.model";
 import { BagItem } from "./bag-item.model";
 import { Item } from "../../items/item.model";
+import { DataProvider } from "../../shared/data-provider.model";
+import { DataArray } from "../../shared/data-array.mode";
 
-export class Bag extends Jsonable {
+export class Bag extends Data {
   inventoryId: number;
   name: string;
   bagWeight: number;
@@ -25,19 +27,24 @@ export class Bag extends Jsonable {
    */
   isProtected: boolean;
 
-  items: BagItem[] = [];
+  items: DataArray<BagItem>;
 
-  constructor() {
-    super([
-      "inventoryId",
-      "name",
-      "bagWeight",
-      "hasLimitedCapacity",
-      "capacity",
-      "ignoreItemsWeight",
-      "image",
-      "isProtected",
-    ]);
+  constructor(
+    _provider: DataProvider<Bag>,
+  ) {
+    super(
+      _provider,
+      [
+        "inventoryId",
+        "name",
+        "bagWeight",
+        "hasLimitedCapacity",
+        "capacity",
+        "ignoreItemsWeight",
+        "image",
+        "isProtected",
+      ]
+    );
   }
 
   get itemsWeight() {
@@ -54,5 +61,61 @@ export class Bag extends Jsonable {
 
   getBagItemByItemId(itemId: number) {
     return this.items.find(o => o.itemId === itemId);
+  }
+
+  addItemQuantity(item: Item, quantity: number) {
+    let bagItem = this.items.find(o => o.itemId === item.id);
+    if (bagItem) {
+      bagItem.quantity += quantity;
+      bagItem.item.totalQuantity += quantity;
+    } else {
+      bagItem = this.items.create();
+      bagItem.itemId = item.id;
+      bagItem.bagId = this.id;
+      bagItem.quantity = quantity;
+      bagItem.item = item;
+      bagItem.item.totalQuantity += quantity;
+      this.items.push(bagItem);
+      this.items.save();
+    }
+    return bagItem.save();
+  }
+  modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean) {
+    if (isNegative && quantity > bagItem.quantity)
+      throw new Error("QuantitàInsufficiente");
+
+    if (isNegative && quantity === bagItem.quantity) {
+      bagItem.quantity -= quantity;
+      bagItem.item.totalQuantity -= quantity;
+      this.items.splice(this.items.indexOf(bagItem), 1);
+      return bagItem.delete();
+    } else {
+      if (isNegative) {
+        bagItem.quantity -= quantity;
+        bagItem.item.totalQuantity -= quantity;
+      }
+      else {
+        bagItem.quantity += quantity;
+        bagItem.item.totalQuantity += quantity;
+      }
+      return bagItem.save();
+    }
+  }
+
+  save(isDeep: boolean = false) {
+    return super.save(isDeep).then(() => {
+      if (!isDeep)
+        return Promise.resolve();
+
+      this.items.forEach(bagItem => {
+        bagItem.inventoryId = this.inventoryId;
+      });
+      return this.items.save();
+    });
+  }
+  delete() {
+    return this.items.delete().then(() => {
+      return super.delete();
+    });
   }
 }

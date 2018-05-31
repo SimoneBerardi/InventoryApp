@@ -36,24 +36,21 @@ export class InventoryPage {
   }
 
   ionViewDidLoad() {
-    this._inventory.selectFromSession().then(inventory => {
+    this._inventory.getFromSession().then(inventory => {
       this.inventory = inventory;
       this.isLoading = false;
     });
   }
 
-  // get equippedItems() {
-  //   return this.inventory.equipped;
-  // }
-  // get equippedWeight() {
-  //   return this._utility.roundUp(this.inventory.equippedWeight);
-  // }
   get bags() {
     return this.inventory.bags;
   }
 
   moneyClick() {
     this._interface.showModal("MoneyFormPage", { id: this.inventory.money.id });
+  }
+  select(id: number) {
+    this._interface.showModal("BagItemActionsPage", { id: id });
   }
 
   addBag() {
@@ -62,41 +59,5 @@ export class InventoryPage {
   modifyBag(bag: Bag) {
     if (!bag.isProtected)
       this._interface.showModal("BagFormPage", { id: bag.id });
-  }
-
-  select(id: number) {
-    this._interface.showModal("BagItemActionsPage", { id: id });
-  }
-
-  add(id: number) {
-    this._inventoryInterface.modifyBagItemQuantity(id, 1, false);
-  }
-
-  remove(id: number) {
-    this._inventoryInterface.modifyBagItemQuantity(id, 1, true);
-  }
-
-  modify(id: number) {
-    this._interface.showModal("ItemFormPage", { id: id });
-  }
-
-  move(data: MoveEventData) {
-    //TODO passare bagItem direttamente nell'evento
-    //TODO filtrare la borsa di partenza
-    this._interface.askSelection({
-      title: "ScegliBorsa",
-      message: "ScegliBorsa?",
-      inputs: this.inventory.bags.map(bag => {
-        return {
-          label: bag.name,
-          value: bag.id.toString(),
-        }
-      })
-    }).then(bagId => {
-      //TODO utilizzare la quantità totale
-      return this._inventory.moveBagItemQuantity(data.id, Number(bagId), 1);
-    }).catch(error => {
-      this._interface.showAndLogError(error);
-    })
   }
 }

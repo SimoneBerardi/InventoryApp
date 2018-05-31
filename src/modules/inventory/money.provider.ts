@@ -6,22 +6,22 @@ import { BagItem } from './model/bag-item.model';
 import { Bag } from './model/bag.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { Inventory } from './model/inventory.model';
-import { Jsonable } from '../shared/jsonable.model';
-import { DataProvider } from '../shared/data-provider.model';
+import { Data } from '../shared/data.model';
+import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
-export class MoneyProvider extends DataProvider<Money>{
+export class MoneyProvider extends MemoryProvider<Money>{
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
-      "inventoryApp_money",
       Money,
+      _storage,
+      "inventoryApp_money",
     );
 
     this._testItems = [
@@ -46,12 +46,12 @@ export class MoneyProvider extends DataProvider<Money>{
     ];
   }
 
-  selectByInventoryId(inventoryId: number) {
-    return Promise.resolve(this._list.find(money => money.inventoryId === inventoryId));
+  getByInventoryId(inventoryId: number) {
+    return this.find(money => money.inventoryId === inventoryId);
   }
-
   deleteByInventoryId(inventoryId: number) {
-    this._list = this._list.filter(bagItem => bagItem.inventoryId !== inventoryId);
-    return this.save();
+    return this.find(bagItem => bagItem.inventoryId !== inventoryId).then(money => {
+      return money.delete();
+    })
   }
 }

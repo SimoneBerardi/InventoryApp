@@ -42,7 +42,7 @@ export class BagItemActionsPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      this._inventory.selectBagItem(this._id).then(bagItem => {
+      this._inventory.getBagItemFromSession(this._id).then(bagItem => {
         this._bagItem = bagItem;
       });
     }
@@ -63,25 +63,33 @@ export class BagItemActionsPage {
 
   add(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.modifyBagItemQuantity(this._id, 1, false);
+    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1, false).catch(error => {
+      this._interface.showAndLogError(error);
+    });
   }
   move(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.moveBagItemQuantity(this._id, this._bagItem.quantity).then(() => {
+    this._inventoryInterface.moveBagItemQuantity(this._bagItem, this._bagItem.quantity).then(() => {
       this.viewCtrl.dismiss();
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
   }
   remove(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.modifyBagItemQuantity(this._id, 1, true).then(() => {
+    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1, true).then(() => {
       if (this._bagItem.quantity === 0)
         this.viewCtrl.dismiss();
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
   }
   modify(event: Event) {
     event.stopPropagation();
     this.viewCtrl.dismiss().then(() => {
       this._interface.showModal("ItemFormPage", { id: this._bagItem.item.id });
+    }).catch(error => {
+      this._interface.showAndLogError(error);
     });
   }
   cancel() {

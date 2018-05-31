@@ -3,26 +3,25 @@ import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Item, ItemCategory } from './item.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
-import { DataProvider } from '../shared/data-provider.model';
 import { CharacterProvider } from '../characters/character.provider';
 import { ItemGroup } from './item-group.model';
+import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
-export class ItemProvider extends DataProvider<Item> {
-  private _items: Item[];
+export class ItemProvider extends MemoryProvider<Item> {
   private _groups: ItemGroup[];
 
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
-      "inventoryApp_items",
       Item,
+      _storage,
+      "inventoryApp_items",
     );
 
     this._testItems = [
@@ -77,111 +76,115 @@ export class ItemProvider extends DataProvider<Item> {
     ];
 
     this._events.subscribe("Character:load", id => {
-      this.selectFromSession();
+      this._loadByCharacterId(id);
     });
     this._events.subscribe("Character:delete", id => {
-      this.deleteByCharacterId(id);
+      this._deleteByCharacterId(id);
     });
   }
 
-  addItem(data: ItemAddiction) {
-    this._events.publish("Item:add", data);
+  addToInventory(item: Item, quantity: number) {
+    this._publishEvent("addInventory", {
+      item: item,
+      quantity: quantity,
+      isNegative: false
+    });
+  }
+  removeFromInventory(item: Item, quantity: number) {
+    this._publishEvent("removeInventory", {
+      item: item,
+      quantity: quantity,
+      isNegative: true
+    });
   }
 
-  selectBySearch(value: string) {
-    return this.selectFromSession().then(items => {
+  getFromSession() {
+    return this._getByCharacterId(this._utility.session.loadedCharacterId);
+  }
+  getGroupedByCategory() {
+    return Promise.resolve(this._groups);
+  }
+  getBySearch(value: string) {
+    return this.getFromSession().then(items => {
       return Promise.resolve(items.filter(item => {
         return item.name.toLowerCase().indexOf(value.toLowerCase()) > -1
       }));
-    })
-  }
-
-  selectByGroup() {
-    return Promise.resolve().then(() => {
-      let group = this._groups && this._groups.find(group => group.items.length > 0);
-      if (!this._groups || !group || group.items[0].characterId !== this._utility.session.loadedCharacterId)
-        return this._selectByGroup();
-      else
-        return Promise.resolve(null);
-    }).then(groups => {
-      if (groups !== null)
-        this._groups = groups;
-      return Promise.resolve(this._groups);
     });
   }
 
-  selectFromSession() {
-    return Promise.resolve().then(() => {
-      if (!this._items || this._items.length == 0 || this._items[0].characterId !== this._utility.session.loadedCharacterId)
-        return this.selectByCharacterId(this._utility.session.loadedCharacterId);
-      else
-        return Promise.resolve(null);
-    }).then(items => {
-      if (items !== null)
-        this._items = items;
-      return Promise.resolve(this._items);
-    });
-  }
-
-  selectByCharacterId(characterId: number) {
-    return Promise.resolve(this._list.filter(item => item.characterId === characterId));
-  }
-
-  deleteByCharacterId(characterId: number) {
-    this._list = this._list.filter(item => item.characterId !== characterId);
-    return this.save();
-  }
-
-  delete(id: number) {
-    return this.select(id).then(item => {
-      this._items.splice(this._items.indexOf(item), 1);
-      let group = this._groups.find(group => group.category === item.category);
-      if (group)
-        group.items.splice(group.items.indexOf(item), 1);
-      return super.delete(id);
-    });
-  }
-
-  insert(item: Item) {
+  //-- override --
+  add(item: Item) {
     item.characterId = this._utility.session.loadedCharacterId;
-    this._items.push(item);
-    let group = this._groups.find(group => group.category === item.category);
-    if (group)
-      group.items.push(item);
-    return super.insert(item);
+    return super.add(item);
   }
-
-  update(id: number, newItem: Item) {
-    return this.select(id).then(item => {
+  modify(id: number, newItem: Item) {
+    return this.getById(id).then(item => {
       newItem.totalQuantity = item.totalQuantity;
-      if (item.category !== newItem.category) {
-        let group = this._groups.find(group => group.category === item.category);
-        if (group)
-          group.items.splice(group.items.indexOf(item), 1);
-        let newGroup = this._groups.find(group => group.category === newItem.category);
-        if (newGroup)
-          newGroup.items.push(item);
-      }
-      return super.update(id, newItem);
+      return super.modify(id, newItem);
     });
   }
+  load() {
+    this._loadGroups();
+    return super.load();
+  }
 
-  private _selectByGroup() {
-    return this.selectFromSession().then(items => {
-      let groups: ItemGroup[] = [];
-      this._utility.enumerateEnum(ItemCategory).forEach(category => {
-        let group = new ItemGroup();
-        group.category = category.key;
-        group.name = category.value;
-        group.items = items.filter(item => item.category === category.key)
-        groups.push(group);
-      });
-      return Promise.resolve(groups);
+  private _deleteByCharacterId(characterId: number) {
+    return this.filter(item => item.characterId === characterId).then(items => {
+      return items.delete();
     });
+  }
+  private _loadByCharacterId(characterId: number) {
+    return this._getByCharacterId(characterId).then(items => {
+      this._groups.forEach(group => {
+        group.items = items.filter(item => item.category === group.category)
+      });
+      return Promise.resolve();
+    });
+  }
+  private _getByCharacterId(characterId: number) {
+    return this.filter(item => item.characterId === characterId);
+  }
+  private _loadGroups() {
+    this._groups = [];
+    this._utility.enumerateEnum(ItemCategory).forEach(category => {
+      let group = new ItemGroup();
+      group.category = category.key;
+      group.name = category.value;
+      this._groups.push(group);
+    });
+    this._events.subscribe("Item:add", id => {
+      this.getById(id).then(item => {
+        let group = this._groups.find(group => group.category === item.category);
+        group.items.push(item);
+      });
+    });
+    this._events.subscribe("Item:modify", id => {
+      this.getById(id).then(item => {
+        let oldItem: Item = null;
+        let oldGroup: ItemGroup = null;
+        this._groups.some(group => {
+          oldGroup = group;
+          oldItem = group.items.find(groupItem => groupItem.id === item.id);
+          return oldItem != null;
+        });
+        let group = this._groups.find(group => group.category === item.category);
+        if (oldGroup.category !== group.category) {
+          oldGroup.items.splice(oldGroup.items.indexOf(oldItem), 1);
+          group.items.push(item);
+        }
+      })
+    });
+    this._events.subscribe("Item:delete", id => {
+      this.getById(id).then(item => {
+        let group = this._groups.find(group => group.category === item.category);
+        group.items.splice(group.items.indexOf(item), 1);
+      });
+    })
   }
 }
 
-export interface ItemAddiction {
-  id: number;
-  quantity?: number;
+export interface ItemInventoryAction {
+  item: Item;
+  quantity: number;
+  isNegative: boolean;
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Jsonable } from '../jsonable.model';
+import { Data } from '../data.model';
+import { DataProvider } from '../data-provider.model';
 
 @Injectable()
 export class StorageProvider {
@@ -8,7 +9,7 @@ export class StorageProvider {
     private _storage: Storage,
   ) { }
 
-  serialize(key: string, itemOrArray: Jsonable | Jsonable[]): Promise<void> {
+  serialize(key: string, itemOrArray: Data | Data[]): Promise<void> {
     console.log("Serializzo " + key + "...");
     let json = null;
     if (itemOrArray instanceof Array) {
@@ -24,19 +25,19 @@ export class StorageProvider {
     })
   }
 
-  deserialize<T extends Jsonable>(key: string, type: { new(): T; }): Promise<T | T[]> {
+  deserialize<T extends Data>(key: string, dataProvider: DataProvider<T>): Promise<T | T[]> {
     console.log("Deserializzo " + key);
     return this._storage.get(key).then(jsonOrArray => {
       let result = null;
       if (jsonOrArray instanceof Array) {
         result = [];
         jsonOrArray.forEach(json => {
-          let item = new type();
+          let item = dataProvider.create();
           item.fromJson(json);
           result.push(item);
         });
       } else if (jsonOrArray) {
-        let item = new type();
+        let item = dataProvider.create();
         item.fromJson(jsonOrArray);
         result = item;
       }
@@ -52,7 +53,7 @@ export class StorageProvider {
   get(key: string) {
     return this._storage.get(key);
   }
-  
+
   set(key: string, value: any) {
     return this._storage.set(key, value);
   }

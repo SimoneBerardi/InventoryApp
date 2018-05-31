@@ -35,14 +35,14 @@ export class CharacterInfoPage {
   }
 
   ionViewDidLoad() {
-    this._events.subscribe("Character:update", () => {
+    this._events.subscribe("Character:modify", () => {
       this._loadCharacter();
     });
     this._loadCharacter();
   }
 
   ionViewWillUnload() {
-    this._events.unsubscribe("Character:update");
+    this._events.unsubscribe("Character:modify");
   }
 
   get name() {
@@ -78,7 +78,7 @@ export class CharacterInfoPage {
   }
 
   private _loadCharacter() {
-    this._characters.selectFromSession().then(character => {
+    this._characters.getFromSession().then(character => {
       this._character = character;
       this.isLoading = false;
     });

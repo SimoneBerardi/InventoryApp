@@ -1,7 +1,8 @@
-import { Jsonable } from "../../shared/jsonable.model";
+import { Data } from "../../shared/data.model";
 import { Item } from "../../items/item.model";
+import { DataProvider } from "../../shared/data-provider.model";
 
-export class BagItem extends Jsonable {
+export class BagItem extends Data {
   inventoryId: number;
   bagId: number;
   itemId: number;
@@ -9,8 +10,18 @@ export class BagItem extends Jsonable {
 
   item: Item;
 
-  constructor() {
-    super(["inventoryId", "bagId", "itemId", "quantity"]);
+  constructor(
+    _provider: DataProvider<BagItem>
+  ) {
+    super(
+      _provider,
+      [
+        "inventoryId",
+        "bagId",
+        "itemId",
+        "quantity"
+      ]
+    );
   }
 
   get text() {

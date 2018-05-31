@@ -3,21 +3,23 @@ import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { UtilityProvider } from '../shared/providers/utility.provider';
 import { Bag } from './model/bag.model';
-import { DataProvider } from '../shared/data-provider.model';
+import { MemoryProvider } from '../shared/memory-provider.model';
+import { BagItemProvider } from './bag-item.provider';
 
 @Injectable()
-export class BagProvider extends DataProvider<Bag>{
+export class BagProvider extends MemoryProvider<Bag>{
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
+    private _bagItems: BagItemProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
-      "inventoryApp_bags",
       Bag,
+      _storage,
+      "inventoryApp_bags",
     );
 
     this._testItems = [
@@ -95,12 +97,12 @@ export class BagProvider extends DataProvider<Bag>{
     ];
   }
 
-  selectByInventoryId(inventoryId: number) {
-    return Promise.resolve(this._list.filter(bag => bag.inventoryId === inventoryId));
+  getByInventoryId(inventoryId: number) {
+    return this.filter(bag => bag.inventoryId === inventoryId);
   }
-
   deleteByInventoryId(inventoryId: number) {
-    this._list = this._list.filter(bagItem => bagItem.inventoryId !== inventoryId);
-    return this.save();
+    return this.filter(bagItem => bagItem.inventoryId === inventoryId).then(bags => {
+      return bags.delete();
+    });
   }
 }

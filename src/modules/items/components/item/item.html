@@ -1,5 +1,10 @@
-<ion-item tappable>
+<ion-item tappable no-lines no-padding>
+  <ion-badge class="count component-inverted-style" *ngIf="totalQuantity" item-left>
+    <p>{{totalQuantity}}</p>
+  </ion-badge>
+  <ion-badge class="count component-style" *ngIf="!totalQuantity" item-left>
+    <p>-</p>
+  </ion-badge>
   {{name}}
-  <ion-badge class="count component-inverted-style" *ngIf="totalQuantity" item-right>{{totalQuantity}}</ion-badge>
   <ion-note item-right>{{weight | weight}}</ion-note>
 </ion-item>

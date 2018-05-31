@@ -3,26 +3,25 @@ import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Character } from './character.model';
 import { UtilityProvider } from '../shared/providers/utility.provider';
-import { DataProvider } from '../shared/data-provider.model';
 import { OptionsProvider } from '../shared/providers/options.provider';
-import { Units } from '../shared/options.model';
 import { EncumberanceProvider } from './encumberance.provider';
+import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
-export class CharacterProvider extends DataProvider<Character> {
+export class CharacterProvider extends MemoryProvider<Character> {
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
     private _options: OptionsProvider,
     private _encumberance: EncumberanceProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
+      Character,
+      _storage,
       "inventoryApp_characters",
-      Character
     );
 
     this._testItems = [
@@ -49,27 +48,26 @@ export class CharacterProvider extends DataProvider<Character> {
     ];
   }
 
-  selectFromSession() {
-    return this.select(this._utility.session.loadedCharacterId);
+  getFromSession() {
+    return this.getById(this._utility.session.loadedCharacterId);
   }
-
-  select(id: number) {
-    return super.select(id).then(character => {
-      character.encumberance = this._encumberance.calculateEncumberance(character);
-      return Promise.resolve(character);
-    });
-  }
-
   loadCharacter(id: number) {
-    this.select(id).then(character => {
+    this.getById(id).then(character => {
       this._utility.session.loadedCharacterId = character.id;
       this._utility.session.encumberedValue = character.encumberance.encumbered;
       this._utility.session.heavilyEncumberedValue = character.encumberance.heavilyEncumbered;
       this._utility.session.maxCarryValue = character.encumberance.maxCarry;
-      this._events.publish("Character:load", character.id);
+      this._publishEvent("load", character.id);
     });
   }
 
+  //-- override --
+  getById(id: number) {
+    return super.getById(id).then(character => {
+      character.encumberance = this._encumberance.calculateEncumberance(character);
+      return Promise.resolve(character);
+    });
+  }
   load() {
     return this._encumberance.load().then(() => {
       return super.load();

@@ -14,6 +14,7 @@ import { InterfaceProvider } from '../../../shared/providers/interface.provider'
 export class CharacterFormPage {
   private _id: number;
   private _form: FormGroup;
+  private _character: Character;
   private _avatarIndex: number = 0;
 
   headerLogo: string;
@@ -55,7 +56,8 @@ export class CharacterFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      this._characters.select(this._id).then(character => {
+      this._characters.getById(this._id).then(character => {
+        this._character = character;
         this._form.reset({
           name: character.name,
           race: character.race,
@@ -92,14 +94,14 @@ export class CharacterFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let character = new Character();
+      let character = this._character;
+      if (!character)
+        character = this._characters.create();
+
       character.image = this.image;
       Object.assign(character, model);
       this._utility.castNumberProps(character, ["strength"]);
-      if (this._id !== undefined)
-        return this._characters.update(this._id, character);
-      else
-        return this._characters.insert(character);
+      character.save();
     }).then(() => {
       return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();

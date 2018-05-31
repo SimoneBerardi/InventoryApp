@@ -33,7 +33,7 @@ export class ItemListPage {
   }
 
   ionViewDidLoad() {
-    this._items.selectByGroup().then(groups => {
+    this._items.getGroupedByCategory().then(groups => {
       this.groups = groups;
       this.isLoading = false;
     });
@@ -44,7 +44,8 @@ export class ItemListPage {
   }
 
   select(id: number) {
-    this._items.addItem({ id: id });
+    this._interface.showModal("ItemActionsPage", { id: id })
+    // this._items.addItem({ id: id });
     // console.log("TODO - Aggiunta elemento")
   }
 
@@ -71,7 +72,7 @@ export class ItemListPage {
   search(value: string) {
     this.isSearching = value !== "";
     if (this.isSearching)
-      this._items.selectBySearch(value).then(items => {
+      this._items.getBySearch(value).then(items => {
         this.searchItems = items;
         this.isLoading = false;
       });

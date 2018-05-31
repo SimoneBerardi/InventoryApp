@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { InventoryModule } from '../../inventory.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { BagItemFormPage } from './bag-item-form';
+import { ItemActionsPage } from './item-actions';
+import { ItemsModule } from '../../item.module';
 
 @NgModule({
   declarations: [
-    BagItemFormPage,
+    ItemActionsPage,
   ],
   imports: [
-    IonicPageModule.forChild(BagItemFormPage),
+    IonicPageModule.forChild(ItemActionsPage),
     TranslateModule.forChild(),
-    InventoryModule,
+    ItemsModule,
     SharedModule,
   ],
 })
-export class BagItemFormPageModule { }
+export class ItemActionsPageModule { }

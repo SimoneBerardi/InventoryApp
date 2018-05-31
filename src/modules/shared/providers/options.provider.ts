@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
-import { Options, Units, Decimals } from '../options.model';
+import { Options, Units, Decimals } from '../model/options.model';
 import { StorageProvider } from './storage.provider';
 import { TranslateProvider } from './translate.provider';
 import { ThemeProvider } from './theme.provider';
-import { Theme } from '../theme.model';
-import { DataProvider } from '../data-provider.model';
+import { Theme } from '../model/theme.model';
 import { UtilityProvider } from './utility.provider';
+import { MemoryProvider } from '../memory-provider.model';
 
 @Injectable()
-export class OptionsProvider extends DataProvider<Options>{
-  private _options: Options = new Options();
+export class OptionsProvider extends MemoryProvider<Options>{
+  private _options: Options;
 
   constructor(
     _events: Events,
-    _storage: StorageProvider,
     _utility: UtilityProvider,
+    _storage: StorageProvider,
     private _translate: TranslateProvider,
     private _themes: ThemeProvider,
   ) {
     super(
       _events,
-      _storage,
       _utility,
+      Options,
+      _storage,
       "inventoryApp_options",
-      Options
     );
   }
 
@@ -53,9 +53,12 @@ export class OptionsProvider extends DataProvider<Options>{
     this._options.units = value;
   }
 
+  getOptions() {
+    return this.find((options, index, list) => list.indexOf(options) === 0);
+  }
   updateOptions(options: Options) {
     let oldOptions = Object.assign({}, this._options);
-    return super.update(this._options.id, options).then(() => {
+    return super.modify(this._options.id, options).then(() => {
       this._options = options;
       if (oldOptions.language != this._options.language)
         this._setLanguage();
@@ -69,18 +72,20 @@ export class OptionsProvider extends DataProvider<Options>{
     return this._themes.load().then(() => {
       return super.load();
     }).then(() => {
-      if (this._list.length == 0) {
-        let options = new Options();
+      if (this.length == 0) {
+        let options = this.create();
         if (this._utility.isDebug)
           options.language = "it";
         else
           options.language = this._translate.browserLang;
-        return this.insert(options);
+        return this.add(options);
       }
       else
         return Promise.resolve();
     }).then(() => {
-      this._options = this._list[0];
+      return this.getOptions();
+    }).then(options => {
+      this._options = options;
       return Promise.all([
         this._loadTheme(),
         this._setLanguage(),
@@ -91,7 +96,7 @@ export class OptionsProvider extends DataProvider<Options>{
   }
 
   clear() {
-    this._options = new Options();
+    this._options = this.create();
     return super.clear();
   }
 
@@ -99,7 +104,7 @@ export class OptionsProvider extends DataProvider<Options>{
     return this._translate.setLanguage(this._options.language);
   }
   private _loadTheme() {
-    return this._themes.select(this._options.themeId).then(theme => {
+    return this._themes.getById(this._options.themeId).then(theme => {
       this._options.theme = theme;
       this._applyStyle();
       return Promise.resolve();

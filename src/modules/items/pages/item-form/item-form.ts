@@ -14,6 +14,7 @@ import { Item, ItemCategory } from '../../item.model';
 export class ItemFormPage {
   private _id: number;
   private _form: FormGroup;
+  private _item: Item;
 
   headerLogo: string;
   headerTitle: string;
@@ -45,7 +46,8 @@ export class ItemFormPage {
 
   ionViewDidLoad() {
     if (this._id !== undefined) {
-      this._items.select(this._id).then(item => {
+      this._items.getById(this._id).then(item => {
+        this._item = item;
         this._form.reset({
           name: item.name,
           description: item.description,
@@ -61,13 +63,13 @@ export class ItemFormPage {
       content: "Salvataggio",
     }).then(() => {
       let model = this._form.value;
-      let item = new Item();
+      let item = this._item;
+      if (!item)
+        item = this._items.create();
+
       Object.assign(item, model);
       this._utility.castNumberProps(item, ["weight"]);
-      if (this._id !== undefined)
-        return this._items.update(this._id, item);
-      else
-        return this._items.insert(item);
+      item.save();
     }).then(() => {
       return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();

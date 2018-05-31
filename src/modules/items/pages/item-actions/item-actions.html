@@ -1,0 +1,38 @@
+<ion-header class="component-inverted-style" no-border>
+  <page-header [logo]="headerLogo" [title]="headerTitle" [isOptionsHidden]="true"></page-header>
+</ion-header>
+
+<ion-content padding class="component-style" [ngStyle]="contentStyle" (click)="cancel()">
+  <div *ngIf="_item" class="item">
+    <div class="name" text-center>{{name}}</div>
+    <div class="wheel" [ngStyle]="{'background-image': 'url(' + wheelImage + ')'}">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col class="action add" col-4 offset-4>
+            <ion-icon name="add" tappable (click)="add($event)"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="action modify" col-4>
+            <ion-icon name="md-create" tappable (click)="modify($event)"></ion-icon>
+          </ion-col>
+          <ion-col col-4>
+            <div class="quantity component-inverted-style" text-center>{{totalQuantity}}</div>
+          </ion-col>
+          <ion-col class="action favorite" col-4>
+            <ion-icon [name]="faveIcon" tappable (click)="favorite($event)"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="action remove" col-4 offset-4>
+            <ion-icon name="remove" tappable (click)="remove($event)"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer no-border class="component-inverted-style">
+  <buttons-footer [isSaveHidden]="true" [isDeleteHidden]="true" (onCancel)="cancel()" cancelText="Indietro"></buttons-footer>
+</ion-footer>

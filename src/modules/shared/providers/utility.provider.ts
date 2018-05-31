@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-import { Jsonable } from '../jsonable.model';
-import { Session } from '../session.model';
+import { Session } from '../model/session.model';
 
 @Injectable()
 export class UtilityProvider {

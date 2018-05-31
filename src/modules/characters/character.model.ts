@@ -1,7 +1,8 @@
-import { Jsonable } from "../shared/jsonable.model";
+import { Data } from "../shared/data.model";
 import { Encumberance } from "./encumberance.model";
+import { DataProvider } from "../shared/data-provider.model";
 
-export class Character extends Jsonable {
+export class Character extends Data {
   name: string;
   race: string;
   className: string;
@@ -12,8 +13,21 @@ export class Character extends Jsonable {
 
   encumberance: Encumberance;
 
-  constructor() {
-    super(["name", "race", "className", "size", "strength", "edition", "image"]);
+  constructor(
+    _provider: DataProvider<Character>
+  ) {
+    super(
+      _provider,
+      [
+        "name",
+        "race",
+        "className",
+        "size",
+        "strength",
+        "edition",
+        "image"
+      ]
+    );
   }
 
   get description() {
