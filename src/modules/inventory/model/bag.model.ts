@@ -2,7 +2,7 @@ import { Data } from "../../shared/data.model";
 import { BagItem } from "./bag-item.model";
 import { Item } from "../../items/item.model";
 import { DataProvider } from "../../shared/data-provider.model";
-import { DataArray } from "../../shared/data-array.mode";
+import { DataArray } from "../../shared/data-array.model";
 
 export class Bag extends Data {
   inventoryId: number;
@@ -50,33 +50,27 @@ export class Bag extends Data {
   get itemsWeight() {
     return this.items.map(item => item.weight).reduce((a, b) => a + b, 0);
   }
-
   get weight() {
     return this.ignoreItemsWeight ? this.bagWeight : (this.bagWeight + this.itemsWeight);
   }
-
   get isOverCapacity() {
     return this.itemsWeight > this.capacity;
   }
 
-  getBagItemByItemId(itemId: number) {
-    return this.items.find(o => o.itemId === itemId);
-  }
-
+  //-- bagItems --
   addItemQuantity(item: Item, quantity: number) {
     let bagItem = this.items.find(o => o.itemId === item.id);
     if (bagItem) {
       bagItem.quantity += quantity;
       bagItem.item.totalQuantity += quantity;
     } else {
-      bagItem = this.items.create();
+      bagItem = this.items.addNew();
       bagItem.itemId = item.id;
+      bagItem.inventoryId = this.inventoryId;
       bagItem.bagId = this.id;
       bagItem.quantity = quantity;
       bagItem.item = item;
       bagItem.item.totalQuantity += quantity;
-      this.items.push(bagItem);
-      this.items.save();
     }
     return bagItem.save();
   }
@@ -101,7 +95,16 @@ export class Bag extends Data {
       return bagItem.save();
     }
   }
+  //-- items --
+  deleteItem(itemId: number) {
+    let bagItems = this.items.filter(bagItem => bagItem.itemId === itemId);
+    bagItems.forEach(bagItem => {
+      this.items.splice(this.items.indexOf(bagItem), 1);
+    });
+    return Promise.all(bagItems.map(bagItem => bagItem.delete()));
+  }
 
+  //-- override --
   save(isDeep: boolean = false) {
     return super.save(isDeep).then(() => {
       if (!isDeep)

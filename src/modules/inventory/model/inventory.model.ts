@@ -3,7 +3,8 @@ import { BagItem } from "./bag-item.model";
 import { Bag } from "./bag.model";
 import { Data } from "../../shared/data.model";
 import { DataProvider } from "../../shared/data-provider.model";
-import { DataArray } from "../../shared/data-array.mode";
+import { DataArray } from "../../shared/data-array.model";
+import { Item } from "../../items/item.model";
 
 export class Inventory extends Data {
   characterId: number;
@@ -34,17 +35,20 @@ export class Inventory extends Data {
     return this.bags.find(bag => bag.id === this.defaultBagId);
   }
 
-  deleteItem(itemId: number){
-    let promises = [];
-    this.bags.forEach(bag => {
-      let bagItems = bag.items.filter(bagItem => bagItem.itemId === itemId);
-      bagItems.delete();
-    });
-    return Promise.all(promises);
+  //-- bags --
+  getBag(bagId: number) {
+    return this.bags.find(bag => bag.id === bagId);
   }
   addBag(bag: Bag) {
     bag.inventoryId = this.id;
     this.bags.push(bag);
+  }
+  removeBag(bag: Bag) {
+    this.bags.splice(this.bags.indexOf(bag), 1);
+  }
+  //-- items --
+  removeItem(itemId: number) {
+    return Promise.all(this.bags.map(bag => bag.deleteItem(itemId)));
   }
   countItemQuantity(itemId: number) {
     let count = 0;

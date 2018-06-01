@@ -3,11 +3,18 @@ import { Events } from 'ionic-angular';
 import { StorageProvider } from "./providers/storage.provider";
 import { UtilityProvider } from "./providers/utility.provider";
 import { DataProvider } from "./data-provider.model";
-import { DataArray } from "./data-array.mode";
+import { DataArray } from "./data-array.model";
 
 export class MemoryProvider<T extends Data> extends DataProvider<T> {
+  private _eventNames = {
+    add: "add",
+    modify: "modify",
+    delete: "delete"
+  };
+
   private _list: DataArray<T> = new DataArray<T>(this);
   private isTransactionActive: boolean;
+  private areEventsSuppressed: boolean;
 
   constructor(
     _events: Events,
@@ -43,12 +50,11 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
     return Promise.resolve().then(() => {
       item.id = this._utility.generateListId(this._list);
       this._list.push(item);
+      this._publishEvent(this._eventNames.add, item.id);
       if (!this.isTransactionActive)
         return this.save();
       else
         return Promise.resolve();
-    }).then(() => {
-      return super.add(item);
     });
   }
   addMany(items: T[]) {
@@ -57,8 +63,6 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
     return operations.reduce((prev, current) => {
       return prev.then(() => current)
     }, Promise.resolve()).then(() => {
-      return super.addMany(items);
-    }).then(() => {
       return this.closeTransaction();
     });
   }
@@ -69,12 +73,11 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
 
       newItem.id = item.id;
       Object.assign(item, newItem);
+      this._publishEvent(this._eventNames.modify, id);
       if (!this.isTransactionActive)
         return this.save();
       else
         return Promise.resolve();
-    }).then(() => {
-      return super.modify(id, newItem);
     });
   }
   delete(id: number) {
@@ -83,12 +86,11 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
         throw new Error("NonTrovato");
 
       this._list.splice(this._list.indexOf(item), 1);
+      this._publishEvent(this._eventNames.delete, id);
       if (!this.isTransactionActive)
         return this.save();
       else
         return Promise.resolve();
-    }).then(() => {
-      return super.delete(id);
     });
   }
   deleteMany(ids: number[]) {
@@ -97,13 +99,17 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
     return operations.reduce((prev, current) => {
       return prev.then(() => current)
     }, Promise.resolve()).then(() => {
-      return super.deleteMany(ids);
-    }).then(() => {
       return this.closeTransaction();
     });
   }
 
-  //-- memory provider--
+  //-- memory provider --
+  suppressEvents() {
+    this.areEventsSuppressed = true;
+  }
+  activateEvents() {
+    this.areEventsSuppressed = false;
+  }
   openTransaction() {
     this.isTransactionActive = true;
   }
@@ -144,6 +150,13 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
     if (clearCache)
       this._list = new DataArray<T>(this);
     return this._storage.remove(this._storageKey);
+  }
+
+  protected _publishEvent(name: string, data: any) {
+    if (!this.areEventsSuppressed) {
+      let eventName = this._type.name + ":" + name;
+      this._events.publish(eventName, data);
+    }
   }
 
   private _loadTestItems() {

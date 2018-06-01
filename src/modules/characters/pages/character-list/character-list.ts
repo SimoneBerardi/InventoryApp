@@ -33,8 +33,8 @@ export class CharacterListPage {
     this._events.subscribe("Options:open", () => {
       this.navCtrl.push("OptionsPage");
     });
-    this._events.subscribe("Character:delete", () => {
-      this._events.publish("Interface:exit");
+    this._events.subscribe("Interface:exit", () => {
+      this.navCtrl.popToRoot();
     });
     this._characters.getAll().then(characters => {
       this.characters = characters;

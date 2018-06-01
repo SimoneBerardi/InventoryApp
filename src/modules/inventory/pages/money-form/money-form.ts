@@ -63,8 +63,6 @@ export class MoneyFormPage {
     }).then(() => {
       let model = this._form.value;
       let money = this._money;
-      if (!money)
-        money = this._inventory.createMoneyFromSession();
 
       Object.assign(money, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input

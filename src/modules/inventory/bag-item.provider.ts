@@ -22,14 +22,14 @@ export class BagItemProvider extends MemoryProvider<BagItem>{
 
     let itemsCount = 5;
     let bagsCount = 5;
-    let bagItemId = 0;
+    let bagItemId = 1;
 
     for (let i = 0; i < bagsCount; i++) {
       for (let j = 0; j < itemsCount; j++) {
         this._testItems.push({
           id: bagItemId,
           inventoryId: 1,
-          bagId: i,
+          bagId: i + 1,
           itemId: j + 1,
           quantity: j + 1,
         });

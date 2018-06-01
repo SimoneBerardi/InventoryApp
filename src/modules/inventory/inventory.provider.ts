@@ -17,8 +17,7 @@ import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
 export class InventoryProvider extends MemoryProvider<Inventory>{
-  //Cache pubblica da utilizzare per la barra inventario
-  inventory: Inventory;
+  private _inventory: Inventory;
 
   constructor(
     _events: Events,
@@ -46,26 +45,23 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
       {
         id: 2,
         characterId: 2,
-        defaultBagId: 4,
+        defaultBagId: 7,
       }
     ]
   }
 
   get carriedWeightClass() {
     let result = "not-encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.encumberedValue)
+    if (this._inventory.carriedWeight > this._utility.session.encumberedValue)
       result = "encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
+    if (this._inventory.carriedWeight > this._utility.session.heavilyEncumberedValue)
       result = "heavily-encumbered";
-    if (this.inventory.carriedWeight > this._utility.session.maxCarryValue)
+    if (this._inventory.carriedWeight > this._utility.session.maxCarryValue)
       result = "over-max-carry";
     return result;
   }
 
-  getFromSession() {
-    return Promise.resolve(this.inventory);
-  }
-  loadByCharacterId(characterId: number) {
+  loadFromSession() {
     return this._getByCharacterId(this._utility.session.loadedCharacterId).then(inventory => {
       return Promise.all([
         inventory,
@@ -74,7 +70,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
         this._bagItems.getByInventoryId(inventory.id),
       ]);
     }).then(([inventory, money, bags, bagItems]) => {
-      this.inventory = inventory;
+      this._inventory = inventory;
       inventory.money = money;
       bags.forEach(bag => {
         bag.items = bagItems.filter(bagItem => bagItem.bagId === bag.id);
@@ -93,58 +89,48 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
       return Promise.resolve();
     });
   }
-  deleteByCharacterId(characterId: number) {
-    return this._getByCharacterId(characterId).then(inventory => {
-      return Promise.all([
-        this._money.deleteByInventoryId(inventory.id),
-        this._bags.deleteByInventoryId(inventory.id),
-        this._bagItems.deleteByInventoryId(inventory.id),
-      ]);
-    });
+  getFromSession() {
+    return Promise.resolve(this._inventory);
+  }
+  deleteFromSession() {
+    return this._inventory.delete();
   }
   //-- money --
   getMoneyFromSession() {
-    return Promise.resolve(this.inventory.money);
-  }
-  createMoneyFromSession() {
-    let money = this._money.create();
-    money.inventoryId = this.inventory.id;
-    return money;
+    return Promise.resolve(this._inventory.money);
   }
   //-- bags --
-  getBagFromSession(id: number) {
-    return Promise.resolve(this.inventory.bags.find(bag => bag.id === id));
-  }
-  getBagsFromSession() {
-    return Promise.resolve(this.inventory.bags);
+  getBagFromSession(bagId: number) {
+    return Promise.resolve(this._inventory.bags.find(bag => bag.id === bagId));
   }
   createBagFromSession() {
     let bag = this._bags.create();
-    this.inventory.addBag(bag);
+    this._inventory.addBag(bag);
     return bag;
   }
-  moveBagItemQuantity(bagItem: BagItem, bagId: number, quantity: number) {
-    return Promise.all([
-      this.getBagFromSession(bagItem.bagId),
-      this.getBagFromSession(bagId),
-    ]).then(([bag, newBag])=>{
-      return Promise.all([
-        bag.modifyBagItemQuantity(bagItem, quantity, true),
-        newBag.addItemQuantity(bagItem.item, quantity),
-      ]);
+  deleteBagFromSession(bagId: number) {
+    let bag = this._inventory.getBag(bagId);
+    this._inventory.removeBag(bag);
+    return bag.delete();
+  }
+  //-- bagItems --
+  getBagItemFromSession(bagItemId: number) {
+    return this._bagItems.getById(bagItemId);
+  }
+  addItemQuantityFromSession(item: Item, bagId: number, quantity: number) {
+    return this.getBagFromSession(bagId).then(bag =>{
+      return bag.addItemQuantity(item, quantity);
     });
   }
-  modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean) {
+  deleteItemFromSession(itemId: number) {
+    return this._inventory.removeItem(itemId);
+  }
+  modifyBagItemQuantityFromSession(bagItem: BagItem, quantity: number, isNegative: boolean) {
     return this.getBagFromSession(bagItem.bagId).then(bag => {
       return bag.modifyBagItemQuantity(bagItem, quantity, isNegative);
     });
   }
-  //-- bagItems --
-  getBagItemFromSession(id: number) {
-    return this._bagItems.getById(id);
-  }
 
-  //-- override --
   createByCharacterId(characterId: number) {
     let inventory = super.create();
     inventory.characterId = characterId;
@@ -177,6 +163,8 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
       return inventory.save(false);
     });
   }
+
+  //-- override --
   load() {
     let promises = [];
     promises.push(this._money.load());
@@ -187,7 +175,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
     });
   }
   clear(isDeep: boolean = false) {
-    this.inventory = null;
+    this._inventory = null;
 
     let promises = [];
     if (isDeep) {

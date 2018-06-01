@@ -63,7 +63,7 @@ export class ItemActionsPage {
 
   add(event: Event) {
     event.stopPropagation();
-    this._items.addToInventory(this._item, 1);
+    this._items.addItemToInventory(this._item, 1);
   }
   favorite(event: Event) {
     event.stopPropagation();
@@ -72,7 +72,7 @@ export class ItemActionsPage {
   }
   remove(event: Event) {
     event.stopPropagation();
-    this._items.removeFromInventory(this._item, 1);
+    this._items.removeItemFromInventory(this._item, 1);
   }
   modify(event: Event) {
     event.stopPropagation();

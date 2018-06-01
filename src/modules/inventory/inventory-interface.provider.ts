@@ -18,13 +18,15 @@ export class InventoryInterfaceProvider {
       this._inventory.createByCharacterId(id);
     });
     this._events.subscribe("Character:load", id => {
-      this._inventory.loadByCharacterId(id);
+      this._inventory.loadFromSession();
     });
     this._events.subscribe("Character:delete", id => {
-      this._inventory.deleteByCharacterId(id);
+      this._inventory.deleteFromSession();
     });
     this._events.subscribe("Item:addInventory", (data: ItemInventoryAction) => {
-      this._inventory.inventory.defaultBag.addItemQuantity(data.item, data.quantity);
+      this._inventory.getFromSession().then(inventory => {
+        return this._inventory.addItemQuantityFromSession(data.item, inventory.defaultBagId, data.quantity);
+      });
     });
     this._events.subscribe("Item:removeInventory", (data: ItemInventoryAction) => {
       this._inventory.getFromSession().then(inventory => {
@@ -36,21 +38,21 @@ export class InventoryInterfaceProvider {
           });
           return;
         }
-        inventory.defaultBag.modifyBagItemQuantity(bagItem, 1, true);
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, 1, true);
       });
     })
     this._events.subscribe("Item:delete", id => {
-      this._inventory.inventory.deleteItem(id);
+      this._inventory.deleteItemFromSession(id);
     });
     return this._inventory.load();
   }
 
   moveBagItemQuantity(bagItem: BagItem, quantity: number) {
-    return this._inventory.getBagsFromSession().then(bags => {
+    return this._inventory.getFromSession().then(inventory => {
       return this._interface.askSelection({
         title: "ScegliBorsa",
         message: "ScegliBorsa?",
-        inputs: bags.map(bag => {
+        inputs: inventory.bags.map(bag => {
           return {
             label: bag.name,
             value: bag.id.toString(),
@@ -58,7 +60,10 @@ export class InventoryInterfaceProvider {
         })
       });
     }).then(bagId => {
-      return this._inventory.moveBagItemQuantity(bagItem, Number(bagId), quantity);
+      return Promise.all([
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, true),
+        this._inventory.addItemQuantityFromSession(bagItem.item, Number(bagId), quantity),
+      ]);
     });
   }
 
@@ -76,7 +81,7 @@ export class InventoryInterfaceProvider {
         return Promise.resolve(true);
     }).then(isConfirmed => {
       if (isConfirmed)
-        return this._inventory.modifyBagItemQuantity(bagItem, quantity, isNegative);
+        return this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, isNegative);
       else
         return Promise.resolve();
     });

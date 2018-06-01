@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
@@ -34,6 +34,7 @@ export class CharacterFormPage {
     private _characters: CharacterProvider,
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
+    private _events: Events,
   ) {
     this._form = this._formBuilder.group({
       name: ["", Validators.required],
@@ -126,11 +127,14 @@ export class CharacterFormPage {
 
       return this._interface.showLoader({
         content: "Salvataggio",
+        dismissOnPageChange: true,
       });
     }).then(() => {
-      return this._characters.delete(this._id)
+      return this._character.delete();
     }).then(() => {
       return this.viewCtrl.dismiss();
+    }).then(() => {
+      this._events.publish("Interface:exit");
     }).catch(error => {
       this._interface.showAndLogError(error);
     });

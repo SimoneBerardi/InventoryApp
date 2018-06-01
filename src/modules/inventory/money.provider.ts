@@ -50,8 +50,8 @@ export class MoneyProvider extends MemoryProvider<Money>{
     return this.find(money => money.inventoryId === inventoryId);
   }
   deleteByInventoryId(inventoryId: number) {
-    return this.find(bagItem => bagItem.inventoryId !== inventoryId).then(money => {
+    return this.find(money => money.inventoryId === inventoryId).then(money => {
       return money.delete();
-    })
+    });
   }
 }

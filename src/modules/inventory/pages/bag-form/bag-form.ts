@@ -98,7 +98,7 @@ export class BagFormPage {
         content: "Salvataggio",
       });
     }).then(() => {
-      return this._bag.delete();
+      return this._inventory.deleteBagFromSession(this._id);
     }).then(() => {
       return this.viewCtrl.dismiss();
     }).then(() => {

@@ -16,8 +16,10 @@ export class DataArray<T extends Data> extends Array<T> {
     return new DataArray<T>(this._provider, super.filter(callbackfn));
   }
 
-  create(): T {
-    return this._provider.create();
+  addNew(): T {
+    let newItem = this._provider.create();
+    this.push(newItem);
+    return newItem;
   }
   save(): Promise<void> {
     let addedItems = this.filter(item => item.id === undefined);

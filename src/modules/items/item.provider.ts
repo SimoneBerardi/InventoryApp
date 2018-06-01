@@ -73,24 +73,25 @@ export class ItemProvider extends MemoryProvider<Item> {
         weight: 0.5,
         category: 2,
       },
+      {
+        id: 7,
+        characterId: 2,
+        name: "Bacchetta",
+        description: "palla di fuoco",
+        weight: 1,
+        category: 3,
+      },
     ];
-
-    this._events.subscribe("Character:load", id => {
-      this._loadByCharacterId(id);
-    });
-    this._events.subscribe("Character:delete", id => {
-      this._deleteByCharacterId(id);
-    });
   }
 
-  addToInventory(item: Item, quantity: number) {
+  addItemToInventory(item: Item, quantity: number) {
     this._publishEvent("addInventory", {
       item: item,
       quantity: quantity,
       isNegative: false
     });
   }
-  removeFromInventory(item: Item, quantity: number) {
+  removeItemFromInventory(item: Item, quantity: number) {
     this._publishEvent("removeInventory", {
       item: item,
       quantity: quantity,
@@ -124,17 +125,27 @@ export class ItemProvider extends MemoryProvider<Item> {
     });
   }
   load() {
+    this._events.subscribe("Character:load", id => {
+      this._loadFromSession();
+    });
+    this._events.subscribe("Character:delete", id => {
+      this._deleteFromSession();
+    });
     this._loadGroups();
     return super.load();
   }
 
-  private _deleteByCharacterId(characterId: number) {
-    return this.filter(item => item.characterId === characterId).then(items => {
+  private _deleteFromSession() {
+    return this._getByCharacterId(this._utility.session.loadedCharacterId).then(items => {
+      this.suppressEvents();
       return items.delete();
+    }).then(() => {
+      this.activateEvents();
+      return Promise.resolve();
     });
   }
-  private _loadByCharacterId(characterId: number) {
-    return this._getByCharacterId(characterId).then(items => {
+  private _loadFromSession() {
+    return this._getByCharacterId(this._utility.session.loadedCharacterId).then(items => {
       this._groups.forEach(group => {
         group.items = items.filter(item => item.category === group.category)
       });
@@ -176,8 +187,11 @@ export class ItemProvider extends MemoryProvider<Item> {
     });
     this._events.subscribe("Item:delete", id => {
       this.getById(id).then(item => {
-        let group = this._groups.find(group => group.category === item.category);
-        group.items.splice(group.items.indexOf(item), 1);
+        this._groups.forEach(group => {
+          let item = group.items.find(item => item.id === id);
+          if (item)
+            group.items.splice(group.items.indexOf(item), 1);
+        })
       });
     })
   }

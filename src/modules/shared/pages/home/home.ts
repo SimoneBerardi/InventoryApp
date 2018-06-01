@@ -22,13 +22,6 @@ export class HomePage {
     private _events: Events,
   ) { }
 
-  ionViewDidLoad() {
-    this._events.subscribe("Interface:exit", this.exit);
-  }
-  ionViewWillUnload() {
-    this._events.unsubscribe("Interface:exit");
-  }
-
   exit() {
     this.navCtrl.popToRoot();
   }

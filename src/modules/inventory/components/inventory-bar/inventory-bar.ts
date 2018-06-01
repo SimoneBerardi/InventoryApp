@@ -10,15 +10,20 @@ import { Inventory } from '../../model/inventory.model';
   templateUrl: 'inventory-bar.html'
 })
 export class InventoryBarComponent {
+  private _inv: Inventory;
+
   constructor(
     private _characters: CharacterProvider,
     private _inventory: InventoryProvider,
     private _utility: UtilityProvider,
-  ) { 
+  ) {
+    this._inventory.getFromSession().then(inventory =>{
+      this._inv = inventory;
+    });
   }
 
   get carriedWeight() {
-    return this._inventory.inventory.carriedWeight;
+    return this._inv.carriedWeight;
   }
   get carriedWeightColor() {
     let result = "secondary";
