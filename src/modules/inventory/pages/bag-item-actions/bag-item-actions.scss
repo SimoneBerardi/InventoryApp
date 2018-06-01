@@ -7,9 +7,17 @@ page-bag-item-actions {
     .wheel {
         display: block;
         margin: auto;
-        width: 70%;
-        background-size: contain;
-        background-repeat: no-repeat;
+        width: calc((100vw - 32px) * 0.7);
+        .grid {
+            position: absolute;
+            width: calc((100vw - 32px) * 0.7);
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--contrast-color);
+        }
         .col {
             height: calc((70vw - 32px)/3);
         }

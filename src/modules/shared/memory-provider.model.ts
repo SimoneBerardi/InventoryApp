@@ -124,12 +124,12 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
   }
   load() {
     return Promise.resolve().then(() => {
-      if (this._utility.isDebug)
+      if (this._utility.manifest.isDebug)
         return this.clear(false);
       else
         return Promise.resolve();
     }).then(() => {
-      if (this._utility.isDebug) {
+      if (this._utility.manifest.isDebug) {
         this._loadTestItems();
         return this.save();
       }

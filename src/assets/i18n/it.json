@@ -8,7 +8,7 @@
     "Sposta": "Sposta",
     "Dettagli": "Dettagli",
     "PesoTotale": "Peso totale",
-    "PesoTrasportato": "Peso trasportato",
+    "PesoTrasportato": "Peso<br> trasportato",
     "DettagliBorsa": "Dettagli borsa",
     "Nome": "Nome",
     "Peso": "Peso",
@@ -110,5 +110,10 @@
     "Cinque_Zero": "5.0",
     "Edizione": "Edizione",
     "EmailNonDisponibile": "Email non disponibile",
-    "Caricamento": "Caricamento..."
+    "Caricamento": "Caricamento...",
+    "OggettoDuplicato": "Esiste già un oggetto con questo nome",
+    "VersioneDebug": "Versione di debug",
+    "MessaggioVersioneDebug": "Attenzione! Questa è una versione di debug con dati dimostrativi",
+    "VersioneBeta": "Versione beta",
+    "MessaggioVersioneBeta": "Attenzione!<br> Questa è una versione beta.<br> Come tale potrebbe avere mostri in agguato al suo interno.<br> Sarebbe gradito il vostro valoroso aiuto nello scacciarli, grazie."
 }

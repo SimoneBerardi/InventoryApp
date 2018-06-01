@@ -5,8 +5,9 @@
 <ion-content padding class="component-style" [ngStyle]="contentStyle" (click)="cancel()">
   <div *ngIf="_bagItem" class="bag-item">
     <div class="name" text-center>{{name}}</div>
-    <div class="wheel" [ngStyle]="{'background-image': 'url(' + wheelImage + ')'}">
+    <div class="wheel">
       <ion-grid no-padding>
+        <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + wheelImage + ')'}"></div>
         <ion-row>
           <ion-col class="action add" col-4 offset-4>
             <ion-icon name="add" tappable (click)="add($event)"></ion-icon>

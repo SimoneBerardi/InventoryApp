@@ -1,4 +1,8 @@
 page-header {
+    ion-navbar.toolbar {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     .toolbar-background {
         background: inherit;
         color: inherit;

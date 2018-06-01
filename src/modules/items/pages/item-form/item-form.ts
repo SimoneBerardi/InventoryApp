@@ -32,7 +32,7 @@ export class ItemFormPage {
   ) {
     this._form = this._formBuilder.group({
       name: ["", Validators.required],
-      description: ["", Validators.required],
+      description: [""],
       weight: [0, Validators.required],
       category: [0, Validators.required],
     });
@@ -69,7 +69,15 @@ export class ItemFormPage {
 
       Object.assign(item, model);
       this._utility.castNumberProps(item, ["weight"]);
-      item.save();
+      return Promise.all([
+        item,
+        this._items.isDuplicateFromSession(item),
+      ]);
+    }).then(([item, isDuplicate]) => {
+      if (isDuplicate)
+        throw new Error("OggettoDuplicato");
+
+      return item.save();
     }).then(() => {
       return this.viewCtrl.dismiss().then(() => {
         this._interface.hideLoader();

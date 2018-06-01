@@ -112,6 +112,11 @@ export class ItemProvider extends MemoryProvider<Item> {
       }));
     });
   }
+  isDuplicateFromSession(newItem: Item) {
+    return this.getFromSession().then(items => {
+      return Promise.resolve(items.find(item => item.name === newItem.name) !== undefined);
+    });
+  }
 
   //-- override --
   add(item: Item) {

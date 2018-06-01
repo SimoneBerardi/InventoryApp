@@ -5,8 +5,8 @@
 <ion-content padding class="component-style">
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <div *ngIf="!isLoading">
-    <ion-item text-center no-lines>
-      <h1 class="name">{{name}}</h1>
+    <ion-item class="name" text-center no-lines>
+      {{name}}
     </ion-item>
     <ion-item no-lines>
       <ion-label class="image-container">

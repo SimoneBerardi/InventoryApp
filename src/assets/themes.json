@@ -1,45 +1,54 @@
 [
   {
+    "id": 1,
     "name": "Tema 1",
     "baseColor": "#FFFFFF",
     "contrastColor": "#7F7F7F"
   },
   {
+    "id": 2,
     "name": "Tema 2",
     "baseColor": "#1D5A83",
     "contrastColor": "#94CAE4"
   },
   {
+    "id": 3,
     "name": "Tema 3",
     "baseColor": "#016948",
     "contrastColor": "#88D958"
   },
   {
+    "id": 4,
     "name": "Tema 4",
     "baseColor": "#624579",
     "contrastColor": "#BFBFBF"
   },
   {
+    "id": 5,
     "name": "Tema 5",
     "baseColor": "#63271F",
     "contrastColor": "#FFFF79"
   },
   {
+    "id": 6,
     "name": "Tema 6",
     "baseColor": "#1D5A83",
     "contrastColor": "#FFBC00"
   },
   {
+    "id": 7,
     "name": "Tema 7",
     "baseColor": "#404040",
     "contrastColor": "#D29F28"
   },
   {
+    "id": 8,
     "name": "Tema 8",
     "baseColor": "#962D27",
     "contrastColor": "#F2910A"
   },
   {
+    "id": 9,
     "name": "Tema 9",
     "baseColor": "#333333",
     "contrastColor": "#D3B158"

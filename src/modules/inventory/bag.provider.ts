@@ -105,4 +105,12 @@ export class BagProvider extends MemoryProvider<Bag>{
       return bags.delete();
     });
   }
+
+  //-- override --
+  create(){
+    let bag = super.create();
+    bag.items = this._bagItems.createArray();
+    bag.image = this._utility.images.inventory.bag;
+    return bag;
+  }
 }

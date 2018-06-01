@@ -13,6 +13,9 @@ export class ItemComponent {
   get name(){
     return this.item.name;
   }
+  get description(){
+    return this.item.description;
+  }
 
   get totalQuantity(){
     return this.item.totalQuantity;

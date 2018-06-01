@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Session } from '../model/session.model';
+import { AppManifest } from '../model/app-manifest.model';
 
 @Injectable()
 export class UtilityProvider {
 
   private _manifestUrl = "assets/app-manifest.json";
-  themesUrl = "assets/themes.json";
 
   emails = {
     simo: "simonberard@gmail.com",
     mauro: "",
   }
-  
+
   images = {
     inventory: {
       logo: "assets/images/inventory/logo.png",
@@ -54,9 +54,6 @@ export class UtilityProvider {
   manifest: AppManifest;
   session: Session = new Session();
 
-  //TODO - utilizzare le variabili d'ambiente
-  isDebug: boolean = true;
-
   constructor(
     private _http: HttpClient,
   ) { }
@@ -65,8 +62,10 @@ export class UtilityProvider {
    * Inizializza l'app
    */
   init() {
-    return this._http.get(this._manifestUrl).subscribe(manifest => {
-      this.manifest = manifest as AppManifest;
+    return this._http.get(this._manifestUrl).toPromise().then(jsonManifest => {
+      this.manifest = new AppManifest();
+      Object.assign(this.manifest, jsonManifest);
+      return Promise.resolve();
     });
   }
 
@@ -101,9 +100,6 @@ export class UtilityProvider {
   }
 }
 
-export interface AppManifest {
-  version: string;
-}
 export interface Enumerable {
   id: number;
 }

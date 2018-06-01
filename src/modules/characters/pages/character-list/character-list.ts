@@ -40,6 +40,7 @@ export class CharacterListPage {
       this.characters = characters;
       this.isLoading = false;
     });
+    this._welcomeMessage();
   }
   ionViewWillUnload() {
     this._events.unsubscribe("Options:open");
@@ -55,6 +56,20 @@ export class CharacterListPage {
   }
   showOptions() {
     return this.navCtrl.push("OptionsPage");
+  }
+
+  private _welcomeMessage(){
+    if(this._utility.manifest.isDebug){
+      this._interface.showAlert({
+        title: "VersioneDebug",
+        message: "MessaggioVersioneDebug"
+      });
+    } else if(this._utility.manifest.isBeta){
+      this._interface.showAlert({
+        title: "VersioneBeta",
+        message: "MessaggioVersioneBeta"
+      });
+    }
   }
 
 }

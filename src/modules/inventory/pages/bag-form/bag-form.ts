@@ -64,7 +64,7 @@ export class BagFormPage {
       let model = this._form.value;
       let bag = this._bag;
       if (!bag) {
-        this._bag = this._inventory.createBagFromSession();
+        bag = this._inventory.createBagFromSession();
       }
       Object.assign(bag, model);
       //Il modello della form restituisce sempre delle stringhe dai campi di input

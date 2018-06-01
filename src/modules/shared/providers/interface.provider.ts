@@ -6,6 +6,7 @@ import { getNonHydratedSegmentIfLinkAndUrlMatch } from 'ionic-angular/navigation
 import { ActionSheetController } from 'ionic-angular/components/action-sheet/action-sheet-controller';
 import { ActionSheetOptions, ActionSheetButton } from 'ionic-angular/components/action-sheet/action-sheet-options';
 import { Input } from '@angular/core/src/metadata/directives';
+import { Title } from '@angular/platform-browser/src/browser/title';
 
 @Injectable()
 export class InterfaceProvider {
@@ -144,7 +145,7 @@ export class InterfaceProvider {
     });
   }
   showAlert(opts: AlertOptions) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this._translate.translate([opts.title, opts.message, "Ok"]).then(values => {
         opts.title = values[opts.title];
         opts.message = values[opts.message];
@@ -159,13 +160,16 @@ export class InterfaceProvider {
     })
   }
   showAndLogError(error: Error) {
-    if (error.message !== "ConfermaUtente") {
-      console.log(error);
+    return this.hideLoader().then(() => {
+      if (error.message === "ConfermaUtente")
+        throw error;
       return this.showAlert({
         title: "Attenzione",
         message: error.message,
       });
-    }
+    }).catch(error => {
+      //Errore da mascherare
+    });
   }
   /**
    * Mostra un messaggio di errore
