@@ -74,7 +74,7 @@ export class ItemFormPage {
         this._items.isDuplicateFromSession(item),
       ]);
     }).then(([item, isDuplicate]) => {
-      if (isDuplicate)
+      if (!this._id && isDuplicate)
         throw new Error("OggettoDuplicato");
 
       return item.save();

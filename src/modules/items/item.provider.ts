@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, group } from '@angular/core';
 import { Events } from 'ionic-angular';
 import { StorageProvider } from '../shared/providers/storage.provider';
 import { Item, ItemCategory } from './item.model';
@@ -9,6 +9,7 @@ import { MemoryProvider } from '../shared/memory-provider.model';
 
 @Injectable()
 export class ItemProvider extends MemoryProvider<Item> {
+  private _favorites: ItemGroup;
   private _groups: ItemGroup[];
 
   constructor(
@@ -103,7 +104,7 @@ export class ItemProvider extends MemoryProvider<Item> {
     return this._getByCharacterId(this._utility.session.loadedCharacterId);
   }
   getGroupedByCategory() {
-    return Promise.resolve(this._groups);
+    return Promise.resolve([this._favorites, ...this._groups]);
   }
   getBySearch(value: string) {
     return this.getFromSession().then(items => {
@@ -151,6 +152,7 @@ export class ItemProvider extends MemoryProvider<Item> {
   }
   private _loadFromSession() {
     return this._getByCharacterId(this._utility.session.loadedCharacterId).then(items => {
+      this._favorites.items = items.filter(item => item.isFavorite);
       this._groups.forEach(group => {
         group.items = items.filter(item => item.category === group.category)
       });
@@ -162,6 +164,9 @@ export class ItemProvider extends MemoryProvider<Item> {
   }
   private _loadGroups() {
     this._groups = [];
+    this._favorites = new ItemGroup();
+    //TODO multilingua
+    this._favorites.name = "Preferiti";
     this._utility.enumerateEnum(ItemCategory).forEach(category => {
       let group = new ItemGroup();
       group.category = category.key;
@@ -175,20 +180,26 @@ export class ItemProvider extends MemoryProvider<Item> {
       });
     });
     this._events.subscribe("Item:modify", id => {
-      this.getById(id).then(item => {
-        let oldItem: Item = null;
-        let oldGroup: ItemGroup = null;
-        this._groups.some(group => {
-          oldGroup = group;
-          oldItem = group.items.find(groupItem => groupItem.id === item.id);
-          return oldItem != null;
-        });
-        let group = this._groups.find(group => group.category === item.category);
-        if (oldGroup.category !== group.category) {
-          oldGroup.items.splice(oldGroup.items.indexOf(oldItem), 1);
-          group.items.push(item);
-        }
-      })
+      let item: Item = null;
+      let oldGroup: ItemGroup = null;
+      this._groups.some(group => {
+        oldGroup = group;
+        item = group.items.find(groupItem => groupItem.id === id);
+        return item != null;
+      });
+      let group = this._groups.find(group => group.category === item.category);
+
+      if (oldGroup.category !== group.category) {
+        oldGroup.items.splice(oldGroup.items.indexOf(item), 1);
+        group.items.push(item);
+      }
+      let wasFavorite = this._favorites.items.find(item => item.id === id) != null;
+      if (wasFavorite !== item.isFavorite) {
+        if (item.isFavorite)
+          this._favorites.items.push(item);
+        else
+          this._favorites.items.splice(this._favorites.items.indexOf(item), 1);
+      }
     });
     this._events.subscribe("Item:delete", id => {
       this.getById(id).then(item => {
