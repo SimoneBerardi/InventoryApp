@@ -7,7 +7,7 @@ import { Units } from '../shared/model/options.model';
 
 @Injectable()
 export class EncumberanceProvider {
-  private _carry_3_5_Url: string = "/assets/carry_3_5.json";
+  private _carry_3_5_Url: string = "assets/carry_3_5.json";
   private _carry_3_5: any = null;
 
   constructor(

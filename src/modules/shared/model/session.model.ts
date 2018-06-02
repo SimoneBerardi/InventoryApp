@@ -3,4 +3,5 @@ export class Session {
   encumberedValue: number;
   heavilyEncumberedValue: number;
   maxCarryValue: number;
+  defaultBagName: string;
 }

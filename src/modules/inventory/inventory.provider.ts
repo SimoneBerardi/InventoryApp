@@ -84,6 +84,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
           bagItem.item = item;
         }));
       });
+      this._utility.session.defaultBagName = inventory.defaultBag.name;
       return Promise.all(promises);
     }).then(() => {
       return Promise.resolve();
@@ -94,6 +95,11 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
   }
   deleteFromSession() {
     return this._inventory.delete();
+  }
+  changeDefaultBagFromSession(bagId: number) {
+    this._inventory.defaultBagId = bagId;
+    this._utility.session.defaultBagName = this._inventory.defaultBag.name;
+    return this._inventory.save(false);
   }
   //-- money --
   getMoneyFromSession() {
@@ -118,7 +124,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
     return this._bagItems.getById(bagItemId);
   }
   addItemQuantityFromSession(item: Item, bagId: number, quantity: number) {
-    return this.getBagFromSession(bagId).then(bag =>{
+    return this.getBagFromSession(bagId).then(bag => {
       return bag.addItemQuantity(item, quantity);
     });
   }

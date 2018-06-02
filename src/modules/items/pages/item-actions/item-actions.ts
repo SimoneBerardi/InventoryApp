@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { OptionsProvider } from '../../../shared/providers/options.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
@@ -28,6 +28,7 @@ export class ItemActionsPage {
     private _options: OptionsProvider,
     private _interface: InterfaceProvider,
     private _items: ItemProvider,
+    private _events: Events,
   ) {
 
     this.headerLogo = this._utility.images.inventory.logo;
@@ -60,6 +61,9 @@ export class ItemActionsPage {
       "background-color": this._options.theme.baseColor + "CC",
     }
   }
+  get defaultBagName() {
+    return this._utility.session.defaultBagName;
+  }
 
   add(event: Event) {
     event.stopPropagation();
@@ -79,6 +83,10 @@ export class ItemActionsPage {
     this.viewCtrl.dismiss().then(() => {
       this._interface.showModal("ItemFormPage", { id: this._id });
     });
+  }
+  selectBag(event: Event) {
+    event.stopPropagation();
+    this._events.publish("Item:changeBag");
   }
   cancel() {
     this.viewCtrl.dismiss();

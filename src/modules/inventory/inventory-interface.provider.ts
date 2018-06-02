@@ -44,25 +44,19 @@ export class InventoryInterfaceProvider {
     this._events.subscribe("Item:delete", id => {
       this._inventory.deleteItemFromSession(id);
     });
+    this._events.subscribe("Item:changeBag", () => {
+      this._selectBag().then(bagId => {
+        return this._inventory.changeDefaultBagFromSession(bagId);
+      });
+    })
     return this._inventory.load();
   }
 
   moveBagItemQuantity(bagItem: BagItem, quantity: number) {
-    return this._inventory.getFromSession().then(inventory => {
-      return this._interface.askSelection({
-        title: "ScegliBorsa",
-        message: "ScegliBorsa?",
-        inputs: inventory.bags.map(bag => {
-          return {
-            label: bag.name,
-            value: bag.id.toString(),
-          }
-        })
-      });
-    }).then(bagId => {
+    return this._selectBag().then(bagId => {
       return Promise.all([
         this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, true),
-        this._inventory.addItemQuantityFromSession(bagItem.item, Number(bagId), quantity),
+        this._inventory.addItemQuantityFromSession(bagItem.item, bagId, quantity),
       ]);
     });
   }
@@ -84,6 +78,23 @@ export class InventoryInterfaceProvider {
         return this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, isNegative);
       else
         return Promise.resolve();
+    });
+  }
+
+  private _selectBag(): Promise<number> {
+    return this._inventory.getFromSession().then(inventory => {
+      return this._interface.askSelection({
+        title: "ScegliBorsa",
+        message: "ScegliBorsa?",
+        inputs: inventory.bags.map(bag => {
+          return {
+            label: bag.name,
+            value: bag.id.toString(),
+          }
+        })
+      });
+    }).then(bagId => {
+      return Promise.resolve(Number(bagId));
     });
   }
 }

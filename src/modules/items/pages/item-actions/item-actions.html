@@ -31,6 +31,9 @@
         </ion-row>
       </ion-grid>
     </div>
+    <ion-item class="default-bag" tappable no-lines no-padding text-center (click)="selectBag($event)">
+      {{"Borsa" | translate}}: {{defaultBagName}}
+    </ion-item>
   </div>
 </ion-content>
 
