@@ -90,6 +90,14 @@ ion-alert .alert-wrapper {
             }
         }
     }
+    .alert-input-group{
+      .alert-input-wrapper{
+        .alert-input{
+          color: inherit;
+          border-color: inherit;
+        }
+      }
+    }
 }
 
 ion-loading .loading-wrapper {

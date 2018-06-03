@@ -115,5 +115,6 @@
     "VersioneDebug": "Versione di debug",
     "MessaggioVersioneDebug": "Attenzione! Questa è una versione di debug con dati dimostrativi",
     "VersioneBeta": "Versione beta",
-    "MessaggioVersioneBeta": "Attenzione!<br> Questa è una versione beta.<br> Come tale potrebbe avere mostri in agguato al suo interno.<br> Sarebbe gradito il vostro valoroso aiuto nello scacciarli, grazie."
+    "MessaggioVersioneBeta": "Attenzione!<br> Questa è una versione beta.<br> Come tale potrebbe avere mostri in agguato al suo interno.<br> Sarebbe gradito il vostro valoroso aiuto nello scacciarli, grazie.",
+    "CapacitaTrasporto": "Capacità di Trasporto"
 }

@@ -69,7 +69,7 @@ export class BagItemActionsPage {
   }
   move(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.moveBagItemQuantity(this._bagItem, this._bagItem.quantity).then(() => {
+    this._inventoryInterface.moveBagItemQuantity(this._bagItem).then(() => {
       this.viewCtrl.dismiss();
     }).catch(error => {
       this._interface.showAndLogError(error);

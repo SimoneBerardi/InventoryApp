@@ -3,8 +3,8 @@
 </ion-header>
 
 <ion-content padding class="component-style" [ngStyle]="contentStyle" (click)="cancel()">
-  <div *ngIf="_item" class="item">
-    <div class="name" text-center>{{name}}</div>
+  <div *ngIf="_item" class="item-container">
+      <ion-item class="name" text-center no-lines>{{name}}</ion-item>
     <div class="wheel">
       <ion-grid no-padding>
         <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + wheelImage + ')'}"></div>

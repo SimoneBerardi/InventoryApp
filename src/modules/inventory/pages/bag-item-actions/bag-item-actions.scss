@@ -1,15 +1,20 @@
 page-bag-item-actions {
+    .bag-item-containter {
+        height: 100%;
+    }
     .name {
-        margin-top: 50px;
-        margin-bottom: 50px;
         font-size: 4rem;
     }
     .wheel {
-        display: block;
-        margin: auto;
-        width: calc((100vw - 32px) * 0.7);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-40%);
+        height: calc((100vw - 32px) * 0.7);
+        width: calc(100vw - 32px);
         .grid {
-            position: absolute;
+            position: relative;
+            display: block;
+            margin: auto;
             width: calc((100vw - 32px) * 0.7);
         }
         .background {
@@ -19,7 +24,8 @@ page-bag-item-actions {
             background-color: var(--contrast-color);
         }
         .col {
-            height: calc((70vw - 32px)/3);
+            height: calc((100vw - 32px) *0.7 /3);
+            display: table;
         }
         .action {
             .icon {
@@ -27,7 +33,11 @@ page-bag-item-actions {
                 height: 100%;
                 font-size: 5rem;
                 text-align: center;
-                padding-top: 10px;
+                display: table;
+                &::before {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
             }
         }
         .quantity {
@@ -35,6 +45,8 @@ page-bag-item-actions {
             height: 100%;
             font-size: 5rem;
             border-radius: 50%;
+            display: table-cell;
+            vertical-align: middle;
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { Character } from '../../character.model';
+import { Character, CharacterSize } from '../../character.model';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { CharacterProvider } from '../../character.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
@@ -49,6 +49,15 @@ export class CharacterInfoPage {
   }
   get strength() {
     return this._character.strength;
+  }
+  get className() {
+    return this._character.className;
+  }
+  get race() {
+    return this._character.race;
+  }
+  get size() {
+    return CharacterSize[this._character.size];
   }
   get description() {
     return this._character.description;

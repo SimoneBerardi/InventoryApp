@@ -5,9 +5,10 @@ page-character-info {
         color: inherit;
     }
     .dragon {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
         background-color: var(--contrast-color);
+        margin: 0 !important;
     }
     .image-container {
         margin: 0;
@@ -28,17 +29,21 @@ page-character-info {
         font-weight: bold;
         font-size: 2.2rem;
         .item-inner {
-            padding-right: 0;
+            padding-right: 0 !important;
         }
     }
     .description {
         font-weight: bold;
-        padding-left: 30px;
         font-size: 1.8rem;
+        margin-top: 5px;
+        padding-bottom: 5px;
         .item-inner {
+            padding-right: 0 !important;
+        }
+        .label {
             margin: 0 !important;
         }
-        border-bottom: 1px solid !important;
+        border-bottom: 2px solid !important;
     }
     .weights-table {
         position: relative;
@@ -54,33 +59,36 @@ page-character-info {
             opacity: 0.5;
         }
         .row {
+            &.title {
+                .col {
+                    line-height: 80%;
+                    font-size: 2rem;
+                }
+            }
             &.labels-row {
                 .col {
                     padding: 0;
                     opacity: 0.5;
+                    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+                    font-weight: bold;
                 }
             }
             &.values-row {
                 .col {
-                    font-size: 1.8rem; // font-weight: bold;
                     padding: 2px;
+                    font-size: 2rem;
+                    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+                    font-weight: bold;
                     .cell {
                         padding: 3px;
                         &.encumber-value {
-                            border: 1px solid color($colors, status_green);
                             color: color($colors, status_green);
                         }
                         &.heavy-encumber-value {
-                            border: 1px solid color($colors, status_orange);
                             color: color($colors, status_orange);
                         }
                         &.max-carry-value {
-                            border: 1px solid color($colors, status_red);
                             color: color($colors, status_red);
-                        }
-                        &.drag-value,
-                        &.lift-value {
-                            border: 1px solid var(--contrast-color);
                         }
                     }
                 }

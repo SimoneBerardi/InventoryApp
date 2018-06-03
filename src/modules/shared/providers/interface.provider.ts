@@ -199,14 +199,17 @@ export class InterfaceProvider {
       this._showAlert(values[titleKey], values[messageKey]);
     })
   }
-
-  selectQuantity(max?: number) {
+  /**
+   * Chiede una quantità
+   * @param max 
+   */
+  askQuantity(max?: number) {
     return new Promise<number>((resolve, reject) => {
-      if (max && max == 1)
+      if (max === 1)
         resolve(max);
-      else {
-        this._translate.translate(["SelezionaQuantita", "Quanti?", "Ok", "Annulla", "Tutti"]).then(values => {
-          let alert = this._alertCtrl.create({
+      else
+        this._translate.translate(["SelezionaQuantita", "Quanti?", "Ok", "Annulla"]).then(values => {
+          this._alertCtrl.create({
             title: values["SelezionaQuantita"],
             message: values["Quanti?"],
             enableBackdropDismiss: false,
@@ -215,35 +218,37 @@ export class InterfaceProvider {
                 type: "number",
                 name: "quantity",
                 min: 1,
+                max: max,
+                value: "1",
               }
             ],
             buttons: [
               {
                 text: values["Annulla"],
                 handler: () => {
-                  console.log("Selezione quantità annullata dall'utente");
-                  reject();
+                  reject(new Error("ConfermaUtente"));
                 }
               },
               {
                 text: values["Ok"],
                 handler: data => {
-                  if (data.quantity && data.quantity != "" && parseFloat(data.quantity) > 0) {
-                    let quantity = parseFloat(data.quantity);
-                    if (max)
-                      quantity = Math.min(max, quantity);
-                    resolve(quantity);
-                  } else {
-                    this.showAlertLanguage("Attenzione", "InserireQuantitaValida");
+                  if (!data.quantity || data.quantity === "" || isNaN(Number(data.quantity))) {
+                    this.showAlert({
+                      title: "Attenzione",
+                      message: "InserireQuantitaValida"
+                    });
                     return false;
                   }
+
+                  let quantity = Number(data.quantity);
+                  if (max)
+                    quantity = Math.min(max, quantity);
+                  resolve(quantity);
                 }
               }
             ]
-          });
-          alert.present();
+          }).present();
         })
-      }
     });
   }
   askConfirmationOld(title: string, message: string) {
