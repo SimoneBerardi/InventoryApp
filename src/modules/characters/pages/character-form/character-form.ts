@@ -44,9 +44,9 @@ export class CharacterFormPage {
       strength: [10, Validators.required],
       edition: [1, Validators.required],
     });
-    this.image = this._utility.images.avatars[0];
+    this.image = this._utility.images.character.avatars[0];
 
-    this.headerLogo = this._utility.images.logos.character;
+    this.headerLogo = this._utility.images.character.logo;
     this.headerTitle = "DettagliPersonaggio";
 
     this._id = this.navParams.get("id");
@@ -79,13 +79,13 @@ export class CharacterFormPage {
   prevAvatar() {
     this._avatarIndex--;
     if (this._avatarIndex < 0)
-      this._avatarIndex = this._utility.images.avatars.length - 1;
+      this._avatarIndex = this._utility.images.character.avatars.length - 1;
     this._loadAvatar();
   }
 
   nextAvatar() {
     this._avatarIndex++;
-    if (this._avatarIndex >= this._utility.images.avatars.length)
+    if (this._avatarIndex >= this._utility.images.character.avatars.length)
       this._avatarIndex = 0;
     this._loadAvatar();
   }
@@ -141,7 +141,7 @@ export class CharacterFormPage {
   }
 
   private _loadAvatar() {
-    this.image = this._utility.images.avatars[this._avatarIndex];
+    this.image = this._utility.images.character.avatars[this._avatarIndex];
   }
 
 }

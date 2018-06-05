@@ -33,7 +33,7 @@ export class CharacterProvider extends MemoryProvider<Character> {
         size: 1,
         strength: 16,
         edition: 0,
-        image: this._utility.images.avatars[0],
+        image: this._utility.images.character.avatars[0],
       },
       {
         id: 2,
@@ -43,7 +43,7 @@ export class CharacterProvider extends MemoryProvider<Character> {
         size: 1,
         strength: 14,
         edition: 0,
-        image: this._utility.images.avatars[1],
+        image: this._utility.images.character.avatars[1],
       }
     ];
   }

@@ -30,7 +30,6 @@
         <ion-option *ngFor="let theme of themes" [value]="theme.id">{{theme.name | translate}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item tappable (click)="reset()">{{"ResetCompleto" | translate}}</ion-item>
     <ion-item tappable (click)="showCredits()">{{"Crediti" | translate}}...</ion-item>
   </form>
 </ion-content>

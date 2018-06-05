@@ -14,11 +14,32 @@
       </ion-label>
     </ion-item>
     <ion-item class="description" no-padding no-lines text-center>
-      <div class="dragon" item-left [ngStyle]="{'-webkit-mask-box-image': 'url(' + dragonImage + ')'}"></div>
+      <div class="game-version" item-left>
+        <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + gameVersionImage + ')'}"></div>
+        <div class="value-container">
+          <p class="value">{{edition | translate}}</p>
+        </div>
+      </div>
       {{race}}
       <br> {{className}}
       <br> {{size}}
-      <div class="dragon" item-right [ngStyle]="{'-webkit-mask-box-image': 'url(' + dragonImage + ')'}"></div>
+      <div class="strength" item-right>
+        <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + strengthImage + ')'}"></div>
+        <div class="value-container">
+          <ion-grid no-padding>
+            <ion-row>
+              <ion-col>
+                {{"FOR" | translate}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                {{strength}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
     </ion-item>
     <ion-grid class="weights-table">
       <div class="border-top" class="component-inverted-style"></div>

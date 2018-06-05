@@ -84,6 +84,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
           bagItem.item = item;
         }));
       });
+      this._utility.session.defaultBagId = inventory.defaultBag.id;
       this._utility.session.defaultBagName = inventory.defaultBag.name;
       return Promise.all(promises);
     }).then(() => {
@@ -98,6 +99,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
   }
   changeDefaultBagFromSession(bagId: number) {
     this._inventory.defaultBagId = bagId;
+    this._utility.session.defaultBagId = this._inventory.defaultBag.id;
     this._utility.session.defaultBagName = this._inventory.defaultBag.name;
     return this._inventory.save(false);
   }

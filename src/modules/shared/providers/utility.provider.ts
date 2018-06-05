@@ -14,6 +14,16 @@ export class UtilityProvider {
   }
 
   images = {
+    character: {
+      list_logo: "assets/images/character/list_logo.png",
+      logo: "assets/images/character/logo.png",
+      avatars: [
+        "assets/images/character/avatars/avatar_1.png",
+        "assets/images/character/avatars/avatar_2.png",
+      ],
+      game_version: "assets/images/character/game_version.svg",
+      strength: "assets/images/character/strenght.svg"
+    },
     inventory: {
       logo: "assets/images/inventory/logo.png",
       money: "assets/images/inventory/money.png",
@@ -32,14 +42,8 @@ export class UtilityProvider {
       simoAvatar: "assets/images/credits/simo-avatar.png",
       mauroAvatar: "assets/images/credits/mauro-avatar.png",
     },
-    avatars: [
-      "assets/images/avatar_1.png",
-      "assets/images/avatar_2.png",
-    ],
+
     logos: {
-      charactersList: "assets/images/characters_list_logo.png",
-      character: "assets/images/character_logo.png",
-      // inventory: "assets/images/inventory_logo.png",
       items: "assets/images/items_logo.png",
     },
     buttons: {
@@ -48,7 +52,7 @@ export class UtilityProvider {
       delete: "assets/images/delete_button.png",
       addImage: "assets/images/add_image_button.png",
     },
-    dragon_3_5: "assets/images/dragon_3_5.png",
+
   };
 
   manifest: AppManifest;

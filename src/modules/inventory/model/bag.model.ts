@@ -3,6 +3,7 @@ import { BagItem } from "./bag-item.model";
 import { Item } from "../../items/item.model";
 import { DataProvider } from "../../shared/data-provider.model";
 import { DataArray } from "../../shared/data-array.model";
+import { Inventory } from "./inventory.model";
 
 export class Bag extends Data {
   inventoryId: number;

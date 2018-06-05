@@ -36,6 +36,9 @@ export class BagComponent {
   get name() {
     return this.bag.name;
   }
+  get isDefault(){
+    return this._utility.session.defaultBagId === this.bag.id;
+  }
   get weight() {
     return this.bag.weight;
   }

@@ -12,6 +12,9 @@ bag {
             margin-left: 0;
             font-size: 2rem;
             font-weight: bold;
+            &.default{
+              text-decoration: underline;
+            }
         }
         .capacity {
             font-size: 1.6rem;

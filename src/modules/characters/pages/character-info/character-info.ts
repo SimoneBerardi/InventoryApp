@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
-import { Character, CharacterSize } from '../../character.model';
+import { Character, CharacterSize, Edition } from '../../character.model';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { CharacterProvider } from '../../character.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
@@ -18,7 +18,8 @@ export class CharacterInfoPage {
   headerTitle: string;
 
   isLoading: boolean = true;
-  dragonImage: string;
+  gameVersionImage: string;
+  strengthImage: string;
 
   constructor(
     public navCtrl: NavController,
@@ -29,9 +30,10 @@ export class CharacterInfoPage {
     private _interface: InterfaceProvider,
     private _options: OptionsProvider,
   ) {
-    this.headerLogo = this._utility.images.logos.character;
+    this.headerLogo = this._utility.images.character.logo;
     this.headerTitle = "SchedaPersonaggio";
-    this.dragonImage = this._utility.images.dragon_3_5;
+    this.gameVersionImage = this._utility.images.character.game_version;
+    this.strengthImage = this._utility.images.character.strength;
   }
 
   ionViewDidLoad() {
@@ -46,6 +48,9 @@ export class CharacterInfoPage {
   }
   get image() {
     return this._character.image;
+  }
+  get edition(){
+    return Edition[this._character.edition];
   }
   get strength() {
     return this._character.strength;

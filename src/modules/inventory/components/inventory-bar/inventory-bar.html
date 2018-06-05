@@ -1,5 +1,5 @@
 <ion-toolbar>
-  <ion-item no-padding no-lines tappable (click)="showInfo()">
+  <ion-item no-padding no-lines>
     <p class="weight large" [ngClass]="carriedWeightClass" item-left>{{carriedWeight | weight:true}}</p>
     <ion-icon item-left class="custom-icon" [ngStyle]="iconStyle"></ion-icon>
     <p class="weight-text" item-left [innerHTML]="'PesoTrasportato' | translate"></p>

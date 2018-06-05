@@ -1,6 +1,6 @@
 <ion-item class="title" no-lines no-padding (click)="isHidden = !isHidden" (press)="press()">
   <ion-icon item-left class="image" [ngStyle]="{'background-image': 'url(' + image + ')'}"></ion-icon>
-  <p class="name">{{name}}</p>
+  <p class="name" [ngClass]="{default: isDefault}">{{name}}</p>
   <p *ngIf="hasLimitedCapacity" class="weight capacity" [ngClass]="capacityClass">{{capacityDescription}}</p>
   <p class="weight large" [ngClass]="weightClass" item-right *ngIf="weight > 0">
     {{weight | weight }}

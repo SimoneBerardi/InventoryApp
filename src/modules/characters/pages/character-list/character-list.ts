@@ -25,7 +25,7 @@ export class CharacterListPage {
     private _interface: InterfaceProvider,
     private _events: Events,
   ) {
-    this.headerLogo = this._utility.images.logos.charactersList;
+    this.headerLogo = this._utility.images.character.list_logo;
     this.headerTitle = "SalaEroi";
   }
 
