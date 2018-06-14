@@ -5,6 +5,9 @@ import { StorageProvider } from './storage.provider';
 import { UtilityProvider } from './utility.provider';
 import { Migration } from '../model/migration.model';
 import { MemoryProvider } from '../memory-provider.model';
+import { File } from '@ionic-native/file';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath } from '@ionic-native/file-path';
 
 @Injectable()
 export class MigrationProvider extends MemoryProvider<Migration>{
@@ -17,6 +20,9 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     _utility: UtilityProvider,
     _storage: StorageProvider,
     private _http: HttpClient,
+    private _file: File,
+    private _fileChooser: FileChooser,
+    private _filePath: FilePath
   ) {
     super(
       _events,
@@ -32,7 +38,18 @@ export class MigrationProvider extends MemoryProvider<Migration>{
   }
 
   load() {
-    return super.load().then(() => {
+    return Promise.resolve().then(() => {
+      return this.hasDataV1ToExport();
+    }).then(hasDataV1ToExport => {
+      if (hasDataV1ToExport)
+        return this.exportDataV1().then(() => {
+          return this.clear();
+        });
+      else
+        return Promise.resolve();
+    }).then(() => {
+      return super.load();
+    }).then(() => {
       let migrations = this._migrations.map(migration => this._applyMigration(migration));
       return migrations.reduce((prev, current) => {
         return prev.then(() => current)
@@ -40,17 +57,68 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     });
   }
 
+  hasDataV1ToExport() {
+    return Promise.all([
+      this._storage.get("inventoryApp_exportDatav1"),
+      this._storage.get("inventoryApp_options"),
+    ]).then(([exportDataV1, options]) => {
+      return Promise.resolve(exportDataV1 == null && options != null);
+    });
+  }
+
+  exportDataV1() {
+    let path = this._file.externalRootDirectory + "Download/";
+    let fileName = "AB_Backup_" + Math.floor(Date.now() / 1000) + ".txt";
+    return this._getExportV1Json().then(json => {
+      return this._file.writeFile(path, fileName, JSON.stringify(json));
+    }).then(() => {
+      return this._storage.set("inventoryApp_exportDatav1", true);
+    }).catch(error => {
+      console.log("Errore salvataggio dati: " + error);
+    });
+  }
+
+  importDataV1() {
+    return this._fileChooser.open().then(url => {
+      return this._http.get(url).toPromise();
+    }).then((json: ExportFileJson) => {
+      return this._storage.clear().then(() => {
+        return Promise.all([
+          this._storage.set("inventoryApp_options", json.options),
+          this._storage.set("inventoryApp_customItems", json.items),
+          this._storage.set("inventoryApp_characters", json.characters),
+        ]);
+      })
+    }).then(() => {
+      location.assign(location.origin + location.pathname);
+    });
+  }
+
+  private _getExportV1Json() {
+    return Promise.all([
+      this._storage.get("inventoryApp_options"),
+      this._storage.get("inventoryApp_customItems"),
+      this._storage.get("inventoryApp_characters"),
+    ]).then(([options, items, characters]) => {
+      let json: ExportFileJson = {
+        options: options,
+        items: items,
+        characters: characters,
+      };
+      return Promise.resolve(json);
+    });
+  }
   private _applyMigration(version: string) {
     let currentMigration = null;
     return this.getByVersion(version).then(migration => {
       currentMigration = migration;
-      if (!migration || migration.isComplete)
+      if (currentMigration && currentMigration.isComplete)
         return Promise.resolve();
-
-      switch (version) {
-        case "2.0.0":
-          return this._applyMigration_200000();
-      }
+      else
+        switch (version) {
+          case "2.0.0":
+            return this._applyMigration_200000();
+        }
     }).then(() => {
       if (!currentMigration) {
         let migration = this.create();
@@ -82,12 +150,13 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       let promises = [];
       if (oldOptions) {
         let options = {
+          id: 1,
           language: oldOptions.language,
           units: 0,
           decimals: 2,
           themeId: 9,
         };
-        promises.push(this._storage.set("inventoryApp_options", options));
+        promises.push(this._storage.set("inventoryApp_options", [options]));
       }
 
       if (oldCharacters) {
@@ -113,12 +182,14 @@ export class MigrationProvider extends MemoryProvider<Migration>{
             size: 1,
             strength: oldCharacter.strength,
             edition: 1,
+            image: this._utility.images.character.avatars[0],
           }
           characters.push(character);
 
           let inventory = {
             id: characterId,
             characterId: characterId,
+            defaultBagId: bagId,
           }
           inventories.push(inventory);
 
@@ -142,7 +213,8 @@ export class MigrationProvider extends MemoryProvider<Migration>{
               hasLimitedCapacity: oldBag.isFixedWeight,
               capacity: oldBag.capacity,
               ignoreItemsWeight: oldBag.isFixedWeight,
-              isProtected: oldBag.isEquipped
+              image: this._utility.images.inventory.bag,
+              isProtected: oldBag.isEquipped,
             }
             bags.push(bag);
             bagId++;
@@ -187,4 +259,10 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       return Promise.resolve();
     });
   }
+}
+
+export interface ExportFileJson {
+  options: any;
+  items: any;
+  characters: any;
 }

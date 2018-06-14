@@ -4,6 +4,7 @@ import { Character } from '../../character.model';
 import { CharacterProvider } from '../../character.provider';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
+import { MigrationProvider } from '../../../shared/providers/migration.provider';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,7 @@ export class CharacterListPage {
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
     private _events: Events,
+    private _migrations: MigrationProvider,
   ) {
     this.headerLogo = this._utility.images.character.list_logo;
     this.headerTitle = "SalaEroi";
@@ -58,13 +60,13 @@ export class CharacterListPage {
     return this.navCtrl.push("OptionsPage");
   }
 
-  private _welcomeMessage(){
-    if(this._utility.manifest.isDebug){
+  private _welcomeMessage() {
+    if (this._utility.manifest.isDebug) {
       this._interface.showAlert({
         title: "VersioneDebug",
         message: "MessaggioVersioneDebug"
       });
-    } else if(this._utility.manifest.isBeta){
+    } else if (this._utility.manifest.isBeta) {
       this._interface.showAlert({
         title: "VersioneBeta",
         message: "MessaggioVersioneBeta"

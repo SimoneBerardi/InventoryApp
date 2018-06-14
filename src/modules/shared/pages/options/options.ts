@@ -8,6 +8,7 @@ import { UtilityProvider } from '../../providers/utility.provider';
 import { ThemeProvider } from '../../providers/theme.provider';
 import { Theme } from '../../model/theme.model';
 import { Units, Decimals, Options } from '../../model/options.model';
+import { MigrationProvider } from '../../providers/migration.provider';
 
 @IonicPage()
 @Component({
@@ -33,6 +34,7 @@ export class OptionsPage {
     private _translate: TranslateProvider,
     private _utility: UtilityProvider,
     private _themes: ThemeProvider,
+    private _migrations: MigrationProvider,
   ) {
     this._form = this._formBuilder.group({
       language: ["", Validators.required],
@@ -57,6 +59,10 @@ export class OptionsPage {
     this._themes.getAll().then(themes => {
       this.themes = themes;
     })
+  }
+
+  get isBeta() {
+    return this._utility.manifest.isBeta;
   }
 
   save() {
@@ -90,6 +96,18 @@ export class OptionsPage {
         // else
         return Promise.resolve();
     }).catch(() => { });
+  }
+
+  import() {
+    this._interface.showLoader({
+      content: "Caricamento"
+    }).then(() => {
+      return this._migrations.importDataV1();
+    }).then(() => {
+      return this._interface.hideLoader();
+    }).catch(error => {
+      this._interface.showAndLogError(error);
+    });
   }
 
   showCredits() {

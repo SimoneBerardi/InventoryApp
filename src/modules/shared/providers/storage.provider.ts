@@ -57,4 +57,8 @@ export class StorageProvider {
   set(key: string, value: any) {
     return this._storage.set(key, value);
   }
+
+  clear(){
+    return this._storage.clear();
+  }
 }
