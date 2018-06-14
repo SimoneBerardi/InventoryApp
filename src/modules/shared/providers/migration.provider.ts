@@ -7,7 +7,6 @@ import { Migration } from '../model/migration.model';
 import { MemoryProvider } from '../memory-provider.model';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { FilePath } from '@ionic-native/file-path';
 
 @Injectable()
 export class MigrationProvider extends MemoryProvider<Migration>{
@@ -22,7 +21,6 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     private _http: HttpClient,
     private _file: File,
     private _fileChooser: FileChooser,
-    private _filePath: FilePath
   ) {
     super(
       _events,
@@ -232,10 +230,10 @@ export class MigrationProvider extends MemoryProvider<Migration>{
                 let oldItem = oldItemsArray.find(o => o.id == oldBagItem.itemId);
                 item = {
                   id: itemId,
+                  characterId: character.id,
                   name: oldItem.name,
                   description: oldItem.description,
                   weight: oldItem.weight,
-                  //TODO
                   category: 2,
                 };
                 items.push(item);

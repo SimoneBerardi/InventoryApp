@@ -14,7 +14,6 @@ import { ThemeProvider } from './providers/theme.provider';
 import { MigrationProvider } from './providers/migration.provider';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
@@ -47,7 +46,6 @@ export class SharedModule {
         MigrationProvider,
         File,
         FileChooser,
-        FilePath,
       ]
     };
   }
