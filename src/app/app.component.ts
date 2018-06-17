@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { CharacterListPage } from '../modules/characters/pages/character-list/character-list';
-import { OptionsProvider } from '../modules/shared/providers/options.provider';
-import { CharacterProvider } from '../modules/characters/character.provider';
-import { ItemProvider } from '../modules/items/item.provider';
-import { UtilityProvider } from '../modules/shared/providers/utility.provider';
-import { MigrationProvider } from '../modules/shared/providers/migration.provider';
-import { InventoryInterfaceProvider } from '../modules/inventory/inventory-interface.provider';
+import { OptionsProvider } from '../app/shared/providers/options.provider';
+import { CharacterProvider } from '../app/characters/character.provider';
+import { ItemProvider } from '../app/items/item.provider';
+import { UtilityProvider } from '../app/shared/providers/utility.provider';
+import { MigrationProvider } from '../app/shared/providers/migration.provider';
+import { InventoryInterfaceProvider } from '../app/inventory/inventory-interface.provider';
 
 @Component({
   templateUrl: 'app.html'

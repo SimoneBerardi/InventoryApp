@@ -1,9 +1,0 @@
-<ion-item tappable>
-  <ion-label>{{name}}
-    <ion-badge color="danger" *ngIf="quantity > 0">{{quantity}}</ion-badge>
-    <br>
-    <p *ngIf="description">{{description}}</p>
-  </ion-label>
-  <ion-icon item-right name="md-create" *ngIf="isCustom" (click)="modifyEvent($event)"></ion-icon>
-  <ion-note item-right>{{weight}} Kg</ion-note>
-</ion-item>
