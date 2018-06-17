@@ -119,5 +119,6 @@
     "CapacitaTrasporto": "Capacità di Trasporto",
     "CapacitaLimitata": "Capacità limitata",
     "IgnoraPesoOggetti": "Ignora peso oggetti",
-    "For": "FOR"
+    "For": "FOR",
+    "BackupMessage": "Sono stati rilevati dati di una vecchia versione, verranno ora salvati in un file di backup"
 }

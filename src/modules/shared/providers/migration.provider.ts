@@ -7,6 +7,7 @@ import { Migration } from '../model/migration.model';
 import { MemoryProvider } from '../memory-provider.model';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { InterfaceProvider } from './interface.provider';
 
 @Injectable()
 export class MigrationProvider extends MemoryProvider<Migration>{
@@ -21,6 +22,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     private _http: HttpClient,
     private _file: File,
     private _fileChooser: FileChooser,
+    private _interface: InterfaceProvider,
   ) {
     super(
       _events,
@@ -40,7 +42,12 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       return this.hasDataV1ToExport();
     }).then(hasDataV1ToExport => {
       if (hasDataV1ToExport)
-        return this.exportDataV1().then(() => {
+        return this._interface.showAlert({
+          title: "Backup",
+          message: "BackupMessage"
+        }).then(() => {
+          return this.exportDataV1();
+        }).then(() => {
           return this.clear();
         });
       else
@@ -71,6 +78,12 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       return this._file.writeFile(path, fileName, JSON.stringify(json));
     }).then(() => {
       return this._storage.set("inventoryApp_exportDatav1", true);
+    }).then(() => {
+      let message = "Backup completato e salvato nei download con nome: " + fileName;
+      return this._interface.showAlert({
+        title: "Backup",
+        message: message,
+      });
     }).catch(error => {
       console.log("Errore salvataggio dati: " + error);
     });
@@ -83,7 +96,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       return this._storage.clear().then(() => {
         return Promise.all([
           this._storage.set("inventoryApp_options", json.options),
-          this._storage.set("inventoryApp_customItems", json.items),
+          this._storage.set("inventoryApp_customItems", json.customItems),
           this._storage.set("inventoryApp_characters", json.characters),
         ]);
       })
@@ -97,10 +110,10 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       this._storage.get("inventoryApp_options"),
       this._storage.get("inventoryApp_customItems"),
       this._storage.get("inventoryApp_characters"),
-    ]).then(([options, items, characters]) => {
+    ]).then(([options, customItems, characters]) => {
       let json: ExportFileJson = {
         options: options,
-        items: items,
+        customItems: customItems,
         characters: characters,
       };
       return Promise.resolve(json);
@@ -261,6 +274,6 @@ export class MigrationProvider extends MemoryProvider<Migration>{
 
 export interface ExportFileJson {
   options: any;
-  items: any;
+  customItems: any;
   characters: any;
 }
