@@ -18,6 +18,7 @@ export class BagItemProvider extends MemoryProvider<BagItem>{
       BagItem,
       _storage,
       "inventoryApp_bagItems",
+      "BagItem",
     );
 
     let itemsCount = 5;

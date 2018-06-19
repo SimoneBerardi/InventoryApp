@@ -20,6 +20,7 @@ export class BagProvider extends MemoryProvider<Bag>{
       Bag,
       _storage,
       "inventoryApp_bags",
+      "Bag",
     );
 
     this._testItems = [

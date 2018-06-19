@@ -30,6 +30,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       Migration,
       _storage,
       "inventoryApp_migrations",
+      "Migration",
     );
   }
 

@@ -31,6 +31,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
       Inventory,
       _storage,
       "inventoryApp_inventory",
+      "Inventory",
     );
 
     this._testItems = [

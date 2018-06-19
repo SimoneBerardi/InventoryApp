@@ -22,6 +22,7 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
     _type: new (provider: DataProvider<T>) => T,
     protected _storage: StorageProvider,
     protected _storageKey: string,
+    protected _eventsClass: string,
   ) {
     super(
       _events,
@@ -154,7 +155,8 @@ export class MemoryProvider<T extends Data> extends DataProvider<T> {
 
   protected _publishEvent(name: string, data: any) {
     if (!this.areEventsSuppressed) {
-      let eventName = this._type.name + ":" + name;
+      let eventName = this._eventsClass + ":" + name;
+      console.log("Lancio evento: " + eventName + "...");
       this._events.publish(eventName, data);
     }
   }

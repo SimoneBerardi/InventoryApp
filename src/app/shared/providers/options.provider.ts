@@ -25,6 +25,7 @@ export class OptionsProvider extends MemoryProvider<Options>{
       Options,
       _storage,
       "inventoryApp_options",
+      "Options",
     );
   }
 

@@ -18,6 +18,7 @@ export class MoneyProvider extends MemoryProvider<Money>{
       Money,
       _storage,
       "inventoryApp_money",
+      "Money",
     );
 
     this._testItems = [

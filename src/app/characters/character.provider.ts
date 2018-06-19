@@ -20,6 +20,7 @@ export class CharacterProvider extends MemoryProvider<Character> {
       Character,
       _storage,
       "inventoryApp_characters",
+      "Character",
     );
 
     this._testItems = [
