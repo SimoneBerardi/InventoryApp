@@ -165,7 +165,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
           language: oldOptions.language,
           units: 0,
           decimals: 2,
-          themeId: 9,
+          themeId: 1,
         };
         promises.push(this._storage.set("inventoryApp_options", [options]));
       }

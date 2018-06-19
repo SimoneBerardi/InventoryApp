@@ -6,7 +6,7 @@ export class Options extends Data {
   language: string;
   units: Units = Units.Kg;
   decimals: Decimals = Decimals.Due;
-  themeId: number = 9;
+  themeId: number = 1;
 
   private _theme: Theme;
 

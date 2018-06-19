@@ -99,11 +99,7 @@ export class OptionsPage {
   }
 
   import() {
-    this._interface.showLoader({
-      content: "Caricamento"
-    }).then(() => {
-      return this._migrations.importDataV1();
-    }).then(() => {
+    return this._migrations.importDataV1().then(() => {
       return this._interface.hideLoader();
     }).catch(error => {
       this._interface.showAndLogError(error);
