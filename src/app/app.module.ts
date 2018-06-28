@@ -28,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     ReactiveFormsModule,
     IonicStorageModule.forRoot({
-      driverOrder: ['indexeddb', 'websql']
+      driverOrder: ['indexeddb', 'localstorage']
     }),
     TranslateModule.forRoot({
       loader: {

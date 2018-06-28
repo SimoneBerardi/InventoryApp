@@ -2,13 +2,13 @@
   <page-header [logo]="headerLogo" [title]="headerTitle"></page-header>
 </ion-header>
 
-<ion-content padding class="component-style">
+<ion-content no-padding class="component-style">
   <ion-spinner *ngIf="isLoading"></ion-spinner>
   <div *ngIf="!isLoading">
-    <ion-item class="name" text-center no-lines>
+    <ion-item class="name" text-center no-lines no-padding>
       {{name}}
     </ion-item>
-    <ion-item no-lines>
+    <ion-item no-lines no-padding class="image-item">
       <ion-label class="image-container">
         <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
       </ion-label>
@@ -28,12 +28,12 @@
         <div class="value-container">
           <ion-grid no-padding>
             <ion-row>
-              <ion-col>
+              <ion-col class="strength-name">
                 {{"FOR" | translate}}
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col>
+              <ion-col class="strength-value">
                 {{strength}}
               </ion-col>
             </ion-row>

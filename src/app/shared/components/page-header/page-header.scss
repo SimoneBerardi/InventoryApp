@@ -1,32 +1,39 @@
 page-header {
-    ion-navbar.toolbar {
-        padding-left: 15px;
-        padding-right: 15px;
+  ion-navbar.toolbar {
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 74px;
+  }
+  .title {
+    color: inherit;
+    .toolbar-title{
+      color: inherit;
     }
-    .toolbar-background {
-        background: inherit;
-        color: inherit;
-    }
-    .logo {
-        height: 40px;
-    }
-    .toolbar-title {
-        font-weight: bold;
-        font-size: 2.5rem;
-    }
-    .options-button {
-        opacity: 0.5;
-    }
-    .bottom-border {
-        display: block;
-        position: absolute;
-        bottom: -8px;
-        left: 0px;
-        width: 100%;
-        height: 8px;
-        background: linear-gradient(-90deg, var(--contrast-color) 8px, transparent 0), linear-gradient(-90deg, var(--contrast-color) 8px, transparent 0);
-        background-position: left bottom;
-        background-repeat: repeat-x;
-        background-size: 16px 8px;
-    }
+  }
+  .toolbar-background {
+    background: inherit;
+    color: inherit;
+  }
+  .logo {
+    height: 40px;
+  }
+  .toolbar-title {
+    font-weight: bold;
+    font-size: 27px;
+  }
+  .options-button {
+    opacity: 0.5;
+  }
+  .bottom-border {
+    display: block;
+    position: absolute;
+    bottom: -9px;
+    left: 0px;
+    width: 100%;
+    height: 9px;
+    background: linear-gradient(-90deg, var(--contrast-color) 9px, transparent 0), linear-gradient(-90deg, var(--contrast-color) 9px, transparent 0);
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    background-size: 16px 9px;
+  }
 }
