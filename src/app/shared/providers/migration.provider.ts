@@ -67,6 +67,8 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       else
         return Promise.resolve();
     }).then(() => {
+      return this._storage.set("inventoryApp_exportDatav1", true);
+    }).then(() => {
       return super.load();
     }).then(() => {
       let migrations = this._migrations.map(migration => this._applyMigration(migration));
@@ -81,7 +83,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       this._storage.get("inventoryApp_exportDatav1"),
       this._storage.get("inventoryApp_options"),
     ]).then(([exportDataV1, options]) => {
-      return Promise.resolve(exportDataV1 == null && options != null);
+      return Promise.resolve(exportDataV1 == null && options != null && !Array.isArray(options));
     });
   }
 
@@ -90,8 +92,6 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     let fileName = "AB_Backup_" + Math.floor(Date.now() / 1000) + ".txt";
     return this._getExportV1Json().then(json => {
       return this._file.writeFile(path, fileName, JSON.stringify(json));
-    }).then(() => {
-      return this._storage.set("inventoryApp_exportDatav1", true);
     }).then(() => {
       let message = "Backup completato e salvato nei download con nome: " + fileName;
       return this._interface.showAlert({
