@@ -32,6 +32,14 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       "inventoryApp_migrations",
       "Migration",
     );
+
+    this._testItems = [
+      {
+        version: "2.0.0",
+        isComplete: true,
+        dateCompleted: new Date(),
+      }
+    ]
   }
 
   getByVersion(version: string) {
@@ -40,6 +48,11 @@ export class MigrationProvider extends MemoryProvider<Migration>{
 
   load() {
     return Promise.resolve().then(() => {
+      if (this._utility.manifest.isDebug)
+        return this._storage.set("inventoryApp_exportDatav1", true);
+      else
+        return Promise.resolve();
+    }).then(() => {
       return this.hasDataV1ToExport();
     }).then(hasDataV1ToExport => {
       if (hasDataV1ToExport)
