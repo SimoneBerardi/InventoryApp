@@ -12,201 +12,216 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-* {
-    font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+@font-face {
+  font-family: "Custom-Calibri";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../assets/fonts/calibri/calibri.ttf");
+}
+@font-face {
+  font-family: "Custom-Calibri";
+  font-style: bold;
+  font-weight: 700;
+  src: url("../assets/fonts/calibri/calibrib.ttf");
+}
+@font-face {
+  font-family: "Custom-Calibri";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../assets/fonts/calibri/calibrii.ttf");
 }
 
 body {
-    --base-color: #333333;
-    --contrast-color: #D3B158;
+  --base-color: #333333;
+  --contrast-color: #D3B158;
 }
 
 @mixin componentStyle($isInverted) {
-    @if $isInverted {
-        background-color: var(--contrast-color);
-        color: var(--base-color);
-        stroke: var(--base-color);
-    }
-    @else {
-        background-color: var(--base-color);
-        color: var(--contrast-color);
-        stroke: var(--contrast-color);
-    }
+  @if $isInverted {
+    background-color: var(--contrast-color);
+    color: var(--base-color);
+    stroke: var(--base-color);
+  }
+  @else {
+    background-color: var(--base-color);
+    color: var(--contrast-color);
+    stroke: var(--contrast-color);
+  }
 }
 
 .component-style {
-    @include componentStyle(false);
+  @include componentStyle(false);
 }
 
 .component-inverted-style {
-    @include componentStyle(true);
+  @include componentStyle(true);
 }
 
 button.button {
-    border-color: inherit;
-    border: 2px solid;
+  border-color: inherit;
+  border: 2px solid;
+  background-color: inherit;
+  color: inherit;
+  box-shadow: none;
+  text-transform: none;
+  &.activated {
     background-color: inherit;
     color: inherit;
-    box-shadow: none;
-    text-transform: none;
-    &.activated {
-        background-color: inherit;
-        color: inherit;
-    }
-    &:hover:not(.disable-hover) {
-        background-color: inherit;
-    }
-    .button-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 5px;
-    }
+  }
+  &:hover:not(.disable-hover) {
+    background-color: inherit;
+  }
+  .button-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
 }
 
 ion-alert .alert-wrapper {
+  background-color: var(--base-color);
+  color: var(--contrast-color);
+  * {
     background-color: var(--base-color);
     color: var(--contrast-color);
-    * {
-        background-color: var(--base-color);
-        color: var(--contrast-color);
+  }
+  .alert-message {
+    color: inherit;
+  }
+  .alert-radio-group {
+    border-color: var(--contrast-color);
+    .alert-radio-label {
+      color: inherit;
     }
-    .alert-message {
+    button[aria-checked=true] {
+      .alert-radio-label {
         color: inherit;
-    }
-    .alert-radio-group {
+      }
+      .alert-radio-icon {
         border-color: var(--contrast-color);
-        .alert-radio-label {
-            color: inherit;
-        }
-        button[aria-checked=true] {
-            .alert-radio-label {
-                color: inherit;
-            }
-            .alert-radio-icon {
-                border-color: var(--contrast-color);
-            }
-            .alert-radio-inner {
-                background-color: var(--contrast-color);
-            }
-        }
-    }
-    .alert-input-group{
-      .alert-input-wrapper{
-        .alert-input{
-          color: inherit;
-          border-color: inherit;
-        }
+      }
+      .alert-radio-inner {
+        background-color: var(--contrast-color);
       }
     }
+  }
+  .alert-input-group {
+    .alert-input-wrapper {
+      .alert-input {
+        color: inherit;
+        border-color: inherit;
+      }
+    }
+  }
 }
 
 ion-loading .loading-wrapper {
-    background-color: var(--base-color) !important;
-    color: var(--contrast-color) !important;
-    * {
-        background-color: var(--base-color);
-        color: var(--contrast-color);
-    }
-    .spinner-crescent circle {
-        stroke: var(--contrast-color);
-    }
+  background-color: var(--base-color) !important;
+  color: var(--contrast-color) !important;
+  * {
+    background-color: var(--base-color);
+    color: var(--contrast-color);
+  }
+  .spinner-crescent circle {
+    stroke: var(--contrast-color);
+  }
 }
 
 ion-action-sheet .action-sheet-group {
-    background-color: var(--base-color) !important;
-    color: var(--contrast-color) !important;
-    * {
-        background-color: var(--base-color);
-        color: var(--contrast-color);
-    }
-    .action-sheet-title {
-        background-color: inherit;
-        color: inherit;
-        border-bottom: 2px solid;
-        text-transform: uppercase;
-    }
+  background-color: var(--base-color) !important;
+  color: var(--contrast-color) !important;
+  * {
+    background-color: var(--base-color);
+    color: var(--contrast-color);
+  }
+  .action-sheet-title {
+    background-color: inherit;
+    color: inherit;
+    border-bottom: 2px solid;
+    text-transform: uppercase;
+  }
 }
 
 ion-spinner.spinner {
-    margin: auto;
-    display: block;
-    width: 50px;
-    height: 50px;
-    circle {
-        stroke: inherit;
-    }
+  margin: auto;
+  display: block;
+  width: 50px;
+  height: 50px;
+  circle {
+    stroke: inherit;
+  }
 }
 
 ion-toggle.toggle {
-    .toggle-icon {
-        background-color: var(--contrast-color);
-        &::before {
-            background-color: var(--base-color);
-        }
+  .toggle-icon {
+    background-color: var(--contrast-color);
+    &::before {
+      background-color: var(--base-color);
     }
-    &.toggle-checked .toggle-icon {
-        background-color: var(--contrast-color);
-    }
-    .toggle-inner {
-        background-color: var(--base-color);
-    }
+  }
+  &.toggle-checked .toggle-icon {
+    background-color: var(--contrast-color);
+  }
+  .toggle-inner {
+    background-color: var(--base-color);
+  }
 }
 
 ion-fab {
-    .fab {
-        &.activated {
-            background: inherit;
-            color: inherit;
-        }
-        .icon {
-            font-size: 3.5rem;
-        }
+  .fab {
+    &.activated {
+      background: inherit;
+      color: inherit;
     }
+    .icon {
+      font-size: 3.5rem;
+    }
+  }
 }
 
 .content {
-    .item,
-    .label,
-    .item-inner,
-    .note,
-    p,
-    .checkbox-icon,
-    .checkbox-inner {
-        background-color: inherit;
-        color: inherit;
-        border-color: inherit !important;
-        box-shadow: none !important;
-    }
-    .select-icon-inner {
-        color: inherit !important;
-    }
+  .item,
+  .label,
+  .item-inner,
+  .note,
+  p,
+  .checkbox-icon,
+  .checkbox-inner {
+    background-color: inherit;
+    color: inherit;
+    border-color: inherit !important;
+    box-shadow: none !important;
+  }
+  .select-icon-inner {
+    color: inherit !important;
+  }
 }
 
 .weight {
-    &.large {
-        font-size: 2rem !important;
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        font-weight: bold;
-    }
-    &.not-encumbered {
-        color: color($colors, status_green);
-    }
-    &.encumbered {
-        color: color($colors, status_orange);
-    }
-    &.heavily-encumbered {
-        color: color($colors, status_red);
-    }
-    &.over-max-carry {
-        color: color($colors, status_red);
-    }
+  &.large {
+    font-size: 2rem !important;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-weight: bold;
+  }
+  &.not-encumbered {
+    color: color($colors, status_green);
+  }
+  &.encumbered {
+    color: color($colors, status_orange);
+  }
+  &.heavily-encumbered {
+    color: color($colors, status_red);
+  }
+  &.over-max-carry {
+    color: color($colors, status_red);
+  }
 }
 
 .icon.custom-icon {
-    min-width: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  min-width: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .count {
@@ -215,7 +230,7 @@ ion-fab {
   border-radius: 50%;
   padding: 0;
   display: table;
-  p{
+  p {
     display: table-cell;
     vertical-align: middle;
     border-radius: 50%;
