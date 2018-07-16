@@ -36,7 +36,7 @@ export class BagComponent {
   get name() {
     return this.bag.name;
   }
-  get isDefault(){
+  get isDefault() {
     return this._utility.session.defaultBagId === this.bag.id;
   }
   get weight() {
@@ -49,6 +49,7 @@ export class BagComponent {
     return this.bag.image;
   }
   get items() {
+    this._utility.sortAlfabetically(this.bag.items, "item.name");
     return this.bag.items;
   }
   get weightClass() {

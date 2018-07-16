@@ -1,38 +1,45 @@
 page-character-form {
-    .image-item .item-inner {
-        padding-right: 0 !important;
+  .item .label {
+    padding-left: 16px;
+  }
+  .image-item {
+    padding-top: 16px;
+    .item-inner {
+      padding-right: 0 !important;
     }
-    .image {
-        display: block;
-        margin: auto;
-        height: 14rem;
-        background-size: 50%;
-        background-repeat: no-repeat;
-        background-position: center;
-        border: 2px solid;
-        border-radius: 100%;
+  }
+  .image {
+    display: block;
+    margin: auto;
+    width: 45vw;
+    height: 45vw;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid;
+    border-radius: 100%;
+  }
+  .image-button {
+    border-radius: 50%;
+    width: 3.6rem;
+    &.arrow {
+      border: 0;
+      margin: auto;
+      display: block;
+      top: 50%;
+      transform: translateY(-50%);
+      .icon {
+        font-size: 4rem;
+      }
     }
-    .image-button {
-        border-radius: 50%;
-        width: 3.6rem;
-        &.arrow {
-            border: 0;
-            margin: auto;
-            display: block;
-            top: 50%;
-            transform: translateY(-50%);
-            .icon {
-                font-size: 4rem;
-            }
-        }
-        &.load {
-            transform: translateY(-100%);
-            .icon {
-                background-color: var(--contrast-color);
-                width: 24px;
-                height: 24px;
-                font-size: inherit;
-            }
-        }
+    &.load {
+      transform: translateY(-100%);
+      .icon {
+        background-color: var(--contrast-color);
+        width: 24px;
+        height: 24px;
+        font-size: inherit;
+      }
     }
+  }
 }

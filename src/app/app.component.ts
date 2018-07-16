@@ -43,7 +43,7 @@ export class MyApp {
       return Promise.all(promises);
     }).then(() => {
       this.rootPage = "CharacterListPage";
-      statusBar.styleDefault();
+      statusBar.hide();
       splashScreen.hide();
     });
   }

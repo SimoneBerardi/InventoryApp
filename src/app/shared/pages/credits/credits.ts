@@ -23,6 +23,10 @@ export class CreditsPage {
     return this._utility.images.credits.logo;
   }
 
+  get name(){
+    return this._utility.images.credits.name;
+  }
+
   get version() {
     return this._utility.manifest.version;
   }

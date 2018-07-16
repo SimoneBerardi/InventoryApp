@@ -50,7 +50,7 @@ export class CharacterFormPage {
     this.headerTitle = "DettagliPersonaggio";
 
     this._id = this.navParams.get("id");
-    this.loadImage = this._utility.images.buttons.addImage;
+    this.loadImage = this._utility.images.character.addImage;
     this.sizes = this._utility.enumerateEnum(CharacterSize);
     this.editions = this._utility.enumerateEnum(Edition);
   }

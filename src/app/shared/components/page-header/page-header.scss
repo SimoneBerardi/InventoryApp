@@ -15,14 +15,16 @@ page-header {
     color: inherit;
   }
   .logo {
-    height: 40px;
+    height: 50px;
   }
   .toolbar-title {
     font-weight: bold;
-    font-size: 27px;
+    font-size: 26px;
   }
   .options-button {
     opacity: 0.5;
+    width: 50px;
+    margin: 0 !important;
   }
   .bottom-border {
     display: block;

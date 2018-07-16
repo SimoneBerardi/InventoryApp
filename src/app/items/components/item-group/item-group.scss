@@ -1,6 +1,9 @@
 item-group {
-    .group-name {
-        font-size: 2rem;
-        font-weight: bold;
-    }
+  .group-name {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .group-items {
+    border-bottom: 1px solid;
+  }
 }

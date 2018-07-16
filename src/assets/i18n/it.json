@@ -95,10 +95,10 @@
     "Grande": "Grande",
     "OggettiSemplici": "Oggetti semplici",
     "OggettiMagici": "Oggetti magici",
-    "DettagliMonete": "Dettagli monete",
+    "DettagliMonete": "Dettagli Monete",
     "Crediti": "Crediti",
     "Versione": "Versione",
-    "Diritti": "Tutti i diritti riservati",
+    "Diritti": "Tutti i diritti riservati.",
     "Programmazione": "Programmazione",
     "Grafica": "Grafica",
     "Indietro": "Indietro",
@@ -120,5 +120,12 @@
     "CapacitaLimitata": "Capacità limitata",
     "IgnoraPesoOggetti": "Ignora peso oggetti",
     "For": "FOR",
-    "BackupMessage": "Sono stati rilevati dati di una vecchia versione, verranno ora salvati in un file di backup"
+    "BackupMessage": "Sono stati rilevati dati di una vecchia versione, verranno ora salvati in un file di backup",
+    "Contattaci": "Contattaci",
+    "MonetePlatino": "Monete di Platino",
+    "MoneteOro": "Monete d'Oro",
+    "MoneteElectrum": "Monete di Electrum",
+    "MoneteArgento": "Monete d'Argento",
+    "MoneteRame": "Monete di Rame",
+    "IgnoraPesoMonete": "Ignora peso monete"
 }

@@ -55,12 +55,6 @@ export class BagItemActionsPage {
     return this._bagItem.quantity;
   }
 
-  get contentStyle() {
-    return {
-      "background-color": this._options.theme.baseColor + "CC",
-    }
-  }
-
   add(event: Event) {
     event.stopPropagation();
     this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1, false).catch(error => {

@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BagComponent } from './components/bag/bag';
 import { BagItemListComponent } from './components/bag-item-list/bag-item-list';
 import { BagItemComponent } from './components/bag-item/bag-item';
-import { EquippedComponent } from './components/equipped/equipped';
 import { MoneyProvider } from './money.provider';
 import { BagItemProvider } from './bag-item.provider';
 import { BagProvider } from './bag.provider';
@@ -16,14 +15,12 @@ import { InventoryInterfaceProvider } from './inventory-interface.provider';
 @NgModule({
   declarations: [
     MoneyComponent,
-    EquippedComponent,
     BagComponent,
     BagItemListComponent,
     BagItemComponent,
   ],
   imports: [
     IonicPageModule.forChild(MoneyComponent),
-    IonicPageModule.forChild(EquippedComponent),
     IonicPageModule.forChild(BagComponent),
     IonicPageModule.forChild(BagItemListComponent),
     IonicPageModule.forChild(BagItemComponent),
@@ -32,7 +29,6 @@ import { InventoryInterfaceProvider } from './inventory-interface.provider';
   ],
   exports: [
     MoneyComponent,
-    EquippedComponent,
     BagComponent,
     BagItemListComponent,
     BagItemComponent,

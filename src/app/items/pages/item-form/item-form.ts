@@ -37,7 +37,7 @@ export class ItemFormPage {
       category: [0, Validators.required],
     });
 
-    this.headerLogo = this._utility.images.logos.items;
+    this.headerLogo = this._utility.images.items.logo;
     this.headerTitle = "DettagliOggetto";
 
     this._id = this.navParams.get("id");

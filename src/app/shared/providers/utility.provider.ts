@@ -10,25 +10,26 @@ export class UtilityProvider {
 
   emails = {
     simo: "simonberard@gmail.com",
-    mauro: "",
+    mauro: "mauro.arneri@outlook.it",
   }
 
   images = {
     character: {
-      list_logo: "assets/images/character/list_logo.png",
-      logo: "assets/images/character/logo.png",
+      list_logo: "assets/images/character/list_logo.gif",
+      logo: "assets/images/character/logo.gif",
       avatars: [
         "assets/images/character/avatars/avatar_1.png",
         "assets/images/character/avatars/avatar_2.png",
       ],
       game_version: "assets/images/character/game_version.svg",
-      strength: "assets/images/character/strenght.svg"
+      strength: "assets/images/character/strenght.svg",
+      addImage: "assets/images/character/add_image_button.png",
     },
     inventory: {
-      logo: "assets/images/inventory/logo.png",
-      money: "assets/images/inventory/money.png",
-      equipped: "assets/images/inventory/equipped.png",
-      bag: "assets/images/inventory/bag.png",
+      logo: "assets/images/inventory/logo.gif",
+      money: "assets/images/inventory/money.svg",
+      equipped: "assets/images/inventory/equipped.svg",
+      bag: "assets/images/inventory/bag.svg",
       bagArrow: "assets/images/inventory/bag-arrow.png",
       status: {
         green: "assets/images/inventory/status_green.png",
@@ -37,20 +38,20 @@ export class UtilityProvider {
       },
       wheel_back: "assets/images/inventory/wheel_back.png",
     },
+    items: {
+      logo: "assets/images/items_logo.gif",
+    },
     credits: {
       logo: "assets/images/credits/logo.png",
-      simoAvatar: "assets/images/credits/simo-avatar.png",
-      mauroAvatar: "assets/images/credits/mauro-avatar.png",
+      name: "assets/images/credits/AB_logo.png",
+      simoAvatar: "assets/images/credits/simo-avatar.svg",
+      mauroAvatar: "assets/images/credits/mauro-avatar.svg",
     },
 
-    logos: {
-      items: "assets/images/items_logo.png",
-    },
     buttons: {
       save: "assets/images/save_button.png",
       cancel: "assets/images/cancel_button.png",
       delete: "assets/images/delete_button.png",
-      addImage: "assets/images/add_image_button.png",
     },
 
   };
@@ -101,6 +102,25 @@ export class UtilityProvider {
 
   roundUp(value: number, decimals: number = 2) {
     return parseFloat(value.toFixed(decimals));
+  }
+
+  sortAlfabetically(array: any[], property: string) {
+    let props = property.split(".");
+    array.sort((a, b) => {
+      let valueA = a;
+      let valueB = b;
+      props.forEach(prop => {
+        valueA = valueA[prop];
+        valueB = valueB[prop]
+      });
+      valueA = valueA.toLowerCase();
+      valueB = valueB.toLowerCase();
+      if (valueA < valueB)
+        return -1;
+      if (valueA > valueB)
+        return 1;
+      return 0;
+    })
   }
 }
 

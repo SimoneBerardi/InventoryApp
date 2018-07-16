@@ -4,14 +4,14 @@
 
 <ion-content padding class="component-style">
   <form [formGroup]="_form">
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Nome" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item class="image-item">
+    <div class="image-item">
       <ion-grid no-padding>
         <ion-row>
-          <ion-col col-3>
+          <ion-col>
             <button clear class="image-button arrow" ion-button icon-only (click)="prevAvatar()">
               <ion-icon name="ios-arrow-dropleft"></ion-icon>
             </button>
@@ -19,36 +19,36 @@
           <ion-col>
             <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
           </ion-col>
-          <ion-col col-3>
+          <ion-col>
             <button class="image-button arrow" ion-button icon-only (click)="nextAvatar()">
               <ion-icon name="ios-arrow-dropright"></ion-icon>
             </button>
-            <button class="image-button load" ion-button icon-only (click)="addImage()">
+            <button *ngIf="false" class="image-button load" ion-button icon-only (click)="addImage()">
               <ion-icon [ngStyle]="{'-webkit-mask-box-image': 'url(' + loadImage + ')'}"></ion-icon>
             </button>
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-item>
-    <ion-item>
+    </div>
+    <ion-item no-padding>
       <ion-label>{{"Razza" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="race"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Classe" | translate}}</ion-label>
       <ion-input text-right text="text" formControlName="className"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Taglia" | translate}}</ion-label>
       <ion-select formControlName="size">
         <ion-option *ngFor="let size of sizes" [value]="size.key">{{size.value | translate}}</ion-option>
       </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Forza" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="strength"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Edizione" | translate}}</ion-label>
       <ion-select formControlName="edition">
         <ion-option *ngFor="let edition of editions" [value]="edition.key">{{edition.value | translate}}</ion-option>

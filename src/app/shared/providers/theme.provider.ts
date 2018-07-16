@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Theme } from '../model/theme.model';
+import { UtilityProvider } from './utility.provider';
 
 @Injectable()
 export class ThemeProvider {
@@ -9,6 +10,7 @@ export class ThemeProvider {
 
   constructor(
     private _http: HttpClient,
+    private _utility: UtilityProvider,
   ) { }
 
   getAll() {
@@ -21,6 +23,7 @@ export class ThemeProvider {
   load() {
     return this._http.get(this._themesUrl).toPromise().then((jsonThemes: Object[]) => {
       this._themes = jsonThemes as Theme[];
+      this._utility.sortAlfabetically(this._themes, "name");
       return Promise.resolve();
     });
   }

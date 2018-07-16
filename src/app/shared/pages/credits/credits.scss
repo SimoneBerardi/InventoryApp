@@ -1,34 +1,52 @@
 page-credits {
-    font-size: 1.8rem;
-    p {
-        margin-top: 5px;
-        margin-bottom: 5px;
+  font-size: 1.8rem;
+  p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .contact-us {
+    font-size: 20px;
+  }
+  .logo {
+    padding-top: 16px;
+    max-height: 100px;
+    display: block;
+    margin: auto;
+  }
+  .name {
+    max-height: 50px;
+    display: block;
+    margin: auto;
+  }
+  .col-avatar-mauro {
+    display: flex;
+  }
+  .at-image-col {
+    max-width: 0px;
+  }
+  .at-image {
+    position: absolute;
+    width: 80px;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    left: 50%;
+    top: 50%;
+  }
+  .avatars {
+    padding-top: 16px !important;
+    .avatar {
+      display: block;
+      margin: auto;
+      &.simo {
+        max-height: 90px;
+      }
+      &.mauro {
+        max-height: 80px;
+      }
     }
-    .logo {
-        max-height: 120px;
-        display: block;
-        margin: auto;
+    .avatar-name {
+      font-weight: bold;
+      font-style: italic;
     }
-    .name {
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 4.5rem;
-    }
-    .avatars {
-        .avatar {
-            display: block;
-            margin: auto;
-            &.simo {
-                margin-top: 30px;
-                max-height: 90px;
-            }
-            &.mauro {
-                max-height: 120px;
-            }
-        }
-        .avatar-name {
-            font-weight: bold;
-            font-style: italic;
-        }
-    }
+  }
 }

@@ -4,23 +4,23 @@
 
 <ion-content padding class="component-style">
   <form [formGroup]="_form">
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Nome" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Peso" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="bagWeight"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"CapacitaLimitata" | translate}}</ion-label>
       <ion-toggle mode="ios" item-right formControlName="hasLimitedCapacity"></ion-toggle>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Capacita" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="capacity"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"IgnoraPesoOggetti" | translate}}</ion-label>
       <ion-toggle mode="ios" item-right formControlName="ignoreItemsWeight"></ion-toggle>
     </ion-item>

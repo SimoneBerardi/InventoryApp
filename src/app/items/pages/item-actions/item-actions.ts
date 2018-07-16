@@ -56,11 +56,6 @@ export class ItemActionsPage {
   get faveIcon() {
     return this._item.isFavorite ? "ios-star" : "ios-star-outline";
   }
-  get contentStyle() {
-    return {
-      "background-color": this._options.theme.baseColor + "CC",
-    }
-  }
   get defaultBagName() {
     return this._utility.session.defaultBagName;
   }

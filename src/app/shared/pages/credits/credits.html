@@ -4,17 +4,22 @@
 
 <ion-content padding class="component-style">
   <img class="logo" src="{{logo}}" alt="">
-  <h1 class="name" text-center>Adventure Bag</h1>
+  <!-- <h1 class="name" text-center>Adventure Bag</h1> -->
+  <img class="name" src="{{name}}" alt="">
   <p class="version" text-center>{{"Versione" | translate}} {{version}}</p>
   <p class="copyright" text-center>© 2018 Simone Berardi
     <br>{{"Diritti" | translate}}</p>
+  <p class="contact-us" text-center>{{"Contattaci" | translate}}...</p>
 
   <ion-grid class="avatars" no-padding>
     <ion-row>
       <ion-col (click)="sendEmail('simo')">
         <img class="avatar simo" src="{{simoAvatar}}" alt="">
       </ion-col>
-      <ion-col>
+      <ion-col class="at-image-col">
+        <p class="at-image">AAA</p>
+      </ion-col>
+      <ion-col (click)="sendEmail('mauro')" class="col-avatar-mauro">
         <img class="avatar mauro" src="{{mauroAvatar}}" alt="">
       </ion-col>
     </ion-row>
@@ -24,7 +29,7 @@
         <p class="avatar-description" text-center>{{"Programmazione" | translate}}</p>
       </ion-col>
       <ion-col>
-        <p class="avatar-name" text-center (click)="sendEmail('simo')">Mauro Arneri</p>
+        <p class="avatar-name" text-center (click)="sendEmail('mauro')">Mauro Arneri</p>
         <p class="avatar-description" text-center>{{"Grafica" | translate}}</p>
       </ion-col>
     </ion-row>

@@ -4,19 +4,19 @@
 
 <ion-content padding class="component-style">
   <form [formGroup]="_form">
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Nome" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="name"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Descrizione" | translate}}</ion-label>
       <ion-input text-right type="text" formControlName="description"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Peso" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="weight"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label>{{"Categoria" | translate}}</ion-label>
       <ion-select text-right formControlName="category">
         <ion-option *ngFor="let category of categories" [value]="category.key">{{category.value | translate}}</ion-option>

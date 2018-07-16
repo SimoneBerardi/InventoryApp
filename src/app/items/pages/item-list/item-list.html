@@ -10,7 +10,7 @@
     <item *ngFor="let item of searchItems" [item]="item" (tap)="select(item.id)" (press)="press(item.id)"></item>
   </div>
   <ion-list *ngIf="!isLoading && !isSearching">
-    <item-group *ngFor="let group of groups" [group]="group" (onSelect)="select($event)" (onPress)="press($event)"></item-group>
+    <item-group *ngFor="let group of groups" [group]="group" (onSelect)="select($event)" (onPress)="select($event)"></item-group>
   </ion-list>
 </ion-content>
 

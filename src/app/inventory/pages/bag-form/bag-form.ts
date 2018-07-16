@@ -92,7 +92,7 @@ export class BagFormPage {
       }
     }).then(isConfirmed => {
       if (!isConfirmed)
-        throw new console.error("ConfermaUtente");
+        throw new Error("ConfermaUtente");
 
       return this._interface.showLoader({
         content: "Salvataggio",

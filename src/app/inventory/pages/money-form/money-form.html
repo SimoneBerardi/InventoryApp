@@ -4,26 +4,32 @@
 
 <ion-content padding class="component-style">
   <form [formGroup]="_form">
-    <ion-item>
-      <ion-label>{{"MP" | translate}}</ion-label>
+    <ion-item no-padding>
+      <ion-label>{{"MonetePlatino" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="platinum"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>{{"MO" | translate}}</ion-label>
+    <ion-item no-padding>
+      <ion-label>{{"MoneteOro" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="gold"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>{{"ME" | translate}}</ion-label>
+    <ion-item no-padding>
+      <ion-label>{{"MoneteElectrum" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="electrum"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>{{"MA" | translate}}</ion-label>
+    <ion-item no-padding>
+      <ion-label>{{"MoneteArgento" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="silver"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>{{"MR" | translate}}</ion-label>
+    <ion-item no-padding>
+      <ion-label>{{"MoneteRame" | translate}}</ion-label>
       <ion-input text-right type="number" formControlName="copper"></ion-input>
     </ion-item>
+    <div class="options">
+      <ion-item no-padding>
+        <ion-label>{{"IgnoraPesoMonete" | translate}}</ion-label>
+        <ion-toggle mode="ios" item-right formControlName="ignoreWeight"></ion-toggle>
+      </ion-item>
+    </div>
   </form>
 </ion-content>
 

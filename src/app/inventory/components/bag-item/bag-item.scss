@@ -1,14 +1,17 @@
 bag-item {
-    .item .label {
-        margin: 0;
+  .description {
+    font-style: italic;
+  }
+  .item .label {
+    margin: 0;
+  }
+  .option-buttons {
+    button {
+      margin: 2px;
+      text-transform: none; // height: 4rem;
+      .button-inner {
+        flex-direction: column;
+      }
     }
-    .option-buttons {
-        button {
-            margin: 2px;
-            text-transform: none; // height: 4rem;
-            .button-inner {
-                flex-direction: column;
-            }
-        }
-    }
+  }
 }

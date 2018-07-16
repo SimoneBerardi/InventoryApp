@@ -1,38 +1,43 @@
 bag {
-    .title {
-        .item-inner {
-            margin-left: 10px !important;
-        }
-        .image {
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        .name {
-            margin-left: 0;
-            font-size: 2rem;
-            font-weight: bold;
-            &.default{
-              text-decoration: underline;
-            }
-        }
-        .capacity {
-            font-size: 1.6rem;
-            font-weight: bold;
-        }
+  .title {
+    .label {
+      margin: 0;
     }
-    .bag-weight {
-        font-style: italic;
-        margin: 0 !important;
-        font-weight: bold;
-        .image {
-            width: 42px;
-            margin-top: -5px;
-            background-color: var(--contrast-color);
-        }
-        .item-inner {
-            margin: 0 !important;
-            font-weight: bold;
-        }
+    .item-inner {
+      margin-left: 0px !important;
     }
+    .image {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-width: 46px;
+      min-height: 46px;
+    }
+    .name {
+      margin-left: 0;
+      font-size: 2rem;
+      font-weight: bold;
+      &.default {
+        text-decoration: underline;
+      }
+    }
+    .capacity {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+  .bag-weight {
+    font-style: italic;
+    margin: 0 !important;
+    font-weight: bold;
+    .image {
+      width: 42px;
+      margin-top: -5px;
+      background-color: var(--contrast-color);
+    }
+    .item-inner {
+      margin: 0 !important;
+      font-weight: bold;
+    }
+  }
 }

@@ -34,6 +34,7 @@ export class MoneyFormPage {
       electrum: [0, Validators.required],
       silver: [0, Validators.required],
       copper: [0, Validators.required],
+      ignoreWeight: [false, Validators.required],
     });
 
     this.headerLogo = this._utility.images.inventory.logo;
@@ -52,6 +53,7 @@ export class MoneyFormPage {
           electrum: money.electrum,
           gold: money.gold,
           platinum: money.platinum,
+          ignoreWeight: money.ignoreWeight,
         });
       });
     }

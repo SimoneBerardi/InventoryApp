@@ -1,11 +1,11 @@
-<ion-item class="item" no-lines no-padding tappable (click)="select()">
+<ion-item class="item" no-lines no-padding tappable (click)="select()" (onPress)="select()">
   <!-- <ion-icon tappable [name]="showOptions ? 'ios-arrow-dropup' : 'ios-arrow-dropdown'" item-left></ion-icon> -->
   <ion-badge class="count component-inverted-style" *ngIf="quantity" item-left>
     <p>{{quantity}}</p>
   </ion-badge>
   {{name}}
   <br>
-  <p *ngIf="description">{{description}}</p>
+  <p *ngIf="description" class="description">{{description}}</p>
   <p item-right *ngIf="weight > 0">{{weight | weight}}</p>
 </ion-item>
 <ion-grid *ngIf="isSelected" class="option-buttons">

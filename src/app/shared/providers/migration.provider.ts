@@ -8,11 +8,13 @@ import { MemoryProvider } from '../memory-provider.model';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { InterfaceProvider } from './interface.provider';
+import { BagItemListComponent } from '../../inventory/components/bag-item-list/bag-item-list';
 
 @Injectable()
 export class MigrationProvider extends MemoryProvider<Migration>{
   private _migrations: string[] = [
     "2.0.0",
+    "2.0.4"
   ];
 
   constructor(
@@ -36,6 +38,11 @@ export class MigrationProvider extends MemoryProvider<Migration>{
     this._testItems = [
       {
         version: "2.0.0",
+        isComplete: true,
+        dateCompleted: new Date(),
+      },
+      {
+        version: "2.0.4",
         isComplete: true,
         dateCompleted: new Date(),
       }
@@ -143,6 +150,8 @@ export class MigrationProvider extends MemoryProvider<Migration>{
         switch (version) {
           case "2.0.0":
             return this._applyMigration_200000();
+          case "2.0.4":
+            return this._applyMigration_200004();
         }
     }).then(() => {
       if (!currentMigration) {
@@ -153,6 +162,17 @@ export class MigrationProvider extends MemoryProvider<Migration>{
         return this.add(migration);
       } else
         return Promise.resolve();
+    });
+  }
+  private _applyMigration_200004() {
+    return Promise.all([
+      this._storage.get("inventoryApp_bags"),
+      this._storage.remove("inventoryApp_customItems"),
+    ]).then(([bags, empty]) => {
+      bags.forEach(bag => {
+        bag.image = bag.image.replace(".png", ".svg");
+      });
+      return this._storage.set("inventoryApp_bags", bags);
     });
   }
   private _applyMigration_200000() {
@@ -221,11 +241,11 @@ export class MigrationProvider extends MemoryProvider<Migration>{
           let money = {
             id: inventory.id,
             inventoryId: inventory.id,
-            copper: oldCharacter.coins.Copper,
-            silver: oldCharacter.coins.Silver,
-            electrum: oldCharacter.coins.Electrum,
-            gold: oldCharacter.coins.Gold,
-            platinum: oldCharacter.coins.Platinum,
+            copper: oldCharacter.coins.Copper || 0,
+            silver: oldCharacter.coins.Silver || 0,
+            electrum: oldCharacter.coins.Electrum || 0,
+            gold: oldCharacter.coins.Gold || 0,
+            platinum: oldCharacter.coins.Platinum || 0,
           }
           moneyArray.push(money);
 

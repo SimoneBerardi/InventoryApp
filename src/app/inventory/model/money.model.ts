@@ -8,6 +8,7 @@ export class Money extends Data {
   electrum: number = 0;
   gold: number = 0;
   platinum: number = 0;
+  ignoreWeight: boolean;
 
   constructor(
     _provider: DataProvider<Money>,
@@ -20,7 +21,8 @@ export class Money extends Data {
         "silver",
         "electrum",
         "gold",
-        "platinum"
+        "platinum",
+        "ignoreWeight"
       ]
     );
   }
@@ -33,7 +35,7 @@ export class Money extends Data {
       this.platinum > 0;
   }
   get weight() {
-    return (this.copper +
+    return this.ignoreWeight ? 0 : (this.copper +
       this.silver +
       this.electrum +
       this.gold +

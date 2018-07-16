@@ -28,7 +28,7 @@ export class ItemListPage {
     private _utility: UtilityProvider,
     private _interface: InterfaceProvider,
   ) {
-    this.headerLogo = this._utility.images.logos.items;
+    this.headerLogo = this._utility.images.items.logo;
     this.headerTitle = "PiazzaMercato";
   }
 
