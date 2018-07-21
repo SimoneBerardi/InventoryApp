@@ -13,162 +13,144 @@
   },
   {
     "id": 3,
-    "name": "Red Salmon I",
-    "baseColor": "#E84747",
-    "contrastColor": "#E3DDCF"
-  },
-  {
-    "id": 4,
-    "name": "Red Salmon II",
-    "baseColor": "#E3DDCF",
-    "contrastColor": "#E84747"
-  },
-  {
-    "id": 5,
     "name": "Orange Juice",
     "baseColor": "#E1CEA9",
     "contrastColor": "#E4690E"
   },
   {
-    "id": 6,
+    "id": 4,
     "name": "Soil and Sand I",
     "baseColor": "#63271F",
     "contrastColor": "#E1CEA9"
   },
   {
-    "id": 7,
+    "id": 5,
     "name": "Soil and Sand II",
     "baseColor": "#E1CEA9",
     "contrastColor": "#63271F"
   },
   {
-    "id": 8,
+    "id": 6,
     "name": "Honey's Flavor I",
     "baseColor": "#63271F",
-    "contrastColor": "#FAC137"
+    "contrastColor": "#FFDC73"
   },
   {
-    "id": 9,
+    "id": 7,
     "name": "Honey's Flavor II",
-    "baseColor": "#FAC137",
+    "baseColor": "#FFDC73",
     "contrastColor": "#63271F"
   },
   {
-    "id": 10,
+    "id": 8,
     "name": "Past Lives I",
     "baseColor": "#AC3B35",
     "contrastColor": "#E1CEA9"
   },
   {
-    "id": 11,
+    "id": 9,
     "name": "Past Lives II",
     "baseColor": "#E1CEA9",
     "contrastColor": "#AC3B35"
   },
   {
-    "id": 12,
+    "id": 10,
     "name": "Elvish' Lore I",
     "baseColor": "#016948",
     "contrastColor": "#E1CEA9"
   },
   {
-    "id": 13,
+    "id": 11,
     "name": "Elvish' Lore II",
     "baseColor": "#E1CEA9",
     "contrastColor": "#016948"
   },
   {
-    "id": 14,
+    "id": 12,
     "name": "Arcane Eyes I",
     "baseColor": "#624579",
     "contrastColor": "#E3DDCF"
   },
   {
-    "id": 15,
+    "id": 13,
     "name": "Arcane Eyes II",
     "baseColor": "#E3DDCF",
     "contrastColor": "#624579"
   },
   {
-    "id": 16,
+    "id": 14,
     "name": "Jester's Secret",
     "baseColor": "#624579",
     "contrastColor": "#FAC137"
   },
   {
-    "id": 17,
+    "id": 15,
     "name": "Northern Seas I",
     "baseColor": "#1D5A83",
     "contrastColor": "#E3DDCF"
   },
   {
-    "id": 18,
+    "id": 16,
     "name": "Northern Seas II",
     "baseColor": "#E3DDCF",
     "contrastColor": "#1D5A83"
   },
   {
-    "id": 19,
+    "id": 17,
     "name": "Lighthouse",
     "baseColor": "#1D5A83",
     "contrastColor": "#FAC137"
   },
   {
-    "id": 20,
+    "id": 18,
     "name": "Chance of Rain I",
     "baseColor": "#498EB9",
     "contrastColor": "#E3DDCF"
   },
   {
-    "id": 21,
+    "id": 19,
     "name": "Chance of Rain II",
     "baseColor": "#E3DDCF",
     "contrastColor": "#498EB9"
   },
   {
-    "id": 22,
-    "name": "Cold Breeze",
-    "baseColor": "#E3DDCF",
-    "contrastColor": "#708DAE"
-  },
-  {
-    "id": 23,
+    "id": 20,
     "name": "The Forgotten Gold",
     "baseColor": "#2C2C2C",
     "contrastColor": "#D3B158"
   },
   {
-    "id": 24,
+    "id": 21,
     "name": "The Forgotten Orange",
     "baseColor": "#2C2C2C",
     "contrastColor": "#F2910A"
   },
   {
-    "id": 25,
+    "id": 22,
     "name": "The Forgotten Yellow",
     "baseColor": "#2C2C2C",
     "contrastColor": "#FAC137"
   },
   {
-    "id": 26,
+    "id": 23,
     "name": "The Forgotten Blue",
     "baseColor": "#2C2C2C",
     "contrastColor": "#94CAE4"
   },
   {
-    "id": 27,
+    "id": 24,
     "name": "The Forgotten Red",
     "baseColor": "#2C2C2C",
     "contrastColor": "#E84747"
   },
   {
-    "id": 28,
+    "id": 25,
     "name": "The Forgotten Purple",
     "baseColor": "#2C2C2C",
     "contrastColor": "#9B59B6"
   },
   {
-    "id": 29,
+    "id": 26,
     "name": "The Forgotten Green",
     "baseColor": "#2C2C2C",
     "contrastColor": "#27AE60"
