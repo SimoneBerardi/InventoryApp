@@ -79,6 +79,9 @@ export class CharacterInfoPage {
   get liftValue() {
     return this._character.encumberance.lift;
   }
+  get avatarCircle(){
+    return this._utility.images.character.avatarCircle;
+  }
 
   modify() {
     this._interface.showModal("CharacterFormPage", { id: this._character.id });

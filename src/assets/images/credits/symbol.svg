@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!-- Generator: Adobe Fireworks 10, Export SVG Extension by Aaron Beall (http://fireworks.abeall.com) . Version: 0.6.0  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="sprite_sheet_demo" viewBox="0 0 97 16" style="background-color:#ffffff00" version="1.1"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve"
+	x="0px" y="0px" width="97px" height="16px"
+>
+	<g>
+		<path id="Ellipse" d="M 24.7383 7.8152 C 24.7383 16.7751 0 10.1865 0 7.8152 C 0 5.3306 24.7383 -0.7163 24.7383 7.8152 Z" fill="#d3b158"/>
+		<path id="Ellipse2" d="M 72.2617 7.9719 C 72.2617 -0.9878 97 5.6006 97 7.9719 C 97 10.4568 72.2617 16.5034 72.2617 7.9719 Z" fill="#d3b158"/>
+		<path id="Ellipse3" d="M 40.4025 8 C 40.4025 3.5815 43.9851 0 48.4048 0 C 52.8245 0 56.4072 3.5815 56.4072 8 C 56.4072 12.4185 52.8245 16 48.4048 16 C 43.9851 16 40.4025 12.4185 40.4025 8 Z" stroke="#d3b158" stroke-width="1" fill="#d2b158"/>
+	</g>
+</svg>

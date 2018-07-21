@@ -4,10 +4,18 @@ page-credits {
     margin-top: 5px;
     margin-bottom: 5px;
   }
+  .symbol {
+    background-color: var(--contrast-color);
+    height: 8px;
+    width: 50px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
   .contact-us {
     font-size: 20px;
   }
-  .logo {
+  .icon-logo {
     padding-top: 16px;
     max-height: 100px;
     display: block;
@@ -17,6 +25,7 @@ page-credits {
     max-height: 50px;
     display: block;
     margin: auto;
+    margin-top: 20px;
   }
   .col-avatar-mauro {
     display: flex;
@@ -31,6 +40,8 @@ page-credits {
     text-align: center;
     left: 50%;
     top: 50%;
+    height: 35px;
+    background-color: var(--contrast-color);
   }
   .avatars {
     padding-top: 16px !important;

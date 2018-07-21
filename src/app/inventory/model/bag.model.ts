@@ -74,24 +74,15 @@ export class Bag extends Data {
     }
     return bagItem.save();
   }
-  modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean) {
-    if (isNegative && quantity > bagItem.quantity)
-      throw new Error("QuantitàInsufficiente");
-
-    if (isNegative && quantity === bagItem.quantity) {
+  modifyBagItemQuantity(bagItem: BagItem, quantity: number) {
+    if (bagItem.quantity + quantity <= 0) {
       bagItem.quantity -= quantity;
       bagItem.item.totalQuantity -= quantity;
       this.items.splice(this.items.indexOf(bagItem), 1);
       return bagItem.delete();
     } else {
-      if (isNegative) {
-        bagItem.quantity -= quantity;
-        bagItem.item.totalQuantity -= quantity;
-      }
-      else {
-        bagItem.quantity += quantity;
-        bagItem.item.totalQuantity += quantity;
-      }
+      bagItem.quantity += quantity;
+      bagItem.item.totalQuantity += quantity;
       return bagItem.save();
     }
   }

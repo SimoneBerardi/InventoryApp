@@ -1,14 +1,15 @@
 <ion-header class="component-inverted-style" no-border>
-  <page-header [title]="headerTitle" [isOptionsHidden]="true"></page-header>
+  <page-header [logo]="headerLogo" [title]="headerTitle" [isOptionsHidden]="true"></page-header>
 </ion-header>
 
 <ion-content padding class="component-style">
-  <img class="logo" src="{{logo}}" alt="">
+  <img class="icon-logo" src="{{icon}}" alt="">
   <!-- <h1 class="name" text-center>Adventure Bag</h1> -->
   <img class="name" src="{{name}}" alt="">
   <p class="version" text-center>{{"Versione" | translate}} {{version}}</p>
   <p class="copyright" text-center>© 2018 Simone Berardi
     <br>{{"Diritti" | translate}}</p>
+    <div class="symbol" [ngStyle]="{'-webkit-mask-box-image': 'url(' + symbolImage + ')'}"></div>  
   <p class="contact-us" text-center>{{"Contattaci" | translate}}...</p>
 
   <ion-grid class="avatars" no-padding>
@@ -17,7 +18,7 @@
         <img class="avatar simo" src="{{simoAvatar}}" alt="">
       </ion-col>
       <ion-col class="at-image-col">
-        <p class="at-image">AAA</p>
+        <div class="at-image" [ngStyle]="{'-webkit-mask-box-image': 'url(' + atImage + ')'}"></div>
       </ion-col>
       <ion-col (click)="sendEmail('mauro')" class="col-avatar-mauro">
         <img class="avatar mauro" src="{{mauroAvatar}}" alt="">

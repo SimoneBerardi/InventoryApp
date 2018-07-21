@@ -18,7 +18,7 @@
             <ion-icon name="md-create" tappable (click)="modify($event)"></ion-icon>
           </ion-col>
           <ion-col col-4>
-            <div class="quantity component-inverted-style" text-center>{{quantity}}</div>
+            <div class="quantity component-inverted-style" tappable (click)="setQuantity($event)" text-center>{{quantity}}</div>
           </ion-col>
           <ion-col class="action move" col-4>
             <ion-icon name="move" tappable (click)="move($event)"></ion-icon>

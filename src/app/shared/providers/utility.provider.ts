@@ -24,28 +24,37 @@ export class UtilityProvider {
       game_version: "assets/images/character/game_version.svg",
       strength: "assets/images/character/strenght.svg",
       addImage: "assets/images/character/add_image_button.png",
+      avatarCircle: "assets/images/character/avatar_circle.svg"
     },
     inventory: {
       logo: "assets/images/inventory/logo.gif",
       money: "assets/images/inventory/money.svg",
       equipped: "assets/images/inventory/equipped.svg",
       bag: "assets/images/inventory/bag.svg",
-      bagArrow: "assets/images/inventory/bag-arrow.png",
+      bagArrow: "assets/images/inventory/bag_arrow.svg",
       status: {
-        green: "assets/images/inventory/status_green.png",
-        orange: "assets/images/inventory/status_orange.png",
-        red: "assets/images/inventory/status_red.png",
+        green: "assets/images/inventory/status_green.svg",
+        orange: "assets/images/inventory/status_orange.svg",
+        red: "assets/images/inventory/status_red.svg",
+        black: "assets/images/inventory/status_black.svg",
       },
       wheel_back: "assets/images/inventory/wheel_back.png",
     },
     items: {
       logo: "assets/images/items_logo.gif",
     },
+    options: {
+      logo: "assets/images/options_logo.svg",
+      button: "assets/images/options_button.svg"
+    },
     credits: {
-      logo: "assets/images/credits/logo.png",
+      logo: "assets/images/credits/logo.svg",
+      icon: "assets/images/credits/icon.png",
       name: "assets/images/credits/AB_logo.png",
       simoAvatar: "assets/images/credits/simo-avatar.svg",
       mauroAvatar: "assets/images/credits/mauro-avatar.svg",
+      emailLogo: "assets/images/credits/email_logo.svg",
+      symbol: "assets/images/credits/symbol.svg",
     },
 
     buttons: {
@@ -53,7 +62,8 @@ export class UtilityProvider {
       cancel: "assets/images/cancel_button.png",
       delete: "assets/images/delete_button.png",
     },
-
+    barBottom: "assets/images/bar_bottom.svg",
+    barTop: "assets/images/bar_top.svg",
   };
 
   manifest: AppManifest;

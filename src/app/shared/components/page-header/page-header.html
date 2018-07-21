@@ -7,8 +7,8 @@
 
   <ion-buttons right>
     <button class="options-button" ion-button icon-only (click)="showOptions()">
-      <ion-icon *ngIf="!isOptionsHidden" name="settings"></ion-icon>
+      <ion-icon *ngIf="!isOptionsHidden" [ngStyle]="{'background-image': 'url(' + optionsImage + ')'}"></ion-icon>
     </button>
   </ion-buttons>
 </ion-navbar>
-<div class="bottom-border"></div>
+<div class="bottom-border" [ngStyle]="{'-webkit-mask-box-image': 'url(' + bottomBorder + ')'}"></div>

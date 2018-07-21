@@ -18,6 +18,10 @@ export class ButtonsFooterComponent {
     private _utility: UtilityProvider,
   ) { }
 
+  get topBorder(){
+    return this._utility.images.barBottom;
+  }
+
   iconStyle(button: string) {
     return {
       "-webkit-mask-box-image": `url("${this._utility.images.buttons[button]}")`

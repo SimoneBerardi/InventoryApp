@@ -42,7 +42,8 @@ export class OptionsPage {
       decimals: [0, Validators.required],
       themeId: [0, Validators.required],
     });
-    // this.headerLogo = this._utility.images.logos.;
+    this.headerLogo = this._utility.images.options.logo;
+    ;
     this.headerTitle = "Opzioni";
 
     this.units = this._utility.enumerateEnum(Units);

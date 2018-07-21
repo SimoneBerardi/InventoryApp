@@ -46,7 +46,7 @@ export class InventoryInterfaceProvider {
           });
           return;
         }
-        this._inventory.modifyBagItemQuantityFromSession(bagItem, 1, true);
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, -1);
       }).catch(error => {
         this._interface.showAndLogError(error);
       });
@@ -69,22 +69,22 @@ export class InventoryInterfaceProvider {
   }
 
   moveBagItemQuantity(bagItem: BagItem) {
-    return this._interface.askQuantity(bagItem.quantity).then(quantity => {
+    return this._interface.askQuantity(bagItem.quantity, 1, bagItem.quantity).then(quantity => {
       return Promise.all([
         quantity,
         this._selectBag(bagItem.bagId),
       ]);
     }).then(([quantity, bagId]) => {
       return Promise.all([
-        this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, true),
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity),
         this._inventory.addItemQuantityFromSession(bagItem.item, bagId, quantity),
       ]);
     });
   }
 
-  modifyBagItemQuantity(bagItem: BagItem, quantity: number, isNegative: boolean) {
+  modifyBagItemQuantity(bagItem: BagItem, quantity: number) {
     return Promise.resolve().then(() => {
-      if (bagItem.quantity === quantity && isNegative)
+      if (bagItem.quantity + quantity <= 0)
         return this._interface.askConfirmation({
           title: "ButtareOggetto",
           message: "ButtareOggetto?",
@@ -96,7 +96,7 @@ export class InventoryInterfaceProvider {
         return Promise.resolve(true);
     }).then(isConfirmed => {
       if (isConfirmed)
-        return this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity, isNegative);
+        return this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity);
       else
         return Promise.resolve();
     });

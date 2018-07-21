@@ -10,7 +10,10 @@
     </ion-item>
     <ion-item no-lines no-padding class="image-item">
       <ion-label class="image-container">
-        <div class="image" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
+        <div class="image">
+          <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + avatarCircle + ')'}"></div>
+          <div class="avatar" [ngStyle]="image ? {'background-image': 'url(' + image + ')'} : {}"></div>
+        </div>
       </ion-label>
     </ion-item>
     <ion-item class="description" no-padding no-lines text-center>

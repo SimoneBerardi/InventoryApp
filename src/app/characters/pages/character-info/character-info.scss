@@ -4,16 +4,16 @@ page-character-info {
     background: inherit;
     color: inherit;
   }
+  .background {
+    width: 100%;
+    height: 100%;
+    background-color: var(--contrast-color);
+  }
   .game-version {
     width: 60px;
     height: 69px;
     margin: 0 !important;
     margin-bottom: 5px !important;
-    .background {
-      width: 100%;
-      height: 100%;
-      background-color: var(--contrast-color);
-    }
     .value-container {
       position: relative;
       top: -94%;
@@ -71,11 +71,15 @@ page-character-info {
     margin: auto;
     width: 45vw;
     height: 45vw;
-    background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: 2px solid;
-    border-radius: 100%;
+    .avatar {
+      position: relative;
+      top: -100%;
+      width: 100%;
+      height: 100%;
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
   }
   .name {
     font-weight: bold;

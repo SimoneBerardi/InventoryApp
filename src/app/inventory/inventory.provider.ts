@@ -131,9 +131,9 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
   deleteItemFromSession(itemId: number) {
     return this._inventory.removeItem(itemId);
   }
-  modifyBagItemQuantityFromSession(bagItem: BagItem, quantity: number, isNegative: boolean) {
+  modifyBagItemQuantityFromSession(bagItem: BagItem, quantity: number) {
     return this.getBagFromSession(bagItem.bagId).then(bag => {
-      return bag.modifyBagItemQuantity(bagItem, quantity, isNegative);
+      return bag.modifyBagItemQuantity(bagItem, quantity);
     });
   }
 

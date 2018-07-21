@@ -14,7 +14,7 @@ export class InventoryBarComponent {
     private _inventory: InventoryProvider,
     private _utility: UtilityProvider,
   ) {
-    this._inventory.getFromSession().then(inventory =>{
+    this._inventory.getFromSession().then(inventory => {
       this._inv = inventory;
     });
   }
@@ -48,6 +48,8 @@ export class InventoryBarComponent {
       icon = this._utility.images.inventory.status.orange;
     if (this.carriedWeight > this._utility.session.heavilyEncumberedValue)
       icon = this._utility.images.inventory.status.red;
+    if (this.carriedWeight > this._utility.session.maxCarryValue)
+      icon = this._utility.images.inventory.status.black;
     return {
       "background-image": `url("${icon}")`
     }

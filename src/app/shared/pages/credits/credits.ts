@@ -9,6 +9,7 @@ import { UtilityProvider } from '../../providers/utility.provider';
 })
 export class CreditsPage {
 
+  headerLogo: string;
   headerTitle: string;
 
   constructor(
@@ -16,27 +17,30 @@ export class CreditsPage {
     public navParams: NavParams,
     private _utility: UtilityProvider,
   ) {
+    this.headerLogo = this._utility.images.credits.logo;
     this.headerTitle = "Crediti";
   }
 
-  get logo() {
-    return this._utility.images.credits.logo;
+  get icon() {
+    return this._utility.images.credits.icon;
   }
-
   get name(){
     return this._utility.images.credits.name;
   }
-
   get version() {
     return this._utility.manifest.version;
   }
-
   get simoAvatar() {
     return this._utility.images.credits.simoAvatar;
   }
-
   get mauroAvatar() {
     return this._utility.images.credits.mauroAvatar;
+  }
+  get atImage(){
+    return this._utility.images.credits.emailLogo;
+  }
+  get symbolImage(){
+    return this._utility.images.credits.symbol;
   }
 
   sendEmail(recipient: string) {

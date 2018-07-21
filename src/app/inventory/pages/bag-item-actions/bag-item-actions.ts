@@ -57,23 +57,25 @@ export class BagItemActionsPage {
 
   add(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1, false).catch(error => {
+    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1).catch(error => {
       this._interface.showAndLogError(error);
     });
   }
   move(event: Event) {
     event.stopPropagation();
     this._inventoryInterface.moveBagItemQuantity(this._bagItem).then(() => {
-      this.viewCtrl.dismiss();
+      return this.viewCtrl.dismiss();
     }).catch(error => {
       this._interface.showAndLogError(error);
     });
   }
   remove(event: Event) {
     event.stopPropagation();
-    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, 1, true).then(() => {
+    this._inventoryInterface.modifyBagItemQuantity(this._bagItem, -1).then(() => {
       if (this._bagItem.quantity === 0)
-        this.viewCtrl.dismiss();
+        return this.viewCtrl.dismiss();
+      else
+        return Promise.resolve();
     }).catch(error => {
       this._interface.showAndLogError(error);
     });
@@ -81,7 +83,18 @@ export class BagItemActionsPage {
   modify(event: Event) {
     event.stopPropagation();
     this.viewCtrl.dismiss().then(() => {
-      this._interface.showModal("ItemFormPage", { id: this._bagItem.item.id });
+      return this._interface.showModal("ItemFormPage", { id: this._bagItem.item.id });
+    }).catch(error => {
+      this._interface.showAndLogError(error);
+    });
+  }
+  setQuantity(event: Event) {
+    event.stopPropagation();
+    this._interface.askQuantity(this._bagItem.quantity, 1).then(quantity => {
+      this._bagItem.quantity = quantity;
+      return this._bagItem.save();
+    }).then(() => {
+      return this.viewCtrl.dismiss();
     }).catch(error => {
       this._interface.showAndLogError(error);
     });

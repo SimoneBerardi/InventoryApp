@@ -200,7 +200,7 @@ export class InterfaceProvider {
    * Chiede una quantità
    * @param max 
    */
-  askQuantity(max?: number) {
+  askQuantity(placeholder: number, min?: number, max?: number) {
     return new Promise<number>((resolve, reject) => {
       if (max === 1)
         resolve(max);
@@ -214,9 +214,9 @@ export class InterfaceProvider {
               {
                 type: "number",
                 name: "quantity",
-                min: 1,
+                min: min,
                 max: max,
-                value: "1",
+                value: placeholder.toString(),
               }
             ],
             buttons: [
@@ -238,8 +238,11 @@ export class InterfaceProvider {
                   }
 
                   let quantity = Number(data.quantity);
+                  if (min)
+                    quantity = Math.max(min, quantity);
                   if (max)
                     quantity = Math.min(max, quantity);
+
                   resolve(quantity);
                 }
               }
