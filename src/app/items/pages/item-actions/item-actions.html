@@ -4,29 +4,29 @@
 
 <ion-content padding class="component-style" (click)="cancel()">
   <div *ngIf="_item" class="item-container">
-      <ion-item class="name" text-center no-lines no-wrap>{{name}}</ion-item>
+    <ion-item class="name" text-center no-lines no-wrap>{{name}}</ion-item>
     <div class="wheel">
       <ion-grid no-padding>
         <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + wheelImage + ')'}"></div>
         <ion-row>
           <ion-col class="action add" col-4 offset-4>
-            <ion-icon name="add" tappable (click)="add($event)"></ion-icon>
+            <custom-icon tappable (click)="add($event)" [url]="addImage"></custom-icon>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col class="action modify" col-4>
-            <ion-icon name="md-create" tappable (click)="modify($event)"></ion-icon>
+        <ion-row class="central-row">
+          <ion-col col-4>
+            <custom-icon tappable (click)="modify($event)" [url]="editImage"></custom-icon>
           </ion-col>
           <ion-col col-4>
             <div class="quantity component-inverted-style" text-center>{{totalQuantity}}</div>
           </ion-col>
-          <ion-col class="action favorite" col-4>
-            <ion-icon [name]="faveIcon" tappable (click)="favorite($event)"></ion-icon>
+          <ion-col col-4>
+            <custom-icon tappable (click)="favorite($event)" [url]="faveImage"></custom-icon>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="action remove" col-4 offset-4>
-            <ion-icon name="remove" tappable (click)="remove($event)"></ion-icon>
+            <custom-icon tappable (click)="remove($event)" [url]="removeImage"></custom-icon>
           </ion-col>
         </ion-row>
       </ion-grid>

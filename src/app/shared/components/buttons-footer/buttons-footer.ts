@@ -19,12 +19,12 @@ export class ButtonsFooterComponent {
   ) { }
 
   get topBorder(){
-    return this._utility.images.barBottom;
+    return this._utility.images.shared.bars.bottom;
   }
 
   iconStyle(button: string) {
     return {
-      "-webkit-mask-box-image": `url("${this._utility.images.buttons[button]}")`
+      "-webkit-mask-box-image": `url("${this._utility.images.shared.buttons[button]}")`
     }
   }
 }

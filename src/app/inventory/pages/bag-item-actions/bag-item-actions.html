@@ -10,23 +10,23 @@
         <div class="background" [ngStyle]="{'-webkit-mask-box-image': 'url(' + wheelImage + ')'}"></div>
         <ion-row>
           <ion-col class="action add" col-4 offset-4>
-            <ion-icon name="add" tappable (click)="add($event)"></ion-icon>
+            <custom-icon tappable (click)="add($event)" [url]="addImage"></custom-icon>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col class="action modify" col-4>
-            <ion-icon name="md-create" tappable (click)="modify($event)"></ion-icon>
+        <ion-row class="central-row">
+          <ion-col col-4>
+            <custom-icon tappable (click)="modify($event)" [url]="editImage"></custom-icon>
           </ion-col>
           <ion-col col-4>
             <div class="quantity component-inverted-style" tappable (click)="setQuantity($event)" text-center>{{quantity}}</div>
           </ion-col>
-          <ion-col class="action move" col-4>
-            <ion-icon name="move" tappable (click)="move($event)"></ion-icon>
+          <ion-col col-4>
+            <custom-icon tappable (click)="move($event)" [url]="moveImage"></custom-icon>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col class="action remove" col-4 offset-4>
-            <ion-icon name="remove" tappable (click)="remove($event)"></ion-icon>
+            <custom-icon tappable (click)="remove($event)" [url]="removeImage"></custom-icon>
           </ion-col>
         </ion-row>
       </ion-grid>

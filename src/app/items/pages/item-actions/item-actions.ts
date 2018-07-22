@@ -34,7 +34,7 @@ export class ItemActionsPage {
     this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "PiazzaMercato";
 
-    this.wheelImage = this._utility.images.inventory.wheel_back;
+    this.wheelImage = this._utility.images.shared.wheel.back;
 
     this._id = this.navParams.get("id");
   }
@@ -53,11 +53,20 @@ export class ItemActionsPage {
   get totalQuantity() {
     return this._item.totalQuantity;
   }
-  get faveIcon() {
-    return this._item.isFavorite ? "ios-star" : "ios-star-outline";
-  }
   get defaultBagName() {
     return this._utility.session.defaultBagName;
+  }
+  get addImage() {
+    return this._utility.images.shared.wheel.add;
+  }
+  get removeImage() {
+    return this._utility.images.shared.wheel.remove;
+  }
+  get editImage() {
+    return this._utility.images.shared.wheel.edit;
+  }
+  get faveImage() {
+    return this._item.isFavorite ? this._utility.images.shared.wheel.fave : this._utility.images.shared.wheel.notFave;
   }
 
   add(event: Event) {

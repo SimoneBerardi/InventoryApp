@@ -17,30 +17,30 @@ export class CreditsPage {
     public navParams: NavParams,
     private _utility: UtilityProvider,
   ) {
-    this.headerLogo = this._utility.images.credits.logo;
+    this.headerLogo = this._utility.images.shared.credits.logo;
     this.headerTitle = "Crediti";
   }
 
   get icon() {
-    return this._utility.images.credits.icon;
+    return this._utility.images.shared.credits.icon;
   }
   get name(){
-    return this._utility.images.credits.name;
+    return this._utility.images.shared.credits.name;
   }
   get version() {
     return this._utility.manifest.version;
   }
   get simoAvatar() {
-    return this._utility.images.credits.simoAvatar;
+    return this._utility.images.shared.credits.simoAvatar;
   }
   get mauroAvatar() {
-    return this._utility.images.credits.mauroAvatar;
+    return this._utility.images.shared.credits.mauroAvatar;
   }
   get atImage(){
-    return this._utility.images.credits.emailLogo;
+    return this._utility.images.shared.credits.emailLogo;
   }
   get symbolImage(){
-    return this._utility.images.credits.symbol;
+    return this._utility.images.shared.credits.symbol;
   }
 
   sendEmail(recipient: string) {

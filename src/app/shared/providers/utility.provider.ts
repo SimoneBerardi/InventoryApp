@@ -38,32 +38,43 @@ export class UtilityProvider {
         red: "assets/images/inventory/status_red.svg",
         black: "assets/images/inventory/status_black.svg",
       },
-      wheel_back: "assets/images/inventory/wheel_back.png",
     },
     items: {
-      logo: "assets/images/items_logo.gif",
+      logo: "assets/images/items/logo.gif",
     },
-    options: {
-      logo: "assets/images/options_logo.svg",
-      button: "assets/images/options_button.svg"
+    shared: {
+      options: {
+        logo: "assets/images/shared/options/logo.svg",
+      },
+      credits: {
+        logo: "assets/images/shared/credits/logo.svg",
+        icon: "assets/images/shared/credits/icon.png",
+        name: "assets/images/shared/credits/AB_logo.png",
+        simoAvatar: "assets/images/shared/credits/simo-avatar.svg",
+        mauroAvatar: "assets/images/shared/credits/mauro-avatar.svg",
+        emailLogo: "assets/images/shared/credits/email_logo.svg",
+        symbol: "assets/images/shared/credits/symbol.svg",
+      },
+      buttons: {
+        save: "assets/images/shared/save_button.svg",
+        cancel: "assets/images/shared/cancel_button.svg",
+        delete: "assets/images/shared/delete_button.svg",
+        options: "assets/images/shared/options_button.svg"
+      },
+      bars: {
+        bottom: "assets/images/shared/bar_bottom.svg",
+        top: "assets/images/shared/bar_top.svg",
+      },
+      wheel :{
+        back: "assets/images/shared/wheel/back.svg",
+        move: "assets/images/shared/wheel/move.svg",
+        add: "assets/images/shared/wheel/add.svg",
+        remove: "assets/images/shared/wheel/remove.svg",
+        edit: "assets/images/shared/wheel/edit.svg",
+        fave: "assets/images/shared/wheel/fave.svg",
+        notFave: "assets/images/shared/wheel/not_fave.svg",
+      }
     },
-    credits: {
-      logo: "assets/images/credits/logo.svg",
-      icon: "assets/images/credits/icon.png",
-      name: "assets/images/credits/AB_logo.png",
-      simoAvatar: "assets/images/credits/simo-avatar.svg",
-      mauroAvatar: "assets/images/credits/mauro-avatar.svg",
-      emailLogo: "assets/images/credits/email_logo.svg",
-      symbol: "assets/images/credits/symbol.svg",
-    },
-
-    buttons: {
-      save: "assets/images/save_button.png",
-      cancel: "assets/images/cancel_button.png",
-      delete: "assets/images/delete_button.png",
-    },
-    barBottom: "assets/images/bar_bottom.svg",
-    barTop: "assets/images/bar_top.svg",
   };
 
   manifest: AppManifest;

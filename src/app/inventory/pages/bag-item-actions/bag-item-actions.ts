@@ -35,7 +35,7 @@ export class BagItemActionsPage {
     this.headerLogo = this._utility.images.inventory.logo;
     this.headerTitle = "Inventario";
 
-    this.wheelImage = this._utility.images.inventory.wheel_back;
+    this.wheelImage = this._utility.images.shared.wheel.back;
 
     this._id = this.navParams.get("id");
   }
@@ -53,6 +53,18 @@ export class BagItemActionsPage {
   }
   get quantity() {
     return this._bagItem.quantity;
+  }
+  get addImage() {
+    return this._utility.images.shared.wheel.add;
+  }
+  get removeImage() {
+    return this._utility.images.shared.wheel.remove;
+  }
+  get editImage() {
+    return this._utility.images.shared.wheel.edit;
+  }
+  get moveImage(){
+    return this._utility.images.shared.wheel.move;
   }
 
   add(event: Event) {

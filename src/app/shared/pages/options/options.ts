@@ -42,7 +42,7 @@ export class OptionsPage {
       decimals: [0, Validators.required],
       themeId: [0, Validators.required],
     });
-    this.headerLogo = this._utility.images.options.logo;
+    this.headerLogo = this._utility.images.shared.options.logo;
     ;
     this.headerTitle = "Opzioni";
 

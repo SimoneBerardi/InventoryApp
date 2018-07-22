@@ -10,7 +10,16 @@ export class WeightPipe implements PipeTransform {
   ) { }
 
   transform(value: number, rounded: boolean): string {
-    let result = rounded ? value.toFixed(this._options.decimals) : value.toString();
+    let result = value.toString();
+    if (rounded)
+      result = value.toFixed(this._options.decimals);
+    else {
+      let decimalPlaces = 0;
+      if (Math.floor(value) !== value)
+        decimalPlaces = value.toString().split(".")[1].length || 0;
+      if (decimalPlaces > 3)
+        result = value.toFixed(3);
+    }
     return result + " " + Units[this._options.units].toString();
   }
 }

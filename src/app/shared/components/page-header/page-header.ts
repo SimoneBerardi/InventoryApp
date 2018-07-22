@@ -19,10 +19,10 @@ export class PageHeaderComponent {
   ) { }
 
   get optionsImage(){
-    return this._utility.images.options.button;
+    return this._utility.images.shared.buttons.options;
   }
   get bottomBorder(){
-    return this._utility.images.barTop;
+    return this._utility.images.shared.bars.top;
   }
 
   showOptions() {
