@@ -77,10 +77,9 @@ export class Inventory extends Data {
     });
   }
   delete() {
-    return Promise.all([
-      this.money.delete(),
-      this.bags.delete(),
-    ]).then(() => {
+    let promises = [this.money.delete()];
+    promises.concat(this.bags.map(bag => bag.delete()));
+    return Promise.all(promises).then(() => {
       return super.delete();
     });
   }

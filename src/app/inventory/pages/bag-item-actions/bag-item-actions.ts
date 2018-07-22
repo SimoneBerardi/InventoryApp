@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
 import { InventoryProvider } from '../../inventory.provider';
 import { BagItem } from '../../model/bag-item.model';
-import { OptionsProvider } from '../../../shared/providers/options.provider';
 import { InventoryInterfaceProvider } from '../../inventory-interface.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 
@@ -27,7 +26,6 @@ export class BagItemActionsPage {
     public viewCtrl: ViewController,
     private _inventory: InventoryProvider,
     private _utility: UtilityProvider,
-    private _options: OptionsProvider,
     private _inventoryInterface: InventoryInterfaceProvider,
     private _interface: InterfaceProvider,
   ) {

@@ -54,29 +54,4 @@ export class InventoryBarComponent {
       "background-image": `url("${icon}")`
     }
   }
-
-  // showInfo() {
-  //   this._translate.translate(["Ottimo", "Attenzione", "Ok", "NotEncumberedMessage", "EncumberedMessage", "HeavilyEncumberedMessage", "MaxCarryMessage"]).then(values => {
-  //     let message = values["NotEncumberedMessage"];
-  //     let title = values["Ottimo"];
-  //     if (this._session.character.isEncumbered) {
-  //       message = values["EncumberedMessage"];
-  //       title = values["Attenzione"];
-  //     }
-  //     if (this._session.character.isHeavilyEncumbered)
-  //       message = values["HeavilyEncumberedMessage"];
-  //     if (this._session.character.isOverMaxCarry)
-  //       message = values["MaxCarryMessage"];
-  //     this._alertCtrl.create({
-  //       title: title,
-  //       message: message,
-  //       buttons: [
-  //         {
-  //           text: values["Ok"]
-  //         }
-  //       ]
-  //     }).present();
-  //   });
-  // }
-
 }

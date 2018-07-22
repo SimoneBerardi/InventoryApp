@@ -19,15 +19,21 @@ page-character-form {
     border: 2px solid;
     border-radius: 100%;
   }
+
+  .arrow-container{
+    display: flex;
+  }
   .image-button {
     border-radius: 50%;
     width: 3.6rem;
     &.arrow {
+      position: absolute;
       border: 0;
       margin: auto;
       display: block;
       top: 50%;
-      transform: translateY(-50%);
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
       .icon {
         font-size: 4rem;
       }

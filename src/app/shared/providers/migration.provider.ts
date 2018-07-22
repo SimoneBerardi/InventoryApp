@@ -8,7 +8,6 @@ import { MemoryProvider } from '../memory-provider.model';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { InterfaceProvider } from './interface.provider';
-import { BagItemListComponent } from '../../inventory/components/bag-item-list/bag-item-list';
 
 @Injectable()
 export class MigrationProvider extends MemoryProvider<Migration>{
@@ -169,6 +168,7 @@ export class MigrationProvider extends MemoryProvider<Migration>{
       this._storage.get("inventoryApp_bags"),
       this._storage.remove("inventoryApp_customItems"),
     ]).then(([bags, empty]) => {
+      if (bags)
       bags.forEach(bag => {
         bag.image = bag.image.replace(".png", ".svg");
       });

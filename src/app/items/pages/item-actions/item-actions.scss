@@ -35,6 +35,7 @@ page-item-actions {
     }
     .action.remove .custom-icon {
       top: 30%;
+      transform: translateY(-10px);
       .icon {
         height: 10px;
       }

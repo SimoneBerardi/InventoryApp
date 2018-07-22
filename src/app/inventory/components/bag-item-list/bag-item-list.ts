@@ -6,7 +6,6 @@ import { BagItem } from '../../model/bag-item.model';
   templateUrl: 'bag-item-list.html'
 })
 export class BagItemListComponent {
-  @Input() selectedId: number;
   @Input() items: BagItem[];
   @Output() onSelect: EventEmitter<number> = new EventEmitter();
   @Output() onAdd: EventEmitter<number> = new EventEmitter();

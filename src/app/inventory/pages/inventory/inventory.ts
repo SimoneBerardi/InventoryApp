@@ -17,7 +17,6 @@ export class InventoryPage {
 
   isLoading: boolean;
   inventory: Inventory;
-  selectedId: number;
 
   constructor(
     public navCtrl: NavController,

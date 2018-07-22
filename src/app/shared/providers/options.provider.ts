@@ -76,7 +76,7 @@ export class OptionsProvider extends MemoryProvider<Options>{
       if (this.length == 0) {
         let options = this.create();
         if (this._utility.manifest.isDebug)
-          options.language = "it";
+          options.language = "en";
         else
           options.language = this._translate.browserLang;
         return this.add(options);

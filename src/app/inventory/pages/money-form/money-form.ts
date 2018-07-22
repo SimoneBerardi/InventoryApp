@@ -53,7 +53,7 @@ export class MoneyFormPage {
           electrum: money.electrum,
           gold: money.gold,
           platinum: money.platinum,
-          ignoreWeight: money.ignoreWeight,
+          ignoreWeight: money.ignoreWeight || false,
         });
       });
     }

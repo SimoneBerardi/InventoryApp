@@ -1,4 +1,4 @@
 <ion-list class="item-list">
   <bag-item *ngFor="let item of items" [item]="item" (onSelect)="select(item.id)" (onAdd)="add(item.id)" (onRemove)="remove(item.id)"
-    (onModify)="modify(item.item.id)" (onMove)="move(item.id, $event)" [selectedId]="selectedId"></bag-item>
+    (onModify)="modify(item.item.id)" (onMove)="move(item.id, $event)"></bag-item>
 </ion-list>

@@ -6,7 +6,6 @@ import { BagItem } from '../../model/bag-item.model';
   templateUrl: 'bag-item.html'
 })
 export class BagItemComponent {
-  @Input() selectedId: number;
   @Input() item: BagItem;
   @Output() onSelect: EventEmitter<void> = new EventEmitter();
   @Output() onAdd: EventEmitter<void> = new EventEmitter();
@@ -31,12 +30,6 @@ export class BagItemComponent {
   }
   get quantity() {
     return this.item.quantity;
-  }
-  // get isEquipped() {
-  //   return this.item.isEquipped;
-  // }
-  get isSelected() {
-    return this.selectedId === this.item.id;
   }
 
   select() {

@@ -10,6 +10,7 @@ import { BagItem } from './model/bag-item.model';
 import { ItemProvider } from '../items/item.provider';
 import { Item } from '../items/item.model';
 import { MemoryProvider } from '../shared/memory-provider.model';
+import { TranslateProvider } from '../shared/providers/translate.provider';
 
 
 @Injectable()
@@ -24,6 +25,7 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
     private _money: MoneyProvider,
     private _bagItems: BagItemProvider,
     private _bags: BagProvider,
+    private _translate: TranslateProvider,
   ) {
     super(
       _events,
@@ -139,32 +141,33 @@ export class InventoryProvider extends MemoryProvider<Inventory>{
 
   createByCharacterId(characterId: number) {
     let inventory = super.create();
-    inventory.characterId = characterId;
-    inventory.money = this._money.create();
-    inventory.bags = this._bags.createArray();
-    let equip = this._bags.create();
-    equip.name = "Equip.";
-    equip.bagWeight = 0;
-    equip.hasLimitedCapacity = false;
-    equip.capacity = 0;
-    equip.ignoreItemsWeight = false;
-    equip.image = this._utility.images.inventory.equipped;
-    equip.isProtected = true;
-    equip.items = this._bagItems.createArray();
-    inventory.bags.push(equip);
-    let backpack = this._bags.create();
-    //TODO traduzione nome
-    backpack.name = "Zaino";
-    //TODO peso in base alla versione
-    backpack.bagWeight = 2.5;
-    backpack.hasLimitedCapacity = false;
-    backpack.capacity = 0;
-    backpack.ignoreItemsWeight = false;
-    backpack.image = this._utility.images.inventory.bag;
-    backpack.isProtected = false;
-    backpack.items = this._bagItems.createArray();
-    inventory.bags.push(backpack);
-    return inventory.save(true).then(() => {
+    return this._translate.translate(["Equipaggiato", "Zaino"]).then(values => {
+      inventory.characterId = characterId;
+      inventory.money = this._money.create();
+      inventory.bags = this._bags.createArray();
+      let equip = this._bags.create();
+      equip.name = values["Equipaggiato"];
+      equip.bagWeight = 0;
+      equip.hasLimitedCapacity = false;
+      equip.capacity = 0;
+      equip.ignoreItemsWeight = false;
+      equip.image = this._utility.images.inventory.equipped;
+      equip.isProtected = true;
+      equip.items = this._bagItems.createArray();
+      inventory.bags.push(equip);
+      let backpack = this._bags.create();
+      backpack.name = values["Zaino"];
+      //TODO peso in base alla versione
+      backpack.bagWeight = 2.5;
+      backpack.hasLimitedCapacity = false;
+      backpack.capacity = 0;
+      backpack.ignoreItemsWeight = false;
+      backpack.image = this._utility.images.inventory.bag;
+      backpack.isProtected = false;
+      backpack.items = this._bagItems.createArray();
+      inventory.bags.push(backpack);
+      return inventory.save(true);
+    }).then(() => {
       inventory.defaultBagId = inventory.bags[1].id;
       return inventory.save(false);
     });

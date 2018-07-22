@@ -1,5 +1,4 @@
 <ion-item class="item" no-lines no-padding tappable (click)="select()" (onPress)="select()">
-  <!-- <ion-icon tappable [name]="showOptions ? 'ios-arrow-dropup' : 'ios-arrow-dropdown'" item-left></ion-icon> -->
   <ion-badge class="count component-inverted-style" *ngIf="quantity" item-left>
     <p>{{quantity}}</p>
   </ion-badge>
@@ -8,31 +7,3 @@
   <p *ngIf="description" class="description">{{description}}</p>
   <p item-right *ngIf="weight > 0">{{weight | weight}}</p>
 </ion-item>
-<ion-grid *ngIf="isSelected" class="option-buttons">
-  <ion-row>
-    <button ion-button ion-col outline color="secondary" (click)="add()">
-      <ion-icon name="ios-add-circle-outline"></ion-icon>
-      {{"Aggiungi" | translate}}
-    </button>
-    <button ion-button ion-col outline color="danger" (click)="remove()">
-      <ion-icon name="ios-remove-circle-outline"></ion-icon>
-      {{"Rimuovi" | translate}}
-    </button>
-    <button ion-button ion-col outline (click)="modify()">
-      <ion-icon name="md-create"></ion-icon>
-      {{"Modifica" | translate}}
-    </button>
-    <!-- <button ion-button ion-col outline *ngIf="!isEquipped" (click)="move(true)">
-      <ion-icon name="arrow-dropup-circle"></ion-icon>
-      {{"Equipaggia" | translate}}
-    </button>
-    <button ion-button ion-col outline *ngIf="isEquipped" (click)="move(true)">
-      <ion-icon name="arrow-dropdown-circle"></ion-icon>
-      {{"Riponi" | translate}}
-    </button> -->
-    <button ion-button ion-col outline *ngIf="!isEquipped" (click)="move(false)">
-      <ion-icon name="move"></ion-icon>
-      {{"Sposta" | translate}}
-    </button>
-  </ion-row>
-</ion-grid>

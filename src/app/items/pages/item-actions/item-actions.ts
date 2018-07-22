@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { UtilityProvider } from '../../../shared/providers/utility.provider';
-import { OptionsProvider } from '../../../shared/providers/options.provider';
 import { InterfaceProvider } from '../../../shared/providers/interface.provider';
 import { Item } from '../../item.model';
 import { ItemProvider } from '../../item.provider';
@@ -25,7 +24,6 @@ export class ItemActionsPage {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     private _utility: UtilityProvider,
-    private _options: OptionsProvider,
     private _interface: InterfaceProvider,
     private _items: ItemProvider,
     private _events: Events,
