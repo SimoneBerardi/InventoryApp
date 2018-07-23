@@ -75,14 +75,12 @@ export class Bag extends Data {
     return bagItem.save();
   }
   modifyBagItemQuantity(bagItem: BagItem, quantity: number) {
-    if (bagItem.quantity + quantity <= 0) {
-      bagItem.quantity -= quantity;
-      bagItem.item.totalQuantity -= quantity;
+    bagItem.quantity += quantity;
+    bagItem.item.totalQuantity += quantity;
+    if (bagItem.quantity <= 0) {
       this.items.splice(this.items.indexOf(bagItem), 1);
       return bagItem.delete();
     } else {
-      bagItem.quantity += quantity;
-      bagItem.item.totalQuantity += quantity;
       return bagItem.save();
     }
   }

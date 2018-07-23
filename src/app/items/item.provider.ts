@@ -89,14 +89,12 @@ export class ItemProvider extends MemoryProvider<Item> {
     this._publishEvent("addInventory", {
       item: item,
       quantity: quantity,
-      isNegative: false
     });
   }
   removeItemFromInventory(item: Item, quantity: number) {
     this._publishEvent("removeInventory", {
       item: item,
       quantity: quantity,
-      isNegative: true
     });
   }
 
@@ -216,5 +214,4 @@ export class ItemProvider extends MemoryProvider<Item> {
 export interface ItemInventoryAction {
   item: Item;
   quantity: number;
-  isNegative: boolean;
 }

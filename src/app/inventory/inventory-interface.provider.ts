@@ -46,7 +46,7 @@ export class InventoryInterfaceProvider {
           });
           return;
         }
-        this._inventory.modifyBagItemQuantityFromSession(bagItem, -1);
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, data.quantity);
       }).catch(error => {
         this._interface.showAndLogError(error);
       });
@@ -76,7 +76,7 @@ export class InventoryInterfaceProvider {
       ]);
     }).then(([quantity, bagId]) => {
       return Promise.all([
-        this._inventory.modifyBagItemQuantityFromSession(bagItem, quantity),
+        this._inventory.modifyBagItemQuantityFromSession(bagItem, -quantity),
         this._inventory.addItemQuantityFromSession(bagItem.item, bagId, quantity),
       ]);
     });

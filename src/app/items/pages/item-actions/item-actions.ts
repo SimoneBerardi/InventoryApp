@@ -78,7 +78,7 @@ export class ItemActionsPage {
   }
   remove(event: Event) {
     event.stopPropagation();
-    this._items.removeItemFromInventory(this._item, 1);
+    this._items.removeItemFromInventory(this._item, -1);
   }
   modify(event: Event) {
     event.stopPropagation();
